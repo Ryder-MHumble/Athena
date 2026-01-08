@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "remark-math": "^6.0.0"
+  }
+}

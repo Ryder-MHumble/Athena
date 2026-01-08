@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Environment variables
+.env
+.env.local
+.env*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+.backend.log
+.frontend.log
+
+# Uploads
+backend/uploads/
+/tmp/
+
+# Testing
+.coverage
+.pytest_cache/
+
+# PID files
+.backend.pid
+.frontend.pid
+
+# Dependency markers
+backend/.dependencies_installed
