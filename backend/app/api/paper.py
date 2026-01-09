@@ -71,18 +71,17 @@ async def analyze_paper(
         speech = llm_service.generate_speech(paper_text)
         qa = llm_service.generate_qa(paper_text)
         
-        # 解析结构化摘要
-        from app.services.paper_service import PaperService
+        # 解析结构化摘要（PaperService已在文件顶部导入）
         parsed_summary = PaperService.parse_structured_summary(summary_data["raw_response"])
         
         summary = PaperSummary(
-            core_problem=parsed_summary.get("core_problem", "解析中..."),
-            previous_dilemma=parsed_summary.get("previous_dilemma", "解析中..."),
-            core_intuition=parsed_summary.get("core_intuition", "解析中..."),
-            key_steps=parsed_summary.get("key_steps", []),
+            coreProblem=parsed_summary.get("core_problem", "解析中..."),
+            previousDilemma=parsed_summary.get("previous_dilemma", "解析中..."),
+            coreIntuition=parsed_summary.get("core_intuition", "解析中..."),
+            keySteps=parsed_summary.get("key_steps", []),
             innovations=parsed_summary.get("innovations", {"comparison": "", "essence": ""}),
             boundaries=parsed_summary.get("boundaries", {"assumptions": "", "unsolved": ""}),
-            one_sentence=parsed_summary.get("one_sentence", "解析中..."),
+            oneSentence=parsed_summary.get("one_sentence", "解析中..."),
         )
         
         qa_pairs = [

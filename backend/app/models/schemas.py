@@ -44,14 +44,14 @@ class PaperAnalysisRequest(BaseModel):
 
 
 class PaperSummary(BaseModel):
-    """论文结构化摘要"""
-    core_problem: str = Field(..., description="核心痛点")
-    previous_dilemma: str = Field(..., description="前人困境")
-    core_intuition: str = Field(..., description="核心直觉")
-    key_steps: List[str] = Field(..., description="关键步骤")
+    """论文结构化摘要（字段名采用 camelCase，便于前端直接使用）"""
+    coreProblem: str = Field(..., description="核心痛点")
+    previousDilemma: str = Field(..., description="前人困境")
+    coreIntuition: str = Field(..., description="核心直觉")
+    keySteps: List[str] = Field(..., description="关键步骤")
     innovations: Dict[str, str] = Field(..., description="创新增量")
     boundaries: Dict[str, str] = Field(..., description="批判性边界")
-    one_sentence: str = Field(..., description="一言以蔽之")
+    oneSentence: str = Field(..., description="一言以蔽之")
 
 
 class PaperQAPair(BaseModel):

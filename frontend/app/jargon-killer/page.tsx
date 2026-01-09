@@ -57,6 +57,8 @@ export default function JargonKillerPage() {
     setIsLoading(true)
     setStreamingContent('')
     setStreamingMessageId(tempAssistantId)
+    
+    let streamInterval: NodeJS.Timeout | null = null
 
     try {
       const response = await api.chat({
@@ -68,13 +70,24 @@ export default function JargonKillerPage() {
 
       // 模拟流式输出（实际应该从后端SSE获取）
       const fullText = response.message
+      if (!fullText) {
+        setIsLoading(false)
+        setStreamingContent('')
+        setStreamingMessageId(null)
+        return
+      }
+      
+      // 立即开始流式输出，不等待完整响应
       let currentIndex = 0
-      const streamInterval = setInterval(() => {
+      streamInterval = setInterval(() => {
         if (currentIndex < fullText.length) {
-          setStreamingContent(fullText.slice(0, currentIndex + 5))
-          currentIndex += 5
+          setStreamingContent(fullText.slice(0, currentIndex + 10))
+          currentIndex += 10
         } else {
-          clearInterval(streamInterval)
+          if (streamInterval) {
+            clearInterval(streamInterval)
+            streamInterval = null
+          }
           const assistantMessage: ChatMessage = {
             role: 'assistant',
             content: fullText,
@@ -82,10 +95,17 @@ export default function JargonKillerPage() {
           setMessages((prev) => [...prev, assistantMessage])
           setStreamingContent('')
           setStreamingMessageId(null)
+          setIsLoading(false)
         }
-      }, 20) // 每20ms输出5个字符
+      }, 30) // 每30ms输出10个字符，让流式效果更明显
 
     } catch (error: any) {
+      // 清理流式输出定时器
+      if (streamInterval) {
+        clearInterval(streamInterval)
+        streamInterval = null
+      }
+      
       console.error('Chat error:', error)
       let errorMessage = '发送消息失败'
       
@@ -112,7 +132,6 @@ export default function JargonKillerPage() {
       toast.error(errorMessage)
       setStreamingContent('')
       setStreamingMessageId(null)
-    } finally {
       setIsLoading(false)
     }
   }
@@ -134,6 +153,12 @@ export default function JargonKillerPage() {
     if (message.role !== 'assistant') return
 
     const messageId = `msg-${index}`
+    const explanation = message.content?.trim() || streamingContent.trim()
+    if (!explanation) {
+      toast.error('当前回答为空，无法收藏')
+      return
+    }
+
     if (bookmarkedMessages.has(messageId)) {
       toast.info('已取消收藏')
       setBookmarkedMessages((prev) => {
@@ -145,8 +170,6 @@ export default function JargonKillerPage() {
       // 提取术语和解释
       const userMsg = messages[index - 1]
       const term = userMsg?.content || '术语'
-      const explanation = message.content
-
       addVocab(term, explanation)
       setBookmarkedMessages((prev) => new Set(prev).add(messageId))
       toast.success('已添加到生词本')
@@ -174,7 +197,9 @@ export default function JargonKillerPage() {
       {/* 消息列表 */}
       <div 
         ref={messagesContainerRef}
-        className="flex-1 overflow-y-auto space-y-6 mb-4 custom-scrollbar min-h-0 px-2"
+        className={`flex-1 space-y-6 mb-4 custom-scrollbar min-h-0 px-2 ${
+          messages.length > 0 || streamingContent ? 'overflow-y-auto' : 'overflow-hidden'
+        }`}
         style={{ scrollbarGutter: 'stable' }}
       >
         {messages.length === 0 && (

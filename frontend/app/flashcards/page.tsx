@@ -11,6 +11,11 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useAppStore } from '@/stores/useAppStore'
 import ReactMarkdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
+import 'highlight.js/styles/github-dark.css'
 import { Search, Trash2, RotateCcw, BookOpen, Lightbulb } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -191,8 +196,16 @@ export default function FlashcardsPage() {
                         prose-headings:text-gray-900 prose-headings:font-semibold
                         prose-strong:text-gray-900
                         prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-                        prose-ul:list-disc prose-ol:list-decimal">
-                        <ReactMarkdown>{item.explanation}</ReactMarkdown>
+                        prose-ul:list-disc prose-ol:list-decimal
+                        prose-pre:bg-gray-900 prose-pre:text-gray-100
+                        prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+                        prose-blockquote:border-l-4 prose-blockquote:border-purple-300 prose-blockquote:pl-4 prose-blockquote:italic">
+                        <ReactMarkdown
+                          remarkPlugins={[remarkMath]}
+                          rehypePlugins={[rehypeKatex, rehypeHighlight]}
+                        >
+                          {item.explanation || '暂无解释'}
+                        </ReactMarkdown>
                       </div>
                       <div className="text-xs text-muted-foreground pt-2 border-t">
                         {new Date(item.createdAt).toLocaleDateString('zh-CN', {

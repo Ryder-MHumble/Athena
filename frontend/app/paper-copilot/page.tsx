@@ -12,7 +12,11 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
 import { api, PaperAnalysisResponse } from '@/lib/api'
 import ReactMarkdown from 'react-markdown'
-import { Upload, Link as LinkIcon, Loader2, FileText, MessageSquare, Mic, Bot, Send, X, RefreshCw } from 'lucide-react'
+import rehypeHighlight from 'rehype-highlight'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
+import { Upload, Loader2, FileText, MessageSquare, Mic, Bot, Send, X, RefreshCw, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
@@ -32,27 +36,57 @@ export default function PaperCopilotPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState<'analysis' | 'speech' | 'chat'>('analysis')
   const [splitPosition, setSplitPosition] = useState(70) // PDF默认占70%
-  const [isDragging, setIsDragging] = useState(false)
   const [chatQuestion, setChatQuestion] = useState('')
   const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'assistant', content: string }>>([])
   const [isChatLoading, setIsChatLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const pdfContainerRef = useRef<HTMLDivElement>(null)
-  const [mouseDownX, setMouseDownX] = useState<number | null>(null)
+  const [zoomScale, setZoomScale] = useState(1)
+  const [isDraggingSplit, setIsDraggingSplit] = useState(false)
+  const [speechStreaming, setSpeechStreaming] = useState('')
+  const speechStreamRef = useRef<NodeJS.Timeout | null>(null)
+
+  // 规范化 Markdown：去掉行首多余缩进，避免标题等语法失效
+  const normalizeMarkdown = (text: string) => {
+    if (!text) return ''
+    return text
+      .split('\n')
+      .map(line => line.replace(/^\s+/, '')) // 去掉每行行首空格
+      .join('\n')
+  }
 
   // 判断是否已上传/分析
   const hasPaper = pdfUrl !== null || analysis !== null
 
   // 处理文件选择
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0]
     if (selectedFile && selectedFile.type === 'application/pdf') {
       setFile(selectedFile)
       setUrl('')
       const objectUrl = URL.createObjectURL(selectedFile)
       setPdfUrl(objectUrl)
-      toast.success('PDF 文件已选择')
+      toast.success('PDF 文件已选择，正在自动分析...')
+      
+      // 自动触发分析
+      setIsLoading(true)
+      setAnalysis(null)
+      setChatHistory([])
+      
+      try {
+        const result = await api.analyzePaper({
+          file: selectedFile,
+        })
+        setAnalysis(result)
+        setPaperText(result.paper_text || '')
+        toast.success('论文分析完成')
+      } catch (error: any) {
+        toast.error(error.message || '分析失败，请检查文件或网络连接')
+        console.error('Paper analysis error:', error)
+      } finally {
+        setIsLoading(false)
+      }
     } else {
       toast.error('请选择 PDF 文件')
     }
@@ -76,11 +110,46 @@ export default function PaperCopilotPage() {
       })
       setAnalysis(result)
       setPaperText(result.paper_text || '')
+      // 启动讲解建议流式渲染
+      startSpeechStreaming(result.speech || '')
       
-      // 如果是URL，需要设置PDF URL（这里简化，实际应该从后端获取PDF）
+      // 如果是URL，需要下载PDF并设置PDF URL
       if (url.trim() && !file) {
-        // URL方式暂时不显示PDF预览，只显示分析结果
-        setPdfUrl(null)
+        try {
+          // 将 Arxiv URL 转换为 PDF URL
+          let pdfUrlToDownload = url.trim()
+          if (pdfUrlToDownload.includes('arxiv.org/abs/')) {
+            pdfUrlToDownload = pdfUrlToDownload.replace('/abs/', '/pdf/') + '.pdf'
+          } else if (!pdfUrlToDownload.includes('arxiv.org/pdf/')) {
+            // 如果不是abs格式，尝试添加/pdf/前缀
+            if (pdfUrlToDownload.includes('arxiv.org')) {
+              const paperId = pdfUrlToDownload.split('/').pop()?.replace('.pdf', '') || ''
+              pdfUrlToDownload = `https://arxiv.org/pdf/${paperId}.pdf`
+            }
+          }
+          
+          // 下载PDF并创建本地URL
+          const response = await fetch(pdfUrlToDownload, {
+            mode: 'cors',
+            headers: {
+              'Accept': 'application/pdf',
+            },
+          })
+          if (response.ok) {
+            const blob = await response.blob()
+            const objectUrl = URL.createObjectURL(blob)
+            setPdfUrl(objectUrl)
+            toast.success('PDF已下载并加载')
+          } else {
+            console.warn('Failed to download PDF:', response.status)
+            toast.warning('无法下载PDF，但分析结果已生成')
+            setPdfUrl(null)
+          }
+        } catch (error) {
+          console.error('Failed to download PDF:', error)
+          toast.warning('无法下载PDF，但分析结果已生成')
+          setPdfUrl(null)
+        }
       }
       
       toast.success('论文分析完成')
@@ -90,6 +159,32 @@ export default function PaperCopilotPage() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  // 启动讲解建议 tab 的前端流式打字效果
+  const startSpeechStreaming = (fullText: string) => {
+    if (speechStreamRef.current) {
+      clearInterval(speechStreamRef.current)
+      speechStreamRef.current = null
+    }
+    if (!fullText) {
+      setSpeechStreaming('')
+      return
+    }
+    setSpeechStreaming('')
+    let currentIndex = 0
+    const interval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        setSpeechStreaming(fullText.slice(0, currentIndex + 40))
+        currentIndex += 40
+      } else {
+        if (speechStreamRef.current) {
+          clearInterval(speechStreamRef.current)
+        }
+        speechStreamRef.current = null
+      }
+    }, 40)
+    speechStreamRef.current = interval
   }
 
   // 处理重新上传
@@ -134,39 +229,8 @@ export default function PaperCopilotPage() {
     setPageNumber(1)
   }
 
-  // 处理鼠标滑动翻页
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (pdfContainerRef.current) {
-      setMouseDownX(e.clientX)
-    }
-  }
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (mouseDownX !== null && pdfContainerRef.current) {
-      const deltaX = e.clientX - mouseDownX
-      if (Math.abs(deltaX) > 50) {
-        if (deltaX > 0 && pageNumber > 1) {
-          setPageNumber(p => p - 1)
-          setMouseDownX(null)
-        } else if (deltaX < 0 && pageNumber < numPages) {
-          setPageNumber(p => p + 1)
-          setMouseDownX(null)
-        }
-      }
-    }
-  }
-
-  const handleMouseUp = () => {
-    setMouseDownX(null)
-  }
-
-  // 处理分屏拖拽
-  const handleSplitMouseDown = () => {
-    setIsDragging(true)
-  }
-
   const handleSplitMouseMove = (e: MouseEvent) => {
-    if (!isDragging) return
+    if (!isDraggingSplit) return
     const container = document.getElementById('split-container')
     if (!container) return
 
@@ -175,11 +239,8 @@ export default function PaperCopilotPage() {
     setSplitPosition(Math.max(30, Math.min(85, newPosition)))
   }
 
-  const handleSplitMouseUp = () => {
-    setIsDragging(false)
-  }
+  const handleSplitMouseUp = () => setIsDraggingSplit(false)
 
-  // 绑定拖拽事件
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.addEventListener('mousemove', handleSplitMouseMove)
@@ -189,7 +250,14 @@ export default function PaperCopilotPage() {
         window.removeEventListener('mouseup', handleSplitMouseUp)
       }
     }
-  }, [isDragging])
+    // 卸载时清理讲解建议流式定时器
+    return () => {
+      if (speechStreamRef.current) {
+        clearInterval(speechStreamRef.current)
+        speechStreamRef.current = null
+      }
+    }
+  }, [isDraggingSplit])
 
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
@@ -277,7 +345,12 @@ export default function PaperCopilotPage() {
                 placeholder="输入 Arxiv URL..."
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleAnalyze()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && url.trim() && !file) {
+                    e.preventDefault()
+                    handleAnalyze()
+                  }
+                }}
                 disabled={isLoading || !!file}
                 className="flex-1"
               />
@@ -314,10 +387,6 @@ export default function PaperCopilotPage() {
             ref={pdfContainerRef}
             className="bg-white rounded-lg border border-gray-200 overflow-auto shadow-sm custom-scrollbar relative"
             style={{ width: `${splitPosition}%` }}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
           >
             {pdfUrl ? (
               <div className="p-6">
@@ -344,11 +413,33 @@ export default function PaperCopilotPage() {
                       下一页
                     </Button>
                   </div>
-                  <p className="text-xs text-gray-400">提示：按住鼠标左右拖动可翻页</p>
+                  <div className="flex items-center gap-2 text-xs text-gray-600">
+                    <Button variant="ghost" size="icon" onClick={() => setZoomScale((z) => Math.min(2, z + 0.1))}>
+                      <ZoomIn className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" onClick={() => setZoomScale((z) => Math.max(0.6, z - 0.1))}>
+                      <ZoomOut className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" onClick={() => setZoomScale(1)}>
+                      <Maximize2 className="h-4 w-4" />
+                    </Button>
+                    <span className="text-gray-500">单击页面左右侧可翻页</span>
+                  </div>
                 </div>
                 
                 {/* PDF 内容 */}
-                <div className="flex justify-center">
+                <div className="flex justify-center relative">
+                  {/* 左右点击区域翻页 */}
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer"
+                    onClick={() => setPageNumber((p) => Math.max(1, p - 1))}
+                    aria-label="上一页"
+                  />
+                  <div
+                    className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer"
+                    onClick={() => setPageNumber((p) => Math.min(numPages, p + 1))}
+                    aria-label="下一页"
+                  />
                   <Document
                     file={pdfUrl}
                     onLoadSuccess={onDocumentLoadSuccess}
@@ -358,13 +449,15 @@ export default function PaperCopilotPage() {
                       </div>
                     }
                   >
-                    <Page
-                      pageNumber={pageNumber}
-                      renderTextLayer={true}
-                      renderAnnotationLayer={true}
-                      className="shadow-xl"
-                      width={Math.min(800, window.innerWidth * splitPosition / 100 - 100)}
-                    />
+                    {typeof window !== 'undefined' && (
+                      <Page
+                        pageNumber={pageNumber}
+                        renderTextLayer={true}
+                        renderAnnotationLayer={true}
+                        className="shadow-xl"
+                        width={Math.max(600, Math.min(1000, (window.innerWidth * splitPosition / 100 - 80))) * zoomScale}
+                      />
+                    )}
                   </Document>
                 </div>
               </div>
@@ -381,7 +474,7 @@ export default function PaperCopilotPage() {
           {/* 拖拽分隔条 */}
           <div
             className="w-1 bg-gray-200 cursor-col-resize hover:bg-blue-400 transition-colors flex-shrink-0"
-            onMouseDown={handleSplitMouseDown}
+          onMouseDown={() => setIsDraggingSplit(true)}
           />
 
           {/* 右侧：AI 分析结果 */}
@@ -389,17 +482,8 @@ export default function PaperCopilotPage() {
             className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm flex flex-col"
             style={{ width: `${100 - splitPosition}%` }}
           >
-            {isLoading ? (
-              <div className="flex items-center justify-center h-full">
-                <div className="text-center">
-                  <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-blue-600" />
-                  <p className="text-gray-600">AI 正在分析论文...</p>
-                </div>
-              </div>
-            ) : analysis ? (
-              <>
-                {/* 三个标签页 */}
-                <div className="flex border-b border-gray-200 bg-gray-50">
+            {/* 三个标签页 - 无论是否有内容都固定在顶部 */}
+            <div className="flex border-b border-gray-200 bg-gray-50">
                   <Button
                     variant="ghost"
                     onClick={() => setActiveTab('analysis')}
@@ -436,11 +520,29 @@ export default function PaperCopilotPage() {
                     <Bot className="h-4 w-4 mr-2" />
                     AI 解读
                   </Button>
-                </div>
+            </div>
 
-                {/* 内容区域 */}
-                <div className="flex-1 overflow-auto custom-scrollbar p-6">
-                  {activeTab === 'analysis' && (
+            {/* 内容区域 */}
+            <div className="flex-1 overflow-auto custom-scrollbar p-6">
+              {isLoading && !analysis && (
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center">
+                    <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-blue-600" />
+                    <p className="text-gray-600">AI 正在分析论文...</p>
+                  </div>
+                </div>
+              )}
+
+              {!isLoading && !analysis && (
+                <div className="flex items-center justify-center h-full text-gray-400">
+                  <div className="text-center">
+                    <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p className="text-sm">分析结果将显示在这里</p>
+                  </div>
+                </div>
+              )}
+
+              {analysis && activeTab === 'analysis' && (
                     <div className="space-y-6">
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900 mb-3">核心问题</h3>
@@ -495,19 +597,24 @@ export default function PaperCopilotPage() {
                         </p>
                       </div>
                     </div>
-                  )}
+              )}
 
-                  {activeTab === 'speech' && (
-                    <div className="prose prose-sm max-w-none prose-p:text-gray-800 prose-p:leading-relaxed prose-headings:text-gray-900 prose-headings:font-semibold">
-                      <ReactMarkdown>{analysis.speech}</ReactMarkdown>
-                    </div>
-                  )}
+              {analysis && activeTab === 'speech' && (
+                <div className="prose prose-sm max-w-none prose-p:text-gray-800 prose-p:leading-relaxed prose-headings:text-gray-900 prose-headings:font-semibold">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkMath]}
+                    rehypePlugins={[rehypeKatex, rehypeHighlight]}
+                  >
+                    {normalizeMarkdown(speechStreaming || analysis.speech)}
+                  </ReactMarkdown>
+                </div>
+              )}
 
-                  {activeTab === 'chat' && (
+              {analysis && activeTab === 'chat' && (
                     <div className="flex flex-col h-full">
                       {/* 对话历史 */}
                       <div className="flex-1 overflow-y-auto space-y-4 mb-4 custom-scrollbar min-h-0">
-                        {chatHistory.length === 0 && (
+                        {chatHistory.length === 0 && !isChatLoading && (
                           <div className="text-center text-gray-500 py-8">
                             <Bot className="h-12 w-12 mx-auto mb-4 opacity-50" />
                             <p>开始提问，AI 会根据论文内容为你解答</p>
@@ -532,7 +639,12 @@ export default function PaperCopilotPage() {
                             >
                               {msg.role === 'assistant' ? (
                                 <div className="prose prose-sm max-w-none prose-p:text-gray-800 prose-p:leading-relaxed">
-                                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                                  <ReactMarkdown
+                                    remarkPlugins={[remarkMath]}
+                                    rehypePlugins={[rehypeKatex, rehypeHighlight]}
+                                  >
+                                    {msg.content}
+                                  </ReactMarkdown>
                                 </div>
                               ) : (
                                 <p className="text-sm leading-relaxed">{msg.content}</p>
@@ -586,17 +698,8 @@ export default function PaperCopilotPage() {
                         </Button>
                       </div>
                     </div>
-                  )}
-                </div>
-              </>
-            ) : (
-              <div className="flex items-center justify-center h-full text-gray-400">
-                <div className="text-center">
-                  <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p className="text-sm">分析结果将显示在这里</p>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}

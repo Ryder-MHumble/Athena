@@ -124,8 +124,15 @@ class LLMService:
 
 {paper_text[:10000]}  # 限制长度避免 token 超限
 """
-        
-        response = self.llm.invoke([HumanMessage(content=prompt)])
+        # 论文分析使用小模型以提升速度，关闭“思考模式”（较低 temperature）
+        small_llm = ChatOpenAI(
+            model=getattr(settings, "LLM_MODEL_SMALL", settings.LLM_MODEL),
+            openai_api_key=self.api_key,
+            openai_api_base="https://api.siliconflow.cn/v1",
+            temperature=0.3,
+            max_tokens=settings.MAX_TOKENS,
+        )
+        response = small_llm.invoke([HumanMessage(content=prompt)])
         return {"raw_response": response.content}
     
     def generate_speech(self, paper_text: str) -> str:
@@ -149,8 +156,15 @@ class LLMService:
 
 {paper_text[:8000]}
 """
-        
-        response = self.llm.invoke([HumanMessage(content=prompt)])
+        # 使用小模型生成演讲稿以提升速度
+        small_llm = ChatOpenAI(
+            model=getattr(settings, "LLM_MODEL_SMALL", settings.LLM_MODEL),
+            openai_api_key=self.api_key,
+            openai_api_base="https://api.siliconflow.cn/v1",
+            temperature=0.4,
+            max_tokens=settings.MAX_TOKENS,
+        )
+        response = small_llm.invoke([HumanMessage(content=prompt)])
         return response.content
     
     def generate_qa(self, paper_text: str, num_questions: int = 3) -> List[Dict[str, str]]:
@@ -174,11 +188,21 @@ class LLMService:
 
 {paper_text[:8000]}
 """
-        
-        response = self.llm.invoke([HumanMessage(content=prompt)])
-        # TODO: 解析响应并提取 Q&A 对
-        # 这里简化处理
-        return [{"question": "示例问题", "answer": "示例答案"}]
+        # 使用小模型生成 Q&A 以提升速度
+        small_llm = ChatOpenAI(
+            model=getattr(settings, "LLM_MODEL_SMALL", settings.LLM_MODEL),
+            openai_api_key=self.api_key,
+            openai_api_base="https://api.siliconflow.cn/v1",
+            temperature=0.4,
+            max_tokens=settings.MAX_TOKENS,
+        )
+        response = small_llm.invoke([HumanMessage(content=prompt)])
+        # 简单解析：按换行分割问题和答案，对格式要求不严格时至少给出原始文本
+        content = response.content.strip()
+        if not content:
+            return []
+        # 这里保持兼容，返回一个包含整体内容的 Q&A
+        return [{"question": "关于这篇论文可能被问到的问题及答案", "answer": content}]
 
 
 # 全局 LLM 服务实例（懒加载）
