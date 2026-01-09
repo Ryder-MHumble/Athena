@@ -90,6 +90,62 @@ class LLMService:
             response = self.llm.invoke(messages)
         return response.content
     
+    def stream_chat(
+        self,
+        message: str,
+        history: List[Dict[str, str]] = None,
+        system_prompt: str = None,
+        temperature: float = None
+    ):
+        """
+        流式执行对话 - 返回生成器以实时流式输出
+        
+        Args:
+            message: 用户消息
+            history: 对话历史
+            system_prompt: 系统提示词
+            temperature: 温度参数
+        
+        Yields:
+            单个字符或词块
+        """
+        # 构建消息列表（同 chat 方法）
+        messages = []
+        
+        if system_prompt:
+            messages.append(SystemMessage(content=system_prompt))
+        else:
+            messages.append(SystemMessage(content=CHAT_SYSTEM_PROMPT))
+        
+        if history:
+            for msg in history[-5:]:
+                if msg["role"] == "user":
+                    messages.append(HumanMessage(content=msg["content"]))
+                elif msg["role"] == "assistant":
+                    messages.append(AIMessage(content=msg["content"]))
+        
+        messages.append(HumanMessage(content=message))
+        
+        # 创建流式 LLM 实例
+        stream_llm = ChatOpenAI(
+            model=settings.LLM_MODEL,
+            openai_api_key=self.api_key,
+            openai_api_base="https://api.siliconflow.cn/v1",
+            temperature=temperature or settings.TEMPERATURE,
+            max_tokens=settings.MAX_TOKENS,
+            streaming=True,  # 启用流式模式
+        )
+        
+        # 使用 stream 方法获取流式响应
+        full_response = ""
+        for chunk in stream_llm.stream(messages):
+            # 每个 chunk 可能包含一个或多个字符/词
+            content = chunk.content if hasattr(chunk, 'content') else str(chunk)
+            if content:
+                full_response += content
+                yield content  # 立即返回，实现流式效果
+    
+
     def analyze_paper_structured(self, paper_text: str) -> Dict[str, Any]:
         """
         分析论文 - 生成结构化摘要

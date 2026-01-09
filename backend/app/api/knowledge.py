@@ -141,3 +141,70 @@ async def search_knowledge(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error searching knowledge: {str(e)}")
 
+
+@router.post("/generate-report")
+async def generate_report(
+    request: SearchRequest = Body(...),
+    x_api_key: str = Header(None),
+):
+    """
+    生成知识库文档的结构化报告
+    自动从文档内容生成摘要、关键概念、核心洞察等
+    
+    Args:
+        request: 包含文档内容的请求
+        x_api_key: API Key
+    
+    Returns:
+        结构化报告
+    """
+    if not x_api_key:
+        raise HTTPException(status_code=401, detail="API Key is required")
+    
+    try:
+        llm_service = get_llm_service(api_key=x_api_key)
+        
+        # 生成结构化报告的提示词
+        report_prompt = f"""
+        请根据以下文档内容生成一份专业的结构化报告。
+        
+        **文档内容：**
+        {request.query[:3000]}  # 限制输入长度
+        
+        请生成一份包含以下部分的Markdown格式报告：
+        
+        ## 📌 核心摘要
+        用2-3句话总结文档的核心内容
+        
+        ## 🎯 关键概念
+        列出3-5个最重要的概念或术语（使用bullet list）
+        
+        ## 💡 核心洞察
+        列出3-5条核心洞察或发现
+        
+        ## 📊 数据/统计（如果有）
+        重点突出文档中提到的关键数据或统计
+        
+        ## 🔗 相关领域
+        列出这个话题相关的其他领域或概念
+        
+        ## 📝 建议行动
+        基于文档内容提出2-3条可行的建议
+        
+        请用通俗易懂的语言，避免过于专业的术语。
+        """
+        
+        # 调用 LLM 生成报告
+        report = llm_service.chat(
+            message=report_prompt,
+            system_prompt="你是一个专业的文档分析师，善于从复杂的文档中提取关键信息并生成结构化报告。",
+            temperature=0.5,  # 中等创意度
+        )
+        
+        return {
+            "report": report,
+            "timestamp": str(os.path.getmtime(temp_path)) if 'temp_path' in locals() else "",
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating report: {str(e)}")

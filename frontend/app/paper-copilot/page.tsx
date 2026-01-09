@@ -35,10 +35,11 @@ export default function PaperCopilotPage() {
   const [analysis, setAnalysis] = useState<PaperAnalysisResponse | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState<'analysis' | 'speech' | 'chat'>('analysis')
-  const [splitPosition, setSplitPosition] = useState(70) // PDF默认占70%
+  const [splitPosition, setSplitPosition] = useState(40) // PDF 现在占 40%，右侧占 60%
   const [chatQuestion, setChatQuestion] = useState('')
   const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'assistant', content: string }>>([])
   const [isChatLoading, setIsChatLoading] = useState(false)
+  const [streamingChatContent, setStreamingChatContent] = useState('')
   const [isUploading, setIsUploading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const pdfContainerRef = useRef<HTMLDivElement>(null)
@@ -202,19 +203,48 @@ export default function PaperCopilotPage() {
     }
   }
 
-  // 处理AI解读提问
+  // 处理AI解读提问 - 支持流式输出
   const handleChatSend = async () => {
     if (!chatQuestion.trim() || !paperText || isChatLoading) return
 
     const userMessage = { role: 'user' as const, content: chatQuestion.trim() }
     setChatHistory(prev => [...prev, userMessage])
+    const question = chatQuestion.trim()
     setChatQuestion('')
     setIsChatLoading(true)
+    setStreamingChatContent('')
 
     try {
-      const response = await api.chatWithPaper(chatQuestion.trim(), paperText)
-      const assistantMessage = { role: 'assistant' as const, content: response.answer }
+      // 尝试使用流式 API
+      let fullContent = ''
+      let isUsingStream = false
+
+      // 尝试流式聊天（如果支持）
+      try {
+        for await (const event of api.chatStream({
+          session_id: `paper-${Date.now()}`,
+          message: question,
+          history: [],
+          thinking_mode: false,
+        })) {
+          if (event.type === 'content') {
+            fullContent += event.delta
+            setStreamingChatContent(fullContent)
+            isUsingStream = true
+          }
+        }
+      } catch {
+        // 如果流式 API 不可用，降级到普通 API
+        if (!isUsingStream && fullContent === '') {
+          const response = await api.chatWithPaper(question, paperText)
+          fullContent = response.answer
+        }
+      }
+
+      // 将完整回复添加到历史记录
+      const assistantMessage = { role: 'assistant' as const, content: fullContent }
       setChatHistory(prev => [...prev, assistantMessage])
+      setStreamingChatContent('')
     } catch (error: any) {
       toast.error(error.message || 'AI 解读失败')
       console.error('Chat error:', error)
@@ -427,38 +457,44 @@ export default function PaperCopilotPage() {
                   </div>
                 </div>
                 
-                {/* PDF 内容 */}
-                <div className="flex justify-center relative">
+                {/* PDF 内容容器 - 加强滚动隔离 */}
+                <div className="flex-1 overflow-y-auto flex justify-center bg-gray-100 rounded-lg relative" onWheel={(e) => {
+                  // 阻止滚动传播到分割条
+                  e.stopPropagation()
+                }}>
                   {/* 左右点击区域翻页 */}
                   <div
-                    className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer"
+                    className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer z-10"
                     onClick={() => setPageNumber((p) => Math.max(1, p - 1))}
                     aria-label="上一页"
                   />
                   <div
-                    className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer"
+                    className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer z-10"
                     onClick={() => setPageNumber((p) => Math.min(numPages, p + 1))}
                     aria-label="下一页"
                   />
-                  <Document
-                    file={pdfUrl}
-                    onLoadSuccess={onDocumentLoadSuccess}
-                    loading={
-                      <div className="flex items-center justify-center p-12">
-                        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
-                      </div>
-                    }
-                  >
-                    {typeof window !== 'undefined' && (
-                      <Page
-                        pageNumber={pageNumber}
-                        renderTextLayer={true}
-                        renderAnnotationLayer={true}
-                        className="shadow-xl"
-                        width={Math.max(600, Math.min(1000, (window.innerWidth * splitPosition / 100 - 80))) * zoomScale}
-                      />
-                    )}
-                  </Document>
+                  <div className="flex items-center justify-center p-4">
+                    <Document
+                      file={pdfUrl}
+                      onLoadSuccess={onDocumentLoadSuccess}
+                      loading={
+                        <div className="flex items-center justify-center p-12">
+                          <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                        </div>
+                      }
+                    >
+                      {typeof window !== 'undefined' && (
+                        <Page
+                          pageNumber={pageNumber}
+                          renderTextLayer={true}
+                          renderAnnotationLayer={true}
+                          className="shadow-2xl rounded-lg"
+                          scale={zoomScale}
+                          width={Math.max(300, Math.min(800, (window.innerWidth * splitPosition / 100 - 80)))}
+                        />
+                      )}
+                    </Document>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -544,63 +580,116 @@ export default function PaperCopilotPage() {
 
               {analysis && activeTab === 'analysis' && (
                     <div className="space-y-6">
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">核心问题</h3>
-                        <p className="text-gray-700 leading-relaxed">{analysis.summary.coreProblem}</p>
+                      {/* 核心问题 */}
+                      <div className="border-l-4 border-blue-500 bg-blue-50 rounded-r-lg p-5">
+                        <h3 className="text-lg font-bold text-blue-900 mb-2 flex items-center gap-2">
+                          <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+                          核心问题
+                        </h3>
+                        <p className="text-gray-800 leading-relaxed">{analysis.summary.coreProblem}</p>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">先前困境</h3>
-                        <p className="text-gray-700 leading-relaxed">{analysis.summary.previousDilemma}</p>
+
+                      {/* 先前困境 */}
+                      <div className="border-l-4 border-yellow-500 bg-yellow-50 rounded-r-lg p-5">
+                        <h3 className="text-lg font-bold text-yellow-900 mb-2 flex items-center gap-2">
+                          <span className="w-2 h-2 bg-yellow-600 rounded-full"></span>
+                          先前困境
+                        </h3>
+                        <p className="text-gray-800 leading-relaxed">{analysis.summary.previousDilemma}</p>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">核心直觉</h3>
-                        <p className="text-gray-700 leading-relaxed">{analysis.summary.coreIntuition}</p>
+
+                      {/* 核心直觉 */}
+                      <div className="border-l-4 border-purple-500 bg-purple-50 rounded-r-lg p-5">
+                        <h3 className="text-lg font-bold text-purple-900 mb-2 flex items-center gap-2">
+                          <span className="w-2 h-2 bg-purple-600 rounded-full"></span>
+                          核心直觉
+                        </h3>
+                        <p className="text-gray-800 leading-relaxed">{analysis.summary.coreIntuition}</p>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">关键步骤</h3>
-                        <ul className="list-disc pl-6 space-y-2 text-gray-700">
+
+                      {/* 关键步骤 */}
+                      <div className="border-l-4 border-green-500 bg-green-50 rounded-r-lg p-5">
+                        <h3 className="text-lg font-bold text-green-900 mb-3 flex items-center gap-2">
+                          <span className="w-2 h-2 bg-green-600 rounded-full"></span>
+                          关键步骤
+                        </h3>
+                        <ol className="list-decimal pl-6 space-y-2">
                           {analysis.summary.keySteps.map((step, idx) => (
-                            <li key={idx} className="leading-relaxed">{step}</li>
+                            <li key={idx} className="text-gray-800 leading-relaxed">
+                              <span className="font-semibold text-gray-900">第 {idx + 1} 步：</span>
+                              {step}
+                            </li>
                           ))}
-                        </ul>
+                        </ol>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">创新点</h3>
-                        <div className="space-y-2 text-gray-700">
-                          <p>
-                            <strong className="text-gray-900">对比：</strong>
-                            {analysis.summary.innovations.comparison}
-                          </p>
-                          <p>
-                            <strong className="text-gray-900">本质：</strong>
-                            {analysis.summary.innovations.essence}
-                          </p>
+
+                      {/* 创新点 */}
+                      <div className="border-l-4 border-pink-500 bg-pink-50 rounded-r-lg p-5">
+                        <h3 className="text-lg font-bold text-pink-900 mb-3 flex items-center gap-2">
+                          <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
+                          创新点
+                        </h3>
+                        <div className="space-y-3">
+                          <div>
+                            <p className="font-semibold text-gray-900 text-sm uppercase text-gray-600 mb-1">对比分析</p>
+                            <p className="text-gray-800 bg-white p-3 rounded border border-pink-200">
+                              {analysis.summary.innovations.comparison}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-gray-900 text-sm uppercase text-gray-600 mb-1">本质创新</p>
+                            <p className="text-gray-800 bg-white p-3 rounded border border-pink-200">
+                              {analysis.summary.innovations.essence}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">边界与局限</h3>
-                        <div className="space-y-2 text-gray-700">
-                          <p>
-                            <strong className="text-gray-900">假设：</strong>
-                            {analysis.summary.boundaries.assumptions}
-                          </p>
-                          <p>
-                            <strong className="text-gray-900">未解决问题：</strong>
-                            {analysis.summary.boundaries.unsolved}
-                          </p>
+
+                      {/* 边界与局限 */}
+                      <div className="border-l-4 border-orange-500 bg-orange-50 rounded-r-lg p-5">
+                        <h3 className="text-lg font-bold text-orange-900 mb-3 flex items-center gap-2">
+                          <span className="w-2 h-2 bg-orange-600 rounded-full"></span>
+                          边界与局限
+                        </h3>
+                        <div className="space-y-3">
+                          <div>
+                            <p className="font-semibold text-gray-900 text-sm uppercase text-gray-600 mb-1">关键假设</p>
+                            <p className="text-gray-800 bg-white p-3 rounded border border-orange-200">
+                              {analysis.summary.boundaries.assumptions}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-gray-900 text-sm uppercase text-gray-600 mb-1">未解决问题</p>
+                            <p className="text-gray-800 bg-white p-3 rounded border border-orange-200">
+                              {analysis.summary.boundaries.unsolved}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">一句话总结</h3>
-                        <p className="text-gray-700 italic leading-relaxed">
-                          {analysis.summary.oneSentence}
+
+                      {/* 一句话总结 */}
+                      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg p-6 text-white">
+                        <p className="text-sm font-semibold uppercase text-gray-300 mb-2">一句话总结</p>
+                        <p className="text-lg leading-relaxed italic font-light">
+                          "{analysis.summary.oneSentence}"
                         </p>
                       </div>
                     </div>
               )}
 
               {analysis && activeTab === 'speech' && (
-                <div className="prose prose-sm max-w-none prose-p:text-gray-800 prose-p:leading-relaxed prose-headings:text-gray-900 prose-headings:font-semibold">
+                <div className="prose prose-sm max-w-none
+                  prose-p:text-gray-800 prose-p:leading-relaxed prose-p:m-0
+                  prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mt-4 prose-headings:mb-2
+                  prose-h1:text-lg prose-h2:text-base prose-h3:text-sm
+                  prose-strong:text-gray-900 prose-strong:font-semibold
+                  prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs prose-code:font-mono
+                  prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:text-xs prose-pre:p-3 prose-pre:rounded-lg
+                  prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+                  prose-ul:list-disc prose-ul:pl-5 prose-ul:my-2
+                  prose-ol:list-decimal prose-ol:pl-5 prose-ol:my-2
+                  prose-li:text-gray-800 prose-li:text-sm prose-li:my-1
+                  prose-blockquote:border-l-4 prose-blockquote:border-purple-300 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-700">
                   <ReactMarkdown
                     remarkPlugins={[remarkMath]}
                     rehypePlugins={[rehypeKatex, rehypeHighlight]}
@@ -659,11 +748,33 @@ export default function PaperCopilotPage() {
                         ))}
                         {isChatLoading && (
                           <div className="flex gap-3 justify-start">
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
                               <Bot className="h-4 w-4 text-white" />
                             </div>
-                            <div className="bg-gray-100 rounded-lg px-4 py-3">
-                              <Loader2 className="h-4 w-4 animate-spin text-purple-600" />
+                            <div className="bg-gray-100 rounded-lg px-4 py-3 flex-1">
+                              {streamingChatContent ? (
+                                <div className="prose prose-sm max-w-none
+                                  prose-p:text-gray-800 prose-p:leading-relaxed prose-p:m-0
+                                  prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mt-3 prose-headings:mb-2
+                                  prose-h1:text-base prose-h2:text-sm prose-h3:text-xs
+                                  prose-strong:text-gray-900
+                                  prose-code:text-purple-600 prose-code:bg-white prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs prose-code:font-mono
+                                  prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:text-xs prose-pre:p-3 prose-pre:rounded-lg
+                                  prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+                                  prose-ul:list-disc prose-ul:pl-5 prose-ul:my-2
+                                  prose-ol:list-decimal prose-ol:pl-5 prose-ol:my-2
+                                  prose-li:text-gray-800 prose-li:text-sm prose-li:my-1
+                                  prose-blockquote:border-l-4 prose-blockquote:border-purple-300 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-700">
+                                  <ReactMarkdown
+                                    remarkPlugins={[remarkMath]}
+                                    rehypePlugins={[rehypeKatex, rehypeHighlight]}
+                                  >
+                                    {streamingChatContent}
+                                  </ReactMarkdown>
+                                </div>
+                              ) : (
+                                <Loader2 className="h-4 w-4 animate-spin text-purple-600" />
+                              )}
                             </div>
                           </div>
                         )}

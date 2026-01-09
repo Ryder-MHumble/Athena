@@ -131,9 +131,53 @@ export interface SearchResponse {
 
 // API 方法
 export const api = {
-  // 术语通 - 发送消息
+  // 术语通 - 发送消息（非流式，保持兼容）
   chat: async (data: ChatRequest): Promise<ChatResponse> => {
     return apiClient.post('chat/', { json: data }).json()
+  },
+
+  // 术语通 - 流式发送消息
+  chatStream: async function* (data: ChatRequest) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/chat/stream`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': getApiKey(),
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        const error = await response.text()
+        throw new Error(`API error: ${response.status} - ${error}`)
+      }
+
+      const reader = response.body?.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
+
+      if (!reader) throw new Error('No response body')
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split('\n')
+        buffer = lines[lines.length - 1]
+
+        for (let i = 0; i < lines.length - 1; i++) {
+          const line = lines[i].trim()
+          if (line.startsWith('data: ')) {
+            const data = JSON.parse(line.slice(6))
+            yield data
+          }
+        }
+      }
+    } catch (error: any) {
+      throw new Error(`Stream error: ${error.message}`)
+    }
   },
 
   // 论文伴侣 - 分析论文
@@ -157,10 +201,33 @@ export const api = {
 
   // 知识沉淀 - 上传文档
   uploadDocument: async (file: File, teamKey: string): Promise<{ success: boolean; message: string }> => {
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('team_key', teamKey)
-    return apiClient.post('knowledge/upload', { body: formData }).json()
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('team_key', teamKey)
+      
+      // 使用原生 fetch API 来处理 FormData，避免 ky 可能的序列化问题
+      const apiKey = getApiKey()
+      const response = await fetch(`${API_BASE_URL}/api/knowledge/upload`, {
+        method: 'POST',
+        headers: {
+          'X-API-Key': apiKey,
+          // 不设置 Content-Type，让浏览器自动设置为 multipart/form-data
+        },
+        body: formData,
+      })
+      
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Upload error:', { status: response.status, body: errorText })
+        throw new Error(`Upload failed: ${response.status} - ${errorText}`)
+      }
+      
+      return response.json()
+    } catch (error: any) {
+      console.error('Upload document error:', error)
+      throw error
+    }
   },
 
   // 知识沉淀 - 搜索
@@ -171,6 +238,13 @@ export const api = {
       top_k: data.top_k || 5,
     }
     return apiClient.post('knowledge/search', { json: requestData }).json()
+  },
+
+  // 知识沉淀 - 生成结构化报告
+  generateReport: async (content: string): Promise<{ report: string }> => {
+    return apiClient.post('knowledge/generate-report', { 
+      json: { query: content, top_k: 1 } 
+    }).json()
   },
 }
 
