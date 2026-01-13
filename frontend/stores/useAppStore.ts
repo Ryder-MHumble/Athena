@@ -7,6 +7,18 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
+// 论文会话数据
+export interface PaperSession {
+  id: string
+  fileName: string
+  uploadedAt: number
+  analysis: any | null  // PaperAnalysisResponse
+  paperText: string
+  chatHistory: Array<{ role: 'user' | 'assistant'; content: string }>
+  splitPosition: number
+  activeTab: 'analysis' | 'speech' | 'chat'
+}
+
 // 词汇项类型定义
 export interface VocabItem {
   id: string
@@ -35,6 +47,13 @@ interface AppState {
   teamKey: string
   mcpServerUrl: string | null
   
+  // System Prompts 配置
+  systemPrompts: Record<string, string>
+  
+  // Paper-Copilot 会话管理
+  currentPaperSession: PaperSession | null
+  paperSessions: PaperSession[]
+  
   // 词汇列表（从术语通模块收藏的术语）
   vocabList: VocabItem[]
   
@@ -42,6 +61,17 @@ interface AppState {
   setApiKey: (key: string) => void
   setTeamKey: (key: string) => void
   setMcpServerUrl: (url: string | null) => void
+  setSystemPrompt: (module: string, prompt: string) => void
+  getSystemPrompt: (module: string) => string
+  clearSystemPrompt: (module: string) => void
+  
+  // Paper-Copilot 会话管理
+  savePaperSession: (session: PaperSession) => void
+  loadPaperSession: (sessionId: string) => void
+  deletePaperSession: (sessionId: string) => void
+  updateCurrentSession: (updates: Partial<PaperSession>) => void
+  clearCurrentSession: () => void
+  
   addVocab: (term: string, explanation: string, context?: VocabItem['context']) => void
   updateVocab: (id: string, updates: Partial<VocabItem>) => void
   removeVocab: (id: string) => void
@@ -66,17 +96,94 @@ const getDefaultTeamKey = () => {
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       // 初始状态 - 从环境变量读取默认值
       apiKey: getDefaultApiKey(),
       teamKey: getDefaultTeamKey(),
       mcpServerUrl: null,
+      systemPrompts: {},
+      currentPaperSession: null,
+      paperSessions: [],
       vocabList: [],
 
       // Actions
       setApiKey: (key: string) => set({ apiKey: key }),
       setTeamKey: (key: string) => set({ teamKey: key }),
       setMcpServerUrl: (url: string | null) => set({ mcpServerUrl: url }),
+      
+      // System Prompts 管理
+      setSystemPrompt: (module: string, prompt: string) => {
+        set((state) => ({
+          systemPrompts: {
+            ...state.systemPrompts,
+            [module]: prompt,
+          },
+        }))
+      },
+      
+      getSystemPrompt: (module: string) => {
+        return get().systemPrompts[module] || ''
+      },
+      
+      clearSystemPrompt: (module: string) => {
+        set((state) => {
+          const newPrompts = { ...state.systemPrompts }
+          delete newPrompts[module]
+          return { systemPrompts: newPrompts }
+        })
+      },
+
+      // Paper-Copilot 会话管理
+      savePaperSession: (session: PaperSession) => {
+        set((state) => {
+          const existing = state.paperSessions.findIndex((s) => s.id === session.id)
+          const sessions = existing >= 0 
+            ? [...state.paperSessions.slice(0, existing), session, ...state.paperSessions.slice(existing + 1)]
+            : [session, ...state.paperSessions]
+          return {
+            paperSessions: sessions,
+            currentPaperSession: session,
+          }
+        })
+      },
+
+      loadPaperSession: (sessionId: string) => {
+        set((state) => {
+          const session = state.paperSessions.find((s) => s.id === sessionId)
+          if (session) {
+            return { currentPaperSession: session }
+          }
+          return state
+        })
+      },
+
+      deletePaperSession: (sessionId: string) => {
+        set((state) => {
+          const filtered = state.paperSessions.filter((s) => s.id !== sessionId)
+          const newCurrent = state.currentPaperSession?.id === sessionId ? null : state.currentPaperSession
+          return {
+            paperSessions: filtered,
+            currentPaperSession: newCurrent,
+          }
+        })
+      },
+
+      updateCurrentSession: (updates: Partial<PaperSession>) => {
+        set((state) => {
+          if (!state.currentPaperSession) return state
+          const updated = { ...state.currentPaperSession, ...updates }
+          return {
+            currentPaperSession: updated,
+            paperSessions: state.paperSessions.map((s) =>
+              s.id === updated.id ? updated : s
+            ),
+          }
+        })
+      },
+
+      clearCurrentSession: () => {
+        set({ currentPaperSession: null })
+      },
       
       // 添加词汇到单词本
       addVocab: (term: string, explanation: string, context?: VocabItem['context']) => {

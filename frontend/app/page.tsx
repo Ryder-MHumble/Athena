@@ -1,280 +1,282 @@
+'use client'
+
 import Link from "next/link"
-import { BookOpen, FileText, Brain, Lightbulb, Settings, Sparkles, ArrowRight, Users, Zap } from "lucide-react"
+import { BookOpen, FileText, Users, Zap, ArrowUpRight, CheckCircle, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 
 export default function HomePage() {
-  return (
-    <div className="min-h-screen bg-white">
+  const features = [
+    {
+      icon: BookOpen,
+      title: "术语通",
+      description: "AI 智能导师实时解释专业术语，支持多轮对话深入理解",
+      benefits: ["多轮深度对话", "概念关联解析", "一键保存到单词本"],
+      href: "/jargon-killer",
+      color: "from-cyan-400 to-cyan-600",
+      bgColor: "bg-cyan-50",
+      accentColor: "text-cyan-600"
+    },
+    {
+      icon: FileText,
+      title: "论文伴侣",
+      description: "自动解析学术论文，生成结构化分析和讲解文稿",
+      benefits: ["论文全文解析", "智能报告生成", "讲解文稿输出"],
+      href: "/paper-copilot",
+      color: "from-teal-400 to-teal-600",
+      bgColor: "bg-teal-50",
+      accentColor: "text-teal-600"
+    },
+    {
+      icon: Users,
+      title: "团队知识库",
+      description: "构建组织化知识库，跨团队分享学习成果",
+      benefits: ["知识组织管理", "团队协作分享", "搜索和集成"],
+      href: "/team-brain",
+      color: "from-emerald-400 to-emerald-600",
+      bgColor: "bg-emerald-50",
+      accentColor: "text-emerald-600"
+    }
+  ]
 
+  const advantages = [
+    {
+      icon: Zap,
+      title: "秒级响应",
+      description: "基于先进的大语言模型，实时流式输出"
+    },
+    {
+      icon: Sparkles,
+      title: "AI 驱动",
+      description: "高质量的学习支持和个性化指导"
+    },
+    {
+      icon: CheckCircle,
+      title: "易于使用",
+      description: "直观界面设计，无需技术背景"
+    }
+  ]
+
+  return (
+    <div className="w-full">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white py-20 sm:py-28">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
+        {/* 背景装饰 */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-b from-cyan-200 to-transparent rounded-full blur-3xl opacity-20"></div>
+          <div className="absolute -bottom-32 left-0 w-96 h-96 bg-gradient-to-t from-teal-200 to-transparent rounded-full blur-3xl opacity-20"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-8 max-w-3xl mx-auto">
-            <div className="space-y-4">
-              <div className="inline-block">
-                <span className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-purple-500/20 text-purple-200 border border-purple-500/30">
-                  <Sparkles className="w-3.5 h-3.5 mr-2" />
-                  AI 驱动的学习助手
-                </span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* 左侧文本 */}
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 border border-cyan-200">
+                  <Sparkles className="w-4 h-4 text-cyan-600" />
+                  <span className="text-sm font-medium text-cyan-700">AI 驱动的学习助手</span>
+                </div>
+                
+                <div className="space-y-2">
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900">
+                    让学习变得
+                    <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-teal-600">
+                      简单有趣
+                    </span>
+                  </h1>
+                  <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed">
+                    实时解释专业术语、智能分析学术论文、构建团队知识库。让 AI 成为你学习和工作中的智能助手。
+                  </p>
+                </div>
               </div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
-                让 AI 成为你的
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-pink-200 to-purple-200">
-                  学习伙伴
-                </span>
-              </h1>
-              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                实时解释专业术语、智能分析学术论文、构建团队知识库。用 AI 的力量，让学习变得简单有趣。
-              </p>
+
+              {/* CTA 按钮 */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Link href="/jargon-killer" className="flex-shrink-0">
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-cyan-600 text-white hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
+                    开始使用
+                    <ArrowUpRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+                <Link href="#features" className="flex-shrink-0">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-gray-300 hover:border-gray-400 hover:bg-gray-50">
+                    了解更多
+                  </Button>
+                </Link>
+              </div>
+
+              {/* 特性列表 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                {advantages.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan-100 flex items-center justify-center">
+                      <item.icon className="w-5 h-5 text-cyan-600" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-semibold text-gray-900 text-sm">{item.title}</p>
+                      <p className="text-gray-600 text-xs">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-              <Link href="/jargon-killer">
-                <Button size="lg" className="bg-white text-purple-900 hover:bg-gray-100 font-semibold px-8">
-                  开始学习
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-              <Link href="/paper-copilot">
-                <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 font-semibold px-8">
-                  探索功能
-                </Button>
-              </Link>
+            {/* 右侧示意图 */}
+            <div className="hidden lg:flex items-center justify-center">
+              <div className="relative w-full h-96">
+                {/* 主卡片 */}
+                <div className="absolute inset-0 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+                  <div className="h-full flex flex-col">
+                    <div className="h-16 bg-gradient-to-r from-cyan-500 to-teal-600 flex items-center px-6">
+                      <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                    <div className="flex-1 p-8 space-y-4">
+                      <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                      <div className="h-4 bg-gray-200 rounded w-full"></div>
+                      <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+                      <div className="pt-6 space-y-2">
+                        <div className="h-3 bg-cyan-100 rounded-full w-16"></div>
+                        <div className="h-3 bg-teal-100 rounded-full w-20"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 装饰卡片 1 */}
+                <div className="absolute top-6 -right-6 w-32 h-24 bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-xl shadow-lg opacity-90 transform rotate-12"></div>
+                
+                {/* 装饰卡片 2 */}
+                <div className="absolute -bottom-4 -left-4 w-28 h-28 bg-gradient-to-br from-teal-400 to-teal-500 rounded-xl shadow-lg opacity-90 transform -rotate-12"></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Features Section */}
-      <div className="py-20 sm:py-32 bg-white">
+      <section id="features" className="py-16 sm:py-24 md:py-32 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">核心功能</h2>
-            <p className="text-xl text-gray-600">专为非技术背景的策略分析师设计</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              核心功能
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              为策略分析师量身打造的智能工作台
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1: 术语通 */}
-            <div className="group rounded-2xl border-2 border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all p-8 bg-white">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-purple-100 group-hover:bg-purple-600 transition-colors mb-6">
-                <BookOpen className="w-7 h-7 text-purple-600 group-hover:text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">术语通</h3>
-              <p className="text-gray-600 mb-6">
-                AI 智能导师为你解释专业术语。支持多轮对话深入理解，实时获取领域知识解析。
-              </p>
-              <ul className="space-y-2 text-sm text-gray-700 mb-6">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
-                  多轮深度对话
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
-                  概念关联解析
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-purple-600 rounded-full"></span>
-                  一键保存到单词本
-                </li>
-              </ul>
-              <Link href="/jargon-killer" className="inline-block">
-                <Button variant="outline" className="border-purple-300 text-purple-600 hover:bg-purple-50 w-full">
-                  进入术语通 →
-                </Button>
-              </Link>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <Link key={index} href={feature.href}>
+                <Card className="h-full hover:shadow-xl hover:border-cyan-300 transition-all duration-300 overflow-hidden group cursor-pointer">
+                  {/* 顶部色条 */}
+                  <div className={`h-2 bg-gradient-to-r ${feature.color}`}></div>
+                  
+                  <div className="p-8 space-y-6">
+                    {/* 图标 */}
+                    <div className={`w-14 h-14 rounded-xl ${feature.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                      <feature.icon className={`w-7 h-7 ${feature.accentColor}`} />
+                    </div>
 
-            {/* Feature 2: 论文伴侣 */}
-            <div className="group rounded-2xl border-2 border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all p-8 bg-white">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-blue-100 group-hover:bg-blue-600 transition-colors mb-6">
-                <FileText className="w-7 h-7 text-blue-600 group-hover:text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">论文伴侣</h3>
-              <p className="text-gray-600 mb-6">
-                自动解析学术论文，生成结构化分析报告。一键获取论文精华，并生成讲解文稿。
-              </p>
-              <ul className="space-y-2 text-sm text-gray-700 mb-6">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                  论文全文解析
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                  智能报告生成
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                  讲解文稿输出
-                </li>
-              </ul>
-              <Link href="/paper-copilot" className="inline-block">
-                <Button variant="outline" className="border-blue-300 text-blue-600 hover:bg-blue-50 w-full">
-                  进入论文伴侣 →
-                </Button>
-              </Link>
-            </div>
+                    {/* 标题和描述 */}
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {feature.title}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </div>
 
-            {/* Feature 3: 团队知识库 */}
-            <div className="group rounded-2xl border-2 border-gray-200 hover:border-emerald-300 hover:shadow-xl transition-all p-8 bg-white">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-emerald-100 group-hover:bg-emerald-600 transition-colors mb-6">
-                <Users className="w-7 h-7 text-emerald-600 group-hover:text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">团队知识库</h3>
-              <p className="text-gray-600 mb-6">
-                构建组织化的知识库。跨团队分享学习成果，形成统一的知识积累。
-              </p>
-              <ul className="space-y-2 text-sm text-gray-700 mb-6">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span>
-                  知识组织管理
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span>
-                  团队协作分享
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span>
-                  搜索和集成
-                </li>
-              </ul>
-              <Link href="/team-brain" className="inline-block">
-                <Button variant="outline" className="border-emerald-300 text-emerald-600 hover:bg-emerald-50 w-full">
-                  进入知识库 →
-                </Button>
+                    {/* 特性列表 */}
+                    <div className="space-y-2 pt-2">
+                      {feature.benefits.map((benefit, i) => (
+                        <div key={i} className="flex items-center gap-3 text-sm">
+                          <CheckCircle className={`w-4 h-4 ${feature.accentColor} flex-shrink-0`} />
+                          <span className="text-gray-700">{benefit}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* 箭头 */}
+                    <div className={`pt-2 flex items-center gap-2 ${feature.accentColor} font-semibold text-sm group-hover:gap-3 transition-all`}>
+                      开始使用
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </Card>
               </Link>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Additional Features Section */}
-      <div className="py-20 sm:py-32 bg-gradient-to-b from-gray-50 to-white">
+      {/* Stats Section */}
+      <section className="py-16 sm:py-24 bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <h2 className="text-3xl font-bold text-gray-900">为什么选择 Athena？</h2>
-              
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-purple-600 text-white">
-                      <Sparkles className="h-6 w-6" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">AI 驱动</h3>
-                    <p className="text-gray-600">基于最先进的大语言模型，为你提供高质量的学习支持</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-blue-600 text-white">
-                      <Zap className="h-6 w-6" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">快速高效</h3>
-                    <p className="text-gray-600">秒级响应，实时流式输出，让学习过程畅快淋漓</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-indigo-600 text-white">
-                      <Lightbulb className="h-6 w-6" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">易于使用</h3>
-                    <p className="text-gray-600">直观的界面设计，无需技术背景，开箱即用</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-pink-600 text-white">
-                      <Brain className="h-6 w-6" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">长期记忆</h3>
-                    <p className="text-gray-600">单词本自动保存，持续复习，加深学习印象</p>
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { label: "AI 回复", value: "实时流式" },
+              { label: "学习体验", value: "个性化" },
+              { label: "团队协作", value: "高效分享" },
+              { label: "知识积累", value: "长期记忆" }
+            ].map((stat, i) => (
+              <div key={i} className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200">
+                <p className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600 mb-2">
+                  {stat.value}
+                </p>
+                <p className="text-gray-600 font-medium">{stat.label}</p>
               </div>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-2xl blur-2xl opacity-20"></div>
-              <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white space-y-6">
-                <div className="text-5xl font-bold">✨</div>
-                <h3 className="text-2xl font-bold">智能学习体验</h3>
-                <ul className="space-y-3 text-sm text-gray-300">
-                  <li className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full flex-shrink-0"></span>
-                    实时 AI 对话辅导
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full flex-shrink-0"></span>
-                    自动论文分析和讲解
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full flex-shrink-0"></span>
-                    知识点完整保存
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full flex-shrink-0"></span>
-                    团队协作分享
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full flex-shrink-0"></span>
-                    个性化学习路径
-                  </li>
-                </ul>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* CTA Section */}
-      <div className="py-20 sm:py-28 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <h2 className="text-4xl font-bold text-gray-900">准备好开始了吗？</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            加入 Athena，让 AI 成为你学习和工作中的智能助手，提升效率和深度理解。
+      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-br from-gray-900 via-cyan-900 to-teal-900 text-white relative overflow-hidden">
+        {/* 背景装饰 */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-1/2 w-96 h-96 bg-cyan-400 rounded-full blur-3xl -translate-x-1/2"></div>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+          <h2 className="text-4xl sm:text-5xl font-bold">
+            准备好提升学习效率了吗？
+          </h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            加入 Athena，让 AI 成为你学习和工作中的智能助手
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Link href="/jargon-killer">
-              <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8">
-                现在开始
-                <ArrowRight className="w-4 h-4 ml-2" />
+              <Button size="lg" className="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-100 font-semibold">
+                开始免费体验
+                <ArrowUpRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
             <Link href="/settings">
-              <Button size="lg" variant="outline" className="border-gray-300 text-gray-900 hover:bg-gray-50 font-semibold px-8">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 font-semibold">
                 配置 API
               </Button>
             </Link>
           </div>
+
+          <p className="text-sm text-gray-400 pt-4">
+            不需要信用卡，立即开始 • 免费使用所有功能
+          </p>
         </div>
-      </div>
+      </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 py-12 bg-gray-50">
+      <footer className="border-t border-gray-200 py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="text-gray-600 text-sm">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-gray-600 text-sm">
               © 2024 Athena. 让学习更智能。
-            </div>
+            </p>
             <div className="flex items-center gap-6 text-sm text-gray-600">
               <a href="#" className="hover:text-gray-900 transition-colors">关于</a>
               <a href="#" className="hover:text-gray-900 transition-colors">文档</a>
@@ -282,8 +284,8 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-            </footer>
-          </div>
-        )
-      }
+      </footer>
+    </div>
+  )
+}
 

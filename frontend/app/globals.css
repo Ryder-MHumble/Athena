@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    /* 现代科技感配色 - 深色主题基础 */
+    /* 现代蓝绿色系配色 */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 262.1 83.3% 57.8%; /* 现代紫色 */
+    --primary: 186 100% 42%; /* 现代青色 */
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
+    --secondary: 209 40% 96%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 262.1 83.3% 57.8%;
+    --accent: 162 73% 46%; /* 翠绿色 */
     --accent-foreground: 210 40% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 262.1 83.3% 57.8%;
+    --ring: 186 100% 42%;
     --radius: 0.75rem;
     
-    /* 科技感渐变 */
-    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --gradient-dark: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    /* 现代优雅渐变 */
+    --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    --gradient-secondary: linear-gradient(135deg, #00d4ff 0%, #00b8a9 100%);
+    --gradient-accent: linear-gradient(135deg, #00b8a9 0%, #008882 100%);
+    --gradient-dark: linear-gradient(135deg, #0f5f7a 0%, #0d3f56 100%);
   }
 }
 
@@ -68,20 +68,20 @@
   
   /* 渐变文字 */
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-teal-600 to-cyan-600;
   }
   
   .gradient-text-primary {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 to-teal-600;
   }
   
   /* 科技感阴影 */
   .glow {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
   }
   
   .glow-lg {
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 40px rgba(0, 180, 216, 0.4);
   }
   
   /* 悬浮效果 */

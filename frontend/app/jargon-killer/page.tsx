@@ -11,7 +11,7 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/atom-one-dark.css'
-import { Send, Bookmark, BookmarkCheck, Loader2, Copy, Check, Bot, Brain, User } from 'lucide-react'
+import { Send, Bookmark, BookmarkCheck, Loader2, Copy, Check, Brain } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function JargonKillerPage() {
@@ -132,32 +132,47 @@ export default function JargonKillerPage() {
   }
 
   return (
-    <div className="h-screen bg-white flex flex-col">
-      {/* 简洁 Header */}
-      <div className="border-b border-gray-200 px-4 sm:px-8 py-4 bg-white">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">术语通</h1>
-          <p className="text-sm text-gray-600">AI 智能导师 - 快速模式</p>
+    <div className="h-screen bg-gradient-to-br from-white to-gray-50 flex flex-col overflow-hidden">
+      {/* 顶部导航栏 */}
+      <div className="flex-shrink-0 sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">术语通</h1>
+            <p className="text-xs sm:text-sm text-gray-600 mt-0.5">AI 智能导师 • 快速理解任何概念</p>
+          </div>
+          <div className="flex-shrink-0 text-right">
+            <p className="text-sm sm:text-base font-semibold text-cyan-600">{bookmarkedMessages.size} 个已保存</p>
+            <p className="text-xs text-gray-500 mt-0.5">收藏到单词本</p>
+          </div>
         </div>
       </div>
 
-      {/* 消息列表 */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-8 bg-white">
-        <div className="max-w-4xl mx-auto space-y-6">
-          {messages.length === 0 && (
-            <div className="text-center py-16 space-y-6">
-              <div className="text-5xl">💡</div>
-              <h2 className="text-3xl font-semibold text-gray-900">有什么我可以帮你理解的？</h2>
-              <p className="text-gray-600 max-w-md mx-auto">
-                我是你的 AI 导师，可以用通俗易懂的方式解释任何技术术语和概念。
-              </p>
-              {/* 热门问题 */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-6 max-w-2xl mx-auto">
+      {/* 主体内容 - 使用flexbox分割 */}
+      <div className="flex-1 overflow-hidden flex flex-col">
+        {/* 欢迎界面或消息列表 */}
+        {messages.length === 0 ? (
+          <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-6 sm:py-10 flex items-center justify-center">
+            <div className="max-w-2xl w-full space-y-8">
+              {/* 欢迎区 */}
+              <div className="text-center space-y-6">
+                <div className="inline-block p-4 sm:p-6 rounded-3xl bg-gradient-to-br from-cyan-100 to-teal-100">
+                  <Brain className="h-12 w-12 sm:h-16 sm:w-16 text-cyan-600 mx-auto" />
+                </div>
+                <div className="space-y-3">
+                  <h2 className="text-2xl sm:text-4xl font-bold text-gray-900">有什么我可以帮你理解的？</h2>
+                  <p className="text-gray-600 text-sm sm:text-lg leading-relaxed">
+                    我是你的 AI 导师，可以用简洁清晰的方式解释任何技术术语和复杂概念。
+                  </p>
+                </div>
+              </div>
+
+              {/* 快速提示 - 响应式网格 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { q: 'Transformer 是什么？', icon: '🤖' },
-                  { q: 'RAG 和微调有什么区别？', icon: '🔧' },
-                  { q: 'LLM 的幻觉问题怎么解决？', icon: '✨' },
-                  { q: '向量数据库为什么重要？', icon: '📊' },
+                  { q: 'Transformer 是什么？', icon: '🤖', color: 'from-blue-500 to-cyan-500' },
+                  { q: 'RAG 和微调的区别？', icon: '🔧', color: 'from-purple-500 to-pink-500' },
+                  { q: 'LLM 幻觉问题如何解决？', icon: '✨', color: 'from-amber-500 to-orange-500' },
+                  { q: '向量数据库为什么重要？', icon: '📊', color: 'from-green-500 to-emerald-500' },
                 ].map((item, idx) => (
                   <button
                     key={idx}
@@ -165,122 +180,137 @@ export default function JargonKillerPage() {
                       setInput(item.q)
                       textareaRef.current?.focus()
                     }}
-                    className="p-4 rounded-lg border-2 border-gray-200 hover:border-purple-400 hover:bg-purple-50 transition-all text-left text-sm font-medium text-gray-700 hover:text-gray-900"
+                    className="group relative p-4 rounded-xl border-2 border-gray-200 hover:border-cyan-400 active:border-cyan-500 transition-all text-left overflow-hidden bg-white hover:bg-cyan-50/50"
                   >
-                    <div className="text-lg mb-1">{item.icon}</div>
-                    {item.q}
+                    <div className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-5 transition-opacity`} />
+                    <div className="relative space-y-2">
+                      <div className="text-lg">{item.icon}</div>
+                      <p className="text-xs sm:text-sm font-semibold text-gray-900 leading-snug line-clamp-2">{item.q}</p>
+                    </div>
                   </button>
                 ))}
               </div>
             </div>
-          )}
-
-          {/* 消息对话 */}
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`flex gap-4 ${message.role === 'user' ? 'flex-row-reverse' : ''}`}
-            >
-              {/* 头像 */}
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-semibold ${
-                  message.role === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-900'
-                }`}
-              >
-                {message.role === 'user' ? '你' : 'AI'}
-              </div>
-
-              {/* 消息内容 */}
-              <div className={`flex-1 max-w-2xl ${message.role === 'user' ? 'text-right' : ''}`}>
-                {message.role === 'user' ? (
-                  <div className="inline-block max-w-lg bg-blue-600 text-white px-4 py-2 rounded-lg text-sm leading-relaxed">
-                    {message.content}
+          </div>
+        ) : (
+          <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-4 sm:py-6">
+            <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-4">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex gap-2 sm:gap-4 ${message.role === 'user' ? 'flex-row-reverse' : ''}`}
+                >
+                  {/* 头像 */}
+                  <div
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0 text-xs sm:text-sm font-semibold ${
+                      message.role === 'user'
+                        ? 'bg-gradient-to-br from-cyan-500 to-teal-600 text-white'
+                        : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-700'
+                    }`}
+                  >
+                    {message.role === 'user' ? '你' : 'AI'}
                   </div>
-                ) : (
-                  <div className="space-y-2">
-                    <div className="prose prose-sm max-w-none dark:prose-invert
-                      prose-p:text-gray-800 prose-p:leading-relaxed prose-p:m-0
-                      prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mt-4 prose-headings:mb-2
-                      prose-h1:text-lg prose-h2:text-base prose-h3:text-sm
-                      prose-strong:text-gray-900
-                      prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs prose-code:font-mono
-                      prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:text-xs prose-pre:p-3 prose-pre:rounded-lg
-                      prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
-                      prose-ul:list-disc prose-ul:pl-5 prose-ul:my-2
-                      prose-ol:list-decimal prose-ol:pl-5 prose-ol:my-2
-                      prose-li:text-gray-800 prose-li:text-sm prose-li:my-1
-                      prose-blockquote:border-l-4 prose-blockquote:border-purple-300 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-700">
-                      <ReactMarkdown
-                        remarkPlugins={[remarkMath]}
-                        rehypePlugins={[rehypeKatex, rehypeHighlight]}
-                      >
+
+                  {/* 消息内容 */}
+                  <div className={`flex-1 max-w-xs sm:max-w-xl group ${message.role === 'user' ? 'text-right' : ''}`}>
+                    {message.role === 'user' ? (
+                      <div className="inline-block max-w-xs sm:max-w-lg bg-gradient-to-r from-cyan-500 to-teal-600 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-md break-words">
                         {message.content}
-                      </ReactMarkdown>
-                    </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="prose prose-sm max-w-none text-xs sm:text-sm
+                            prose-p:text-gray-800 prose-p:leading-relaxed prose-p:m-0
+                            prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mt-3 prose-headings:mb-2
+                            prose-h1:text-base prose-h2:text-sm prose-h3:text-xs
+                            prose-strong:text-gray-900 prose-strong:font-semibold
+                            prose-code:text-cyan-600 prose-code:bg-cyan-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono
+                            prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:text-xs prose-pre:p-3 prose-pre:rounded-lg prose-pre:overflow-x-auto
+                            prose-a:text-cyan-600 prose-a:no-underline hover:prose-a:underline
+                            prose-ul:list-disc prose-ul:pl-4 prose-ul:my-1.5
+                            prose-ol:list-decimal prose-ol:pl-4 prose-ol:my-1.5
+                            prose-li:text-gray-800 prose-li:text-xs sm:prose-li:text-sm prose-li:my-0.5
+                            prose-blockquote:border-l-4 prose-blockquote:border-cyan-300 prose-blockquote:pl-3 prose-blockquote:italic prose-blockquote:text-gray-700">
+                            <ReactMarkdown
+                              remarkPlugins={[remarkMath]}
+                              rehypePlugins={[rehypeKatex, rehypeHighlight]}
+                            >
+                              {message.content}
+                            </ReactMarkdown>
+                          </div>
+                        </div>
 
-                    {/* 操作按钮 */}
-                    <div className="flex items-center gap-2 pt-2 opacity-0 hover:opacity-100 transition-opacity">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-7 px-2 text-xs"
-                        onClick={() => handleCopy(message.content, `msg-${index}`)}
-                      >
-                        {copiedId === `msg-${index}` ? (
-                          <>
-                            <Check className="h-3.5 w-3.5 mr-1 text-green-600" />
-                            已复制
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="h-3.5 w-3.5 mr-1" />
-                            复制
-                          </>
-                        )}
-                      </Button>
+                        {/* 操作按钮 */}
+                        <div className="flex items-center gap-1.5 sm:gap-2 opacity-0 group-hover:opacity-100 transition-opacity flex-wrap">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 sm:h-8 px-2 sm:px-2.5 text-xs border border-gray-300 hover:border-gray-400 hover:bg-gray-50 rounded-lg transition-all"
+                            onClick={() => handleCopy(message.content, `msg-${index}`)}
+                          >
+                            {copiedId === `msg-${index}` ? (
+                              <>
+                                <Check className="h-3 sm:h-3.5 w-3 sm:w-3.5 mr-1 text-green-600" />
+                                <span className="hidden sm:inline">已复制</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="h-3 sm:h-3.5 w-3 sm:w-3.5 mr-1" />
+                                <span className="hidden sm:inline">复制</span>
+                              </>
+                            )}
+                          </Button>
 
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-7 px-2 text-xs"
-                        onClick={() => handleBookmark(message, index)}
-                      >
-                        {bookmarkedMessages.has(`msg-${index}`) ? (
-                          <>
-                            <BookmarkCheck className="h-3.5 w-3.5 mr-1 text-purple-600 fill-current" />
-                            已保存
-                          </>
-                        ) : (
-                          <>
-                            <Bookmark className="h-3.5 w-3.5 mr-1" />
-                            保存
-                          </>
-                        )}
-                      </Button>
-                    </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className={`h-7 sm:h-8 px-2 sm:px-2.5 text-xs rounded-lg border transition-colors ${
+                              bookmarkedMessages.has(`msg-${index}`)
+                                ? 'border-cyan-400 bg-cyan-50 text-cyan-600 hover:bg-cyan-100'
+                                : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+                            }`}
+                            onClick={() => handleBookmark(message, index)}
+                          >
+                            {bookmarkedMessages.has(`msg-${index}`) ? (
+                              <>
+                                <BookmarkCheck className="h-3 sm:h-3.5 w-3 sm:w-3.5 mr-1 fill-current" />
+                                <span className="hidden sm:inline">已保存</span>
+                              </>
+                            ) : (
+                              <>
+                                <Bookmark className="h-3 sm:h-3.5 w-3 sm:w-3.5 mr-1" />
+                                <span className="hidden sm:inline">保存</span>
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
-          ))}
+                </div>
+              ))}
 
-          {isLoading && messages[messages.length - 1]?.role === 'user' && (
-            <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                <Loader2 className="h-4 w-4 animate-spin text-gray-600" />
-              </div>
-              <div className="text-sm text-gray-600">思考中...</div>
-            </div>
-          )}
+              {isLoading && messages[messages.length - 1]?.role === 'user' && (
+                <div className="flex gap-2 sm:gap-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center flex-shrink-0">
+                    <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin text-gray-600" />
+                  </div>
+                  <div className="bg-white border border-gray-200 rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600">
+                    思考中...
+                  </div>
+                </div>
+              )}
 
-          <div ref={messagesEndRef} />
-        </div>
+              {/* 占位符确保最后消息不被输入框遮挡 */}
+              <div ref={messagesEndRef} className="h-4" />
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* 输入框 - ChatGPT 风格 */}
-      <div className="border-t border-gray-200 bg-white px-4 sm:px-8 py-6">
+      {/* 输入框 - 固定在底部 */}
+      <div className="flex-shrink-0 border-t border-gray-200 bg-white px-4 sm:px-8 py-4 sm:py-6">
         <div className="max-w-4xl mx-auto">
           <div className="relative">
             <Textarea
@@ -288,435 +318,25 @@ export default function JargonKillerPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="输入你的问题... (Shift+Enter 换行, Enter 发送)"
-              className="w-full min-h-[52px] max-h-[200px] resize-none rounded-lg border-2 border-gray-300 focus:border-purple-500 focus:ring-0 p-4 text-sm bg-white"
+              placeholder="输入你的问题... (Shift+Enter 换行，Enter 发送)"
+              className="w-full min-h-[48px] sm:min-h-[56px] max-h-[200px] resize-none rounded-xl border-2 border-gray-300 focus:border-cyan-500 focus:ring-0 p-3 sm:p-4 text-xs sm:text-sm bg-white placeholder:text-gray-500 transition-colors"
               disabled={isLoading}
             />
             <Button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="absolute right-3 bottom-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg h-8 w-8 p-0 flex items-center justify-center"
+              className="absolute right-2.5 sm:right-3 bottom-2.5 sm:bottom-3 bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white rounded-lg h-8 sm:h-9 w-8 sm:w-9 p-0 flex items-center justify-center shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-3.5 sm:h-4 w-3.5 sm:w-4 animate-spin" />
               ) : (
-                <Send className="h-4 w-4" />
+                <Send className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
               )}
             </Button>
           </div>
-          <p className="text-xs text-gray-500 mt-2">
-            此工具可能会生成不准确的信息。请验证重要信息。
+          <p className="text-xs text-gray-500 mt-2 sm:mt-3">
+            💡 提示：此工具使用AI生成，请验证重要信息。支持 Markdown、数学公式（$...$）
           </p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function JargonKillerPageAdvanced() {
-  const [messages, setMessages] = useState<ChatMessage[]>([])
-  const [input, setInput] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`)
-  const [bookmarkedMessages, setBookmarkedMessages] = useState<Set<string>>(new Set())
-  const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null)
-  const [thinkingMode, setThinkingMode] = useState(true)
-  const [streamingContent, setStreamingContent] = useState<string>('')
-  const [streamingMessageId, setStreamingMessageId] = useState<string | null>(null)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const messagesContainerRef = useRef<HTMLDivElement>(null)
-  const { addVocab } = useAppStore()
-
-  // 自动滚动到底部
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [messages, streamingContent])
-
-  // 处理发送消息
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return
-
-    const userMessage: ChatMessage = {
-      role: 'user',
-      content: input.trim(),
-    }
-
-    const tempAssistantId = `temp-${Date.now()}`
-    setMessages((prev) => [...prev, userMessage])
-    setInput('')
-    setIsLoading(true)
-    setStreamingContent('')
-    setStreamingMessageId(tempAssistantId)
-    
-    try {
-      let fullContent = ''
-      
-      // 使用流式 API
-      for await (const event of api.chatStream({
-        session_id: sessionId,
-        message: userMessage.content,
-        history: messages,
-        thinking_mode: thinkingMode,
-      })) {
-        if (event.type === 'content') {
-          fullContent += event.delta
-          setStreamingContent(fullContent)
-        } else if (event.type === 'done') {
-          // 流式完成
-          const assistantMessage: ChatMessage = {
-            role: 'assistant',
-            content: fullContent,
-          }
-          setMessages((prev) => [...prev, assistantMessage])
-          setStreamingContent('')
-          setStreamingMessageId(null)
-          setIsLoading(false)
-        } else if (event.type === 'error') {
-          throw new Error(event.error || '流式请求出错')
-        }
-      }
-    } catch (error: any) {
-      console.error('Chat error:', error)
-      let errorMessage = '发送消息失败'
-      
-      if (error.message) {
-        errorMessage = error.message
-      }
-      
-      toast.error(errorMessage)
-      setStreamingContent('')
-      setStreamingMessageId(null)
-      setIsLoading(false)
-    }
-  }
-
-  // 处理复制
-  const handleCopy = async (content: string, messageId: string) => {
-    try {
-      await navigator.clipboard.writeText(content)
-      setCopiedMessageId(messageId)
-      toast.success('已复制到剪贴板')
-      setTimeout(() => setCopiedMessageId(null), 2000)
-    } catch (err) {
-      toast.error('复制失败')
-    }
-  }
-
-  // 处理收藏
-  const handleBookmark = (message: ChatMessage, index: number) => {
-    if (message.role !== 'assistant') return
-
-    const messageId = `msg-${index}`
-    const explanation = message.content?.trim() || streamingContent.trim()
-    if (!explanation) {
-      toast.error('当前回答为空，无法收藏')
-      return
-    }
-
-    if (bookmarkedMessages.has(messageId)) {
-      toast.info('已取消收藏')
-      setBookmarkedMessages((prev) => {
-        const next = new Set(prev)
-        next.delete(messageId)
-        return next
-      })
-    } else {
-      // 提取术语和解释，保存完整对话上下文
-      const userMsg = messages[index - 1]
-      const term = userMsg?.content || '术语'
-      
-      // 保存完整的对话上下文
-      addVocab(term, explanation, {
-        question: term,
-        answer: explanation,
-        sessionId: sessionId,
-      })
-      
-      setBookmarkedMessages((prev) => new Set(prev).add(messageId))
-      toast.success('已添加到生词本')
-    }
-  }
-
-  // 处理键盘快捷键
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSend()
-    }
-  }
-
-  return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] bg-gradient-to-br from-white via-purple-50/30 to-white">
-      {/* Header */}
-      <div className="flex-shrink-0 border-b border-gray-200/50 bg-white/80 backdrop-blur-sm px-4 sm:px-6 lg:px-8 py-4">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-500 shadow-lg">
-              <Bot className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">术语通</h1>
-              <p className="text-sm text-gray-600">AI 智能导师，帮你理解复杂概念</p>
-            </div>
-          </div>
-          
-          {/* 思考模式按钮 - Header 中 */}
-          <button
-            type="button"
-            onClick={() => setThinkingMode(!thinkingMode)}
-            className={`hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-              thinkingMode
-                ? 'bg-purple-100 text-purple-700 border border-purple-300 shadow-md'
-                : 'bg-gray-100 text-gray-700 border border-gray-300'
-            }`}
-          >
-            <Brain className={`h-4 w-4 ${thinkingMode ? 'text-purple-600' : 'text-gray-500'}`} />
-            <span>{thinkingMode ? '思考模式' : '快速模式'}</span>
-          </button>
-        </div>
-      </div>
-
-      {/* 消息列表 */}
-      <div 
-        ref={messagesContainerRef}
-        className={`flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-8 ${
-          messages.length > 0 || streamingContent ? '' : 'flex items-center justify-center'
-        }`}
-        style={{ scrollbarGutter: 'stable' }}
-      >
-        <div className="max-w-5xl mx-auto w-full">
-          {messages.length === 0 && !streamingContent && (
-            <div className="text-center space-y-6">
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-100 to-indigo-100">
-                <Bot className="h-10 w-10 text-purple-600" />
-              </div>
-              <div className="space-y-3 max-w-md mx-auto">
-                <h3 className="text-2xl font-bold text-gray-900">开始对话</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  向我提问任何技术、商业或战略相关的术语，我会用通俗易懂的方式为你解释
-                </p>
-              </div>
-              
-              {/* 热门问题建议 */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-6">
-                {[
-                  "什么是 Transformer？如何改变了 AI？",
-                  "RAG 和微调的区别是什么？",
-                  "解释一下大模型的'幻觉'问题",
-                  "什么是向量数据库？为什么重要？",
-                ].map((question, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => {
-                      setInput(question)
-                      textareaRef.current?.focus()
-                    }}
-                    className="p-3 rounded-lg bg-white border-2 border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300 text-left text-sm text-gray-700 hover:text-gray-900 font-medium"
-                  >
-                    {question}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* 消息列表 */}
-          <div className="space-y-6">
-            {messages.map((message, index) => {
-              const messageId = `msg-${index}`
-              const isUser = message.role === 'user'
-              
-              return (
-                <div
-                  key={index}
-                  className={`flex gap-4 ${isUser ? 'flex-row-reverse' : 'flex-row'} group`}
-                >
-                  {/* 头像 */}
-                  <div className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-semibold text-white flex-row-center ${
-                    isUser 
-                      ? 'bg-gradient-to-br from-blue-500 to-blue-600' 
-                      : 'bg-gradient-to-br from-purple-600 to-indigo-600'
-                  }`}>
-                    {isUser ? <User className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
-                  </div>
-                  
-                  {/* 消息内容 */}
-                  <div className={`flex-1 max-w-2xl ${isUser ? 'text-right' : 'text-left'}`}>
-                    <div className={`rounded-2xl px-4 py-3 ${
-                      isUser
-                        ? 'bg-blue-600 text-white rounded-br-none'
-                        : 'bg-white border border-gray-200 shadow-sm rounded-bl-none'
-                    }`}>
-                      {isUser ? (
-                        <p className="text-sm leading-relaxed whitespace-pre-wrap font-medium">{message.content}</p>
-                      ) : (
-                        <div className="prose prose-sm max-w-none dark:prose-invert
-                          prose-p:text-gray-800 prose-p:leading-relaxed prose-p:m-0
-                          prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mt-3 prose-headings:mb-2
-                          prose-h1:text-base prose-h2:text-base prose-h3:text-sm
-                          prose-strong:text-gray-900 prose-strong:font-semibold
-                          prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs prose-code:font-mono
-                          prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:text-xs prose-pre:p-3 prose-pre:rounded-lg
-                          prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
-                          prose-ul:list-disc prose-ul:pl-5 prose-ul:my-2
-                          prose-ol:list-decimal prose-ol:pl-5 prose-ol:my-2
-                          prose-li:text-gray-800 prose-li:my-1
-                          prose-blockquote:border-l-4 prose-blockquote:border-purple-300 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-700">
-                          <ReactMarkdown
-                            remarkPlugins={[remarkMath]}
-                            rehypePlugins={[rehypeKatex, rehypeHighlight]}
-                          >
-                            {message.content}
-                          </ReactMarkdown>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* 操作按钮 - 悬浮显示 */}
-                    {!isUser && (
-                      <div className="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 px-2.5 text-xs text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                          onClick={() => handleCopy(message.content, messageId)}
-                        >
-                          {copiedMessageId === messageId ? (
-                            <>
-                              <Check className="h-3.5 w-3.5 mr-1.5 text-green-600" />
-                              已复制
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="h-3.5 w-3.5 mr-1.5" />
-                              复制
-                            </>
-                          )}
-                        </Button>
-                        
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 px-2.5 text-xs text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                          onClick={() => handleBookmark(message, index)}
-                        >
-                          {bookmarkedMessages.has(messageId) ? (
-                            <>
-                              <BookmarkCheck className="h-3.5 w-3.5 mr-1.5 text-purple-600 fill-current" />
-                              已收藏
-                            </>
-                          ) : (
-                            <>
-                              <Bookmark className="h-3.5 w-3.5 mr-1.5" />
-                              收藏
-                            </>
-                          )}
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )
-            })}
-
-            {/* 流式输出显示 */}
-            {streamingMessageId && streamingContent && (
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white">
-                  <Bot className="h-5 w-5" />
-                </div>
-                <div className="flex-1 max-w-2xl">
-                  <div className="bg-white border border-gray-200 shadow-sm rounded-2xl rounded-bl-none px-4 py-3">
-                    <div className="prose prose-sm max-w-none
-                      prose-p:text-gray-800 prose-p:leading-relaxed prose-p:m-0
-                      prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mt-3 prose-headings:mb-2
-                      prose-code:text-purple-600 prose-code:bg-purple-50 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs">
-                      <ReactMarkdown
-                        remarkPlugins={[remarkMath]}
-                        rehypePlugins={[rehypeKatex, rehypeHighlight]}
-                      >
-                        {streamingContent}
-                      </ReactMarkdown>
-                    </div>
-                    <span className="inline-block w-2 h-4 bg-purple-600 ml-1 mt-1 animate-pulse" />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {isLoading && !streamingContent && (
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white">
-                  <Bot className="h-5 w-5" />
-                </div>
-                <div className="flex-1 max-w-2xl">
-                  <div className="bg-white border border-gray-200 shadow-sm rounded-2xl rounded-bl-none px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="h-4 w-4 animate-spin text-purple-600" />
-                      <span className="text-sm text-gray-600">
-                        {thinkingMode ? 'AI 正在深入思考...' : 'AI 正在快速回复...'}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div ref={messagesEndRef} />
-        </div>
-      </div>
-
-      {/* 输入框 - 黏性 */}
-      <div className="flex-shrink-0 border-t border-gray-200/50 bg-white/80 backdrop-blur-sm sticky bottom-0">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="relative">
-            <Textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="输入你的问题，如'什么是 Transformer？' (Shift+Enter 换行，Enter 发送)"
-              className="min-h-[56px] max-h-[200px] resize-none bg-white border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 text-gray-900 placeholder:text-gray-500 pr-32 rounded-2xl px-4 py-3 text-sm"
-              disabled={isLoading}
-            />
-            
-            {/* 操作按钮 - 右侧 */}
-            <div className="absolute right-3 bottom-3 flex items-center gap-2">
-              {/* 移动端思考模式 */}
-              <button
-                type="button"
-                onClick={() => setThinkingMode(!thinkingMode)}
-                className={`sm:hidden flex items-center justify-center w-8 h-8 rounded-lg transition-colors ${
-                  thinkingMode
-                    ? 'bg-purple-100 text-purple-600'
-                    : 'bg-gray-100 text-gray-600'
-                }`}
-                title={thinkingMode ? '思考模式' : '快速模式'}
-              >
-                <Brain className="h-4 w-4" />
-              </button>
-              
-              <Button
-                onClick={handleSend}
-                disabled={!input.trim() || isLoading}
-                size="sm"
-                className="h-8 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium rounded-lg"
-              >
-                {isLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <>
-                    <Send className="h-4 w-4 mr-1.5" />
-                    <span>发送</span>
-                  </>
-                )}
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

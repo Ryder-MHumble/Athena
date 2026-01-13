@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${merriweather.variable} font-sans`}>
         <div className="min-h-screen bg-background flex flex-col">
           <Navigation />
-          <main className="flex-1 container mx-auto px-4 py-6 max-w-7xl">
+          <main className="flex-1 w-full px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6">
             {children}
           </main>
         </div>
