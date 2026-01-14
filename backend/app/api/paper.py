@@ -66,10 +66,35 @@ async def analyze_paper(
         # 获取 LLM 服务
         llm_service = get_llm_service(api_key=x_api_key)
         
-        # 并行生成三个结果（实际应该使用 RunnableParallel，这里简化）
-        summary_data = llm_service.analyze_paper_structured(paper_text)
-        speech = llm_service.generate_speech(paper_text)
-        qa = llm_service.generate_qa(paper_text)
+        # 并行生成三个结果 - 使用 asyncio 并发执行
+        import asyncio
+        
+        async def run_analysis():
+            loop = asyncio.get_event_loop()
+            # 在线程池中运行 CPU 密集的 LLM 调用
+            summary_data = await loop.run_in_executor(None, llm_service.analyze_paper_structured, paper_text)
+            return summary_data
+        
+        async def run_speech():
+            loop = asyncio.get_event_loop()
+            speech = await loop.run_in_executor(None, llm_service.generate_speech, paper_text)
+            return speech
+        
+        async def run_qa():
+            loop = asyncio.get_event_loop()
+            qa = await loop.run_in_executor(None, llm_service.generate_qa, paper_text)
+            return qa
+        
+        # 并发执行，无需等待全部完成
+        summary_data, speech, qa = await asyncio.gather(run_analysis(), run_speech(), run_qa(), return_exceptions=True)
+        
+        # 处理异常
+        if isinstance(summary_data, Exception):
+            raise summary_data
+        if isinstance(speech, Exception):
+            speech = ""
+        if isinstance(qa, Exception):
+            qa = []
         
         # 解析结构化摘要（PaperService已在文件顶部导入）
         parsed_summary = PaperService.parse_structured_summary(summary_data["raw_response"])
@@ -87,7 +112,7 @@ async def analyze_paper(
         qa_pairs = [
             PaperQAPair(question=q["question"], answer=q["answer"])
             for q in qa
-        ]
+        ] if qa else []
         
         return PaperAnalysisResponse(
             summary=summary,

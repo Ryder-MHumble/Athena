@@ -32,7 +32,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 export default function PaperCopilotPage() {
   // Store hooks
-  const { currentPaperSession, savePaperSession, clearCurrentSession, paperSessions } = useAppStore()
+  // Store hooks - 获取会话列表而不仅仅是当前会话
+  const { currentPaperSession, savePaperSession, clearCurrentSession, paperSessions, loadPaperSession } = useAppStore()
 
   // State management
   const [file, setFile] = useState<File | null>(null)
@@ -42,7 +43,7 @@ export default function PaperCopilotPage() {
   const [analysis, setAnalysis] = useState<PaperAnalysisResponse | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState<'analysis' | 'speech' | 'chat'>('analysis')
-  const [splitPosition, setSplitPosition] = useState(65)
+  const [splitPosition, setSplitPosition] = useState(45)
   const [chatQuestion, setChatQuestion] = useState('')
   const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'assistant'; content: string }>>([])
   const [isChatLoading, setIsChatLoading] = useState(false)
@@ -57,34 +58,40 @@ export default function PaperCopilotPage() {
   // 会话已初始化标记，防止多次恢复
   const [sessionInitialized, setSessionInitialized] = useState(false)
 
-  // 组件挂载时恢复之前的会话
+  // 组件挂载时恢复之前的会话 - 改进逻辑，从 paperSessions 中获取最后一个
   useEffect(() => {
-    if (sessionInitialized || !currentPaperSession) return
+    if (sessionInitialized) return
 
     setSessionInitialized(true)
+    
+    // 优先使用 currentPaperSession，否则使用 paperSessions 中的最后一个
+    const sessionToRestore = currentPaperSession || (paperSessions && paperSessions.length > 0 ? paperSessions[0] : null)
+    
+    if (!sessionToRestore) return
+
     // 恢复会话数据
-    setAnalysis(currentPaperSession.analysis)
-    setPaperText(currentPaperSession.paperText)
-    setChatHistory(currentPaperSession.chatHistory)
-    setSplitPosition(currentPaperSession.splitPosition)
-    setActiveTab(currentPaperSession.activeTab)
+    setAnalysis(sessionToRestore.analysis)
+    setPaperText(sessionToRestore.paperText)
+    setChatHistory(sessionToRestore.chatHistory)
+    setSplitPosition(sessionToRestore.splitPosition)
+    setActiveTab(sessionToRestore.activeTab)
     
     // 如果有 PDF URL 或文件，尝试恢复 PDF 显示
-    if (currentPaperSession.analysis?.paper_url) {
-      setPdfUrl(currentPaperSession.analysis.paper_url)
+    if (sessionToRestore.analysis?.paper_url) {
+      setPdfUrl(sessionToRestore.analysis.paper_url)
     }
 
     // 如果有讲解内容，开始流式效果
-    if (currentPaperSession.analysis?.speech) {
-      startSpeechStreaming(currentPaperSession.analysis.speech)
+    if (sessionToRestore.analysis?.speech) {
+      startSpeechStreaming(sessionToRestore.analysis.speech)
     }
 
     setShowSessionRestore(true)
-    toast.success(`已恢复上次的分析: ${currentPaperSession.fileName}`)
+    toast.success(`已恢复上次的分析: ${sessionToRestore.fileName}`)
     
     // 3 秒后隐藏恢复提示
     setTimeout(() => setShowSessionRestore(false), 3000)
-  }, [currentPaperSession, sessionInitialized])
+  }, [sessionInitialized])
 
   // 当分析、聊天记录、标签签位置改变时，自动保存会话
   useEffect(() => {
@@ -334,23 +341,25 @@ export default function PaperCopilotPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)] gap-4 sm:gap-6">
-      {/* Header */}
-      <div className="flex-shrink-0">
-        <div className="flex items-center justify-between gap-4">
+      {/* Header - 包含标题和重新上传按钮 */}
+      <div className="flex-shrink-0 flex items-center justify-between gap-4">
+        {/* <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">论文伴侣</h1>
+          <p className="text-xs sm:text-sm text-gray-600 mt-1">AI 智能分析论文 • 快速理解核心观点</p>
+        </div> */}
 
-          {/* 重新上传按钮 - 只在有论文时显示 */}
-          {hasPaper && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleReset}
-              className="text-sm border-gray-300 hover:border-gray-400 hover:bg-gray-50"
-            >
-              <RefreshCw className="h-4 w-4 mr-2" />
-              重新上传
-            </Button>
-          )}
-        </div>
+        {/* 重新上传按钮 - 只在有论文时显示 */}
+        {hasPaper && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleReset}
+            className="text-sm border-gray-300 hover:border-gray-400 hover:bg-gray-50 flex-shrink-0"
+          >
+            <RefreshCw className="h-4 w-4 mr-2" />
+            重新上传
+          </Button>
+        )}
       </div>
 
       {/* 上传区域 - 只在没有论文时显示 */}

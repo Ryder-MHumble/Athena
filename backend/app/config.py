@@ -43,6 +43,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = 'ignore'  # 忽略不在模型中定义的额外环境变量
 
 
 # 全局配置实例

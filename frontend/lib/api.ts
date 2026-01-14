@@ -200,7 +200,7 @@ export const api = {
   },
 
   // 知识沉淀 - 上传文档
-  uploadDocument: async (file: File, teamKey: string): Promise<{ success: boolean; message: string }> => {
+  uploadDocument: async (file: File, teamKey: string): Promise<{ success: boolean; message: string; document_id?: string; file_url?: string }> => {
     try {
       const formData = new FormData()
       formData.append('file', file)
@@ -230,6 +230,17 @@ export const api = {
     }
   },
 
+  // 知识沉淀 - 获取文档列表
+  getDocuments: async (teamKey?: string): Promise<{ success: boolean; documents: any[]; count: number }> => {
+    const params = teamKey ? `?team_key=${teamKey}` : ''
+    return apiClient.get(`knowledge/documents${params}`).json()
+  },
+
+  // 知识沉淀 - 获取文档内容（用于生成报告）
+  getDocumentContent: async (documentId: string): Promise<{ success: boolean; document_id: string; title: string; content: string; chunk_count: number }> => {
+    return apiClient.get(`knowledge/document/${documentId}`).json()
+  },
+
   // 知识沉淀 - 搜索
   searchKnowledge: async (data: SearchRequest): Promise<SearchResponse> => {
     // 确保 top_k 有默认值
@@ -240,10 +251,19 @@ export const api = {
     return apiClient.post('knowledge/search', { json: requestData }).json()
   },
 
+  // 知识沉淀 - 与文档进行问答
+  chatWithDocument: async (data: SearchRequest): Promise<SearchResponse> => {
+    const requestData = {
+      query: data.query,
+      top_k: data.top_k || 5,
+    }
+    return apiClient.post('knowledge/chat', { json: requestData }).json()
+  },
+
   // 知识沉淀 - 生成结构化报告
-  generateReport: async (content: string): Promise<{ report: string }> => {
+  generateReport: async (documentId: string, content: string): Promise<{ success: boolean; report: string }> => {
     return apiClient.post('knowledge/generate-report', { 
-      json: { query: content, top_k: 1 } 
+      json: { document_id: documentId, content } 
     }).json()
   },
 }

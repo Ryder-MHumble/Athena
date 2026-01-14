@@ -94,4 +94,33 @@ class UploadResponse(BaseModel):
     success: bool = Field(..., description="是否成功")
     message: str = Field(..., description="响应消息")
     document_id: Optional[str] = Field(None, description="文档 ID（如果成功）")
+    file_url: Optional[str] = Field(None, description="文档存储 URL")
+
+
+class DocumentItem(BaseModel):
+    """文档列表项"""
+    id: str = Field(..., description="文档 UUID")
+    title: str = Field(..., description="文档标题")
+    file_url: str = Field(..., description="存储 URL")
+    summary: Optional[str] = Field(None, description="AI 生成的摘要")
+    created_at: str = Field(..., description="创建时间戳")
+
+
+class DocumentListResponse(BaseModel):
+    """文档列表响应"""
+    success: bool = Field(..., description="是否成功")
+    documents: List[DocumentItem] = Field(..., description="文档列表")
+    count: int = Field(..., description="文档总数")
+
+
+class ReportRequest(BaseModel):
+    """生成报告请求"""
+    document_id: str = Field(..., description="文档 ID")
+    content: str = Field(..., description="文档文本内容")
+
+
+class ReportResponse(BaseModel):
+    """报告生成响应"""
+    success: bool = Field(..., description="是否成功")
+    report: str = Field(..., description="Markdown 格式的结构化报告")
 

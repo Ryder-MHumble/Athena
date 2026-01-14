@@ -32,22 +32,34 @@ class EmbeddingService:
         Returns:
             向量嵌入列表
         """
+        if not self.api_key:
+            raise ValueError("API Key is required for embedding generation")
+        
         async with httpx.AsyncClient() as client:
-            response = await client.post(
-                f"{self.api_base}/embeddings",
-                headers={
-                    "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": self.model,
-                    "input": text,
-                },
-                timeout=30.0,
-            )
-            response.raise_for_status()
-            data = response.json()
-            return data["data"][0]["embedding"]
+            try:
+                response = await client.post(
+                    f"{self.api_base}/embeddings",
+                    headers={
+                        "Authorization": f"Bearer {self.api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": self.model,
+                        "input": text,
+                    },
+                    timeout=30.0,
+                )
+                response.raise_for_status()
+                data = response.json()
+                return data["data"][0]["embedding"]
+            except httpx.HTTPStatusError as e:
+                print(f"API Error: {e.response.status_code} - {e.response.text}")
+                if e.response.status_code == 401:
+                    raise ValueError(f"Invalid API key: {e.response.text}")
+                raise ValueError(f"Failed to generate embedding: {e.response.text}")
+            except Exception as e:
+                print(f"Embedding generation error: {e}")
+                raise ValueError(f"Failed to generate embedding: {str(e)}")
     
     async def generate_embeddings(self, texts: List[str]) -> List[List[float]]:
         """
@@ -59,22 +71,34 @@ class EmbeddingService:
         Returns:
             向量嵌入列表（每个文本对应一个向量）
         """
+        if not self.api_key:
+            raise ValueError("API Key is required for embedding generation")
+        
         async with httpx.AsyncClient() as client:
-            response = await client.post(
-                f"{self.api_base}/embeddings",
-                headers={
-                    "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": self.model,
-                    "input": texts,
-                },
-                timeout=60.0,
-            )
-            response.raise_for_status()
-            data = response.json()
-            return [item["embedding"] for item in data["data"]]
+            try:
+                response = await client.post(
+                    f"{self.api_base}/embeddings",
+                    headers={
+                        "Authorization": f"Bearer {self.api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": self.model,
+                        "input": texts,
+                    },
+                    timeout=60.0,
+                )
+                response.raise_for_status()
+                data = response.json()
+                return [item["embedding"] for item in data["data"]]
+            except httpx.HTTPStatusError as e:
+                print(f"API Error: {e.response.status_code} - {e.response.text}")
+                if e.response.status_code == 401:
+                    raise ValueError(f"Invalid API key: {e.response.text}")
+                raise ValueError(f"Failed to generate embeddings: {e.response.text}")
+            except Exception as e:
+                print(f"Embeddings generation error: {e}")
+                raise ValueError(f"Failed to generate embeddings: {str(e)}")
 
 
 # 全局 Embedding 服务实例

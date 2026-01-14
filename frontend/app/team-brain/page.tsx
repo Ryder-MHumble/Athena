@@ -6,7 +6,7 @@
  * 详情页：左侧文档预览，右侧AI总结和AI解读
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -19,7 +19,7 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/github-dark.css'
-import { Upload, Search, FileText, Loader2, Brain, ArrowLeft, Bot, Send, X } from 'lucide-react'
+import { Upload, Search, FileText, Loader2, Brain, ArrowLeft, Bot, Send, X, Download } from 'lucide-react'
 import { toast } from 'sonner'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
@@ -29,10 +29,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 interface DocumentItem {
   id: string
-  name: string
-  uploadedAt: string
-  content?: string
-  pdfUrl?: string
+  title: string
+  file_url: string
+  created_at: string
+  summary?: string
 }
 
 export default function TeamBrainPage() {
@@ -40,13 +40,11 @@ export default function TeamBrainPage() {
   const [selectedDoc, setSelectedDoc] = useState<DocumentItem | null>(null)
   const [documents, setDocuments] = useState<DocumentItem[]>([])
   const [file, setFile] = useState<File | null>(null)
-  const [query, setQuery] = useState('')
-  const [searchResults, setSearchResults] = useState<SearchResponse | null>(null)
   const [isUploading, setIsUploading] = useState(false)
-  const [isSearching, setIsSearching] = useState(false)
-  const [summary, setSummary] = useState<string>('')
-  const [isGeneratingSummary, setIsGeneratingSummary] = useState(false)
-  const [activeTab, setActiveTab] = useState<'summary' | 'chat'>('summary')
+  const [isLoadingDocs, setIsLoadingDocs] = useState(false)
+  const [report, setReport] = useState<string>('')
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false)
+  const [activeTab, setActiveTab] = useState<'report' | 'source' | 'chat'>('report')
   const [chatQuestion, setChatQuestion] = useState('')
   const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'assistant', content: string }>>([])
   const [isChatLoading, setIsChatLoading] = useState(false)
@@ -54,7 +52,28 @@ export default function TeamBrainPage() {
   const [numPages, setNumPages] = useState<number>(0)
   const [pageNumber, setPageNumber] = useState(1)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const { teamKey } = useAppStore()
+  const { teamKey, apiKey } = useAppStore()
+
+  // 页面加载时获取文档列表
+  useEffect(() => {
+    loadDocuments()
+  }, [])
+
+  // 加载文档列表
+  const loadDocuments = async () => {
+    setIsLoadingDocs(true)
+    try {
+      const result = await api.getDocuments(teamKey)
+      if (result.success) {
+        setDocuments(result.documents)
+      }
+    } catch (error: any) {
+      console.error('Error loading documents:', error)
+      toast.error('加载文档列表失败')
+    } finally {
+      setIsLoadingDocs(false)
+    }
+  }
 
   // 处理文件选择
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,8 +81,6 @@ export default function TeamBrainPage() {
     if (selectedFile) {
       if (selectedFile.type === 'application/pdf' || selectedFile.name.endsWith('.pdf')) {
         setFile(selectedFile)
-        const objectUrl = URL.createObjectURL(selectedFile)
-        setPdfUrl(objectUrl)
         toast.success('文件已选择')
       } else {
         toast.error('目前仅支持 PDF 文件')
@@ -89,21 +106,12 @@ export default function TeamBrainPage() {
       const result = await api.uploadDocument(file, teamKey)
       if (result.success) {
         toast.success('文档上传成功！')
-        
-        // 添加到文档列表
-        const newDoc: DocumentItem = {
-          id: `doc-${Date.now()}`,
-          name: file.name,
-          uploadedAt: new Date().toISOString(),
-          pdfUrl: pdfUrl || undefined,
-        }
-        setDocuments(prev => [newDoc, ...prev])
-        
         setFile(null)
-        setPdfUrl(null)
         if (fileInputRef.current) {
           fileInputRef.current.value = ''
         }
+        // 重新加载文档列表
+        await loadDocuments()
       } else {
         toast.error(result.message || '上传失败')
       }
@@ -119,30 +127,47 @@ export default function TeamBrainPage() {
   const handleDocClick = async (doc: DocumentItem) => {
     setSelectedDoc(doc)
     setView('detail')
-    setSummary('')
+    setReport('')
     setChatHistory([])
+    setPageNumber(1)
+    setPdfUrl(doc.file_url)
     
-    // 如果有PDF URL，加载PDF
-    if (doc.pdfUrl) {
-      setPdfUrl(doc.pdfUrl)
-    }
-    
-    // 生成AI总结
-    if (doc.content) {
-      setIsGeneratingSummary(true)
-      try {
-        // 使用搜索API获取文档内容并生成总结
-        const result = await api.searchKnowledge({
-          query: '请总结这篇文档的主要内容',
-          top_k: 10,
-        })
-        setSummary(result.answer)
-      } catch (error: any) {
-        toast.error('生成总结失败')
-        console.error('Summary error:', error)
-      } finally {
-        setIsGeneratingSummary(false)
+    // 自动生成报告
+    await generateReport(doc)
+  }
+
+  // 生成报告
+  const generateReport = async (doc: DocumentItem) => {
+    setIsGeneratingReport(true)
+    try {
+      // 1. 先获取文档的完整内容
+      console.log(`Fetching content for document: ${doc.id}`)
+      const contentResponse = await api.getDocumentContent(doc.id)
+      
+      if (!contentResponse.success || !contentResponse.content) {
+        console.error('Failed to fetch document content')
+        toast.error('获取文档内容失败')
+        setIsGeneratingReport(false)
+        return
       }
+      
+      console.log(`Document content fetched: ${contentResponse.chunk_count} chunks`)
+      
+      // 2. 使用文档内容生成报告
+      const reportResponse = await api.generateReport(doc.id, contentResponse.content)
+      
+      if (reportResponse.success) {
+        console.log('Report generated successfully')
+        setReport(reportResponse.report)
+      } else {
+        console.error('Failed to generate report')
+        toast.error('生成报告失败')
+      }
+    } catch (error: any) {
+      console.error('Error generating report:', error)
+      toast.error(error.message || '生成报告失败')
+    } finally {
+      setIsGeneratingReport(false)
     }
   }
 
@@ -150,12 +175,12 @@ export default function TeamBrainPage() {
   const handleBackToList = () => {
     setView('list')
     setSelectedDoc(null)
-    setSummary('')
+    setReport('')
     setChatHistory([])
     setPdfUrl(null)
   }
 
-  // 处理AI解读提问
+  // 处理AI问答
   const handleChatSend = async () => {
     if (!chatQuestion.trim() || !selectedDoc || isChatLoading) return
 
@@ -165,7 +190,7 @@ export default function TeamBrainPage() {
     setIsChatLoading(true)
 
     try {
-      const response = await api.searchKnowledge({
+      const response = await api.chatWithDocument({
         query: chatQuestion.trim(),
         top_k: 5,
       })
@@ -182,7 +207,19 @@ export default function TeamBrainPage() {
   // PDF加载成功
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages)
-    setPageNumber(1)
+  }
+
+  // 下载文档
+  const handleDownloadDocument = () => {
+    if (selectedDoc?.file_url) {
+      const link = document.createElement('a')
+      link.href = selectedDoc.file_url
+      link.download = selectedDoc.title + '.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      toast.success('文档下载开始')
+    }
   }
 
   // 列表视图
@@ -208,71 +245,110 @@ export default function TeamBrainPage() {
 
         <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
           <div className="max-w-7xl mx-auto space-y-8">
-            {/* 上传区块 - 仅在有文档或需要上传时显示 */}
-            {documents.length === 0 || !file ? (
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-bold text-gray-900">添加文档到知识库</h2>
-                  {documents.length > 0 && <span className="text-sm text-gray-600">{documents.length} 个文档</span>}
+            {/* 上传区块 */}
+            <div className="space-y-4 mb-8">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold text-gray-900">添加文档到知识库</h2>
+              </div>
+              
+              {/* 上传卡片 */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="lg:col-span-2 relative overflow-hidden rounded-xl border-2 border-dashed border-gray-300 hover:border-purple-400 p-8 sm:p-10 transition-all hover:bg-purple-50/50 active:scale-95 cursor-pointer group"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Input
+                    type="file"
+                    accept=".pdf"
+                    onChange={handleFileSelect}
+                    ref={fileInputRef}
+                    className="hidden"
+                  />
+                  
+                  <div className="relative flex items-center gap-6">
+                    <div className="flex-shrink-0">
+                      <div className="flex items-center justify-center w-14 h-14 rounded-lg bg-purple-100 group-hover:bg-purple-200 transition-colors">
+                        <Upload className="h-7 w-7 text-purple-600" />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      {file ? (
+                        <>
+                          <p className="font-semibold text-gray-900">✓ {file.name}</p>
+                          <p className="text-sm text-gray-600 mt-1">准备上传</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="font-semibold text-gray-900">选择 PDF 文件上传</p>
+                          <p className="text-sm text-gray-600 mt-1">单个文件最大 50MB</p>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                
-                {/* 上传卡片 - 简洁版本 */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                  <div
-                    onClick={() => fileInputRef.current?.click()}
-                    className="lg:col-span-2 relative overflow-hidden rounded-xl border-2 border-dashed border-gray-300 hover:border-purple-400 p-8 sm:p-10 transition-all hover:bg-purple-50/50 active:scale-95 cursor-pointer group"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Input
-                      type="file"
-                      accept=".pdf"
-                      onChange={handleFileSelect}
-                      ref={fileInputRef}
-                      className="hidden"
-                    />
-                    
-                    <div className="relative flex items-center gap-6">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center w-14 h-14 rounded-lg bg-purple-100 group-hover:bg-purple-200 transition-colors">
-                          <Upload className="h-7 w-7 text-purple-600" />
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-semibold text-gray-900">选择 PDF 文件上传</p>
-                        <p className="text-sm text-gray-600 mt-1">单个文件最大 50MB</p>
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* 拖拽提示 */}
-                  <div className="hidden lg:flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 p-6 text-center">
-                    <div className="space-y-2">
-                      <div className="text-3xl">📁</div>
-                      <p className="text-sm font-medium text-gray-900">支持拖拽上传</p>
-                      <p className="text-xs text-gray-600">将文件拖到这里</p>
-                    </div>
+                {/* 上传按钮 */}
+                {file && (
+                  <div className="flex flex-col gap-2 justify-center">
+                    <Button
+                      onClick={handleUpload}
+                      disabled={isUploading}
+                      className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium py-6"
+                    >
+                      {isUploading ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                          上传中...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="h-4 w-4 mr-2" />
+                          确认上传
+                        </>
+                      )}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setFile(null)
+                        if (fileInputRef.current) {
+                          fileInputRef.current.value = ''
+                        }
+                      }}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      取消
+                    </Button>
                   </div>
+                )}
+              </div>
+            </div>
+
+            {/* 文档列表区域 */}
+
+            {/* 文档列表区域 */}
+            {isLoadingDocs ? (
+              <div className="flex items-center justify-center py-12">
+                <div className="text-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-purple-600 mx-auto mb-3" />
+                  <p className="text-gray-600">加载文档中...</p>
                 </div>
               </div>
-            ) : null}
-
-            {/* 已上传文档区域 - 主要展示 */}
-            {documents.length > 0 && (
+            ) : documents.length > 0 ? (
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900">已上传的文档</h2>
                     <p className="text-sm text-gray-600 mt-1">共 {documents.length} 个文档 • 点击查看详情</p>
                   </div>
-                  {!file && (
-                    <Button
-                      onClick={() => fileInputRef.current?.click()}
-                      className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all"
-                    >
-                      <Upload className="h-4 w-4 mr-2" />
-                      上传新文档
-                    </Button>
-                  )}
+                  <Button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all"
+                  >
+                    <Upload className="h-4 w-4 mr-2" />
+                    上传新文档
+                  </Button>
                 </div>
 
                 {/* 文档网格 */}
@@ -296,7 +372,7 @@ export default function TeamBrainPage() {
                             <span className="text-xs font-bold text-white/90 bg-white/20 px-2.5 py-1 rounded-full">PDF</span>
                           </div>
                           <div className="relative">
-                            <h3 className="font-bold text-white line-clamp-2 text-sm leading-tight">{doc.name}</h3>
+                            <h3 className="font-bold text-white line-clamp-2 text-sm leading-tight">{doc.title}</h3>
                           </div>
                         </div>
 
@@ -304,7 +380,7 @@ export default function TeamBrainPage() {
                         <div className="p-4 space-y-3">
                           <div className="flex items-center justify-between">
                             <span className="text-xs font-medium text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
-                              📅 {new Date(doc.uploadedAt).toLocaleDateString('zh-CN')}
+                              📅 {new Date(doc.created_at).toLocaleDateString('zh-CN')}
                             </span>
                           </div>
                           
@@ -323,10 +399,7 @@ export default function TeamBrainPage() {
                   ))}
                 </div>
               </div>
-            )}
-
-            {/* 空状态 */}
-            {documents.length === 0 && !file && (
+            ) : (
               <div className="text-center py-16">
                 <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 mb-6">
                   <FileText className="h-12 w-12 text-purple-600" />
@@ -416,6 +489,15 @@ export default function TeamBrainPage() {
                         >
                           下一页
                         </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleDownloadDocument}
+                          className="text-xs h-8"
+                        >
+                          <Download className="h-3 w-3 mr-1" />
+                          下载
+                        </Button>
                       </div>
                     </div>
                     <div className="flex-1 overflow-auto flex items-center justify-center bg-gray-50 p-4">
@@ -449,49 +531,61 @@ export default function TeamBrainPage() {
               </div>
             </div>
 
-            {/* 右侧：AI总结和解读 */}
+            {/* 右侧：报告、原文、问答 */}
             <div className="w-96 flex flex-col min-w-0">
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm flex flex-col h-full">
                 {/* 标签页 */}
                 <div className="flex border-b border-gray-200 bg-gray-50 flex-shrink-0">
                   <Button
                     variant="ghost"
-                    onClick={() => setActiveTab('summary')}
-                    className={`flex-1 rounded-none text-sm font-medium ${
-                      activeTab === 'summary'
+                    onClick={() => setActiveTab('report')}
+                    className={`flex-1 rounded-none text-xs sm:text-sm font-medium ${
+                      activeTab === 'report'
                         ? 'bg-white border-b-2 border-purple-600 text-purple-600'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
                     <Brain className="h-4 w-4 mr-1.5" />
-                    总结
+                    报告
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => setActiveTab('source')}
+                    className={`flex-1 rounded-none text-xs sm:text-sm font-medium ${
+                      activeTab === 'source'
+                        ? 'bg-white border-b-2 border-purple-600 text-purple-600'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    <FileText className="h-4 w-4 mr-1.5" />
+                    原文
                   </Button>
                   <Button
                     variant="ghost"
                     onClick={() => setActiveTab('chat')}
-                    className={`flex-1 rounded-none text-sm font-medium ${
+                    className={`flex-1 rounded-none text-xs sm:text-sm font-medium ${
                       activeTab === 'chat'
                         ? 'bg-white border-b-2 border-pink-600 text-pink-600'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
                     <Bot className="h-4 w-4 mr-1.5" />
-                    解读
+                    问答
                   </Button>
                 </div>
 
                 {/* 内容区 */}
                 <div className="flex-1 overflow-hidden flex flex-col">
-                  {activeTab === 'summary' ? (
+                  {activeTab === 'report' ? (
                     <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
-                      {isGeneratingSummary ? (
+                      {isGeneratingReport ? (
                         <div className="flex items-center justify-center h-full">
                           <div className="text-center">
                             <Loader2 className="h-6 w-6 animate-spin text-purple-600 mx-auto mb-3" />
-                            <p className="text-sm text-gray-600">AI 正在生成总结...</p>
+                            <p className="text-sm text-gray-600">AI 正在生成报告...</p>
                           </div>
                         </div>
-                      ) : summary ? (
+                      ) : report ? (
                         <div className="prose prose-sm max-w-none
                           prose-p:text-gray-700 prose-p:leading-relaxed prose-p:text-sm
                           prose-headings:text-gray-900 prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-2
@@ -502,17 +596,31 @@ export default function TeamBrainPage() {
                             remarkPlugins={[remarkMath]}
                             rehypePlugins={[rehypeKatex, rehypeHighlight]}
                           >
-                            {summary}
+                            {report}
                           </ReactMarkdown>
                         </div>
                       ) : (
                         <div className="flex items-center justify-center h-full text-gray-500">
                           <div className="text-center">
                             <Brain className="h-10 w-10 mx-auto mb-2 opacity-50" />
-                            <p className="text-sm">点击生成AI总结</p>
+                            <p className="text-sm">生成的报告将在此显示</p>
                           </div>
                         </div>
                       )}
+                    </div>
+                  ) : activeTab === 'source' ? (
+                    <div className="flex-1 overflow-auto p-6">
+                      <div className="text-center text-gray-500">
+                        <FileText className="h-10 w-10 mx-auto mb-3 opacity-50" />
+                        <p className="text-sm mb-4">左侧为文档原文预览</p>
+                        <Button
+                          onClick={handleDownloadDocument}
+                          className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white"
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          下载原文
+                        </Button>
+                      </div>
                     </div>
                   ) : (
                     <div className="flex-1 overflow-hidden flex flex-col">

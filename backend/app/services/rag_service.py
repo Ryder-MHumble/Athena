@@ -28,6 +28,7 @@ class RAGService:
     
     def upload_document(
         self,
+        document_id: str,
         content: str,
         metadata: Dict[str, Any],
         embeddings: List[List[float]]
@@ -36,6 +37,7 @@ class RAGService:
         上传文档到向量数据库
         
         Args:
+            document_id: 文档 UUID（来自 documents 表）
             content: 文档文本内容
             metadata: 元数据（来源、页码等）
             embeddings: 向量嵌入列表（每个 chunk 一个向量）
@@ -49,26 +51,27 @@ class RAGService:
             
             # 确保 chunks 和 embeddings 数量一致
             if len(chunks) != len(embeddings):
-                raise ValueError("Chunks and embeddings count mismatch")
+                raise ValueError(f"Chunks ({len(chunks)}) and embeddings ({len(embeddings)}) count mismatch")
             
-            # 批量插入到 Supabase
+            # 批量插入到 Supabase document_chunks 表
             records = []
             for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
                 records.append({
+                    "document_id": document_id,
                     "content": chunk,
+                    "embedding": embedding,
                     "metadata": {
                         **metadata,
                         "chunk_index": i,
                     },
-                    "embedding": embedding,
                 })
             
-            # 插入到 documents 表
-            response = self.supabase.table("documents").insert(records).execute()
+            # 插入到 document_chunks 表（这是规范书定义的表）
+            response = self.supabase.table("document_chunks").insert(records).execute()
             return len(response.data) > 0
             
         except Exception as e:
-            print(f"Error uploading document: {e}")
+            print(f"Error uploading document chunks: {e}")
             return False
     
     def search(
@@ -91,29 +94,96 @@ class RAGService:
             搜索结果列表
         """
         try:
-            # 调用 Supabase RPC 函数进行向量搜索
-            response = self.supabase.rpc(
-                "match_documents",
-                {
-                    "query_embedding": query_embedding,
-                    "match_threshold": threshold,
-                    "match_count": top_k,
-                }
-            ).execute()
+            # 尝试调用 Supabase RPC 函数进行向量搜索
+            try:
+                response = self.supabase.rpc(
+                    "match_documents",
+                    {
+                        "query_embedding": query_embedding,
+                        "match_threshold": threshold,
+                        "match_count": top_k,
+                    }
+                ).execute()
+                
+                # 格式化结果
+                results = []
+                for item in response.data:
+                    results.append({
+                        "content": item["content"],
+                        "metadata": item.get("metadata", {}),
+                        "similarity": item.get("similarity", 0),
+                    })
+                
+                print(f"✓ RPC search succeeded: {len(results)} results")
+                return results
+            except Exception as rpc_error:
+                print(f"⚠ RPC search failed, trying fallback method: {rpc_error}")
+                # RPC 失败时，使用备选方案：获取所有 chunks 并在内存中计算相似度
+                return self._fallback_search(query_embedding, top_k, threshold)
             
-            # 格式化结果
-            results = []
-            for item in response.data:
-                results.append({
-                    "content": item["content"],
-                    "metadata": item["metadata"],
-                    "similarity": item["similarity"],
-                })
+        except Exception as e:
+            print(f"✗ Error searching: {e}")
+            return []
+    
+    def _fallback_search(
+        self,
+        query_embedding: List[float],
+        top_k: int = 5,
+        threshold: float = 0.7
+    ) -> List[Dict[str, Any]]:
+        """
+        备选搜索方法：在内存中进行向量相似度搜索
+        
+        Args:
+            query_embedding: 查询向量
+            top_k: 返回结果数量
+            threshold: 相似度阈值
+        
+        Returns:
+            搜索结果列表
+        """
+        try:
+            # 获取所有 document_chunks
+            response = self.supabase.table("document_chunks").select("id, content, embedding, metadata").execute()
             
+            if not response.data:
+                print("No documents found in database")
+                return []
+            
+            # 计算余弦相似度
+            import numpy as np
+            
+            results_with_scores = []
+            query_vec = np.array(query_embedding)
+            
+            for chunk in response.data:
+                chunk_embedding = chunk.get("embedding")
+                if chunk_embedding is None:
+                    continue
+                
+                chunk_vec = np.array(chunk_embedding)
+                
+                # 计算余弦相似度
+                similarity = np.dot(query_vec, chunk_vec) / (np.linalg.norm(query_vec) * np.linalg.norm(chunk_vec) + 1e-8)
+                
+                if similarity >= threshold:
+                    results_with_scores.append({
+                        "content": chunk["content"],
+                        "metadata": chunk.get("metadata", {}),
+                        "similarity": float(similarity),
+                    })
+            
+            # 按相似度排序并返回 top_k
+            results_with_scores.sort(key=lambda x: x["similarity"], reverse=True)
+            results = results_with_scores[:top_k]
+            
+            print(f"✓ Fallback search succeeded: {len(results)} results")
             return results
             
         except Exception as e:
-            print(f"Error searching: {e}")
+            print(f"✗ Error in fallback search: {e}")
+            import traceback
+            traceback.print_exc()
             return []
     
     def generate_answer(

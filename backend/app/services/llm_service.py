@@ -193,26 +193,42 @@ class LLMService:
     
     def generate_speech(self, paper_text: str) -> str:
         """
-        生成口语化演讲稿
+        生成结构化讲解建议
         
         Args:
             paper_text: 论文文本内容
         
         Returns:
-            Markdown 格式的演讲稿
+            JSON 格式的结构化讲解建议
         """
-        prompt = f"""请将以下论文内容转换为口语化的演讲稿（Markdown 格式）。
+        prompt = f"""请将以下论文内容转换为结构化的讲解建议，以 JSON 格式返回。
+
+你必须返回有效的 JSON，格式如下：
+
+{{
+  "suggestions": [
+    {{
+      "title": "讲解点的标题",
+      "description": "详细的讲解内容（2-3句话）",
+      "examples": "用生活中的例子做类比（1-2个例子）",
+      "key_takeaway": "核心要点（1句话）"
+    }}
+  ]
+}}
+
 要求：
-1. 语言通俗易懂，适合非技术背景的听众
-2. 使用生活中的例子做类比
-3. 结构清晰，有标题和段落
-4. 避免过于专业的术语，必要时用通俗语言解释
+1. 生成 4-6 个讲解建议
+2. 每个讲解点都要有标题、详细描述、生活类比和核心要点
+3. 语言通俗易懂，避免过于专业的术语
+4. 讲解点应该覆盖论文的不同方面（背景、问题、方案、优势、应用等）
+5. 必须返回有效的JSON，确保所有字符串都被正确转义
+6. 不要在 JSON 外添加任何其他文本
 
 论文内容：
 
-{paper_text[:8000]}
+{paper_text[:10000]}
 """
-        # 使用小模型生成演讲稿以提升速度
+        # 使用小模型生成讲解建议以提升速度
         small_llm = ChatOpenAI(
             model=getattr(settings, "LLM_MODEL_SMALL", settings.LLM_MODEL),
             openai_api_key=self.api_key,
