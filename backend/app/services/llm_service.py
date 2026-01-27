@@ -156,29 +156,12 @@ class LLMService:
         Returns:
             结构化摘要字典
         """
-        # 使用统一的System Prompt
+        # 直接使用 PAPER_ANALYSIS_SYSTEM_PROMPT 中定义的 JSON 格式
         prompt = f"""{PAPER_ANALYSIS_SYSTEM_PROMPT}
-
-请严格按照以上框架，以 JSON 格式输出，格式如下：
-{{
-  "core_problem": "核心问题描述",
-  "previous_dilemma": "前人困境描述",
-  "core_intuition": "核心直觉描述",
-  "key_steps": ["步骤1", "步骤2"],
-  "innovations": {{
-    "comparison": "对比描述",
-    "essence": "本质描述"
-  }},
-  "boundaries": {{
-    "assumptions": "假设描述",
-    "unsolved": "未解之谜描述"
-  }},
-  "one_sentence": "一句话总结"
-}}
 
 论文内容如下：
 
-{paper_text[:10000]}  # 限制长度避免 token 超限
+{paper_text[:10000]}
 """
         # 论文分析使用小模型以提升速度，关闭“思考模式”（较低 temperature）
         small_llm = ChatOpenAI(

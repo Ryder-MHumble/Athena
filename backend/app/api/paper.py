@@ -99,14 +99,15 @@ async def analyze_paper(
         # 解析结构化摘要（PaperService已在文件顶部导入）
         parsed_summary = PaperService.parse_structured_summary(summary_data["raw_response"])
         
+        # parsed_summary 现在返回的是camelCase格式,直接使用
         summary = PaperSummary(
-            coreProblem=parsed_summary.get("core_problem", "解析中..."),
-            previousDilemma=parsed_summary.get("previous_dilemma", "解析中..."),
-            coreIntuition=parsed_summary.get("core_intuition", "解析中..."),
-            keySteps=parsed_summary.get("key_steps", []),
+            coreProblem=parsed_summary.get("coreProblem", "解析失败"),
+            previousDilemma=parsed_summary.get("previousDilemma", "解析失败"),
+            coreIntuition=parsed_summary.get("coreIntuition", "解析失败"),
+            keySteps=parsed_summary.get("keySteps", []),
             innovations=parsed_summary.get("innovations", {"comparison": "", "essence": ""}),
             boundaries=parsed_summary.get("boundaries", {"assumptions": "", "unsolved": ""}),
-            oneSentence=parsed_summary.get("one_sentence", "解析中..."),
+            oneSentence=parsed_summary.get("oneSentence", "解析失败"),
         )
         
         qa_pairs = [

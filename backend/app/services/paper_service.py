@@ -78,30 +78,36 @@ class PaperService:
             text: LLM 返回的文本（可能包含 JSON）
         
         Returns:
-            结构化摘要字典
+            结构化摘要字典 (camelCase格式)
         """
         # 尝试提取 JSON
         json_match = re.search(r'\{.*\}', text, re.DOTALL)
         if json_match:
             try:
-                return json.loads(json_match.group())
-            except:
+                data = json.loads(json_match.group())
+                # LLM返回的格式是 {"summary": {...}}，需要提取summary字段
+                if "summary" in data:
+                    return data["summary"]
+                # 如果直接就是summary内容，直接返回
+                return data
+            except Exception as e:
+                print(f"JSON解析失败: {e}")
                 pass
         
-        # 如果无法解析 JSON，返回默认结构
+        # 如果无法解析 JSON，返回默认结构 (使用camelCase以匹配前端和prompt定义)
         return {
-            "core_problem": "解析中...",
-            "previous_dilemma": "解析中...",
-            "core_intuition": "解析中...",
-            "key_steps": [],
+            "coreProblem": "解析失败，请重试",
+            "previousDilemma": "解析失败，请重试",
+            "coreIntuition": "解析失败，请重试",
+            "keySteps": [],
             "innovations": {
-                "comparison": "解析中...",
-                "essence": "解析中...",
+                "comparison": "解析失败，请重试",
+                "essence": "解析失败，请重试",
             },
             "boundaries": {
-                "assumptions": "解析中...",
-                "unsolved": "解析中...",
+                "assumptions": "解析失败，请重试",
+                "unsolved": "解析失败，请重试",
             },
-            "one_sentence": "解析中...",
+            "oneSentence": "解析失败，请重试",
         }
 

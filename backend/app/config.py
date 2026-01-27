@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     
     # LLM 配置
     # 默认主模型（用于术语通等需要高质量推理的场景）
-    LLM_MODEL: str = "Qwen/Qwen2.5-72B-Instruct"
+    LLM_MODEL: str = "Qwen/Qwen2.5-7B-Instruct"
     # 小模型（用于论文分析等追求速度的场景）
     LLM_MODEL_SMALL: str = "Qwen/Qwen2.5-7B-Instruct"
     EMBEDDING_MODEL: str = "BAAI/bge-m3"

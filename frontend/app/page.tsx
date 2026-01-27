@@ -10,8 +10,8 @@ export default function HomePage() {
     {
       icon: BookOpen,
       title: "术语通",
-      description: "AI 智能导师实时解释专业术语，支持多轮对话深入理解",
-      benefits: ["多轮深度对话", "概念关联解析", "一键保存到单词本"],
+      description: "遇到不懂的专业名词？AI 导师秒级响应，用通俗易懂的语言解释复杂概念，支持多轮追问直到彻底理解",
+      benefits: ["流式实时响应", "多轮深度追问", "一键收藏到单词本"],
       href: "/jargon-killer",
       color: "from-cyan-400 to-cyan-600",
       bgColor: "bg-cyan-50",
@@ -20,8 +20,8 @@ export default function HomePage() {
     {
       icon: FileText,
       title: "论文伴侣",
-      description: "自动解析学术论文，生成结构化分析和讲解文稿",
-      benefits: ["论文全文解析", "智能报告生成", "讲解文稿输出"],
+      description: "上传 PDF 或输入 Arxiv 链接，自动提取核心观点、生成结构化分析报告和口语化讲解文稿",
+      benefits: ["结构化论文解析", "智能讲解文稿", "预判提问准备"],
       href: "/paper-copilot",
       color: "from-teal-400 to-teal-600",
       bgColor: "bg-teal-50",
@@ -29,9 +29,9 @@ export default function HomePage() {
     },
     {
       icon: Users,
-      title: "团队知识库",
-      description: "构建组织化知识库，跨团队分享学习成果",
-      benefits: ["知识组织管理", "团队协作分享", "搜索和集成"],
+      title: "知识沉淀",
+      description: "上传团队内部文档，构建可检索的智能知识库，基于语义搜索快速定位所需内容",
+      benefits: ["向量语义检索", "智能问答对话", "团队知识共享"],
       href: "/team-brain",
       color: "from-emerald-400 to-emerald-600",
       bgColor: "bg-emerald-50",
@@ -60,7 +60,7 @@ export default function HomePage() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
+      <section className="relative py-8 sm:py-12 md:py-16 overflow-hidden">
         {/* 背景装饰 */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-b from-cyan-200 to-transparent rounded-full blur-3xl opacity-20"></div>
@@ -157,14 +157,14 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 sm:py-24 md:py-32 bg-gray-50 border-t border-gray-200">
+      <section id="features" className="py-12 sm:py-16 md:py-20 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-10 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">
               核心功能
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              为策略分析师量身打造的智能工作台
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+              专为非技术背景用户设计的 AI 智能工作台，让学习和研究更高效
             </p>
           </div>
 
@@ -215,20 +215,20 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 sm:py-24 bg-white border-t border-gray-200">
+      <section className="py-12 sm:py-16 bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {[
-              { label: "AI 回复", value: "实时流式" },
-              { label: "学习体验", value: "个性化" },
-              { label: "团队协作", value: "高效分享" },
-              { label: "知识积累", value: "长期记忆" }
+              { label: "AI 响应", value: "SSE 流式" },
+              { label: "向量模型", value: "BGE-M3" },
+              { label: "主力模型", value: "Qwen 72B" },
+              { label: "知识库", value: "RAG 增强" }
             ].map((stat, i) => (
-              <div key={i} className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200">
-                <p className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600 mb-2">
+              <div key={i} className="text-center p-4 sm:p-6 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200">
+                <p className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600 mb-1">
                   {stat.value}
                 </p>
-                <p className="text-gray-600 font-medium">{stat.label}</p>
+                <p className="text-gray-600 text-sm font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -236,37 +236,33 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 sm:py-24 md:py-32 bg-gradient-to-br from-gray-900 via-cyan-900 to-teal-900 text-white relative overflow-hidden">
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-gray-900 via-cyan-900 to-teal-900 text-white relative overflow-hidden">
         {/* 背景装饰 */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/2 w-96 h-96 bg-cyan-400 rounded-full blur-3xl -translate-x-1/2"></div>
         </div>
 
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <h2 className="text-4xl sm:text-5xl font-bold">
-            准备好提升学习效率了吗？
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <h2 className="text-3xl sm:text-4xl font-bold">
+            准备好提升工作效率了吗？
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            加入 Athena，让 AI 成为你学习和工作中的智能助手
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            配置你的 SiliconFlow API Key，即刻开始使用所有功能
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
             <Link href="/jargon-killer">
               <Button size="lg" className="w-full sm:w-auto bg-white text-gray-900 hover:bg-gray-100 font-semibold">
-                开始免费体验
+                开始体验
                 <ArrowUpRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
             <Link href="/settings">
               <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 font-semibold">
-                配置 API
+                配置 API Key
               </Button>
             </Link>
           </div>
-
-          <p className="text-sm text-gray-400 pt-4">
-            不需要信用卡，立即开始 • 免费使用所有功能
-          </p>
         </div>
       </section>
 

@@ -52,3 +52,5 @@ backend/uploads/
 
 # Dependency markers
 backend/.dependencies_installed
+backend/.deps_installed
+frontend/.deps_installed

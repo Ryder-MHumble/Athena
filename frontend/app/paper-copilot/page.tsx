@@ -3,7 +3,6 @@
 /**
  * 论文伴侣模块
  * 模块化版本：使用独立组件提高代码可维护性
- * 新增：会话持久化功能，避免切换页面后分析结果丢失
  */
 
 import { useState, useRef, useEffect } from 'react'
@@ -13,7 +12,6 @@ import { api, PaperAnalysisResponse } from '@/lib/api'
 import { FileText, Loader2, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
 import { pdfjs } from 'react-pdf'
-import { useAppStore, PaperSession } from '@/stores/useAppStore'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
 import 'react-pdf/dist/esm/Page/TextLayer.css'
 
@@ -32,9 +30,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 export default function PaperCopilotPage() {
   // Store hooks
-  // Store hooks - 获取会话列表而不仅仅是当前会话
-  const { currentPaperSession, savePaperSession, clearCurrentSession, paperSessions, loadPaperSession } = useAppStore()
-
   // State management
   const [file, setFile] = useState<File | null>(null)
   const [url, setUrl] = useState('')
@@ -53,63 +48,6 @@ export default function PaperCopilotPage() {
   const [isDraggingSplit, setIsDraggingSplit] = useState(false)
   const [speechStreaming, setSpeechStreaming] = useState('')
   const speechStreamRef = useRef<NodeJS.Timeout | null>(null)
-  const [showSessionRestore, setShowSessionRestore] = useState(false)
-
-  // 会话已初始化标记，防止多次恢复
-  const [sessionInitialized, setSessionInitialized] = useState(false)
-
-  // 组件挂载时恢复之前的会话 - 改进逻辑，从 paperSessions 中获取最后一个
-  useEffect(() => {
-    if (sessionInitialized) return
-
-    setSessionInitialized(true)
-    
-    // 优先使用 currentPaperSession，否则使用 paperSessions 中的最后一个
-    const sessionToRestore = currentPaperSession || (paperSessions && paperSessions.length > 0 ? paperSessions[0] : null)
-    
-    if (!sessionToRestore) return
-
-    // 恢复会话数据
-    setAnalysis(sessionToRestore.analysis)
-    setPaperText(sessionToRestore.paperText)
-    setChatHistory(sessionToRestore.chatHistory)
-    setSplitPosition(sessionToRestore.splitPosition)
-    setActiveTab(sessionToRestore.activeTab)
-    
-    // 如果有 PDF URL 或文件，尝试恢复 PDF 显示
-    if (sessionToRestore.analysis?.paper_url) {
-      setPdfUrl(sessionToRestore.analysis.paper_url)
-    }
-
-    // 如果有讲解内容，开始流式效果
-    if (sessionToRestore.analysis?.speech) {
-      startSpeechStreaming(sessionToRestore.analysis.speech)
-    }
-
-    setShowSessionRestore(true)
-    toast.success(`已恢复上次的分析: ${sessionToRestore.fileName}`)
-    
-    // 3 秒后隐藏恢复提示
-    setTimeout(() => setShowSessionRestore(false), 3000)
-  }, [sessionInitialized])
-
-  // 当分析、聊天记录、标签签位置改变时，自动保存会话
-  useEffect(() => {
-    if (!analysis || !sessionInitialized) return
-
-    const session: PaperSession = {
-      id: currentPaperSession?.id || `session-${Date.now()}`,
-      fileName: currentPaperSession?.fileName || file?.name || 'Untitled Paper',
-      uploadedAt: currentPaperSession?.uploadedAt || Date.now(),
-      analysis,
-      paperText,
-      chatHistory,
-      splitPosition,
-      activeTab,
-    }
-
-    savePaperSession(session)
-  }, [analysis, chatHistory, splitPosition, activeTab, paperText, sessionInitialized])
 
   // 规范化 Markdown：去掉行首多余缩进，避免标题等语法失效
   const normalizeMarkdown = (text: string) => {
@@ -250,6 +188,7 @@ export default function PaperCopilotPage() {
 
   // 处理重新上传
   const handleReset = () => {
+    // 清除所有状态
     setFile(null)
     setUrl('')
     setPdfUrl(null)
@@ -257,11 +196,21 @@ export default function PaperCopilotPage() {
     setPaperText('')
     setChatHistory([])
     setSpeechStreaming('')
-    clearCurrentSession()
-    setSessionInitialized(false)
+    setStreamingChatContent('')
+    setActiveTab('analysis')
+    
+    // 清除文件输入
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
+    
+    // 清除流式计时器
+    if (speechStreamRef.current) {
+      clearInterval(speechStreamRef.current)
+      speechStreamRef.current = null
+    }
+    
+    toast.success('已清除，可以重新上传论文')
   }
 
   // 处理AI解读提问 - 支持流式输出
@@ -341,15 +290,9 @@ export default function PaperCopilotPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)] gap-4 sm:gap-6">
-      {/* Header - 包含标题和重新上传按钮 */}
-      <div className="flex-shrink-0 flex items-center justify-between gap-4">
-        {/* <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">论文伴侣</h1>
-          <p className="text-xs sm:text-sm text-gray-600 mt-1">AI 智能分析论文 • 快速理解核心观点</p>
-        </div> */}
-
-        {/* 重新上传按钮 - 只在有论文时显示 */}
-        {hasPaper && (
+      {/* 重新上传按钮 - 只在有论文时显示 */}
+      {hasPaper && (
+        <div className="flex-shrink-0 flex justify-end">
           <Button
             variant="outline"
             size="sm"
@@ -359,8 +302,8 @@ export default function PaperCopilotPage() {
             <RefreshCw className="h-4 w-4 mr-2" />
             重新上传
           </Button>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* 上传区域 - 只在没有论文时显示 */}
       {!hasPaper && (

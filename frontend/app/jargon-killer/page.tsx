@@ -132,26 +132,12 @@ export default function JargonKillerPage() {
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-white to-gray-50 flex flex-col overflow-hidden">
-      {/* 顶部导航栏 */}
-      <div className="flex-shrink-0 sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex-1">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">术语通</h1>
-            <p className="text-xs sm:text-sm text-gray-600 mt-0.5">AI 智能导师 • 快速理解任何概念</p>
-          </div>
-          <div className="flex-shrink-0 text-right">
-            <p className="text-sm sm:text-base font-semibold text-cyan-600">{bookmarkedMessages.size} 个已保存</p>
-            <p className="text-xs text-gray-500 mt-0.5">收藏到单词本</p>
-          </div>
-        </div>
-      </div>
-
-      {/* 主体内容 - 使用flexbox分割 */}
-      <div className="flex-1 overflow-hidden flex flex-col">
+    <div className="h-full bg-gradient-to-br from-white to-gray-50 flex flex-col overflow-hidden">
+      {/* 主体内容区域 */}
+      <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         {/* 欢迎界面或消息列表 */}
         {messages.length === 0 ? (
-          <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-6 sm:py-10 flex items-center justify-center">
+          <div className="flex-1 flex items-center justify-center px-4 sm:px-8 overflow-y-auto">
             <div className="max-w-2xl w-full space-y-8">
               {/* 欢迎区 */}
               <div className="text-center space-y-6">
@@ -193,8 +179,8 @@ export default function JargonKillerPage() {
             </div>
           </div>
         ) : (
-          <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-4 sm:py-6">
-            <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-4">
+          <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-4 sm:py-6 min-h-0">
+            <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 pb-6">
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -218,20 +204,24 @@ export default function JargonKillerPage() {
                         {message.content}
                       </div>
                     ) : (
-                      <div className="space-y-2">
-                        <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
-                          <div className="prose prose-sm max-w-none text-xs sm:text-sm
-                            prose-p:text-gray-800 prose-p:leading-relaxed prose-p:m-0
-                            prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mt-3 prose-headings:mb-2
-                            prose-h1:text-base prose-h2:text-sm prose-h3:text-xs
+                      <div className="space-y-3">
+                        <div className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-7 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="prose prose-base max-w-none
+                            prose-p:text-gray-800 prose-p:leading-[1.8] prose-p:my-4 prose-p:text-[15px]
+                            prose-headings:text-gray-900 prose-headings:font-bold prose-headings:mt-6 prose-headings:mb-3 prose-headings:leading-tight
+                            prose-h1:text-xl prose-h2:text-lg prose-h3:text-base
                             prose-strong:text-gray-900 prose-strong:font-semibold
-                            prose-code:text-cyan-600 prose-code:bg-cyan-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono
-                            prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:text-xs prose-pre:p-3 prose-pre:rounded-lg prose-pre:overflow-x-auto
+                            prose-code:text-cyan-600 prose-code:bg-cyan-50 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono
+                            prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:text-sm prose-pre:p-4 prose-pre:rounded-xl prose-pre:overflow-x-auto prose-pre:my-5
                             prose-a:text-cyan-600 prose-a:no-underline hover:prose-a:underline
-                            prose-ul:list-disc prose-ul:pl-4 prose-ul:my-1.5
-                            prose-ol:list-decimal prose-ol:pl-4 prose-ol:my-1.5
-                            prose-li:text-gray-800 prose-li:text-xs sm:prose-li:text-sm prose-li:my-0.5
-                            prose-blockquote:border-l-4 prose-blockquote:border-cyan-300 prose-blockquote:pl-3 prose-blockquote:italic prose-blockquote:text-gray-700">
+                            prose-ul:list-disc prose-ul:pl-6 prose-ul:my-4 prose-ul:space-y-2
+                            prose-ol:list-decimal prose-ol:pl-6 prose-ol:my-4 prose-ol:space-y-2
+                            prose-li:text-gray-800 prose-li:text-[15px] prose-li:leading-[1.7]
+                            prose-blockquote:border-l-4 prose-blockquote:border-cyan-300 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-700 prose-blockquote:my-5
+                            prose-hr:border-gray-200 prose-hr:my-6
+                            prose-table:text-sm prose-table:my-5
+                            [&>*:first-child]:mt-0
+                            [&>*:last-child]:mb-0">
                             <ReactMarkdown
                               remarkPlugins={[remarkMath]}
                               rehypePlugins={[rehypeKatex, rehypeHighlight]}
@@ -310,33 +300,31 @@ export default function JargonKillerPage() {
       </div>
 
       {/* 输入框 - 固定在底部 */}
-      <div className="flex-shrink-0 border-t border-gray-200 bg-white px-4 sm:px-8 py-4 sm:py-6">
+      <div className="flex-shrink-0 bg-white px-4 sm:px-8 py-3 sm:py-4">
         <div className="max-w-4xl mx-auto">
-          <div className="relative">
+          <div className="flex items-end gap-2">
             <Textarea
               ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="输入你的问题... (Shift+Enter 换行，Enter 发送)"
-              className="w-full min-h-[48px] sm:min-h-[56px] max-h-[200px] resize-none rounded-xl border-2 border-gray-300 focus:border-cyan-500 focus:ring-0 p-3 sm:p-4 text-xs sm:text-sm bg-white placeholder:text-gray-500 transition-colors"
+              className="flex-1 min-h-[44px] max-h-[120px] resize-none rounded-xl border border-gray-300 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 px-3 py-2.5 text-sm bg-white placeholder:text-gray-400 transition-colors"
               disabled={isLoading}
+              rows={1}
             />
             <Button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="absolute right-2.5 sm:right-3 bottom-2.5 sm:bottom-3 bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white rounded-lg h-8 sm:h-9 w-8 sm:w-9 p-0 flex items-center justify-center shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white rounded-lg h-[44px] w-[44px] p-0 flex items-center justify-center shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             >
               {isLoading ? (
-                <Loader2 className="h-3.5 sm:h-4 w-3.5 sm:w-4 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                <Send className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
+                <Send className="h-4 w-4" />
               )}
             </Button>
           </div>
-          <p className="text-xs text-gray-500 mt-2 sm:mt-3">
-            💡 提示：此工具使用AI生成，请验证重要信息。支持 Markdown、数学公式（$...$）
-          </p>
         </div>
       </div>
     </div>

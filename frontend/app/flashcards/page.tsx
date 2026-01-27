@@ -66,33 +66,9 @@ export default function FlashcardsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-cyan-50/30 to-white flex flex-col">
-      {/* 顶部导航栏 */}
-      <div className="sticky top-0 z-40 backdrop-blur-xl bg-white/90 border-b border-gray-200/50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between gap-4">
-            <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-cyan-600 transition-colors group">
-              <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              返回首页
-            </Link>
-            <div className="flex-1 flex items-center justify-center">
-              <div className="text-center">
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                  单词本
-                </h1>
-                <p className="text-sm text-gray-600 mt-1">智能学习助手 • 巩固知识</p>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-2xl sm:text-3xl font-bold text-cyan-600">{vocabList.length}</div>
-              <div className="text-xs text-gray-600">个术语收藏</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div className="h-full bg-gradient-to-br from-white via-cyan-50/30 to-white flex flex-col overflow-hidden">
       {/* 搜索和筛选栏 */}
-      <div className="sticky top-16 z-30 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 px-4 sm:px-6 lg:px-8 py-4">
+      <div className="flex-shrink-0 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 px-4 sm:px-6 lg:px-8 py-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
             {/* 搜索框 */}

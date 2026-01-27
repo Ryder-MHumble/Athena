@@ -225,25 +225,8 @@ export default function TeamBrainPage() {
   // 列表视图
   if (view === 'list') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white via-purple-50/30 to-white flex flex-col">
-        {/* 顶部导航栏 */}
-        <div className="sticky top-0 z-40 backdrop-blur-xl bg-white/90 border-b border-gray-200/50 shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 border border-purple-200">
-                <Brain className="h-6 w-6 text-purple-600" />
-              </div>
-              <div className="flex-1">
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
-                  知识沉淀
-                </h1>
-                <p className="text-sm text-gray-600 mt-1">团队智能知识库 • 一站式文档管理</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+      <div className="h-full bg-gradient-to-br from-white via-purple-50/30 to-white flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 min-h-0">
           <div className="max-w-7xl mx-auto space-y-8">
             {/* 上传区块 */}
             <div className="space-y-4 mb-8">
@@ -434,31 +417,29 @@ export default function TeamBrainPage() {
 
   // 详情视图
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-purple-50/30 to-white flex flex-col">
-      {/* 顶部导航 */}
-      <div className="sticky top-0 z-40 backdrop-blur-xl bg-white/90 border-b border-gray-200/50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleBackToList}
-              className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              返回列表
-            </Button>
-            <div className="h-6 w-px bg-gray-200" />
-            <div className="p-2 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100">
-              <FileText className="h-4 w-4 text-purple-600" />
-            </div>
-            <h1 className="text-xl font-bold text-gray-900 truncate">{selectedDoc?.name}</h1>
+    <div className="h-full bg-gradient-to-br from-white via-purple-50/30 to-white flex flex-col overflow-hidden">
+      {/* 顶部工具栏 */}
+      <div className="flex-shrink-0 px-4 sm:px-6 lg:px-8 py-3 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleBackToList}
+            className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            返回列表
+          </Button>
+          <div className="h-6 w-px bg-gray-200" />
+          <div className="p-2 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100">
+            <FileText className="h-4 w-4 text-purple-600" />
           </div>
+          <h1 className="text-lg font-bold text-gray-900 truncate">{selectedDoc?.title}</h1>
         </div>
       </div>
 
       {/* 主体内容 */}
-      <div className="flex-1 overflow-hidden px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div className="flex-1 overflow-hidden px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div className="max-w-7xl mx-auto h-full">
           <div className="flex gap-6 h-full overflow-hidden">
             {/* 左侧：文档预览 */}

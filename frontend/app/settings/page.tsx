@@ -256,49 +256,36 @@ export default function SettingsPage() {
   const hasApiChanges = localApiKey !== apiKey || localTeamKey !== teamKey || localMcpServerUrl !== (mcpServerUrl || '')
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 flex flex-col">
-      {/* Header */}
-      <div className="sticky top-0 z-40 backdrop-blur-xl bg-white/90 border-b border-gray-200/50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-slate-600 to-gray-600 shadow-lg">
-              <Settings className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">设置</h1>
-              <p className="text-gray-600 mt-1">管理 API 密钥、服务配置和 System Prompts</p>
-            </div>
-          </div>
-
-          {/* Tab 导航 */}
-          <div className="flex gap-2 mt-6 border-b border-gray-200">
-            <button
-              onClick={() => setActiveTab('api')}
-              className={`px-4 py-3 font-medium border-b-2 transition-all ${
-                activeTab === 'api'
-                  ? 'border-cyan-500 text-cyan-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              API 配置
-            </button>
-            <button
-              onClick={() => setActiveTab('prompts')}
-              className={`px-4 py-3 font-medium border-b-2 transition-all flex items-center gap-2 ${
-                activeTab === 'prompts'
-                  ? 'border-cyan-500 text-cyan-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              <Sliders className="h-4 w-4" />
-              System Prompts
-            </button>
-          </div>
+    <div className="h-full bg-gradient-to-br from-white to-gray-50 flex flex-col overflow-hidden">
+      {/* Tab 导航栏 */}
+      <div className="flex-shrink-0 border-b border-gray-200 bg-white/90 backdrop-blur-sm px-4 sm:px-6 lg:px-8 py-3">
+        <div className="max-w-7xl mx-auto flex gap-2">
+          <button
+            onClick={() => setActiveTab('api')}
+            className={`px-4 py-2.5 font-medium border-b-2 transition-all ${
+              activeTab === 'api'
+                ? 'border-cyan-500 text-cyan-600'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            API 配置
+          </button>
+          <button
+            onClick={() => setActiveTab('prompts')}
+            className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
+              activeTab === 'prompts'
+                ? 'border-cyan-500 text-cyan-600'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <Sliders className="h-4 w-4" />
+            System Prompts
+          </button>
         </div>
       </div>
 
       {/* 内容区 */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-4xl mx-auto">
           {/* API 配置 Tab */}
           {activeTab === 'api' && (
