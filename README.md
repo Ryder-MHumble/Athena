@@ -1,6 +1,10 @@
 # Athena - AI 战略分析师智能工作台
 
 <p align="center">
+  <img src="frontend/public/Logo.png" alt="Athena Logo" width="200" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js" alt="Next.js">
   <img src="https://img.shields.io/badge/FastAPI-latest-009688?style=flat-square&logo=fastapi" alt="FastAPI">
   <img src="https://img.shields.io/badge/LangChain-latest-121D33?style=flat-square" alt="LangChain">

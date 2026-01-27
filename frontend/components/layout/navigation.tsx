@@ -148,9 +148,11 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-            {/* <div className="p-1.5 rounded-lg bg-gradient-to-br from-cyan-500 to-teal-600 group-hover:scale-110 transition-transform duration-300">
-              <Sparkles className="h-5 w-5 text-white" />
-            </div> */}
+            <img 
+              src="/Logo.png" 
+              alt="Athena Logo" 
+              className="h-8 w-8 sm:h-10 sm:w-10 object-contain group-hover:scale-110 transition-transform duration-300"
+            />
             <span className="text-xl font-serif font-bold gradient-text-primary hidden sm:inline">
               Athena
             </span>
