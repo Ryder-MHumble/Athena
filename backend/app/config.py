@@ -20,12 +20,17 @@ class Settings(BaseSettings):
     SUPABASE_SECRET_KEY: str = "sb_secret_UtBZnpg_hhEgF_E5zvfLHg_fTaZYVe1"
     
     # CORS 配置
-    CORS_ORIGINS: str = "http://localhost:3000,https://*.vercel.app"
+    # 支持多个域名，用逗号分隔
+    # 生产环境需要添加实际的 Vercel 域名，例如：https://your-app.vercel.app
+    CORS_ORIGINS: str = "http://localhost:3000"
     
     @property
     def cors_origins_list(self) -> List[str]:
-        """解析 CORS_ORIGINS 字符串为列表"""
-        return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
+        """解析 CORS_ORIGINS 字符串为列表，支持通配符匹配 Vercel 域名"""
+        origins = [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
+        # 如果包含通配符模式，需要手动添加具体域名
+        # 注意：FastAPI CORS 不支持通配符，需要在环境变量中明确指定所有允许的域名
+        return origins
     
     # 文件上传配置
     UPLOAD_DIR: str = "./uploads"

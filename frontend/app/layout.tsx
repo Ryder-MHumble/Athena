@@ -18,6 +18,11 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
   title: "Athena - AI 战略分析师智能工作台",
   description: "专为非技术背景的 AI 战略分析师设计的智能工作台",
+  icons: {
+    icon: "/Logo.png",
+    shortcut: "/Logo.png",
+    apple: "/Logo.png",
+  },
 }
 
 export default function RootLayout({
