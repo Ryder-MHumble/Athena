@@ -201,14 +201,37 @@ export const api = {
 
   // 论文伴侣 - 分析论文（快速版：只返回核心分析，5-10秒完成）
   analyzePaper: async (data: PaperAnalysisRequest): Promise<PaperAnalysisResponse> => {
-    const formData = new FormData()
-    if (data.file) {
-      formData.append('file', data.file)
+    try {
+      const formData = new FormData()
+      if (data.file) {
+        formData.append('file', data.file)
+      }
+      if (data.url) {
+        formData.append('url', data.url)
+      }
+      
+      // 使用原生 fetch API 来处理 FormData，避免 ky 可能的序列化问题
+      const apiKey = getApiKey()
+      const response = await fetch(`${API_BASE_URL}/api/paper/analyze`, {
+        method: 'POST',
+        headers: {
+          'X-API-Key': apiKey,
+          // 不设置 Content-Type，让浏览器自动设置为 multipart/form-data
+        },
+        body: formData,
+      })
+      
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Paper analysis error:', { status: response.status, body: errorText })
+        throw new Error(`分析失败: ${response.status} - ${errorText}`)
+      }
+      
+      return response.json()
+    } catch (error: any) {
+      console.error('Paper analysis error:', error)
+      throw error
     }
-    if (data.url) {
-      formData.append('url', data.url)
-    }
-    return apiClient.post('paper/analyze', { body: formData }).json()
   },
 
   // 论文伴侣 - 按需生成讲解内容
