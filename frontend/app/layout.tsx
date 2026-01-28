@@ -31,9 +31,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh-CN" className="h-full">
-      <body className={`${inter.variable} ${merriweather.variable} font-sans h-full`}>
-        <div className="min-h-full bg-slate-50 flex flex-col">
+    <html lang="zh-CN">
+      <body className={`${inter.variable} ${merriweather.variable} font-sans`}>
+        <div className="min-h-screen bg-slate-50 flex flex-col">
           <Navigation />
           <main className="flex-1 flex flex-col">
             {children}

@@ -74,7 +74,8 @@ export default function PaperCopilotPage() {
     }
 
     const summary = analysis.summary
-    const paperTitle = summary.title || file?.name?.replace('.pdf', '') || '未命名论文'
+    // 使用文件名或 oneSentence 作为标题
+    const paperTitle = file?.name?.replace('.pdf', '') || url?.split('/').pop()?.replace('.pdf', '') || summary.oneSentence?.slice(0, 50) || '未命名论文'
 
     // 生成简短说明作为 explanation
     const explanation = `**核心问题**: ${summary.coreProblem || '未提供'}\n\n**核心直觉**: ${summary.coreIntuition || '未提供'}\n\n**一句话总结**: ${summary.oneSentence || '未提供'}`
@@ -94,9 +95,6 @@ export default function PaperCopilotPage() {
         type: 'paper',
         paperAnalysis: {
           title: paperTitle,
-          authors: summary.authors,
-          year: summary.year,
-          category: summary.category,
           coreProblem: summary.coreProblem,
           previousDilemma: summary.previousDilemma,
           coreIntuition: summary.coreIntuition,
@@ -114,7 +112,7 @@ export default function PaperCopilotPage() {
   }
 
   return (
-    <div className="h-full flex flex-col overflow-hidden px-4 sm:px-6 lg:px-8 py-4">
+    <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden p-4">
       {/* 上传区域 - 只在没有论文时显示 */}
       {!hasPaper && (
         <div className="flex-1 overflow-auto">
