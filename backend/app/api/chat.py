@@ -29,8 +29,8 @@ async def chat(request: ChatRequest, x_api_key: str = Header(None)):
         raise HTTPException(status_code=401, detail="API Key is required")
     
     try:
-        # 获取 LLM 服务实例
-        llm_service = get_llm_service(api_key=x_api_key)
+        # 获取 LLM 服务实例（使用用户指定的模型）
+        llm_service = get_llm_service(api_key=x_api_key, model=request.model)
         
         # 转换历史消息格式
         history = None
@@ -76,8 +76,8 @@ async def chat_stream(request: ChatRequest, x_api_key: str = Header(None)):
     
     async def generate_stream():
         try:
-            # 获取 LLM 服务实例
-            llm_service = get_llm_service(api_key=x_api_key)
+            # 获取 LLM 服务实例（使用用户指定的模型）
+            llm_service = get_llm_service(api_key=x_api_key, model=request.model)
             
             # 转换历史消息格式
             history = None

@@ -71,6 +71,7 @@ interface AppState {
   apiKey: string
   teamKey: string
   mcpServerUrl: string | null
+  selectedModel: string  // 用户选择的模型 ID
   
   // System Prompts 配置
   systemPrompts: Record<string, string>
@@ -86,6 +87,7 @@ interface AppState {
   setApiKey: (key: string) => void
   setTeamKey: (key: string) => void
   setMcpServerUrl: (url: string | null) => void
+  setSelectedModel: (modelId: string) => void
   setSystemPrompt: (module: string, prompt: string) => void
   getSystemPrompt: (module: string) => string
   clearSystemPrompt: (module: string) => void
@@ -126,6 +128,7 @@ export const useAppStore = create<AppState>()(
       apiKey: getDefaultApiKey(),
       teamKey: getDefaultTeamKey(),
       mcpServerUrl: null,
+      selectedModel: 'Qwen/Qwen2.5-7B-Instruct', // 默认模型
       systemPrompts: {},
       currentPaperSession: null,
       paperSessions: [],
@@ -135,6 +138,7 @@ export const useAppStore = create<AppState>()(
       setApiKey: (key: string) => set({ apiKey: key }),
       setTeamKey: (key: string) => set({ teamKey: key }),
       setMcpServerUrl: (url: string | null) => set({ mcpServerUrl: url }),
+      setSelectedModel: (modelId: string) => set({ selectedModel: modelId }),
       
       // System Prompts 管理
       setSystemPrompt: (module: string, prompt: string) => {

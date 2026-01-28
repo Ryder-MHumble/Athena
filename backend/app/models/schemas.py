@@ -27,6 +27,10 @@ class ChatRequest(BaseModel):
         default=True,
         description="思考模式：True为深入思考，False为快速回复"
     )
+    model: Optional[str] = Field(
+        default=None,
+        description="指定使用的模型ID，如果为空则使用默认模型"
+    )
 
 
 class ChatResponse(BaseModel):

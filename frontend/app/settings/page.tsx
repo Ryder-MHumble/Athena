@@ -13,9 +13,11 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
 import { useAppStore } from '@/stores/useAppStore'
-import { Save, Eye, EyeOff, Settings, X, RotateCcw, Copy, Check, Sliders, Key, Users, Server, ChevronRight, ExternalLink, Shield, Sparkles } from 'lucide-react'
+import { Save, Eye, EyeOff, Settings, X, RotateCcw, Copy, Check, Sliders, Key, Users, Server, ChevronRight, ExternalLink, Shield, Sparkles, Cpu, CheckCircle2, Info, Search, ChevronDown } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { MODEL_PROVIDERS, DEFAULT_MODEL_ID, findModelById, findProviderByModelId, sortModelsByReleaseDate, searchModels } from '@/lib/models-config'
+import Image from 'next/image'
 
 // 从backend的prompts导入默认System Prompts
 // 这些应该与backend的prompts文件夹中的定义保持一致
@@ -58,7 +60,7 @@ const DEFAULT_SYSTEM_PROMPTS = {
 
 ** 启动语
 请提供待分析的论文`,
-
+ 
   'jargon-killer': `## User Profile
 用户也就是"我"，是一名文科背景的AI战略分析师。我不懂代码、算法和底层数学原理，但我的工作要求我必须深刻理解AI产业的技术逻辑、商业壁垒和成本结构。
 
@@ -195,7 +197,7 @@ const MODULE_INFO = {
 }
 
 export default function SettingsPage() {
-  const { apiKey, teamKey, mcpServerUrl, setApiKey, setTeamKey, setMcpServerUrl, setSystemPrompt, getSystemPrompt } = useAppStore()
+  const { apiKey, teamKey, mcpServerUrl, selectedModel, setApiKey, setTeamKey, setMcpServerUrl, setSelectedModel, setSystemPrompt, getSystemPrompt } = useAppStore()
   
   // Tab状态
   const [activeTab, setActiveTab] = useState<'api' | 'prompts'>('api')
@@ -204,8 +206,13 @@ export default function SettingsPage() {
   const [localApiKey, setLocalApiKey] = useState('')
   const [localTeamKey, setLocalTeamKey] = useState('')
   const [localMcpServerUrl, setLocalMcpServerUrl] = useState('')
+  const [localSelectedModel, setLocalSelectedModel] = useState('')
   const [showApiKey, setShowApiKey] = useState(false)
   const [showTeamKey, setShowTeamKey] = useState(false)
+  
+  // 模型选择相关状态
+  const [modelSearchQuery, setModelSearchQuery] = useState('')
+  const [expandedProviders, setExpandedProviders] = useState<Set<string>>(new Set())
   
   // System Prompts
   const [prompts, setPrompts] = useState<Record<string, string>>({})
@@ -218,6 +225,15 @@ export default function SettingsPage() {
     setLocalApiKey(apiKey)
     setLocalTeamKey(teamKey)
     setLocalMcpServerUrl(mcpServerUrl || '')
+    setLocalSelectedModel(selectedModel)
+    
+    // 展开包含当前选中模型的厂商
+    if (selectedModel) {
+      const provider = findProviderByModelId(selectedModel)
+      if (provider) {
+        setExpandedProviders(new Set([provider.id]))
+      }
+    }
     
     // 加载所有prompts
     const loadedPrompts: Record<string, string> = {}
@@ -225,13 +241,14 @@ export default function SettingsPage() {
       loadedPrompts[module] = getSystemPrompt(module) || DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS]
     })
     setPrompts(loadedPrompts)
-  }, [apiKey, teamKey, mcpServerUrl, getSystemPrompt])
+  }, [apiKey, teamKey, mcpServerUrl, selectedModel, getSystemPrompt])
 
   // 保存API配置
   const handleSaveApiConfig = () => {
     setApiKey(localApiKey.trim())
     setTeamKey(localTeamKey.trim())
     setMcpServerUrl(localMcpServerUrl.trim() || null)
+    setSelectedModel(localSelectedModel)
     toast.success('API配置已保存')
   }
 
@@ -274,7 +291,44 @@ export default function SettingsPage() {
     setExpandedModules(newExpanded)
   }
 
-  const hasApiChanges = localApiKey !== apiKey || localTeamKey !== teamKey || localMcpServerUrl !== (mcpServerUrl || '')
+  const hasApiChanges = localApiKey !== apiKey || localTeamKey !== teamKey || localMcpServerUrl !== (mcpServerUrl || '') || localSelectedModel !== selectedModel
+
+  // 切换厂商展开/折叠
+  const toggleProvider = (providerId: string) => {
+    const newExpanded = new Set(expandedProviders)
+    if (newExpanded.has(providerId)) {
+      newExpanded.delete(providerId)
+    } else {
+      newExpanded.add(providerId)
+    }
+    setExpandedProviders(newExpanded)
+  }
+
+  // 搜索时自动展开匹配的厂商
+  useEffect(() => {
+    if (modelSearchQuery.trim()) {
+      const results = searchModels(modelSearchQuery)
+      if (results.length > 0) {
+        const matchedProviderIds = new Set(results.map(r => r.provider.id))
+        setExpandedProviders(prev => {
+          const newSet = new Set(prev)
+          matchedProviderIds.forEach(id => newSet.add(id))
+          return newSet
+        })
+      }
+    }
+  }, [modelSearchQuery])
+
+  // 获取过滤和排序后的模型列表
+  const getFilteredProviders = () => {
+    if (modelSearchQuery.trim()) {
+      return searchModels(modelSearchQuery)
+    }
+    return MODEL_PROVIDERS.map(provider => ({
+      provider,
+      models: sortModelsByReleaseDate(provider.models),
+    }))
+  }
 
   return (
     <div className="flex-1 flex flex-col min-h-0 bg-slate-50">
@@ -371,6 +425,177 @@ export default function SettingsPage() {
                         <div className="flex items-center gap-1.5 mt-3 text-xs text-emerald-600">
                           <Shield className="h-3.5 w-3.5" />
                           <span>密钥已配置</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 模型选择 */}
+                  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="flex items-start gap-4 p-6 border-b border-slate-100">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center flex-shrink-0">
+                        <Cpu className="h-5 w-5 text-indigo-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-semibold text-gray-900">AI 模型选择</h3>
+                        <p className="text-sm text-gray-500 mt-0.5">
+                          选择适合您需求的 AI 模型，不同模型性能和价格各异
+                        </p>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      {/* 搜索框 */}
+                      <div className="mb-6">
+                        <div className="relative">
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                          <Input
+                            type="text"
+                            placeholder="搜索模型名称、描述..."
+                            value={modelSearchQuery}
+                            onChange={(e) => setModelSearchQuery(e.target.value)}
+                            className="pl-10 h-11 border-slate-200 focus:border-cyan-500 focus:ring-cyan-500/20"
+                          />
+                          {modelSearchQuery && (
+                            <button
+                              onClick={() => setModelSearchQuery('')}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        {getFilteredProviders().map(({ provider, models }) => {
+                          const isExpanded = expandedProviders.has(provider.id) || modelSearchQuery.trim() !== ''
+                          const hasModels = models.length > 0
+                          
+                          if (!hasModels) return null
+                          
+                          return (
+                            <div key={provider.id} className="border border-slate-200 rounded-xl overflow-hidden bg-white">
+                              {/* 厂商头部 - 可点击展开/折叠 */}
+                              <button
+                                onClick={() => toggleProvider(provider.id)}
+                                className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 transition-colors"
+                              >
+                                <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                  <Image 
+                                    src={provider.logo} 
+                                    alt={provider.name}
+                                    width={24}
+                                    height={24}
+                                    className="object-contain"
+                                    unoptimized
+                                  />
+                                </div>
+                                <div className="flex-1 text-left">
+                                  <div className="flex items-center gap-2">
+                                    <h4 className="font-semibold text-gray-900 text-sm">{provider.name}</h4>
+                                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                                      {models.length} 个模型
+                                    </span>
+                                    <a 
+                                      href={provider.website} 
+                                      target="_blank" 
+                                      rel="noopener noreferrer"
+                                      className="text-cyan-600 hover:text-cyan-700"
+                                      onClick={(e) => e.stopPropagation()}
+                                    >
+                                      <ExternalLink className="h-3 w-3" />
+                                    </a>
+                                  </div>
+                                  <p className="text-xs text-gray-500 mt-0.5">{provider.description}</p>
+                                </div>
+                                <ChevronDown
+                                  className={cn(
+                                    "h-5 w-5 text-gray-400 transition-transform flex-shrink-0",
+                                    isExpanded && "rotate-180"
+                                  )}
+                                />
+                              </button>
+                              
+                              {/* 模型列表 - 可折叠 */}
+                              {isExpanded && (
+                                <div className="border-t border-slate-100 p-4 space-y-2 bg-slate-50/50">
+                                  {models.map((model) => (
+                                <button
+                                  key={model.id}
+                                  onClick={() => setLocalSelectedModel(model.id)}
+                                  className={cn(
+                                    "w-full flex items-start gap-3 p-4 rounded-xl border-2 transition-all text-left",
+                                    localSelectedModel === model.id
+                                      ? "border-cyan-500 bg-cyan-50/50 shadow-sm"
+                                      : "border-slate-200 hover:border-slate-300 bg-white"
+                                  )}
+                                >
+                                  {/* 选中标记 */}
+                                  <div className={cn(
+                                    "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5",
+                                    localSelectedModel === model.id
+                                      ? "border-cyan-500 bg-cyan-500"
+                                      : "border-slate-300"
+                                  )}>
+                                    {localSelectedModel === model.id && (
+                                      <CheckCircle2 className="h-3 w-3 text-white" />
+                                    )}
+                                  </div>
+                                  
+                                  {/* 模型信息 */}
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                      <span className="font-semibold text-gray-900 text-sm">
+                                        {model.displayName}
+                                      </span>
+                                      {model.recommended && (
+                                        <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-gradient-to-r from-cyan-500 to-teal-500 text-white">
+                                          推荐
+                                        </span>
+                                      )}
+                                    </div>
+                                    <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                                      {model.description}
+                                    </p>
+                                    {model.pricing && (
+                                      <div className="flex items-center gap-3 mt-2 text-xs text-gray-500">
+                                        <span>💰 输入: {model.pricing.input}</span>
+                                        <span>•</span>
+                                        <span>输出: {model.pricing.output}</span>
+                                      </div>
+                                    )}
+                                  </div>
+                                </button>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                      
+                      {/* 模型选择说明 */}
+                      {!modelSearchQuery && (
+                        <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-xl">
+                          <div className="flex items-start gap-3">
+                            <Info className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1 text-xs text-blue-900 space-y-1">
+                              <p className="font-medium">💡 模型选择建议：</p>
+                              <ul className="list-disc list-inside space-y-0.5 text-blue-800">
+                                <li>7B-9B 模型：适合日常使用，性价比高</li>
+                                <li>14B-32B 模型：适合复杂任务，推理能力更强</li>
+                                <li>72B+ 模型：专业级任务，最佳性能</li>
+                                <li>模型按发布时间排序，最新的在前</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* 搜索结果提示 */}
+                      {modelSearchQuery && getFilteredProviders().length === 0 && (
+                        <div className="mt-6 p-4 text-center text-gray-500 text-sm">
+                          未找到匹配的模型，请尝试其他关键词
                         </div>
                       )}
                     </div>

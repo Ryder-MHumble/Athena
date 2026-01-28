@@ -9,6 +9,10 @@ services:
         value: 3.11.0
       - key: PORT
         value: 10000
+      # 注意：CORS_ORIGINS 需要在 Render Dashboard 中手动配置
+      # 格式：https://your-vercel-domain.vercel.app
+      # 示例：CORS_ORIGINS=https://athena-coral-five.vercel.app
+      # 如果有多个域名，用逗号分隔
     healthCheckPath: /health
     disk:
       name: athena-uploads

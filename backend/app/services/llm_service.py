@@ -18,19 +18,21 @@ from typing import List, Dict, Any
 class LLMService:
     """LLM 服务类 - 封装 LangChain 调用"""
     
-    def __init__(self, api_key: str = None):
+    def __init__(self, api_key: str = None, model: str = None):
         """
         初始化 LLM 服务
         
         Args:
             api_key: SiliconFlow API Key（如果为 None，使用环境变量）
+            model: 模型ID（如果为 None，使用配置文件中的默认模型）
         """
         self.api_key = api_key or settings.SILICONFLOW_API_KEY
+        self.model = model or settings.LLM_MODEL
         
         # 创建 LangChain ChatOpenAI 实例
         # SiliconFlow 兼容 OpenAI API 格式
         self.llm = ChatOpenAI(
-            model=settings.LLM_MODEL,
+            model=self.model,
             openai_api_key=self.api_key,
             openai_api_base="https://api.siliconflow.cn/v1",  # SiliconFlow API 地址
             temperature=settings.TEMPERATURE,
@@ -79,7 +81,7 @@ class LLMService:
         # 调用 LLM（如果指定了temperature，临时创建新的llm实例）
         if temperature is not None:
             temp_llm = ChatOpenAI(
-                model=settings.LLM_MODEL,
+                model=self.model,
                 openai_api_key=self.api_key,
                 openai_api_base="https://api.siliconflow.cn/v1",
                 temperature=temperature,
@@ -128,7 +130,7 @@ class LLMService:
         
         # 创建流式 LLM 实例
         stream_llm = ChatOpenAI(
-            model=settings.LLM_MODEL,
+            model=self.model,
             openai_api_key=self.api_key,
             openai_api_base="https://api.siliconflow.cn/v1",
             temperature=temperature or settings.TEMPERATURE,
@@ -264,10 +266,10 @@ class LLMService:
 _llm_service: LLMService = None
 
 
-def get_llm_service(api_key: str = None) -> LLMService:
-    """获取 LLM 服务实例（单例模式）"""
-    global _llm_service
-    if _llm_service is None or api_key:
-        _llm_service = LLMService(api_key=api_key)
-    return _llm_service
+def get_llm_service(api_key: str = None, model: str = None) -> LLMService:
+    """
+    获取 LLM 服务实例
+    注意：由于支持用户自定义模型，不再使用单例模式
+    """
+    return LLMService(api_key=api_key, model=model)
 

@@ -22,6 +22,13 @@ const getApiKey = (): string => {
 }
 
 /**
+ * 获取选中的模型
+ */
+const getSelectedModel = (): string => {
+  return useAppStore.getState().selectedModel || 'Qwen/Qwen2.5-7B-Instruct'
+}
+
+/**
  * 创建 API 客户端实例
  * 自动添加 API Key 到请求头
  */
@@ -70,6 +77,7 @@ export interface ChatRequest {
   message: string
   history?: ChatMessage[]
   thinking_mode?: boolean  // 思考模式（可选，前端控制）
+  model?: string  // 指定使用的模型 ID（可选）
 }
 
 export interface ChatResponse {
@@ -133,19 +141,30 @@ export interface SearchResponse {
 export const api = {
   // 术语通 - 发送消息（非流式，保持兼容）
   chat: async (data: ChatRequest): Promise<ChatResponse> => {
-    return apiClient.post('chat/', { json: data }).json()
+    // 自动添加选中的模型
+    const requestData = {
+      ...data,
+      model: data.model || getSelectedModel(),
+    }
+    return apiClient.post('chat/', { json: requestData }).json()
   },
 
   // 术语通 - 流式发送消息
   chatStream: async function* (data: ChatRequest) {
     try {
+      // 自动添加选中的模型
+      const requestData = {
+        ...data,
+        model: data.model || getSelectedModel(),
+      }
+      
       const response = await fetch(`${API_BASE_URL}/api/chat/stream`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-API-Key': getApiKey(),
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(requestData),
       })
 
       if (!response.ok) {

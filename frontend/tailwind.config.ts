@@ -75,6 +75,7 @@ const config = {
       fontFamily: {
         serif: ['Merriweather', 'Noto Serif SC', 'serif'],
         sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+        display: ['var(--font-display)', 'Noto Sans SC', 'sans-serif'],
       },
     },
   },

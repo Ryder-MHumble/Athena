@@ -56,17 +56,17 @@ export const advantages: Advantage[] = [
   {
     icon: Zap,
     title: "秒级响应",
-    description: "基于先进的大语言模型，实时流式输出"
+    description: "基于 Qwen 72B 大模型，实时流式输出，无需等待"
   },
   {
     icon: Sparkles,
     title: "AI 驱动",
-    description: "高质量的学习支持和个性化指导"
+    description: "RAG 增强检索 + 智能语义理解，让知识触手可及"
   },
   {
     icon: CheckCircle,
-    title: "易于使用",
-    description: "直观界面设计，无需技术背景"
+    title: "零门槛使用",
+    description: "专为非技术背景设计，开箱即用，无需配置"
   }
 ]
 
