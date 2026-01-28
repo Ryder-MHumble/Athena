@@ -6,16 +6,22 @@ import Link from "next/link"
 import { Github, BookOpen, MessageSquare, Heart, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const footerLinks = {
+interface FooterLink {
+  label: string
+  href: string
+  external?: boolean
+}
+
+const footerLinks: Record<string, FooterLink[]> = {
   '产品': [
-    { label: '术语通', href: '/jargon-killer' },
-    { label: '论文伴侣', href: '/paper-copilot' },
-    { label: '知识沉淀', href: '/team-brain' },
-    { label: '知识卡片', href: '/flashcards' },
+    { label: '术语通', href: '/jargon-killer', external: false },
+    { label: '论文伴侣', href: '/paper-copilot', external: false },
+    { label: '知识沉淀', href: '/team-brain', external: false },
+    { label: '知识卡片', href: '/flashcards', external: false },
   ],
   '资源': [
-    { label: '数据中心', href: '/data-hub' },
-    { label: '设置', href: '/settings' },
+    { label: '数据中心', href: '/data-hub', external: false },
+    { label: '设置', href: '/settings', external: false },
   ],
   '支持': [
     { label: 'GitHub', href: 'https://github.com/Ryder-MHumble/Athena', external: true },
@@ -60,8 +66,9 @@ export function Footer() {
                 </h4>
                 <ul className="space-y-3">
                   {links.map((link) => {
-                    const Component = link.external ? 'a' : Link
-                    const props = link.external 
+                    const isExternal = link.external ?? false
+                    const Component = isExternal ? 'a' : Link
+                    const props = isExternal 
                       ? { href: link.href, target: '_blank', rel: 'noopener noreferrer' }
                       : { href: link.href }
                     
@@ -72,7 +79,7 @@ export function Footer() {
                           className="text-sm text-gray-600 hover:text-cyan-600 transition-colors flex items-center gap-2 group"
                         >
                           {link.label}
-                          {link.external && (
+                          {isExternal && (
                             <span className="opacity-0 group-hover:opacity-100 transition-opacity">
                               ↗
                             </span>
