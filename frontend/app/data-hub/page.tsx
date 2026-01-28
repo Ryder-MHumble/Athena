@@ -40,8 +40,8 @@ const mockPosts = [
     content: 'Just got these amazing pieces for my summer collection. The colors are absolutely vibrant and the quality is top notch! I\'ve been looking for something breathable yet stylish for the Shanghai heatwaves.',
     imageCount: 4,
     likes: '12.4k',
-    comments: 342,
-    shares: 89,
+    comments: '342',
+    shares: '89',
     tags: ['#summer', '#fashion', '#ootd'],
     crawledAt: 'Oct 24, 2023',
     sentiment: { score: 92, label: 'Positive' },
@@ -62,8 +62,8 @@ const mockPosts = [
     imageCount: 0,
     videoLength: '12:45',
     likes: '2.1k',
-    comments: 156,
-    shares: 0,
+    comments: '156',
+    shares: '0',
     tags: ['Tech', 'AI'],
     crawledAt: '5 hrs ago',
     sentiment: { score: 78, label: 'Neutral' },
@@ -83,8 +83,8 @@ const mockPosts = [
     content: 'Found this incredibly peaceful spot near the bund...',
     imageCount: 2,
     likes: '3.4k',
-    comments: 82,
-    shares: 0,
+    comments: '82',
+    shares: '0',
     tags: ['cafe', 'shanghai'],
     crawledAt: '3 days ago',
     sentiment: { score: 88, label: 'Positive' },
@@ -331,7 +331,7 @@ export default function DataHubPage() {
                             <MessageCircle className="h-4 w-4" />
                             {post.comments}
                           </span>
-                          {post.shares > 0 && (
+                          {post.shares && post.shares !== '0' && (
                             <span className="flex items-center gap-1">
                               <Share2 className="h-4 w-4" />
                               {post.shares}

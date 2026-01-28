@@ -41,12 +41,12 @@
     <td align="center" width="50%">
       <b>📄 论文伴侣</b><br>
       <img src="frontend/public/screenshots/paper-copilot.png" width="100%" />
-      <sub>PDF 智能分析 · 结构化解读 · 一键收藏</sub>
+      <sub>PDF 智能分析 · 结构化解读 · 一键收藏（基于Arxiv url获取论文正在开发中）</sub>
     </td>
     <td align="center" width="50%">
       <b>💾 知识沉淀</b><br>
       <img src="frontend/public/screenshots/team-brain.png" width="100%" />
-      <sub>智能知识库检索与问答（开发中）</sub>
+      <sub>智能知识库检索与问答（数据库开发开发中）</sub>
     </td>
   </tr>
   <tr>
@@ -57,7 +57,7 @@
     </td>
     <td align="center" width="50%">
       <b>📊 数据中心</b><br>
-      <img src="frontend/public/screenshots/datacenter.png" width="100%" />
+      <img src="frontend/public/screenshots/DataCenter.png" width="100%" />
       <sub>学习与使用统计分析（开发中）</sub>
     </td>
   </tr>
