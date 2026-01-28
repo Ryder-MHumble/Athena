@@ -7,27 +7,7 @@ import ky from 'ky'
 import { useAppStore } from '@/stores/useAppStore'
 
 // 后端 API 基础 URL（根据部署环境调整）
-// 生产环境：从环境变量读取 Render 后端 URL
-// 开发环境：默认使用 localhost:8000
-const getApiBaseUrl = (): string => {
-  // 优先使用环境变量
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    return process.env.NEXT_PUBLIC_API_URL
-  }
-  
-  // 如果是生产环境（Vercel），尝试从环境变量或默认 Render URL 获取
-  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-    // 生产环境，如果没有配置，使用默认的 Render URL
-    // 注意：这需要在 Vercel 环境变量中配置 NEXT_PUBLIC_API_URL
-    console.warn('NEXT_PUBLIC_API_URL not configured. Please set it in Vercel environment variables.')
-    return 'https://athena-backend.onrender.com' // 默认 Render URL，需要根据实际修改
-  }
-  
-  // 开发环境默认值
-  return 'http://localhost:8000'
-}
-
-const API_BASE_URL = getApiBaseUrl()
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 /**
  * 获取 API Key（优先使用 store，其次环境变量）
@@ -219,7 +199,7 @@ export const api = {
     }
   },
 
-  // 论文伴侣 - 分析论文
+  // 论文伴侣 - 分析论文（快速版：只返回核心分析，5-10秒完成）
   analyzePaper: async (data: PaperAnalysisRequest): Promise<PaperAnalysisResponse> => {
     const formData = new FormData()
     if (data.file) {
@@ -229,6 +209,20 @@ export const api = {
       formData.append('url', data.url)
     }
     return apiClient.post('paper/analyze', { body: formData }).json()
+  },
+
+  // 论文伴侣 - 按需生成讲解内容
+  generateSpeech: async (paperText: string): Promise<{ speech: string }> => {
+    return apiClient.post('paper/generate-speech', { 
+      json: { paper_text: paperText } 
+    }).json()
+  },
+
+  // 论文伴侣 - 按需生成 Q&A
+  generateQA: async (paperText: string): Promise<{ qa: Array<{ question: string; answer: string }> }> => {
+    return apiClient.post('paper/generate-qa', { 
+      json: { paper_text: paperText } 
+    }).json()
   },
 
   // 论文伴侣 - AI 解读

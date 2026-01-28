@@ -43,6 +43,8 @@ export default function PaperCopilotPage() {
     streamingChatContent,
     speechStreaming,
     hasPaper,
+    isSpeechLoading,
+    speechLoaded,
     fileInputRef,
     pdfContainerRef,
     setFile,
@@ -241,9 +243,21 @@ export default function PaperCopilotPage() {
               {/* 讲解 - 独立滚动区域 */}
               {analysis && activeTab === 'speech' && (
                 <div className="flex-1 overflow-y-auto custom-scrollbar">
-                  <div className="p-6">
-                    <SpeechTab speech={normalizeMarkdown(speechStreaming || analysis.speech)} />
-                  </div>
+                  {isSpeechLoading ? (
+                    <div className="flex-1 flex items-center justify-center p-6">
+                      <div className="text-center space-y-4">
+                        <div className="inline-block p-3 rounded-full bg-cyan-100">
+                          <Loader2 className="h-8 w-8 animate-spin text-cyan-600" />
+                        </div>
+                        <p className="text-gray-600 font-medium">正在生成讲解内容...</p>
+                        <p className="text-xs text-gray-500">首次加载需要几秒钟</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-6">
+                      <SpeechTab speech={normalizeMarkdown(speechStreaming || analysis.speech)} />
+                    </div>
+                  )}
                 </div>
               )}
 

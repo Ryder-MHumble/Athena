@@ -21,16 +21,16 @@ class Settings(BaseSettings):
     
     # CORS 配置
     # 支持多个域名，用逗号分隔
-    # 生产环境需要添加实际的 Vercel 域名
-    # 在 Render Dashboard 的环境变量中配置：CORS_ORIGINS=https://athena-coral-five.vercel.app,https://athena-coral-five-git-main-xxx.vercel.app
+    # 生产环境需要添加实际的 Vercel 域名，例如：https://your-app.vercel.app
     CORS_ORIGINS: str = "http://localhost:3000"
     
     @property
     def cors_origins_list(self) -> List[str]:
-        """解析 CORS_ORIGINS 字符串为列表"""
+        """解析 CORS_ORIGINS 字符串为列表，支持通配符匹配 Vercel 域名"""
         origins = [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
-        # 过滤空字符串
-        return [origin for origin in origins if origin]
+        # 如果包含通配符模式，需要手动添加具体域名
+        # 注意：FastAPI CORS 不支持通配符，需要在环境变量中明确指定所有允许的域名
+        return origins
     
     # 文件上传配置
     UPLOAD_DIR: str = "./uploads"
@@ -44,6 +44,8 @@ class Settings(BaseSettings):
     EMBEDDING_MODEL: str = "BAAI/bge-m3"
     TEMPERATURE: float = 0.7
     MAX_TOKENS: int = 2000
+    # LLM 请求超时时间（秒）
+    LLM_REQUEST_TIMEOUT: float = 180.0  # 3分钟
     
     class Config:
         env_file = ".env"

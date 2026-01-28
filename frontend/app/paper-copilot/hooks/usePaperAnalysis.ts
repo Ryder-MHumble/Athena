@@ -24,6 +24,9 @@ export function usePaperAnalysis() {
   const [isDraggingSplit, setIsDraggingSplit] = useState(false)
   const [speechStreaming, setSpeechStreaming] = useState('')
   const speechStreamRef = useRef<NodeJS.Timeout | null>(null)
+  // 按需加载状态
+  const [isSpeechLoading, setIsSpeechLoading] = useState(false)
+  const [speechLoaded, setSpeechLoaded] = useState(false)
 
   // 规范化 Markdown
   const normalizeMarkdown = (text: string) => {
@@ -76,6 +79,7 @@ export function usePaperAnalysis() {
       setIsLoading(true)
       setAnalysis(null)
       setChatHistory([])
+      setSpeechLoaded(false)
 
       try {
         const result = await api.analyzePaper({
@@ -83,8 +87,8 @@ export function usePaperAnalysis() {
         })
         setAnalysis(result)
         setPaperText(result.paper_text || '')
-        startSpeechStreaming(result.speech || '')
-        toast.success('论文分析完成')
+        // 快速分析不再包含 speech，只在切换到讲解标签时按需加载
+        toast.success('论文核心分析完成 ✨')
       } catch (error: any) {
         toast.error(error.message || '分析失败，请检查文件或网络连接')
         console.error('Paper analysis error:', error)
@@ -106,6 +110,7 @@ export function usePaperAnalysis() {
     setIsLoading(true)
     setAnalysis(null)
     setChatHistory([])
+    setSpeechLoaded(false)
 
     try {
       const result = await api.analyzePaper({
@@ -114,7 +119,6 @@ export function usePaperAnalysis() {
       })
       setAnalysis(result)
       setPaperText(result.paper_text || '')
-      startSpeechStreaming(result.speech || '')
 
       // 如果是URL，需要下载PDF并设置PDF URL
       if (url.trim() && !file) {
@@ -152,7 +156,7 @@ export function usePaperAnalysis() {
         }
       }
 
-      toast.success('论文分析完成')
+      toast.success('论文核心分析完成 ✨')
     } catch (error: any) {
       toast.error(error.message || '分析失败，请检查文件或网络连接')
       console.error('Paper analysis error:', error)
@@ -172,6 +176,8 @@ export function usePaperAnalysis() {
     setSpeechStreaming('')
     setStreamingChatContent('')
     setActiveTab('analysis')
+    setSpeechLoaded(false)
+    setIsSpeechLoading(false)
     
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
@@ -244,6 +250,33 @@ export function usePaperAnalysis() {
 
   const handleSplitMouseUp = () => setIsDraggingSplit(false)
 
+  // 按需加载讲解内容
+  const loadSpeechIfNeeded = async () => {
+    if (!paperText || speechLoaded || isSpeechLoading) return
+    
+    setIsSpeechLoading(true)
+    try {
+      const result = await api.generateSpeech(paperText)
+      if (analysis) {
+        setAnalysis({ ...analysis, speech: result.speech })
+        startSpeechStreaming(result.speech)
+        setSpeechLoaded(true)
+      }
+    } catch (error: any) {
+      toast.error('加载讲解内容失败')
+      console.error('Speech generation error:', error)
+    } finally {
+      setIsSpeechLoading(false)
+    }
+  }
+
+  // 监听 activeTab 变化，按需加载内容
+  useEffect(() => {
+    if (activeTab === 'speech' && analysis && !speechLoaded && !analysis.speech) {
+      loadSpeechIfNeeded()
+    }
+  }, [activeTab, analysis, speechLoaded])
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.addEventListener('mousemove', handleSplitMouseMove)
@@ -277,6 +310,8 @@ export function usePaperAnalysis() {
     speechStreaming,
     hasPaper,
     isDraggingSplit,
+    isSpeechLoading,
+    speechLoaded,
     // Refs
     fileInputRef,
     pdfContainerRef,

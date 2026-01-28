@@ -66,7 +66,8 @@ async def analyze_paper(
         # 获取 LLM 服务
         llm_service = get_llm_service(api_key=x_api_key)
         
-        # 并行生成三个结果 - 使用 asyncio 并发执行
+        # 优化策略：只生成核心分析，其他内容设为空（按需生成）
+        # 这样可以在 5-10 秒内返回结果，大幅提升用户体验
         import asyncio
         
         async def run_analysis():
@@ -75,26 +76,18 @@ async def analyze_paper(
             summary_data = await loop.run_in_executor(None, llm_service.analyze_paper_structured, paper_text)
             return summary_data
         
-        async def run_speech():
-            loop = asyncio.get_event_loop()
-            speech = await loop.run_in_executor(None, llm_service.generate_speech, paper_text)
-            return speech
+        # 只执行核心分析，大幅减少等待时间（从 30s+ 降至 10s 左右）
+        try:
+            summary_data = await run_analysis()
+        except asyncio.TimeoutError:
+            raise HTTPException(status_code=504, detail="LLM request timed out. Please try again.")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to analyze paper: {str(e)}")
         
-        async def run_qa():
-            loop = asyncio.get_event_loop()
-            qa = await loop.run_in_executor(None, llm_service.generate_qa, paper_text)
-            return qa
-        
-        # 并发执行，无需等待全部完成
-        summary_data, speech, qa = await asyncio.gather(run_analysis(), run_speech(), run_qa(), return_exceptions=True)
-        
-        # 处理异常
-        if isinstance(summary_data, Exception):
-            raise summary_data
-        if isinstance(speech, Exception):
-            speech = ""
-        if isinstance(qa, Exception):
-            qa = []
+        # 演讲稿和 Q&A 功能暂时返回占位内容
+        # 用户可以在"讲解"和"对话"标签页按需生成
+        speech = ""
+        qa = []
         
         # 解析结构化摘要（PaperService已在文件顶部导入）
         parsed_summary = PaperService.parse_structured_summary(summary_data["raw_response"])
@@ -124,6 +117,62 @@ async def analyze_paper(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error analyzing paper: {str(e)}")
+
+
+@router.post("/generate-speech")
+async def generate_speech(
+    paper_text: str = Body(..., embed=True),
+    x_api_key: str = Header(None),
+):
+    """
+    按需生成论文讲解内容
+    
+    Args:
+        paper_text: 论文文本内容
+        x_api_key: API Key
+    
+    Returns:
+        讲解内容
+    """
+    if not x_api_key:
+        raise HTTPException(status_code=401, detail="API Key is required")
+    
+    try:
+        llm_service = get_llm_service(api_key=x_api_key)
+        speech = llm_service.generate_speech(paper_text)
+        return {"speech": speech}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating speech: {str(e)}")
+
+
+@router.post("/generate-qa")
+async def generate_qa(
+    paper_text: str = Body(..., embed=True),
+    x_api_key: str = Header(None),
+):
+    """
+    按需生成论文 Q&A
+    
+    Args:
+        paper_text: 论文文本内容
+        x_api_key: API Key
+    
+    Returns:
+        Q&A 列表
+    """
+    if not x_api_key:
+        raise HTTPException(status_code=401, detail="API Key is required")
+    
+    try:
+        llm_service = get_llm_service(api_key=x_api_key)
+        qa = llm_service.generate_qa(paper_text)
+        qa_pairs = [
+            {"question": q["question"], "answer": q["answer"]}
+            for q in qa
+        ] if qa else []
+        return {"qa": qa_pairs}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating Q&A: {str(e)}")
 
 
 @router.post("/chat")

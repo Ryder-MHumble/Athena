@@ -37,6 +37,7 @@ class LLMService:
             openai_api_base="https://api.siliconflow.cn/v1",  # SiliconFlow API 地址
             temperature=settings.TEMPERATURE,
             max_tokens=settings.MAX_TOKENS,
+            request_timeout=settings.LLM_REQUEST_TIMEOUT,
         )
     
     def chat(
@@ -86,6 +87,7 @@ class LLMService:
                 openai_api_base="https://api.siliconflow.cn/v1",
                 temperature=temperature,
                 max_tokens=settings.MAX_TOKENS,
+                request_timeout=settings.LLM_REQUEST_TIMEOUT,
             )
             response = temp_llm.invoke(messages)
         else:
@@ -136,6 +138,7 @@ class LLMService:
             temperature=temperature or settings.TEMPERATURE,
             max_tokens=settings.MAX_TOKENS,
             streaming=True,  # 启用流式模式
+            request_timeout=180.0,
         )
         
         # 使用 stream 方法获取流式响应
@@ -172,6 +175,7 @@ class LLMService:
             openai_api_base="https://api.siliconflow.cn/v1",
             temperature=0.3,
             max_tokens=settings.MAX_TOKENS,
+            request_timeout=180.0,
         )
         response = small_llm.invoke([HumanMessage(content=prompt)])
         return {"raw_response": response.content}
@@ -220,6 +224,7 @@ class LLMService:
             openai_api_base="https://api.siliconflow.cn/v1",
             temperature=0.4,
             max_tokens=settings.MAX_TOKENS,
+            request_timeout=180.0,
         )
         response = small_llm.invoke([HumanMessage(content=prompt)])
         return response.content
@@ -252,6 +257,7 @@ class LLMService:
             openai_api_base="https://api.siliconflow.cn/v1",
             temperature=0.4,
             max_tokens=settings.MAX_TOKENS,
+            request_timeout=180.0,
         )
         response = small_llm.invoke([HumanMessage(content=prompt)])
         # 简单解析：按换行分割问题和答案，对格式要求不严格时至少给出原始文本
