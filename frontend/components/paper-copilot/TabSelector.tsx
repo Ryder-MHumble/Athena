@@ -10,31 +10,27 @@ export interface TabSelectorProps {
 
 export const TabSelector: React.FC<TabSelectorProps> = ({ activeTab, onTabChange }) => {
   const tabs = [
-    { id: 'analysis' as const, icon: FileText, label: '分析结果' },
-    { id: 'speech' as const, icon: Mic, label: '讲解建议' },
-    { id: 'chat' as const, icon: Bot, label: 'AI 解读' },
+    { id: 'analysis' as const, icon: FileText, label: '分析' },
+    { id: 'speech' as const, icon: Mic, label: '讲解' },
+    { id: 'chat' as const, icon: Bot, label: '对话' },
   ]
 
   return (
-    <div className="flex border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-6 sm:px-8">
+    <div className="flex items-center gap-1">
       {tabs.map(({ id, icon: Icon, label }) => (
-        <Button
+        <button
           key={id}
-          variant="ghost"
           onClick={() => onTabChange(id)}
           className={cn(
-            "flex-1 max-w-48 rounded-none py-4 relative text-sm font-medium transition-colors",
+            "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
             activeTab === id
-              ? "text-cyan-600 hover:text-cyan-700"
-              : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
+              ? "bg-cyan-100 text-cyan-700"
+              : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
           )}
         >
-          <Icon className="h-4 w-4 mr-2" />
+          <Icon className="h-3.5 w-3.5" />
           {label}
-          {activeTab === id && (
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 to-teal-500" />
-          )}
-        </Button>
+        </button>
       ))}
     </div>
   )

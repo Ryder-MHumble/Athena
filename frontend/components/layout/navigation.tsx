@@ -40,7 +40,7 @@ const dropdownGroups = [
     icon: FolderOpen,
     items: [
       { href: '/team-brain', label: '知识沉淀', icon: Brain, description: '团队知识库检索' },
-      { href: '/flashcards', label: '单词本', icon: Lightbulb, description: '概念收藏与复习' },
+      { href: '/flashcards', label: '知识卡片', icon: Lightbulb, description: '术语与论文收藏' },
     ]
   }
 ]
@@ -143,7 +143,7 @@ export function Navigation() {
   const pathname = usePathname()
 
   return (
-    <nav className="sticky top-0 z-50 glass border-b border-white/20 backdrop-blur-xl bg-white/80">
+    <nav className="sticky top-0 z-50 bg-slate-50 border-b border-slate-200/60">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

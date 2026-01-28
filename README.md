@@ -1,7 +1,7 @@
 # Athena - AI 战略分析师智能工作台
 
 <p align="center">
-  <img src="frontend/public/Logo.png" alt="Athena Logo" width="200" />
+  <img src="frontend/public/Logo.png" alt="Athena Logo" width="400" />
 </p>
 
 <p align="center">
@@ -14,33 +14,68 @@
 
 <p align="center">
   <b>专为非技术背景用户设计的 AI 智能工作台</b><br>
-  让学习和研究变得简单有趣
+  让学习和研究变得简单、高效、有趣
 </p>
 
 ---
 
 ## 📸 功能预览
 
-> 以下截图展示了 Athena 的核心功能界面
+<details open>
+<summary><b>点击展开/收起截图</b></summary>
 
-| 功能模块 | 界面预览 | 描述 |
-|:-------:|:-------:|:-----|
-| **首页** | ![首页](frontend/public/screenshots/home.png) | 现代化的落地页设计，展示核心功能入口 |
-| **术语通** | ![术语通](frontend/public/screenshots/jargon-killer.png) | AI 对话界面，实时流式响应专业术语解释 |
-| **论文伴侣** | ![论文伴侣](frontend/public/screenshots/paper-copilot.png) | PDF 上传与结构化论文分析报告 |
-| **知识沉淀** | ![知识沉淀](frontend/public/screenshots/team-brain.png) | 团队知识库文档管理与智能检索「还存在bug」 |
-| **数据中心** | 暂时未接入爬虫能力 | 多平台数据采集与可视化展示 |
-| **单词本** | ![单词本](frontend/public/screenshots/flashcards.png) | 3D 翻转卡片式概念复习 |
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <b>🏠 首页</b><br>
+      <img src="frontend/public/screenshots/home.png" width="100%" />
+      <sub>核心功能概览，快速入口</sub>
+    </td>
+    <td align="center" width="50%">
+      <b>🧠 术语通</b><br>
+      <img src="frontend/public/screenshots/jargon-killer.png" width="100%" />
+      <sub>AI 实时流式对话，专业术语秒懂</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <b>📄 论文伴侣</b><br>
+      <img src="frontend/public/screenshots/paper-copilot.png" width="100%" />
+      <sub>PDF 智能分析 · 结构化解读 · 一键收藏</sub>
+    </td>
+    <td align="center" width="50%">
+      <b>💾 知识沉淀</b><br>
+      <img src="frontend/public/screenshots/team-brain.png" width="100%" />
+      <sub>智能知识库检索与问答（开发中）</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <b>📚 知识卡片</b><br>
+      <img src="frontend/public/screenshots/flashcards.png" width="100%" />
+      <sub>术语收藏 · 论文分析存档 · 3D 卡片复习</sub>
+    </td>
+    <td align="center" width="50%">
+      <b>📊 数据中心</b><br>
+      <img src="frontend/public/screenshots/datacenter.png" width="100%" />
+      <sub>学习与使用统计分析（开发中）</sub>
+    </td>
+  </tr>
+</table>
+
 
 ## 📖 项目背景
 
-Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要快速学习、理解复杂概念的用户设计。项目解决以下核心痛点：
+Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要快速学习、理解复杂概念的用户设计。
 
-- **🔤 术语理解困难**：遇到专业名词时缺乏即时可靠的解释来源
+### 核心痛点
+
+- **🔤 术语理解困难**：专业名词缺乏即时可靠的解释来源
 - **📚 论文分享压力**：需要快速理解论文核心观点并准备讲解材料
-- **📁 知识分散难查**：团队文档分散，缺乏统一管理和语义检索能力
+- **📁 知识分散难查**：团队文档分散，缺乏统一管理和语义检索
 - **🧠 概念易遗忘**：学过的内容缺少系统化的记录和复习机制
-- **📊 数据洞察需求**：需要从多平台采集和分析内容数据
+
+---
 
 ## ✨ 核心功能
 
@@ -51,7 +86,7 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 **核心特性：**
 - ⚡ **流式实时响应**：基于 SSE 技术，即时看到 AI 逐字生成的回复
 - 🔄 **多轮深度追问**：支持持续追问，直到彻底理解概念
-- 🎯 **双模式切换**：思考模式（精确）与快速模式（高效）自由切换
+- 🎯 **双模式切换**：思考模式（Qwen2.5-72B）与快速模式（Qwen2.5-7B）
 - 💾 **一键收藏**：将重要概念直接保存到单词本
 
 ### 2. 论文伴侣 (Paper Copilot)
@@ -62,7 +97,8 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 - 📄 **多种输入方式**：支持 PDF 上传和 Arxiv 链接导入
 - 📊 **结构化报告**：自动生成核心问题、前人困境、核心直觉、关键步骤等
 - 🎤 **讲解文稿**：生成口语化演讲稿，使用生活化类比解释复杂概念
-- ❓ **预判提问**：智能预测可能的提问并准备答案
+- 💬 **论文对话**：基于论文内容的智能问答，深入理解论文细节
+- ⭐ **一键收藏**：将论文分析结果保存到知识卡片，随时回顾
 
 ### 3. 知识沉淀 (Team Brain)
 
@@ -74,25 +110,19 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 - 🤖 **智能问答**：基于 RAG 架构的上下文增强对话
 - 📝 **报告生成**：自动生成包含核心摘要、关键概念的结构化报告
 
-### 4. 数据中心 (Data Hub)
+### 4. 知识卡片 (Knowledge Cards)
 
-> 多平台社媒数据采集与分析，洞察内容趋势
-
-**核心特性：**
-- 🌐 **多平台支持**：小红书、抖音、快手、B站、微博、贴吧、知乎
-- 📈 **数据可视化**：采集量、情感指数、互动量等数据统计
-- 🔧 **爬虫配置**：基于 [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) 的可视化配置界面
-- 🎯 **情感分析**：AI 自动分析内容情感倾向
-
-### 5. 灵感单词本 (Flashcards)
-
-> 像记单词一样记录和复习 AI 解释过的概念
+> 统一管理术语收藏和论文分析，构建个人知识体系
 
 **核心特性：**
-- 💡 **智能收藏**：从术语通对话中一键保存概念和解释
-- 🎴 **3D 卡片效果**：精美的卡片翻转动画
+- 📖 **双类型支持**：同时管理「术语收藏」和「论文分析」两种知识卡片
+- 💡 **智能收藏**：从术语通和论文伴侣中一键保存内容
+- 🎴 **3D 卡片效果**：精美的卡片翻转动画，提升学习体验
+- 📊 **分类筛选**：按类型（全部/术语/论文）快速筛选查看
 - 🔍 **快速搜索**：支持关键词搜索已学概念
 - 💾 **本地存储**：数据持久化保存在浏览器本地
+
+---
 
 ## 🏗️ 技术架构
 
@@ -105,7 +135,6 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 | Tailwind CSS | 3.4 | 实用优先的 CSS 框架 |
 | shadcn/ui | - | 可访问性优先的组件库 |
 | Zustand | 4.5 | 轻量级状态管理 |
-| react-markdown | - | Markdown 渲染 |
 | react-pdf | - | PDF 文档预览 |
 
 ### 后端技术栈
@@ -128,7 +157,7 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 │  │ 术语通   │ │ 论文伴侣 │ │ 知识沉淀 │        │
 │  └──────────┘ └──────────┘ └──────────┘        │
 │  ┌──────────┐ ┌──────────┐                      │
-│  │ 数据中心 │ │ 单词本   │                      │
+│  │ 数据中心 │ │ 知识卡片 │                      │
 │  └──────────┘ └──────────┘                      │
 │                    │                            │
 │              HTTP/SSE API                       │
@@ -153,6 +182,8 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 └────────┘    └───────────┘    └───────────┘
 ```
 
+---
+
 ## 🚀 快速开始
 
 ### 环境要求
@@ -163,10 +194,15 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 
 ### 一键启动（推荐）
 
+#### macOS / Linux / Git Bash / WSL
+
 ```bash
 # 克隆项目
 git clone https://github.com/Ryder-MHumble/Athena.git
 cd Athena
+
+# 赋予执行权限
+chmod +x start.sh stop.sh
 
 # 启动所有服务
 ./start.sh
@@ -175,8 +211,27 @@ cd Athena
 ./stop.sh
 ```
 
-脚本会自动：
-- ✅ 检查并安装依赖
+#### Windows PowerShell
+
+```powershell
+# 克隆项目
+git clone https://github.com/Ryder-MHumble/Athena.git
+cd Athena
+
+# 如果遇到执行策略限制，先运行：
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# 启动所有服务
+.\start.ps1
+
+# 停止所有服务
+.\stop.ps1
+```
+如果无法通过自动执行脚本快速部署和启动，就请参考下文的【手动启动】方法
+
+**一键启动脚本会自动：**
+- ✅ 检测并提示安装 Python 和 Node.js（如需要）
+- ✅ 安装项目依赖
 - ✅ 启动后端服务（端口 8000）
 - ✅ 启动前端服务（端口 3000）
 - ✅ 自动打开浏览器
@@ -193,19 +248,21 @@ python run.py
 **前端（新终端）：**
 ```bash
 cd frontend
-npm install
+npm install --legacy-peer-deps
 npm run dev
 ```
 
 ### 环境配置
 
-1. 访问 [SiliconFlow](https://siliconflow.cn/) 注册并获取 API Key
-2. 在应用的**设置页面**输入 API Key
-3. 配置团队访问密钥（用于知识库功能）
+1. 访问 [SiliconFlow](https://siliconflow.cn/) 注册并获取 API Key（首次注册赠送 2000 万 Tokens）
+2. 在应用的**设置页面** (`http://localhost:3000/settings`) 输入 API Key
+3. （可选）配置 Supabase 用于知识库功能
+
+---
 
 ## 📂 项目结构
 
-```
+```         
 Athena/
 ├── frontend/                 # Next.js 前端应用
 │   ├── app/                 # 应用路由和页面
@@ -213,7 +270,7 @@ Athena/
 │   │   ├── paper-copilot/   # 论文伴侣模块
 │   │   ├── team-brain/      # 知识沉淀模块
 │   │   ├── data-hub/        # 数据中心模块
-│   │   ├── flashcards/      # 单词本模块
+│   │   ├── flashcards/      # 知识卡片模块
 │   │   └── settings/        # 设置页面
 │   ├── components/          # 可复用组件
 │   ├── lib/                 # 工具函数和 API 客户端
@@ -228,33 +285,40 @@ Athena/
 │   │   └── config.py        # 配置管理
 │   └── requirements.txt     # Python 依赖
 │
-├── start.sh                 # 一键启动脚本
-├── stop.sh                  # 停止脚本
+├── start.sh                 # Linux/Mac 一键启动脚本
+├── start.ps1                # Windows 一键启动脚本
+├── stop.sh                  # Linux/Mac 停止脚本
+├── stop.ps1                 # Windows 停止脚本
 └── README.md
 ```
+
+---
 
 ## 🌟 核心特色
 
 ### 为非技术背景用户设计
 
-- 直观的界面设计，无需技术背景
-- 通俗易懂的语言解释
-- 生活化的类比，降低理解门槛
+- **直观的界面设计**：无需技术背景，开箱即用
+- **通俗易懂的语言**：AI 使用简单语言解释复杂概念
+- **生活化的类比**：降低理解门槛，让学习更有趣
 
 ### 流式 AI 响应
 
-采用 Server-Sent Events (SSE) 技术实现实时流式输出，无需等待即可看到 AI 逐字生成的回复。
+采用 Server-Sent Events (SSE) 技术实现实时流式输出，无需等待即可看到 AI 逐字生成的回复，提供类似 ChatGPT 的交互体验。
 
 ### 智能模型选择
 
-- **高质量推理**：Qwen2.5-72B-Instruct
-- **快速响应**：Qwen2.5-7B-Instruct
+- **高质量推理**：Qwen2.5-72B-Instruct（思考模式）
+- **快速响应**：Qwen2.5-7B-Instruct（快速模式）
+- **自动切换**：根据任务复杂度智能选择最合适的模型
 
 ### 向量检索增强 (RAG)
 
-知识库采用 RAG 架构，使用 BGE-M3 多语言向量模型 + Supabase pgvector 实现高性能语义检索。
+知识库采用 RAG 架构，使用 BGE-M3 多语言向量模型 + Supabase pgvector 实现高性能语义检索，精准定位相关内容。
 
-## 📊 访问地址
+---
+
+## 📊 服务地址
 
 | 服务 | 地址 |
 |-----|-----|
@@ -262,25 +326,87 @@ Athena/
 | 后端 API | http://localhost:8000 |
 | API 文档 | http://localhost:8000/docs |
 
+---
+
 ## 🐛 常见问题
 
-### 端口被占用
+### Q: 端口被占用怎么办？
 
-停止占用端口的进程，或修改配置文件中的端口号。
+**A:** 
+- Windows: `netstat -ano | findstr "8000"` 或 `netstat -ano | findstr "3000"`
+- Linux/Mac: `lsof -i :8000` 或 `lsof -i :3000`
+- 停止占用端口的进程，或修改配置文件中的端口号
 
-### API Key 错误
+### Q: API Key 错误
 
-确保在设置页面正确配置了 SiliconFlow API Key。
+**A:** 确保在设置页面 (`http://localhost:3000/settings`) 正确配置了 SiliconFlow API Key，并且 Key 有足够的额度。
 
-### 文档上传失败
+### Q: 文档上传失败
 
+**A:**
 1. 检查文件格式是否为 PDF
-2. 确认团队访问密钥配置正确
-3. 查看后端日志获取详细错误信息
+2. 确认文件大小不超过 10MB
+3. 查看浏览器控制台和后端日志获取详细错误信息
+
+### Q: 依赖安装失败
+
+**A:**
+- Python 依赖：尝试 `pip install -r requirements.txt --no-cache-dir`
+- Node.js 依赖：尝试 `npm install --legacy-peer-deps`
+- 确保网络连接正常，必要时配置代理
+
+### Q: 服务启动失败
+
+**A:**
+1. 检查 Python 和 Node.js 版本是否符合要求
+2. 查看启动日志 `.backend.log` 和 `.frontend.log`
+3. 确认配置文件 `.env` 正确配置
+
+---
+
+## 💡 使用建议
+
+1. **首次使用**：先访问设置页面配置 API Key
+2. **术语学习**：遇到不懂的概念，立即使用术语通查询并收藏
+3. **论文阅读**：上传 PDF 后查看结构化分析，使用论文对话深入理解
+4. **知识沉淀**：定期整理团队文档到知识库
+5. **知识管理**：利用知识卡片统一管理术语和论文分析，定期复习巩固
+
+---
+
+## 🤝 贡献指南
+
+欢迎提交 Issue 和 Pull Request！
+
+1. Fork 本仓库
+2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交你的更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启一个 Pull Request
+
+---
+
+## 📄 开源协议
+
+本项目采用 MIT 协议开源。详见 [LICENSE](LICENSE) 文件。
+
+---
+
+## 🙏 致谢
+
+- [SiliconFlow](https://siliconflow.cn/) - 提供高性能 LLM API 服务
+- [Next.js](https://nextjs.org/) - 优秀的 React 框架
+- [FastAPI](https://fastapi.tiangolo.com/) - 现代化的 Python Web 框架
+- [LangChain](https://langchain.com/) - 强大的 AI 应用开发框架
+- [Supabase](https://supabase.com/) - 开源的 Firebase 替代方案
 
 ---
 
 <p align="center">
   <b>由 Ryder Sun 打造</b><br>
-  让学习更智能 ✨
+  让学习更智能，让知识更有价值 ✨
+</p>
+
+<p align="center">
+  如果这个项目对你有帮助，请给一个 ⭐️ Star 支持一下！
 </p>

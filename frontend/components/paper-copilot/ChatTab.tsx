@@ -32,6 +32,7 @@ export const ChatTab: React.FC<ChatTabProps> = ({
   streamingContent,
 }) => {
   const [copiedId, setCopiedId] = React.useState<string | null>(null)
+  const messagesEndRef = React.useRef<HTMLDivElement>(null)
 
   const handleCopy = async (content: string, msgId: string) => {
     try {
@@ -44,10 +45,15 @@ export const ChatTab: React.FC<ChatTabProps> = ({
     }
   }
 
+  // 自动滚动到底部
+  React.useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chatHistory, streamingContent])
+
   return (
-    <div className="flex flex-col h-full">
-      {/* 对话历史 */}
-      <div className="flex-1 overflow-y-auto space-y-4 mb-4 custom-scrollbar min-h-0 px-2">
+    <div className="flex flex-col h-full min-h-0">
+      {/* 对话历史 - 可滚动区域 */}
+      <div className="flex-1 overflow-y-auto space-y-4 p-6 custom-scrollbar min-h-0">
         {chatHistory.length === 0 && !isLoading && (
           <div className="text-center text-gray-500 py-12">
             <p className="text-sm">开始提问，AI 会根据论文内容为你解答</p>
@@ -65,10 +71,11 @@ export const ChatTab: React.FC<ChatTabProps> = ({
         {isLoading && (
           <StreamingChatMessage content={streamingContent} />
         )}
+        <div ref={messagesEndRef} />
       </div>
 
-      {/* 输入框 */}
-      <div className="flex gap-2 border-t border-gray-200 pt-4 flex-shrink-0">
+      {/* 输入框 - 固定在底部 */}
+      <div className="flex-shrink-0 flex gap-2 border-t border-gray-200 p-4 bg-white">
         <Textarea
           value={chatQuestion}
           onChange={(e) => onQuestionChange(e.target.value)}
@@ -79,14 +86,14 @@ export const ChatTab: React.FC<ChatTabProps> = ({
             }
           }}
           placeholder="输入你的问题..."
-          className="min-h-[60px] max-h-[120px] resize-none text-sm"
+          className="min-h-[50px] max-h-[100px] resize-none text-sm flex-1"
           disabled={isLoading}
         />
         <Button
           onClick={onSend}
           disabled={!chatQuestion.trim() || isLoading}
           size="lg"
-          className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700 text-white"
+          className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700 text-white h-[50px] px-4"
         >
           {isLoading ? (
             <Loader2 className="h-5 w-5 animate-spin" />

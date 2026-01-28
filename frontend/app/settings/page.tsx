@@ -13,8 +13,9 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
 import { useAppStore } from '@/stores/useAppStore'
-import { Save, Eye, EyeOff, Settings, X, RotateCcw, Copy, Check, Sliders } from 'lucide-react'
+import { Save, Eye, EyeOff, Settings, X, RotateCcw, Copy, Check, Sliders, Key, Users, Server, ChevronRight, ExternalLink, Shield, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
+import { cn } from '@/lib/utils'
 
 // 从backend的prompts导入默认System Prompts
 // 这些应该与backend的prompts文件夹中的定义保持一致
@@ -146,30 +147,50 @@ const MODULE_INFO = {
     icon: '📊',
     description: '用于初始论文分析和结构化解读的System Prompt',
     category: 'paper',
+    gradient: 'from-cyan-500 to-blue-600',
+    bgGradient: 'from-cyan-50 to-blue-50',
+    iconBg: 'bg-gradient-to-br from-cyan-100 to-blue-100',
+    accentColor: 'text-cyan-600',
   },
   'paper-chat': {
     name: '论文伴侣（对话）',
     icon: '💬',
     description: '用于与用户讨论论文内容的System Prompt',
     category: 'paper',
+    gradient: 'from-teal-500 to-emerald-600',
+    bgGradient: 'from-teal-50 to-emerald-50',
+    iconBg: 'bg-gradient-to-br from-teal-100 to-emerald-100',
+    accentColor: 'text-teal-600',
   },
   'jargon-killer': {
     name: '术语通',
     icon: '🧠',
     description: '用于解释技术术语的AI导师System Prompt',
     category: 'learning',
+    gradient: 'from-orange-500 to-amber-600',
+    bgGradient: 'from-orange-50 to-amber-50',
+    iconBg: 'bg-gradient-to-br from-orange-100 to-amber-100',
+    accentColor: 'text-orange-600',
   },
   'team-brain': {
     name: '知识沉淀',
     icon: '💾',
     description: '用于管理和查询知识库的System Prompt',
     category: 'knowledge',
+    gradient: 'from-purple-500 to-violet-600',
+    bgGradient: 'from-purple-50 to-violet-50',
+    iconBg: 'bg-gradient-to-br from-purple-100 to-violet-100',
+    accentColor: 'text-purple-600',
   },
   'flashcards': {
-    name: '单词本',
+    name: '知识卡片',
     icon: '📚',
     description: '用于学习和复习词汇的System Prompt',
     category: 'learning',
+    gradient: 'from-pink-500 to-rose-600',
+    bgGradient: 'from-pink-50 to-rose-50',
+    iconBg: 'bg-gradient-to-br from-pink-100 to-rose-100',
+    accentColor: 'text-pink-600',
   },
 }
 
@@ -256,267 +277,364 @@ export default function SettingsPage() {
   const hasApiChanges = localApiKey !== apiKey || localTeamKey !== teamKey || localMcpServerUrl !== (mcpServerUrl || '')
 
   return (
-    <div className="h-full bg-gradient-to-br from-white to-gray-50 flex flex-col overflow-hidden">
-      {/* Tab 导航栏 */}
-      <div className="flex-shrink-0 border-b border-gray-200 bg-white/90 backdrop-blur-sm px-4 sm:px-6 lg:px-8 py-3">
-        <div className="max-w-7xl mx-auto flex gap-2">
-          <button
-            onClick={() => setActiveTab('api')}
-            className={`px-4 py-2.5 font-medium border-b-2 transition-all ${
-              activeTab === 'api'
-                ? 'border-cyan-500 text-cyan-600'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            API 配置
-          </button>
-          <button
-            onClick={() => setActiveTab('prompts')}
-            className={`px-4 py-2.5 font-medium border-b-2 transition-all flex items-center gap-2 ${
-              activeTab === 'prompts'
-                ? 'border-cyan-500 text-cyan-600'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            <Sliders className="h-4 w-4" />
-            System Prompts
-          </button>
-        </div>
-      </div>
+    <div className="flex-1 flex flex-col min-h-0 bg-slate-50">
 
-      {/* 内容区 */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="max-w-4xl mx-auto">
-          {/* API 配置 Tab */}
-          {activeTab === 'api' && (
-            <div className="space-y-6">
-              {/* SiliconFlow API Key */}
-              <Card className="border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-                <div className="mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">SiliconFlow API Key</h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    用于调用 AI 模型服务。从{' '}
-                    <a href="https://siliconflow.cn" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline font-medium">
-                      SiliconFlow
-                    </a>{' '}
-                    获取
-                  </p>
-                </div>
-                <div className="space-y-3 pt-4 border-t border-gray-200">
-                  <Label htmlFor="api-key" className="font-semibold text-gray-900">API Key</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="api-key"
-                      type={showApiKey ? 'text' : 'password'}
-                      value={localApiKey}
-                      onChange={(e) => setLocalApiKey(e.target.value)}
-                      placeholder="sk-..."
-                      className="flex-1 border-gray-300 focus:border-cyan-500"
-                    />
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => setShowApiKey(!showApiKey)}
-                      className="border-gray-300 hover:border-gray-400"
-                    >
-                      {showApiKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-
-              {/* 团队密钥 */}
-              <Card className="border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-                <div className="mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">团队访问密钥</h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    用于访问团队知识库。与团队管理员获取
-                  </p>
-                </div>
-                <div className="space-y-3 pt-4 border-t border-gray-200">
-                  <Label htmlFor="team-key" className="font-semibold text-gray-900">团队密钥</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="team-key"
-                      type={showTeamKey ? 'text' : 'password'}
-                      value={localTeamKey}
-                      onChange={(e) => setLocalTeamKey(e.target.value)}
-                      placeholder="输入团队访问密钥"
-                      className="flex-1 border-gray-300 focus:border-cyan-500"
-                    />
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => setShowTeamKey(!showTeamKey)}
-                      className="border-gray-300 hover:border-gray-400"
-                    >
-                      {showTeamKey ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-
-              {/* MCP Server URL */}
-              <Card className="border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow">
-                <div className="mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">MCP Server URL (可选)</h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    用于连接外部 MCP 服务器进行扩展功能。留空使用默认配置
-                  </p>
-                </div>
-                <div className="space-y-3 pt-4 border-t border-gray-200">
-                  <Label htmlFor="mcp-url" className="font-semibold text-gray-900">MCP Server URL</Label>
-                  <Input
-                    id="mcp-url"
-                    type="url"
-                    value={localMcpServerUrl}
-                    onChange={(e) => setLocalMcpServerUrl(e.target.value)}
-                    placeholder="https://..."
-                    className="border-gray-300 focus:border-cyan-500"
-                  />
-                  <p className="text-xs text-gray-500 mt-2">
-                    示例：https://mcp-server.example.com:3000
-                  </p>
-                </div>
-              </Card>
-
-              {/* 保存按钮 */}
-              <div className="flex justify-end pt-4">
-                <Button
-                  onClick={handleSaveApiConfig}
-                  disabled={!hasApiChanges}
-                  size="lg"
-                  className="bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white shadow-lg disabled:opacity-50"
+      {/* 主体内容 */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex gap-6">
+            {/* 左侧导航 */}
+            <div className="w-56 flex-shrink-0">
+              <nav className="sticky top-6 space-y-1">
+                <button
+                  onClick={() => setActiveTab('api')}
+                  className={cn(
+                    "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
+                    activeTab === 'api'
+                      ? "bg-white text-cyan-700 shadow-sm border border-slate-200"
+                      : "text-gray-600 hover:bg-white/60 hover:text-gray-900"
+                  )}
                 >
-                  <Save className="h-4 w-4 mr-2" />
-                  保存 API 配置
-                </Button>
-              </div>
+                  <Key className="h-4 w-4" />
+                  API 配置
+                  <ChevronRight className={cn(
+                    "h-4 w-4 ml-auto transition-transform",
+                    activeTab === 'api' && "rotate-90"
+                  )} />
+                </button>
+                <button
+                  onClick={() => setActiveTab('prompts')}
+                  className={cn(
+                    "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
+                    activeTab === 'prompts'
+                      ? "bg-white text-cyan-700 shadow-sm border border-slate-200"
+                      : "text-gray-600 hover:bg-white/60 hover:text-gray-900"
+                  )}
+                >
+                  <Sliders className="h-4 w-4" />
+                  System Prompts
+                  <ChevronRight className={cn(
+                    "h-4 w-4 ml-auto transition-transform",
+                    activeTab === 'prompts' && "rotate-90"
+                  )} />
+                </button>
+              </nav>
             </div>
-          )}
+
+            {/* 右侧内容 */}
+            <div className="flex-1 min-w-0">
+              {/* API 配置 Tab */}
+              {activeTab === 'api' && (
+                <div className="space-y-6">
+                  {/* SiliconFlow API Key */}
+                  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="flex items-start gap-4 p-6 border-b border-slate-100">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-100 to-teal-100 flex items-center justify-center flex-shrink-0">
+                        <Key className="h-5 w-5 text-cyan-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-semibold text-gray-900">SiliconFlow API Key</h3>
+                        <p className="text-sm text-gray-500 mt-0.5">
+                          用于调用 AI 模型服务
+                        </p>
+                      </div>
+                      <a 
+                        href="https://siliconflow.cn" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex items-center gap-1 text-xs text-cyan-600 hover:text-cyan-700 font-medium"
+                      >
+                        获取密钥
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex gap-2">
+                        <Input
+                          id="api-key"
+                          type={showApiKey ? 'text' : 'password'}
+                          value={localApiKey}
+                          onChange={(e) => setLocalApiKey(e.target.value)}
+                          placeholder="sk-..."
+                          className="flex-1 h-11 border-slate-200 focus:border-cyan-500 focus:ring-cyan-500/20"
+                        />
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => setShowApiKey(!showApiKey)}
+                          className="h-11 w-11 border-slate-200 hover:border-slate-300"
+                        >
+                          {showApiKey ? <EyeOff className="h-4 w-4 text-gray-500" /> : <Eye className="h-4 w-4 text-gray-500" />}
+                        </Button>
+                      </div>
+                      {localApiKey && (
+                        <div className="flex items-center gap-1.5 mt-3 text-xs text-emerald-600">
+                          <Shield className="h-3.5 w-3.5" />
+                          <span>密钥已配置</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 团队密钥 */}
+                  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="flex items-start gap-4 p-6 border-b border-slate-100">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center flex-shrink-0">
+                        <Users className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-semibold text-gray-900">团队访问密钥</h3>
+                        <p className="text-sm text-gray-500 mt-0.5">
+                          用于访问团队知识库，与团队管理员获取
+                        </p>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex gap-2">
+                        <Input
+                          id="team-key"
+                          type={showTeamKey ? 'text' : 'password'}
+                          value={localTeamKey}
+                          onChange={(e) => setLocalTeamKey(e.target.value)}
+                          placeholder="输入团队访问密钥"
+                          className="flex-1 h-11 border-slate-200 focus:border-cyan-500 focus:ring-cyan-500/20"
+                        />
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => setShowTeamKey(!showTeamKey)}
+                          className="h-11 w-11 border-slate-200 hover:border-slate-300"
+                        >
+                          {showTeamKey ? <EyeOff className="h-4 w-4 text-gray-500" /> : <Eye className="h-4 w-4 text-gray-500" />}
+                        </Button>
+                      </div>
+                      {localTeamKey && (
+                        <div className="flex items-center gap-1.5 mt-3 text-xs text-emerald-600">
+                          <Shield className="h-3.5 w-3.5" />
+                          <span>密钥已配置</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 保存按钮 */}
+                  <div className="flex justify-end pt-2">
+                    <Button
+                      onClick={handleSaveApiConfig}
+                      disabled={!hasApiChanges}
+                      className="h-11 px-6 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white shadow-lg shadow-cyan-500/20 disabled:opacity-50 disabled:shadow-none"
+                    >
+                      <Save className="h-4 w-4 mr-2" />
+                      保存配置
+                    </Button>
+                  </div>
+                </div>
+              )}
 
           {/* System Prompts Tab */}
           {activeTab === 'prompts' && (
             <div className="space-y-6">
+              {/* 提示信息卡片 */}
+              <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(56,189,248,0.15),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(20,184,166,0.15),transparent_50%)]" />
+                <div className="relative flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/30">
+                    <Sparkles className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-bold text-white">System Prompts 配置中心</h4>
+                    <p className="text-sm text-slate-400 mt-1.5 leading-relaxed">
+                      每个模块都有独立的 System Prompt，用于指导 AI 的行为模式。
+                      自定义 Prompt 会保存在本地浏览器中，支持随时编辑和恢复默认。
+                    </p>
+                    <div className="flex items-center gap-4 mt-4">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                        <span>已修改</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <span className="w-2 h-2 rounded-full bg-slate-500" />
+                        <span>默认状态</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Prompt 卡片网格 */}
               <div className="grid gap-4">
                 {Object.entries(MODULE_INFO).map(([module, info]) => {
                   const isExpanded = expandedModules.has(module)
                   const isEditing = editingModule === module
-                  const promptChanged = prompts[module] !== (getSystemPrompt(module) || DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS])
+                  const isModified = prompts[module] !== DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS]
+                  const savedPrompt = getSystemPrompt(module)
+                  const hasUnsavedChanges = savedPrompt && prompts[module] !== savedPrompt
 
                   return (
-                    <Card key={module} className="border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                      {/* 模块头 */}
-                      <div
+                    <div 
+                      key={module} 
+                      className={cn(
+                        "bg-white rounded-2xl border-2 shadow-sm overflow-hidden transition-all duration-300",
+                        isExpanded ? "border-slate-200 shadow-lg" : "border-slate-100 hover:border-slate-200 hover:shadow-md"
+                      )}
+                    >
+                      {/* 模块头 - 带渐变装饰条 */}
+                      <div className={cn(
+                        "h-1.5 w-full bg-gradient-to-r",
+                        info.gradient
+                      )} />
+                      
+                      <button
                         onClick={() => toggleModuleExpand(module)}
-                        className="p-5 bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 cursor-pointer hover:bg-gray-100/50 transition-colors flex items-center justify-between"
+                        className="w-full flex items-center gap-4 p-5 text-left transition-colors hover:bg-slate-50/50"
                       >
-                        <div className="flex items-center gap-4 flex-1">
-                          <div className="text-2xl">{info.icon}</div>
-                          <div>
+                        {/* 图标 */}
+                        <div className={cn(
+                          "w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 shadow-inner",
+                          info.iconBg
+                        )}>
+                          {info.icon}
+                        </div>
+                        
+                        {/* 信息 */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
                             <h3 className="font-bold text-gray-900">{info.name}</h3>
-                            <p className="text-xs text-gray-600 mt-1">{info.description}</p>
+                            {isModified && (
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-cyan-100 text-cyan-700">
+                                已自定义
+                              </span>
+                            )}
+                            {hasUnsavedChanges && (
+                              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                            )}
                           </div>
+                          <p className="text-sm text-gray-500 mt-1">{info.description}</p>
                         </div>
-                        <div className="flex items-center gap-2">
-                          {promptChanged && (
-                            <div className="w-2 h-2 rounded-full bg-cyan-500"></div>
-                          )}
-                          <svg
-                            className={`w-5 h-5 text-gray-600 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                          </svg>
+                        
+                        {/* 展开图标 */}
+                        <div className={cn(
+                          "w-10 h-10 rounded-xl flex items-center justify-center transition-all",
+                          isExpanded ? "bg-slate-100 rotate-90" : "bg-slate-50"
+                        )}>
+                          <ChevronRight className="h-5 w-5 text-gray-400" />
                         </div>
-                      </div>
+                      </button>
 
                       {/* 模块内容 */}
                       {isExpanded && (
-                        <div className="p-6 space-y-4">
+                        <div className={cn(
+                          "border-t border-slate-100 p-6",
+                          `bg-gradient-to-br ${info.bgGradient}`
+                        )}>
                           {!isEditing ? (
-                            <div>
-                              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 min-h-[120px] max-h-[250px] overflow-y-auto">
-                                <p className="text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed">
-                                  {prompts[module] || DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS]}
-                                </p>
+                            <div className="space-y-4">
+                              {/* Prompt 预览 */}
+                              <div className="bg-white/80 backdrop-blur-sm p-5 rounded-xl border border-white shadow-sm">
+                                <div className="flex items-center justify-between mb-3">
+                                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Prompt 预览</span>
+                                  <span className="text-xs text-gray-400">
+                                    {(prompts[module] || DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS]).length} 字符
+                                  </span>
+                                </div>
+                                <div className="max-h-[180px] overflow-y-auto custom-scrollbar">
+                                  <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed">
+                                    {(prompts[module] || DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS]).slice(0, 600)}
+                                    {(prompts[module] || DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS]).length > 600 && (
+                                      <span className="text-gray-400">... (点击编辑查看完整内容)</span>
+                                    )}
+                                  </pre>
+                                </div>
                               </div>
-                              <div className="flex gap-2 mt-4">
+                              
+                              {/* 操作按钮 */}
+                              <div className="flex items-center gap-3">
                                 <Button
                                   onClick={() => setEditingModule(module)}
-                                  size="sm"
-                                  className="bg-cyan-500 hover:bg-cyan-600 text-white"
+                                  className={cn(
+                                    "h-10 px-5 bg-gradient-to-r text-white shadow-lg hover:shadow-xl transition-shadow",
+                                    info.gradient
+                                  )}
                                 >
+                                  <Sliders className="h-4 w-4 mr-2" />
                                   编辑 Prompt
                                 </Button>
                                 <Button
                                   onClick={() => handleCopyPrompt(module)}
                                   variant="outline"
-                                  size="sm"
-                                  className="border-gray-300"
+                                  className="h-10 px-4 bg-white/80 hover:bg-white border-slate-200"
                                 >
                                   {copiedId === module ? (
                                     <>
-                                      <Check className="h-4 w-4 mr-1 text-green-600" />
+                                      <Check className="h-4 w-4 mr-1.5 text-emerald-500" />
                                       已复制
                                     </>
                                   ) : (
                                     <>
-                                      <Copy className="h-4 w-4 mr-1" />
+                                      <Copy className="h-4 w-4 mr-1.5" />
                                       复制
                                     </>
                                   )}
                                 </Button>
-                                <Button
-                                  onClick={() => handleResetPrompt(module)}
-                                  variant="outline"
-                                  size="sm"
-                                  className="border-gray-300 ml-auto"
-                                >
-                                  <RotateCcw className="h-4 w-4 mr-1" />
-                                  恢复默认
-                                </Button>
+                                {isModified && (
+                                  <Button
+                                    onClick={() => handleResetPrompt(module)}
+                                    variant="ghost"
+                                    className="h-10 px-4 text-gray-500 hover:text-gray-700 hover:bg-white/50 ml-auto"
+                                  >
+                                    <RotateCcw className="h-4 w-4 mr-1.5" />
+                                    恢复默认
+                                  </Button>
+                                )}
                               </div>
                             </div>
                           ) : (
-                            <div>
-                              <Label className="font-semibold text-gray-900 mb-3 block">编辑 System Prompt</Label>
-                              <Textarea
-                                value={prompts[module]}
-                                onChange={(e) => setPrompts({ ...prompts, [module]: e.target.value })}
-                                placeholder="输入 System Prompt 内容..."
-                                className="w-full min-h-[300px] border-gray-300 focus:border-cyan-500 font-mono text-sm"
-                              />
-                              <div className="flex gap-2 mt-4">
+                            <div className="space-y-4">
+                              {/* 编辑区 */}
+                              <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                                <div className="flex items-center justify-between px-4 py-2 bg-slate-50 border-b border-slate-100">
+                                  <span className="text-xs font-medium text-gray-500">编辑模式</span>
+                                  <span className="text-xs text-gray-400">
+                                    {prompts[module]?.length || 0} 字符
+                                  </span>
+                                </div>
+                                <Textarea
+                                  value={prompts[module]}
+                                  onChange={(e) => setPrompts({ ...prompts, [module]: e.target.value })}
+                                  placeholder="输入 System Prompt 内容..."
+                                  className="w-full min-h-[320px] border-0 focus:ring-0 font-mono text-sm p-4 resize-none"
+                                />
+                              </div>
+                              
+                              {/* 编辑操作按钮 */}
+                              <div className="flex items-center gap-3">
                                 <Button
                                   onClick={() => handleSavePrompt(module)}
-                                  size="sm"
-                                  className="bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white"
+                                  className={cn(
+                                    "h-10 px-5 bg-gradient-to-r text-white shadow-lg hover:shadow-xl transition-shadow",
+                                    info.gradient
+                                  )}
                                 >
-                                  <Save className="h-4 w-4 mr-1" />
-                                  保存修改
+                                  <Save className="h-4 w-4 mr-2" />
+                                  保存更改
                                 </Button>
                                 <Button
                                   onClick={() => setEditingModule(null)}
                                   variant="outline"
-                                  size="sm"
-                                  className="border-gray-300"
+                                  className="h-10 px-4 bg-white hover:bg-slate-50 border-slate-200"
                                 >
-                                  <X className="h-4 w-4 mr-1" />
+                                  <X className="h-4 w-4 mr-1.5" />
                                   取消
                                 </Button>
                                 <Button
                                   onClick={() => {
                                     handleResetPrompt(module)
-                                    setEditingModule(null)
                                   }}
-                                  variant="outline"
-                                  size="sm"
-                                  className="border-gray-300 ml-auto"
+                                  variant="ghost"
+                                  className="h-10 px-4 text-gray-500 hover:text-gray-700 hover:bg-white/50 ml-auto"
                                 >
-                                  <RotateCcw className="h-4 w-4 mr-1" />
+                                  <RotateCcw className="h-4 w-4 mr-1.5" />
                                   恢复默认
                                 </Button>
                               </div>
@@ -524,26 +642,14 @@ export default function SettingsPage() {
                           )}
                         </div>
                       )}
-                    </Card>
+                    </div>
                   )
                 })}
               </div>
-
-              {/* 提示信息 */}
-              <Card className="border border-cyan-200 bg-gradient-to-br from-cyan-50 to-teal-50 p-6 shadow-sm">
-                <p className="text-sm text-gray-700 leading-relaxed space-y-2">
-                  <div className="font-semibold text-gray-900">💡 关于 System Prompts</div>
-                  <div className="text-gray-600 space-y-1">
-                    <div>• 每个模块都有独立的 System Prompt，用于指导对应功能的 AI 行为</div>
-                    <div>• 论文伴侣分为两个 Prompt：分析（初始分析）和对话（深度讨论）</div>
-                    <div>• 自定义 Prompt 会保存在本地浏览器中</div>
-                    <div>• 随时可以「恢复默认」回到原始配置</div>
-                    <div>• 修改后的 Prompt 显示蓝色指示点</div>
-                  </div>
-                </p>
-              </Card>
             </div>
           )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -26,11 +26,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh-CN">
-      <body className={`${inter.variable} ${merriweather.variable} font-sans overflow-hidden`}>
-        <div className="h-screen bg-background flex flex-col overflow-hidden">
+    <html lang="zh-CN" className="h-full">
+      <body className={`${inter.variable} ${merriweather.variable} font-sans h-full`}>
+        <div className="min-h-full bg-slate-50 flex flex-col">
           <Navigation />
-          <main className="flex-1 w-full overflow-y-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6">
+          <main className="flex-1 flex flex-col">
             {children}
           </main>
         </div>

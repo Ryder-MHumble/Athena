@@ -150,9 +150,9 @@ export default function DataHubPage() {
   }
 
   return (
-    <div className="h-full flex flex-col overflow-hidden">
+    <div className="flex-1 flex flex-col min-h-0">
       {/* 顶部工具栏 */}
-      <div className="flex-shrink-0 border-b border-gray-200 bg-white/80 backdrop-blur-sm px-4 sm:px-6 py-3">
+      <div className="flex-shrink-0 border-b border-slate-200/60 px-4 sm:px-6 py-3">
         <div className="flex items-center justify-between gap-4">
           {/* 左侧：模式切换 */}
           <div className="flex items-center gap-2">
@@ -213,7 +213,7 @@ export default function DataHubPage() {
           {/* 左侧：数据统计和帖子列表 */}
           <div className="flex-1 flex flex-col overflow-hidden">
             {/* 统计卡片 */}
-            <div className="flex-shrink-0 p-4 sm:p-6 border-b border-gray-100 bg-gradient-to-br from-gray-50 to-white">
+            <div className="flex-shrink-0 p-4 sm:p-6 border-b border-slate-200/60">
               <div className="grid grid-cols-3 gap-4">
                 <Card className="p-4 border-gray-200 bg-white">
                   <div className="flex items-center justify-between mb-2">
@@ -264,7 +264,7 @@ export default function DataHubPage() {
             </div>
 
             {/* 平台筛选 */}
-            <div className="flex-shrink-0 px-4 sm:px-6 py-3 border-b border-gray-100 bg-white">
+            <div className="flex-shrink-0 px-4 sm:px-6 py-3 border-b border-slate-200/60">
               <div className="flex items-center gap-2 overflow-x-auto">
                 {platforms.map((platform) => (
                   <button
@@ -286,7 +286,7 @@ export default function DataHubPage() {
             </div>
 
             {/* 帖子列表 */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
               <div className={layoutMode === 'grid' ? 'grid grid-cols-1 lg:grid-cols-2 gap-4' : 'space-y-3'}>
                 {filteredPosts.map((post) => (
                   <Card
@@ -359,9 +359,9 @@ export default function DataHubPage() {
 
           {/* 右侧：详情面板 */}
           {selectedPost && (
-            <div className="w-96 border-l border-gray-200 bg-white flex flex-col overflow-hidden">
+            <div className="w-96 border-l border-slate-200/60 flex flex-col overflow-hidden">
               {/* 详情头部 */}
-              <div className="flex-shrink-0 p-4 border-b border-gray-200">
+              <div className="flex-shrink-0 p-4 border-b border-slate-200/60">
                 <div className="flex items-center justify-between">
                   <span className="font-medium text-gray-900">内容详情</span>
                   <button 
@@ -467,7 +467,7 @@ export default function DataHubPage() {
         </div>
       ) : (
         /* 爬虫配置模式 */
-        <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
+        <div className="flex-1 overflow-y-auto p-6">
           <div className="max-w-4xl mx-auto space-y-6">
             {/* 配置说明 */}
             <Card className="p-6 bg-white">

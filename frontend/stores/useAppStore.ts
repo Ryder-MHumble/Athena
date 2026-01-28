@@ -19,16 +19,41 @@ export interface PaperSession {
   activeTab: 'analysis' | 'speech' | 'chat'
 }
 
-// 词汇项类型定义
+// 知识卡片类型：术语或论文分析
+export type KnowledgeCardType = 'term' | 'paper'
+
+// 词汇项类型定义（改名为知识卡片）
 export interface VocabItem {
   id: string
   term: string
   explanation: string
+  // 卡片类型：术语或论文分析
+  type?: KnowledgeCardType
   // 完整的对话上下文
   context?: {
     question: string
     answer: string
     sessionId?: string
+  }
+  // 论文分析特有字段
+  paperAnalysis?: {
+    title?: string
+    authors?: string
+    year?: string
+    category?: string
+    coreProblem?: string
+    previousDilemma?: string
+    coreIntuition?: string
+    keySteps?: string[]
+    innovations?: {
+      comparison?: string
+      essence?: string
+    }
+    boundaries?: {
+      assumptions?: string
+      unsolved?: string
+    }
+    oneSentence?: string
   }
   // 富文本标签和笔记
   tags?: string[]

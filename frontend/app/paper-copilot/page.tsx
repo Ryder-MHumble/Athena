@@ -1,21 +1,19 @@
 'use client'
 
 /**
- * 论文伴侣模块
- * 模块化版本：使用独立组件提高代码可维护性
+ * 论文伴侣模块 - 模块化版本
+ * 页面文件仅负责组装各个组件
  */
 
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { api, PaperAnalysisResponse } from '@/lib/api'
-import { FileText, Loader2, RefreshCw } from 'lucide-react'
-import { toast } from 'sonner'
+import { FileText, Loader2, RefreshCw, Bookmark, Check } from 'lucide-react'
 import { pdfjs } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
 import 'react-pdf/dist/esm/Page/TextLayer.css'
+import { toast } from 'sonner'
+import { useAppStore } from '@/stores/useAppStore'
 
-// 模块化组件导入
 import {
   UploadArea,
   TabSelector,
@@ -25,336 +23,191 @@ import {
   ChatTab,
 } from '@/components/paper-copilot'
 
+import { usePaperAnalysis } from './hooks/usePaperAnalysis'
+
 // 配置 PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`
 
 export default function PaperCopilotPage() {
-  // Store hooks
-  // State management
-  const [file, setFile] = useState<File | null>(null)
-  const [url, setUrl] = useState('')
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null)
-  const [paperText, setPaperText] = useState<string>('')
-  const [analysis, setAnalysis] = useState<PaperAnalysisResponse | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState<'analysis' | 'speech' | 'chat'>('analysis')
-  const [splitPosition, setSplitPosition] = useState(45)
-  const [chatQuestion, setChatQuestion] = useState('')
-  const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'assistant'; content: string }>>([])
-  const [isChatLoading, setIsChatLoading] = useState(false)
-  const [streamingChatContent, setStreamingChatContent] = useState('')
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const pdfContainerRef = useRef<HTMLDivElement>(null)
-  const [isDraggingSplit, setIsDraggingSplit] = useState(false)
-  const [speechStreaming, setSpeechStreaming] = useState('')
-  const speechStreamRef = useRef<NodeJS.Timeout | null>(null)
+  const {
+    file,
+    url,
+    pdfUrl,
+    analysis,
+    isLoading,
+    activeTab,
+    splitPosition,
+    chatQuestion,
+    chatHistory,
+    isChatLoading,
+    streamingChatContent,
+    speechStreaming,
+    hasPaper,
+    fileInputRef,
+    pdfContainerRef,
+    setFile,
+    setUrl,
+    setActiveTab,
+    setChatQuestion,
+    setIsDraggingSplit,
+    handleFileSelect,
+    handleAnalyze,
+    handleReset,
+    handleChatSend,
+    normalizeMarkdown,
+  } = usePaperAnalysis()
 
-  // 规范化 Markdown：去掉行首多余缩进，避免标题等语法失效
-  const normalizeMarkdown = (text: string) => {
-    if (!text) return ''
-    return text
-      .split('\n')
-      .map((line) => line.replace(/^\s+/, ''))
-      .join('\n')
-  }
+  const { addVocab, vocabList } = useAppStore()
+  const [isSaved, setIsSaved] = useState(false)
 
-  // 判断是否已上传/分析
-  const hasPaper = pdfUrl !== null || analysis !== null
+  // 检查当前论文是否已收藏
+  const isAlreadySaved = analysis && vocabList.some(v => 
+    v.type === 'paper' && 
+    v.paperAnalysis?.oneSentence === analysis.summary?.oneSentence
+  )
 
-  // 处理文件选择
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0]
-    if (selectedFile && selectedFile.type === 'application/pdf') {
-      setFile(selectedFile)
-      setUrl('')
-      const objectUrl = URL.createObjectURL(selectedFile)
-      setPdfUrl(objectUrl)
-      toast.success('PDF 文件已选择，正在自动分析...')
-
-      // 自动触发分析
-      setIsLoading(true)
-      setAnalysis(null)
-      setChatHistory([])
-
-      try {
-        const result = await api.analyzePaper({
-          file: selectedFile,
-        })
-        setAnalysis(result)
-        setPaperText(result.paper_text || '')
-        startSpeechStreaming(result.speech || '')
-        toast.success('论文分析完成')
-      } catch (error: any) {
-        toast.error(error.message || '分析失败，请检查文件或网络连接')
-        console.error('Paper analysis error:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    } else {
-      toast.error('请选择 PDF 文件')
-    }
-  }
-
-  // 处理文件上传和分析
-  const handleAnalyze = async () => {
-    if (!file && !url.trim()) {
-      toast.error('请上传 PDF 文件或输入 Arxiv URL')
+  // 收藏论文分析结果
+  const handleSaveAnalysis = () => {
+    if (!analysis || !analysis.summary) {
+      toast.error('暂无分析结果可收藏')
       return
     }
 
-    setIsLoading(true)
-    setAnalysis(null)
-    setChatHistory([])
+    const summary = analysis.summary
+    const paperTitle = summary.title || file?.name?.replace('.pdf', '') || '未命名论文'
 
-    try {
-      const result = await api.analyzePaper({
-        file: file || undefined,
-        url: url.trim() || undefined,
+    // 生成简短说明作为 explanation
+    const explanation = `**核心问题**: ${summary.coreProblem || '未提供'}\n\n**核心直觉**: ${summary.coreIntuition || '未提供'}\n\n**一句话总结**: ${summary.oneSentence || '未提供'}`
+
+    // 添加到 vocabList，类型为 paper
+    addVocab(
+      paperTitle,
+      explanation,
+      undefined // context
+    )
+
+    // 更新刚添加的条目，设置 type 和 paperAnalysis
+    const { vocabList: updatedList, updateVocab } = useAppStore.getState()
+    const newItem = updatedList[0] // 刚添加的条目在最前面
+    if (newItem) {
+      updateVocab(newItem.id, {
+        type: 'paper',
+        paperAnalysis: {
+          title: paperTitle,
+          authors: summary.authors,
+          year: summary.year,
+          category: summary.category,
+          coreProblem: summary.coreProblem,
+          previousDilemma: summary.previousDilemma,
+          coreIntuition: summary.coreIntuition,
+          keySteps: summary.keySteps,
+          innovations: summary.innovations,
+          boundaries: summary.boundaries,
+          oneSentence: summary.oneSentence,
+        }
       })
-      setAnalysis(result)
-      setPaperText(result.paper_text || '')
-      startSpeechStreaming(result.speech || '')
-
-      // 如果是URL，需要下载PDF并设置PDF URL
-      if (url.trim() && !file) {
-        try {
-          let pdfUrlToDownload = url.trim()
-          if (pdfUrlToDownload.includes('arxiv.org/abs/')) {
-            pdfUrlToDownload = pdfUrlToDownload.replace('/abs/', '/pdf/') + '.pdf'
-          } else if (!pdfUrlToDownload.includes('arxiv.org/pdf/')) {
-            if (pdfUrlToDownload.includes('arxiv.org')) {
-              const paperId = pdfUrlToDownload.split('/').pop()?.replace('.pdf', '') || ''
-              pdfUrlToDownload = `https://arxiv.org/pdf/${paperId}.pdf`
-            }
-          }
-
-          const response = await fetch(pdfUrlToDownload, {
-            mode: 'cors',
-            headers: {
-              Accept: 'application/pdf',
-            },
-          })
-          if (response.ok) {
-            const blob = await response.blob()
-            const objectUrl = URL.createObjectURL(blob)
-            setPdfUrl(objectUrl)
-            toast.success('PDF已下载并加载')
-          } else {
-            console.warn('Failed to download PDF:', response.status)
-            toast.warning('无法下载PDF，但分析结果已生成')
-            setPdfUrl(null)
-          }
-        } catch (error) {
-          console.error('Failed to download PDF:', error)
-          toast.warning('无法下载PDF，但分析结果已生成')
-          setPdfUrl(null)
-        }
-      }
-
-      toast.success('论文分析完成')
-    } catch (error: any) {
-      toast.error(error.message || '分析失败，请检查文件或网络连接')
-      console.error('Paper analysis error:', error)
-    } finally {
-      setIsLoading(false)
     }
+
+    setIsSaved(true)
+    toast.success('已收藏到知识卡片')
+    setTimeout(() => setIsSaved(false), 2000)
   }
-
-  // 启动讲解建议 tab 的前端流式打字效果
-  const startSpeechStreaming = (fullText: string) => {
-    if (speechStreamRef.current) {
-      clearInterval(speechStreamRef.current)
-      speechStreamRef.current = null
-    }
-    if (!fullText) {
-      setSpeechStreaming('')
-      return
-    }
-    setSpeechStreaming('')
-    let currentIndex = 0
-    const interval = setInterval(() => {
-      if (currentIndex < fullText.length) {
-        setSpeechStreaming(fullText.slice(0, currentIndex + 40))
-        currentIndex += 40
-      } else {
-        if (speechStreamRef.current) {
-          clearInterval(speechStreamRef.current)
-        }
-        speechStreamRef.current = null
-      }
-    }, 40)
-    speechStreamRef.current = interval
-  }
-
-  // 处理重新上传
-  const handleReset = () => {
-    // 清除所有状态
-    setFile(null)
-    setUrl('')
-    setPdfUrl(null)
-    setAnalysis(null)
-    setPaperText('')
-    setChatHistory([])
-    setSpeechStreaming('')
-    setStreamingChatContent('')
-    setActiveTab('analysis')
-    
-    // 清除文件输入
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
-    
-    // 清除流式计时器
-    if (speechStreamRef.current) {
-      clearInterval(speechStreamRef.current)
-      speechStreamRef.current = null
-    }
-    
-    toast.success('已清除，可以重新上传论文')
-  }
-
-  // 处理AI解读提问 - 支持流式输出
-  const handleChatSend = async () => {
-    if (!chatQuestion.trim() || !paperText || isChatLoading) return
-
-    const userMessage = { role: 'user' as const, content: chatQuestion.trim() }
-    setChatHistory((prev) => [...prev, userMessage])
-    const question = chatQuestion.trim()
-    setChatQuestion('')
-    setIsChatLoading(true)
-    setStreamingChatContent('')
-
-    try {
-      let fullContent = ''
-      let isUsingStream = false
-
-      try {
-        for await (const event of api.chatStream({
-          session_id: `paper-${Date.now()}`,
-          message: question,
-          history: [],
-          thinking_mode: false,
-        })) {
-          if (event.type === 'content') {
-            fullContent += event.delta
-            setStreamingChatContent(fullContent)
-            isUsingStream = true
-          }
-        }
-      } catch {
-        if (!isUsingStream && fullContent === '') {
-          const response = await api.chatWithPaper(question, paperText)
-          fullContent = response.answer
-        }
-      }
-
-      const assistantMessage = { role: 'assistant' as const, content: fullContent }
-      setChatHistory((prev) => [...prev, assistantMessage])
-      setStreamingChatContent('')
-    } catch (error: any) {
-      toast.error(error.message || 'AI 解读失败')
-      console.error('Chat error:', error)
-    } finally {
-      setIsChatLoading(false)
-    }
-  }
-
-  const handleSplitMouseMove = (e: MouseEvent) => {
-    if (!isDraggingSplit) return
-    const container = document.getElementById('split-container')
-    if (!container) return
-
-    const rect = container.getBoundingClientRect()
-    const newPosition = ((e.clientX - rect.left) / rect.width) * 100
-    setSplitPosition(Math.max(45, Math.min(80, newPosition)))
-  }
-
-  const handleSplitMouseUp = () => setIsDraggingSplit(false)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('mousemove', handleSplitMouseMove)
-      window.addEventListener('mouseup', handleSplitMouseUp)
-      return () => {
-        window.removeEventListener('mousemove', handleSplitMouseMove)
-        window.removeEventListener('mouseup', handleSplitMouseUp)
-      }
-    }
-    return () => {
-      if (speechStreamRef.current) {
-        clearInterval(speechStreamRef.current)
-        speechStreamRef.current = null
-      }
-    }
-  }, [isDraggingSplit])
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] gap-4 sm:gap-6">
-      {/* 重新上传按钮 - 只在有论文时显示 */}
-      {hasPaper && (
-        <div className="flex-shrink-0 flex justify-end">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleReset}
-            className="text-sm border-gray-300 hover:border-gray-400 hover:bg-gray-50 flex-shrink-0"
-          >
-            <RefreshCw className="h-4 w-4 mr-2" />
-            重新上传
-          </Button>
+    <div className="h-full flex flex-col overflow-hidden px-4 sm:px-6 lg:px-8 py-4">
+      {/* 上传区域 - 只在没有论文时显示 */}
+      {!hasPaper && (
+        <div className="flex-1 overflow-auto">
+          <UploadArea
+            file={file}
+            url={url}
+            isLoading={isLoading}
+            onFileSelect={handleFileSelect}
+            onFileRemove={() => {
+              setFile(null)
+              if (fileInputRef.current) fileInputRef.current.value = ''
+            }}
+            onUrlChange={setUrl}
+            onAnalyze={handleAnalyze}
+            fileInputRef={fileInputRef}
+          />
         </div>
       )}
 
-      {/* 上传区域 - 只在没有论文时显示 */}
-      {!hasPaper && (
-        <UploadArea
-          file={file}
-          url={url}
-          isLoading={isLoading}
-          onFileSelect={handleFileSelect}
-          onFileRemove={() => {
-            setFile(null)
-            if (fileInputRef.current) fileInputRef.current.value = ''
-          }}
-          onUrlChange={setUrl}
-          onAnalyze={handleAnalyze}
-          fileInputRef={fileInputRef}
-        />
-      )}
-
-      {/* 分屏显示区域 - 只在有论文时显示 */}
+      {/* 分屏显示区域 - 只在有论文时显示，高度固定 */}
       {hasPaper && (
         <div
           id="split-container"
-          className="flex-1 flex gap-3 overflow-hidden min-h-0"
+          className="flex-1 flex gap-3 min-h-0"
         >
-          {/* 左侧：PDF 查看器 */}
+          {/* 左侧：PDF 查看器 - 独立滚动 */}
           <div
             ref={pdfContainerRef}
-            className="bg-white rounded-xl border border-gray-200 overflow-auto shadow-md custom-scrollbar relative flex-shrink-0"
+            className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col overflow-hidden"
             style={{ width: `${splitPosition}%` }}
           >
-            <PDFViewer pdfUrl={pdfUrl} width={`${splitPosition}%`} />
+            <div className="flex-1 overflow-auto custom-scrollbar">
+              <PDFViewer pdfUrl={pdfUrl} width={`${splitPosition}%`} />
+            </div>
           </div>
 
           {/* 拖拽分隔条 */}
           <div
-            className="w-1.5 bg-gradient-to-b from-gray-200 via-cyan-300 to-gray-200 cursor-col-resize hover:from-cyan-400 hover:via-cyan-500 hover:to-cyan-400 transition-all flex-shrink-0 rounded-full"
+            className="w-1.5 bg-slate-200 cursor-col-resize hover:bg-cyan-400 transition-all flex-shrink-0 rounded-full"
             onMouseDown={() => setIsDraggingSplit(true)}
           />
 
-          {/* 右侧：AI 分析结果 */}
+          {/* 右侧：AI 分析结果 - 高度固定，内容区域独立滚动 */}
           <div
-            className="bg-gradient-to-b from-white to-gray-50 rounded-xl border border-gray-200 overflow-hidden shadow-md flex flex-col"
+            className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col overflow-hidden"
             style={{ width: `${100 - splitPosition}%` }}
           >
-            {/* 标签页选择器 */}
-            <TabSelector activeTab={activeTab} onTabChange={setActiveTab} />
+            {/* 顶部操作栏 - 绝对固定 */}
+            <div className="flex-shrink-0 flex items-center justify-between px-4 py-2 border-b border-slate-100 bg-slate-50/50">
+              <TabSelector activeTab={activeTab} onTabChange={setActiveTab} />
+              <div className="flex items-center gap-2">
+                {analysis && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSaveAnalysis}
+                    disabled={isAlreadySaved || isSaved}
+                    className={`text-xs h-8 ${
+                      isAlreadySaved || isSaved
+                        ? 'border-emerald-300 text-emerald-600 bg-emerald-50'
+                        : 'border-cyan-300 text-cyan-600 hover:bg-cyan-50'
+                    }`}
+                  >
+                    {isAlreadySaved || isSaved ? (
+                      <>
+                        <Check className="h-3.5 w-3.5 mr-1" />
+                        已收藏
+                      </>
+                    ) : (
+                      <>
+                        <Bookmark className="h-3.5 w-3.5 mr-1" />
+                        收藏分析
+                      </>
+                    )}
+                  </Button>
+                )}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleReset}
+                  className="text-xs h-8 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                >
+                  <RefreshCw className="h-3.5 w-3.5 mr-1" />
+                  重新上传
+                </Button>
+              </div>
+            </div>
 
-            {/* 内容区域 */}
-            <div className="flex-1 overflow-auto custom-scrollbar p-6 sm:p-8">
+            {/* 内容区域 - 使用 flex-1 + overflow-hidden 确保不会撑开父容器 */}
+            <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+              {/* 加载状态 */}
               {isLoading && !analysis && (
-                <div className="flex items-center justify-center h-full">
+                <div className="flex-1 flex items-center justify-center">
                   <div className="text-center space-y-4">
                     <div className="inline-block p-3 rounded-full bg-cyan-100">
                       <Loader2 className="h-8 w-8 animate-spin text-cyan-600" />
@@ -365,8 +218,9 @@ export default function PaperCopilotPage() {
                 </div>
               )}
 
+              {/* 空状态 */}
               {!isLoading && !analysis && (
-                <div className="flex items-center justify-center h-full">
+                <div className="flex-1 flex items-center justify-center">
                   <div className="text-center space-y-4">
                     <div className="inline-block p-4 rounded-full bg-gray-100">
                       <FileText className="h-12 w-12 text-gray-400" />
@@ -377,21 +231,36 @@ export default function PaperCopilotPage() {
                 </div>
               )}
 
-              {analysis && activeTab === 'analysis' && <AnalysisResultsTab analysis={analysis} />}
-
-              {analysis && activeTab === 'speech' && (
-                <SpeechTab speech={normalizeMarkdown(speechStreaming || analysis.speech)} />
+              {/* 分析结果 - 独立滚动区域 */}
+              {analysis && activeTab === 'analysis' && (
+                <div className="flex-1 overflow-y-auto custom-scrollbar">
+                  <div className="p-6">
+                    <AnalysisResultsTab analysis={analysis} />
+                  </div>
+                </div>
               )}
 
+              {/* 讲解 - 独立滚动区域 */}
+              {analysis && activeTab === 'speech' && (
+                <div className="flex-1 overflow-y-auto custom-scrollbar">
+                  <div className="p-6">
+                    <SpeechTab speech={normalizeMarkdown(speechStreaming || analysis.speech)} />
+                  </div>
+                </div>
+              )}
+
+              {/* 对话 - 消息列表滚动，输入框固定底部 */}
               {analysis && activeTab === 'chat' && (
-                <ChatTab
-                  chatHistory={chatHistory}
-                  chatQuestion={chatQuestion}
-                  onQuestionChange={setChatQuestion}
-                  onSend={handleChatSend}
-                  isLoading={isChatLoading}
-                  streamingContent={streamingChatContent}
-                />
+                <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+                  <ChatTab
+                    chatHistory={chatHistory}
+                    chatQuestion={chatQuestion}
+                    onQuestionChange={setChatQuestion}
+                    onSend={handleChatSend}
+                    isLoading={isChatLoading}
+                    streamingContent={streamingChatContent}
+                  />
+                </div>
               )}
             </div>
           </div>

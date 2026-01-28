@@ -19,7 +19,7 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/github-dark.css'
-import { Upload, Search, FileText, Loader2, Brain, ArrowLeft, Bot, Send, X, Download } from 'lucide-react'
+import { Upload, Search, FileText, Loader2, Brain, ArrowLeft, Bot, Send, X, Download, Sparkles, Clock, Eye, ExternalLink, TrendingUp, Hash, Grid3X3 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
@@ -34,6 +34,55 @@ interface DocumentItem {
   created_at: string
   summary?: string
 }
+
+// 静态演示数据
+const DEMO_CATEGORIES = [
+  { id: 'strategy', label: '战略规划', count: 12 },
+  { id: 'reports', label: '季度报告', count: 8 },
+  { id: 'analysis', label: '竞品分析', count: 15 },
+  { id: 'research', label: '市场调研', count: 6 },
+]
+
+const DEMO_RECENT_DOCS = [
+  {
+    id: 'demo-1',
+    title: 'Nvidia_Q3_Strategy.pdf',
+    description: 'Q3季度收入综合分析报告...',
+    timeAgo: '2小时前',
+    tags: ['#硬件', '#AI'],
+    icon: 'pdf',
+    color: 'red',
+  },
+  {
+    id: 'demo-2',
+    title: 'Market_Analysis_2024.doc',
+    description: '全球半导体市场趋势及预测...',
+    timeAgo: '1天前',
+    tags: ['#市场', '#2024'],
+    icon: 'doc',
+    color: 'cyan',
+  },
+  {
+    id: 'demo-3',
+    title: 'Competitor_Landscape.xlsx',
+    description: '前5大竞争对手对比矩阵...',
+    timeAgo: '3天前',
+    tags: ['#内部', '#战略'],
+    icon: 'excel',
+    color: 'emerald',
+  },
+]
+
+const DEMO_INSIGHTS = [
+  {
+    id: 'insight-1',
+    source: 'Q3_Nvidia_Strategy.pdf',
+    page: 12,
+    title: '数据中心收入增长',
+    content: '报告显示数据中心领域的收入增长超出预期15%，主要受H100 GPU需求驱动。这与我们内部对AI基础设施的预测一致...',
+    relevance: 'high',
+  },
+]
 
 export default function TeamBrainPage() {
   const [view, setView] = useState<'list' | 'detail'>('list')
@@ -225,22 +274,218 @@ export default function TeamBrainPage() {
   // 列表视图
   if (view === 'list') {
     return (
-      <div className="h-full bg-gradient-to-br from-white via-purple-50/30 to-white flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 min-h-0">
-          <div className="max-w-7xl mx-auto space-y-8">
-            {/* 上传区块 */}
-            <div className="space-y-4 mb-8">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-900">添加文档到知识库</h2>
+      <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex-1 overflow-y-auto">
+          {/* 页面头部区域 */}
+          <div className="bg-gradient-to-b from-slate-50 to-white px-4 sm:px-6 lg:px-8 pt-8 pb-6">
+            <div className="max-w-5xl mx-auto text-center">
+              {/* 标题 */}
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                团队知识库
+              </h1>
+              <p className="text-gray-500 text-sm mb-6">
+                即时访问团队的集体智慧
+              </p>
+
+              {/* 搜索框 */}
+              <div className="relative max-w-2xl mx-auto mb-6">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Input
+                  placeholder="搜索团队知识库..."
+                  className="w-full h-12 pl-12 pr-12 text-base border-0 bg-white rounded-xl shadow-sm ring-1 ring-slate-200 focus:ring-2 focus:ring-cyan-500/40 transition-all placeholder:text-gray-400"
+                />
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
+                  /
+                </div>
               </div>
-              
-              {/* 上传卡片 */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+              {/* 分类标签 */}
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {DEMO_CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.id}
+                    className="px-4 py-2 rounded-full text-sm font-medium bg-white border border-slate-200 text-gray-600 hover:border-cyan-300 hover:text-cyan-600 hover:bg-cyan-50/50 transition-all shadow-sm"
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="px-4 sm:px-6 lg:px-8 py-6">
+            <div className="max-w-5xl mx-auto space-y-8">
+              {/* 最近文档区域 */}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-gray-400" />
+                    <h2 className="text-lg font-semibold text-gray-900">最近文档</h2>
+                  </div>
+                  <button className="text-sm text-cyan-600 hover:text-cyan-700 font-medium">
+                    查看全部
+                  </button>
+                </div>
+
+                {/* 文档卡片网格 - 演示数据 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                  {DEMO_RECENT_DOCS.map((doc) => (
+                    <div
+                      key={doc.id}
+                      className="group bg-white rounded-xl border border-slate-200 p-4 hover:border-cyan-300 hover:shadow-md transition-all cursor-pointer"
+                    >
+                      {/* 卡片头部 */}
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
+                          doc.color === 'red' ? 'bg-red-100' :
+                          doc.color === 'cyan' ? 'bg-cyan-100' : 'bg-emerald-100'
+                        }`}>
+                          {doc.icon === 'pdf' ? (
+                            <FileText className={`h-5 w-5 ${doc.color === 'red' ? 'text-red-600' : 'text-gray-600'}`} />
+                          ) : doc.icon === 'doc' ? (
+                            <FileText className="h-5 w-5 text-cyan-600" />
+                          ) : (
+                            <Grid3X3 className="h-5 w-5 text-emerald-600" />
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-[10px] text-gray-400">{doc.timeAgo}</span>
+                        </div>
+                      </div>
+
+                      {/* 标题和描述 */}
+                      <h3 className="text-sm font-semibold text-gray-900 truncate mb-1">
+                        {doc.title}
+                      </h3>
+                      <p className="text-xs text-gray-500 line-clamp-2 mb-3">
+                        {doc.description}
+                      </p>
+
+                      {/* 标签 */}
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] text-gray-400">标签:</span>
+                        {doc.tags.map((tag, idx) => (
+                          <span
+                            key={idx}
+                            className="text-[10px] text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* 实际文档列表 */}
+                {isLoadingDocs ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="text-center">
+                      <Loader2 className="h-6 w-6 animate-spin text-cyan-600 mx-auto mb-2" />
+                      <p className="text-sm text-gray-500">加载文档中...</p>
+                    </div>
+                  </div>
+                ) : documents.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {documents.map((doc) => (
+                      <div
+                        key={doc.id}
+                        onClick={() => handleDocClick(doc)}
+                        className="group bg-white rounded-xl border border-slate-200 p-4 hover:border-cyan-300 hover:shadow-md transition-all cursor-pointer"
+                      >
+                        <div className="flex items-start gap-3 mb-3">
+                          <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center">
+                            <FileText className="h-5 w-5 text-red-600" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-[10px] text-gray-400">
+                              {new Date(doc.created_at).toLocaleDateString('zh-CN')}
+                            </span>
+                          </div>
+                        </div>
+                        <h3 className="text-sm font-semibold text-gray-900 truncate mb-1">
+                          {doc.title}
+                        </h3>
+                        <p className="text-xs text-gray-500 line-clamp-2 mb-3">
+                          {doc.summary || '点击查看详情'}
+                        </p>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[10px] text-gray-400">标签:</span>
+                          <span className="text-[10px] text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded">
+                            #PDF
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 团队洞察区域 */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <Sparkles className="h-4 w-4 text-cyan-500" />
+                  <h2 className="text-lg font-semibold text-gray-900">团队洞察</h2>
+                </div>
+
+                {/* 洞察卡片 */}
+                {DEMO_INSIGHTS.map((insight) => (
+                  <div
+                    key={insight.id}
+                    className="bg-white rounded-xl border border-slate-200 p-5 hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <FileText className="h-4 w-4 text-cyan-600" />
+                        <span className="text-sm font-medium text-cyan-600">{insight.source}</span>
+                        <span className="text-xs text-gray-400">• 第 {insight.page} 页</span>
+                      </div>
+                      <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${
+                        insight.relevance === 'high' 
+                          ? 'bg-emerald-100 text-emerald-700' 
+                          : 'bg-gray-100 text-gray-600'
+                      }`}>
+                        {insight.relevance === 'high' ? '高度相关' : '相关'}
+                      </span>
+                    </div>
+
+                    <h3 className="text-base font-semibold text-gray-900 mb-2">{insight.title}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                      ...{insight.content}
+                    </p>
+
+                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                      <button className="flex items-center gap-1 hover:text-cyan-600 transition-colors">
+                        <Eye className="h-3.5 w-3.5" />
+                        预览
+                      </button>
+                      <button className="flex items-center gap-1 hover:text-cyan-600 transition-colors">
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        复制摘要
+                      </button>
+                      <button className="flex items-center gap-1 hover:text-cyan-600 transition-colors">
+                        <Send className="h-3.5 w-3.5" />
+                        分享
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 上传区块 */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Upload className="h-4 w-4 text-gray-400" />
+                    <h2 className="text-lg font-semibold text-gray-900">添加文档</h2>
+                  </div>
+                </div>
+                
+                {/* 上传卡片 */}
                 <div
                   onClick={() => fileInputRef.current?.click()}
-                  className="lg:col-span-2 relative overflow-hidden rounded-xl border-2 border-dashed border-gray-300 hover:border-purple-400 p-8 sm:p-10 transition-all hover:bg-purple-50/50 active:scale-95 cursor-pointer group"
+                  className="relative overflow-hidden rounded-xl border-2 border-dashed border-gray-300 hover:border-cyan-400 p-8 transition-all hover:bg-cyan-50/30 active:scale-[0.99] cursor-pointer group"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   <Input
                     type="file"
                     accept=".pdf"
@@ -249,22 +494,22 @@ export default function TeamBrainPage() {
                     className="hidden"
                   />
                   
-                  <div className="relative flex items-center gap-6">
+                  <div className="flex items-center justify-center gap-4">
                     <div className="flex-shrink-0">
-                      <div className="flex items-center justify-center w-14 h-14 rounded-lg bg-purple-100 group-hover:bg-purple-200 transition-colors">
-                        <Upload className="h-7 w-7 text-purple-600" />
+                      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-cyan-100 group-hover:bg-cyan-200 transition-colors">
+                        <Upload className="h-6 w-6 text-cyan-600" />
                       </div>
                     </div>
-                    <div className="flex-1">
+                    <div>
                       {file ? (
                         <>
                           <p className="font-semibold text-gray-900">✓ {file.name}</p>
-                          <p className="text-sm text-gray-600 mt-1">准备上传</p>
+                          <p className="text-sm text-gray-500">准备上传</p>
                         </>
                       ) : (
                         <>
                           <p className="font-semibold text-gray-900">选择 PDF 文件上传</p>
-                          <p className="text-sm text-gray-600 mt-1">单个文件最大 50MB</p>
+                          <p className="text-sm text-gray-500">单个文件最大 50MB</p>
                         </>
                       )}
                     </div>
@@ -273,11 +518,11 @@ export default function TeamBrainPage() {
 
                 {/* 上传按钮 */}
                 {file && (
-                  <div className="flex flex-col gap-2 justify-center">
+                  <div className="flex gap-3">
                     <Button
                       onClick={handleUpload}
                       disabled={isUploading}
-                      className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium py-6"
+                      className="flex-1 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white font-medium"
                     >
                       {isUploading ? (
                         <>
@@ -299,116 +544,33 @@ export default function TeamBrainPage() {
                         }
                       }}
                       variant="outline"
-                      className="w-full"
                     >
                       取消
                     </Button>
                   </div>
                 )}
               </div>
-            </div>
 
-            {/* 文档列表区域 */}
-
-            {/* 文档列表区域 */}
-            {isLoadingDocs ? (
-              <div className="flex items-center justify-center py-12">
-                <div className="text-center">
-                  <Loader2 className="h-8 w-8 animate-spin text-purple-600 mx-auto mb-3" />
-                  <p className="text-gray-600">加载文档中...</p>
-                </div>
-              </div>
-            ) : documents.length > 0 ? (
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900">已上传的文档</h2>
-                    <p className="text-sm text-gray-600 mt-1">共 {documents.length} 个文档 • 点击查看详情</p>
+              {/* 空状态 */}
+              {!isLoadingDocs && documents.length === 0 && (
+                <div className="text-center py-12 bg-white rounded-xl border border-slate-200">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cyan-100 to-teal-100 mb-4">
+                    <Brain className="h-8 w-8 text-cyan-600" />
                   </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">开始构建你的知识库</h3>
+                  <p className="text-sm text-gray-500 max-w-sm mx-auto mb-6">
+                    上传文档到知识库，AI 将帮助你提取关键信息和洞察
+                  </p>
                   <Button
                     onClick={() => fileInputRef.current?.click()}
-                    className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all"
+                    className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white shadow-lg"
                   >
                     <Upload className="h-4 w-4 mr-2" />
-                    上传新文档
+                    上传第一个文档
                   </Button>
                 </div>
-
-                {/* 文档网格 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {documents.map((doc) => (
-                    <div
-                      key={doc.id}
-                      onClick={() => handleDocClick(doc)}
-                      className="group cursor-pointer"
-                    >
-                      <div className="h-full rounded-xl border border-gray-200 hover:border-purple-300 bg-white hover:bg-gradient-to-br hover:from-white hover:to-purple-50 shadow-sm hover:shadow-lg transition-all overflow-hidden">
-                        {/* 文档卡片头部 */}
-                        <div className="relative h-32 bg-gradient-to-br from-purple-500 to-pink-500 p-4 flex flex-col justify-between overflow-hidden">
-                          <div className="absolute inset-0 opacity-10">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-2xl" />
-                          </div>
-                          <div className="relative flex items-start justify-between">
-                            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-white/20 backdrop-blur-sm">
-                              <FileText className="h-6 w-6 text-white" />
-                            </div>
-                            <span className="text-xs font-bold text-white/90 bg-white/20 px-2.5 py-1 rounded-full">PDF</span>
-                          </div>
-                          <div className="relative">
-                            <h3 className="font-bold text-white line-clamp-2 text-sm leading-tight">{doc.title}</h3>
-                          </div>
-                        </div>
-
-                        {/* 文档卡片内容 */}
-                        <div className="p-4 space-y-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-medium text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
-                              📅 {new Date(doc.created_at).toLocaleDateString('zh-CN')}
-                            </span>
-                          </div>
-                          
-                          <Button
-                            className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium text-sm group-hover:shadow-lg transition-all"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              handleDocClick(doc)
-                            }}
-                          >
-                            查看详情 →
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="text-center py-16">
-                <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 mb-6">
-                  <FileText className="h-12 w-12 text-purple-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">还没有上传任何文档</h3>
-                <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                  使用上方的上传工具添加文档到知识库，开始智能分析和查询
-                </p>
-                <Button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all font-medium"
-                >
-                  <Upload className="h-4 w-4 mr-2" />
-                  上传第一个文档
-                </Button>
-              </div>
-            )}
-
-            {/* 文件选择器隐藏 */}
-            <Input
-              type="file"
-              accept=".pdf"
-              onChange={handleFileSelect}
-              ref={fileInputRef}
-              className="hidden"
-            />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -417,9 +579,9 @@ export default function TeamBrainPage() {
 
   // 详情视图
   return (
-    <div className="h-full bg-gradient-to-br from-white via-purple-50/30 to-white flex flex-col overflow-hidden">
+    <div className="flex-1 flex flex-col min-h-0">
       {/* 顶部工具栏 */}
-      <div className="flex-shrink-0 px-4 sm:px-6 lg:px-8 py-3 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+      <div className="flex-shrink-0 px-4 sm:px-6 lg:px-8 py-3 border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto flex items-center gap-4">
           <Button
             variant="ghost"
