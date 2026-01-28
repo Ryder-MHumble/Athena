@@ -254,6 +254,8 @@ npm run dev
 
 ### 环境配置
 
+#### 本地开发环境
+
 1. 访问 [SiliconFlow](https://siliconflow.cn/) 注册并获取 API Key（首次注册赠送 2000 万 Tokens）
 2. 在应用的**设置页面** (`http://localhost:3000/settings`) 输入 API Key
 3. **选择 AI 模型**：在设置页面选择适合的模型（默认 Qwen2.5-7B-Instruct）
@@ -264,6 +266,27 @@ npm run dev
 - 智谱 GLM：GLM-4.7、GLM-4.6、GLM-4.6V 等
 - Kimi (Moonshot AI)：Kimi-K2-Thinking、Kimi-K2-Instruct
 - DeepSeek：DeepSeek-V3.2、DeepSeek-V3、DeepSeek-R1
+
+#### 生产环境部署（Vercel + Render）
+
+**⚠️ 重要：部署到生产环境需要配置环境变量，否则会出现 API 连接失败的问题。**
+
+详细部署配置请参考：[部署配置指南](./DEPLOYMENT.md)
+
+**快速配置清单：**
+
+1. **Render（后端）环境变量：**
+   ```bash
+   CORS_ORIGINS=https://your-vercel-domain.vercel.app
+   SILICONFLOW_API_KEY=sk-your-key
+   ```
+
+2. **Vercel（前端）环境变量：**
+   ```bash
+   NEXT_PUBLIC_API_URL=https://your-render-backend.onrender.com
+   ```
+
+3. 配置完成后，重新部署服务使配置生效
 
 ---
 
