@@ -132,7 +132,7 @@ function transformData(): UnifiedPost[] {
         favorites: item.collected_count
       },
       createTime: item.time,
-      tags: item.tag_list ? item.tag_list.split(',').map(t => t.trim()) : []
+      tags: item.tag_list ? item.tag_list.split(',').map((t: string) => t.trim()) : []
     })
   })
 

@@ -80,18 +80,27 @@ export function usePaperAnalysis() {
       setAnalysis(null)
       setChatHistory([])
       setSpeechLoaded(false)
+      setSpeechStreaming('')
 
       try {
         // 显示提示：首次访问可能需要等待后端唤醒
         toast.info('正在分析论文，首次访问可能需要等待30-60秒...', { duration: 5000 })
         
+        // 调用分析接口（后端已并行执行分析和讲解生成）
         const result = await api.analyzePaper({
           file: selectedFile,
         })
         setAnalysis(result)
-        setPaperText(result.paper_text || '')
-        // 快速分析不再包含 speech，只在切换到讲解标签时按需加载
-        toast.success('论文核心分析完成 ✨')
+        const extractedPaperText = result.paper_text || ''
+        setPaperText(extractedPaperText)
+        
+        // 如果分析结果中包含 speech，直接使用（后端已并行生成）
+        if (result.speech) {
+          setSpeechLoaded(true)
+          startSpeechStreaming(result.speech)
+        }
+        
+        toast.success('论文分析完成 ✨')
       } catch (error: any) {
         // 改进错误提示
         const errorMessage = error.message || ''
@@ -122,17 +131,26 @@ export function usePaperAnalysis() {
     setAnalysis(null)
     setChatHistory([])
     setSpeechLoaded(false)
+    setSpeechStreaming('')
 
     try {
       // 显示提示：首次访问可能需要等待后端唤醒
       toast.info('正在分析论文，首次访问可能需要等待30-60秒...', { duration: 5000 })
       
+      // 调用分析接口（后端已并行执行分析和讲解生成）
       const result = await api.analyzePaper({
         file: file || undefined,
         url: url.trim() || undefined,
       })
       setAnalysis(result)
-      setPaperText(result.paper_text || '')
+      const extractedPaperText = result.paper_text || ''
+      setPaperText(extractedPaperText)
+
+      // 如果分析结果中包含 speech，直接使用（后端已并行生成）
+      if (result.speech) {
+        setSpeechLoaded(true)
+        startSpeechStreaming(result.speech)
+      }
 
       // 如果是URL，需要下载PDF并设置PDF URL
       if (url.trim() && !file) {
@@ -272,18 +290,21 @@ export function usePaperAnalysis() {
 
   const handleSplitMouseUp = () => setIsDraggingSplit(false)
 
-  // 按需加载讲解内容
+  // 按需加载讲解内容（备用方案：如果并行加载失败，用户切换到讲解标签时再加载）
   const loadSpeechIfNeeded = async () => {
     if (!paperText || speechLoaded || isSpeechLoading) return
     
     setIsSpeechLoading(true)
     try {
       const result = await api.generateSpeech(paperText)
-      if (analysis) {
-        setAnalysis({ ...analysis, speech: result.speech })
-        startSpeechStreaming(result.speech)
-        setSpeechLoaded(true)
-      }
+      setAnalysis((prevAnalysis) => {
+        if (prevAnalysis) {
+          return { ...prevAnalysis, speech: result.speech }
+        }
+        return null
+      })
+      startSpeechStreaming(result.speech)
+      setSpeechLoaded(true)
     } catch (error: any) {
       toast.error('加载讲解内容失败')
       console.error('Speech generation error:', error)
@@ -292,12 +313,12 @@ export function usePaperAnalysis() {
     }
   }
 
-  // 监听 activeTab 变化，按需加载内容
+  // 监听 activeTab 变化，如果讲解内容还未加载，则按需加载
   useEffect(() => {
-    if (activeTab === 'speech' && analysis && !speechLoaded && !analysis.speech) {
+    if (activeTab === 'speech' && analysis && !speechLoaded && !analysis.speech && paperText) {
       loadSpeechIfNeeded()
     }
-  }, [activeTab, analysis, speechLoaded])
+  }, [activeTab, analysis, speechLoaded, paperText])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

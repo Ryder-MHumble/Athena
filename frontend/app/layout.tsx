@@ -5,15 +5,22 @@ import { Toaster } from "@/components/ui/sonner"
 import { Navigation } from "@/components/layout/navigation"
 import { BackendWakeup } from "@/components/BackendWakeup"
 
+// 配置字体，添加 fallback 以应对网络问题
 const inter = Inter({ 
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+  fallback: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "arial", "sans-serif"],
+  adjustFontFallback: true,
 })
 
 const merriweather = Merriweather({ 
   weight: ["300", "400", "700"],
   subsets: ["latin"],
   variable: "--font-serif",
+  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: true,
 })
 
 const notoSansSC = Noto_Sans_SC({ 
@@ -21,6 +28,8 @@ const notoSansSC = Noto_Sans_SC({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  fallback: ["system-ui", "-apple-system", "PingFang SC", "Microsoft YaHei", "SimHei", "sans-serif"],
+  adjustFontFallback: true,
 })
 
 export const metadata: Metadata = {
