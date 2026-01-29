@@ -3,6 +3,7 @@ import { Inter, Merriweather, Noto_Sans_SC } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import { Navigation } from "@/components/layout/navigation"
+import { BackendWakeup } from "@/components/BackendWakeup"
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className={`${inter.variable} ${merriweather.variable} ${notoSansSC.variable} font-sans`}>
+        <BackendWakeup />
         <div className="min-h-screen bg-slate-50 flex flex-col">
           <Navigation />
           <main className="flex-1 flex flex-col">

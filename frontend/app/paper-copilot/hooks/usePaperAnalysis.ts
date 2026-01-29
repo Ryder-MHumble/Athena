@@ -82,6 +82,9 @@ export function usePaperAnalysis() {
       setSpeechLoaded(false)
 
       try {
+        // 显示提示：首次访问可能需要等待后端唤醒
+        toast.info('正在分析论文，首次访问可能需要等待30-60秒...', { duration: 5000 })
+        
         const result = await api.analyzePaper({
           file: selectedFile,
         })
@@ -90,7 +93,15 @@ export function usePaperAnalysis() {
         // 快速分析不再包含 speech，只在切换到讲解标签时按需加载
         toast.success('论文核心分析完成 ✨')
       } catch (error: any) {
-        toast.error(error.message || '分析失败，请检查文件或网络连接')
+        // 改进错误提示
+        const errorMessage = error.message || ''
+        if (errorMessage.includes('504') || errorMessage.includes('timeout') || errorMessage.includes('timed out')) {
+          toast.error('分析超时，请稍后重试。如果是首次访问，后端服务可能正在启动中。')
+        } else if (errorMessage.includes('Failed to fetch') || errorMessage.includes('NetworkError')) {
+          toast.error('网络连接失败，请检查网络或稍后重试')
+        } else {
+          toast.error(error.message || '分析失败，请检查文件或网络连接')
+        }
         console.error('Paper analysis error:', error)
       } finally {
         setIsLoading(false)
@@ -113,6 +124,9 @@ export function usePaperAnalysis() {
     setSpeechLoaded(false)
 
     try {
+      // 显示提示：首次访问可能需要等待后端唤醒
+      toast.info('正在分析论文，首次访问可能需要等待30-60秒...', { duration: 5000 })
+      
       const result = await api.analyzePaper({
         file: file || undefined,
         url: url.trim() || undefined,
@@ -158,7 +172,15 @@ export function usePaperAnalysis() {
 
       toast.success('论文核心分析完成 ✨')
     } catch (error: any) {
-      toast.error(error.message || '分析失败，请检查文件或网络连接')
+      // 改进错误提示
+      const errorMessage = error.message || ''
+      if (errorMessage.includes('504') || errorMessage.includes('timeout') || errorMessage.includes('timed out')) {
+        toast.error('分析超时，请稍后重试。如果是首次访问，后端服务可能正在启动中。')
+      } else if (errorMessage.includes('Failed to fetch') || errorMessage.includes('NetworkError')) {
+        toast.error('网络连接失败，请检查网络或稍后重试')
+      } else {
+        toast.error(error.message || '分析失败，请检查文件或网络连接')
+      }
       console.error('Paper analysis error:', error)
     } finally {
       setIsLoading(false)
