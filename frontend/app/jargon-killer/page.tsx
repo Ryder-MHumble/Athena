@@ -20,8 +20,8 @@ export default function JargonKillerPage() {
   const { copiedId, handleCopy } = useCopy()
 
   return (
-    <div className="flex-1 flex flex-col min-h-0">
-      <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+    <div className="flex-1 flex flex-col min-h-0 relative">
+      <div className="flex-1 overflow-hidden pb-24">
         {messages.length === 0 ? (
           <WelcomeScreen
             onPromptSelect={setInput}

@@ -117,7 +117,7 @@ export default function PaperCopilotPage() {
     <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden p-4">
       {/* 上传区域 - 只在没有论文时显示 */}
       {!hasPaper && (
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-y-auto scrollbar-hide">
           <UploadArea
             file={file}
             url={url}
@@ -146,7 +146,7 @@ export default function PaperCopilotPage() {
             className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col overflow-hidden"
             style={{ width: `${splitPosition}%` }}
           >
-            <div className="flex-1 overflow-auto custom-scrollbar">
+            <div className="flex-1 overflow-y-auto scrollbar-hide">
               <PDFViewer pdfUrl={pdfUrl} width={`${splitPosition}%`} />
             </div>
           </div>
@@ -233,7 +233,7 @@ export default function PaperCopilotPage() {
 
               {/* 分析结果 - 独立滚动区域 */}
               {analysis && activeTab === 'analysis' && (
-                <div className="flex-1 overflow-y-auto custom-scrollbar">
+                <div className="flex-1 overflow-y-auto scrollbar-hide">
                   <div className="p-6">
                     <AnalysisResultsTab analysis={analysis} />
                   </div>
@@ -242,7 +242,7 @@ export default function PaperCopilotPage() {
 
               {/* 讲解 - 独立滚动区域 */}
               {analysis && activeTab === 'speech' && (
-                <div className="flex-1 overflow-y-auto custom-scrollbar">
+                <div className="flex-1 overflow-y-auto scrollbar-hide">
                   {isSpeechLoading ? (
                     <div className="flex-1 flex items-center justify-center p-6">
                       <div className="text-center space-y-4">

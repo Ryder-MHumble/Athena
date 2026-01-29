@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -21,10 +21,155 @@ import {
   Clock,
   Globe,
   Filter,
-  Database
+  Database,
+  Eye,
+  ThumbsUp,
+  Coins,
+  Star,
+  Loader2,
+  Columns
 } from 'lucide-react'
 
-// 模拟数据 - 实际会从后端获取
+// 导入真实数据
+import biliData from '@/CrawlData/bili/json/creator_contents_2026-01-26.json'
+import xhsData from '@/CrawlData/xhs/json/search_contents_2026-01-26.json'
+import zhihuData from '@/CrawlData/zhihu/json/search_contents_2026-01-26.json'
+
+// 统一数据格式接口
+interface UnifiedPost {
+  id: string
+  platform: 'bilibili' | 'xiaohongshu' | 'zhihu'
+  platformLabel: string
+  platformColor: string
+  type: 'video' | 'normal' | 'answer' | 'article'
+  author: {
+    name: string
+    avatar: string
+    id: string
+    verified?: boolean
+  }
+  title: string
+  content: string
+  cover?: string
+  url: string
+  stats: {
+    likes: number | string
+    comments: number | string
+    shares?: number | string
+    views?: number | string
+    coins?: number | string
+    favorites?: number | string
+  }
+  createTime: number
+  tags?: string[]
+  videoLength?: string
+}
+
+// 数据转换函数
+function transformData(): UnifiedPost[] {
+  const posts: UnifiedPost[] = []
+
+  // 转换B站数据
+  biliData.slice(0, 20).forEach((item: any) => {
+    // 将 HTTP 图片 URL 转换为 HTTPS，避免混合内容问题
+    // B站数据字段：video_cover_url（封面）, avatar（头像）
+    const coverUrl = item.video_cover_url ? item.video_cover_url.replace('http://', 'https://') : undefined
+    const avatarUrl = item.avatar ? item.avatar.replace('http://', 'https://') : 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" fill="%23f472b6"/><text x="16" y="21" text-anchor="middle" fill="white" font-size="16" font-family="sans-serif">B</text></svg>'
+    
+    posts.push({
+      id: item.video_id,
+      platform: 'bilibili',
+      platformLabel: 'B站',
+      platformColor: 'bg-pink-500',
+      type: 'video',
+      author: {
+        name: item.nickname || 'B站用户',
+        avatar: avatarUrl,
+        id: item.user_id
+      },
+      title: item.title || '无标题',
+      content: item.desc || '暂无描述',
+      cover: coverUrl,
+      url: item.video_url,
+      stats: {
+        likes: item.liked_count,
+        comments: item.video_comment,
+        shares: item.video_share_count,
+        views: item.video_play_count,
+        coins: item.video_coin_count,
+        favorites: item.video_favorite_count
+      },
+      createTime: item.create_time * 1000,
+      videoLength: '视频'
+    })
+  })
+
+  // 转换小红书数据
+  xhsData.slice(0, 20).forEach((item: any) => {
+    // 小红书数据字段：image_list（图片列表，逗号分隔）, avatar（头像）
+    const coverUrl = item.image_list ? item.image_list.split(',')[0].trim().replace('http://', 'https://') : undefined
+    const avatarUrl = item.avatar ? item.avatar.replace('http://', 'https://') : 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" fill="%23ef4444"/><text x="16" y="21" text-anchor="middle" fill="white" font-size="16" font-family="sans-serif">小</text></svg>'
+    
+    posts.push({
+      id: item.note_id,
+      platform: 'xiaohongshu',
+      platformLabel: '小红书',
+      platformColor: 'bg-red-500',
+      type: item.type === 'video' ? 'video' : 'normal',
+      author: {
+        name: item.nickname || '小红书用户',
+        avatar: avatarUrl,
+        id: item.user_id
+      },
+      title: item.title || '无标题',
+      content: item.desc || '暂无描述',
+      cover: coverUrl,
+      url: item.note_url,
+      stats: {
+        likes: item.liked_count,
+        comments: item.comment_count,
+        shares: item.share_count,
+        favorites: item.collected_count
+      },
+      createTime: item.time,
+      tags: item.tag_list ? item.tag_list.split(',').map(t => t.trim()) : []
+    })
+  })
+
+  // 转换知乎数据
+  zhihuData.slice(0, 20).forEach((item: any) => {
+    // 知乎数据字段：user_avatar（头像），无封面字段（知乎问答类内容通常没有封面图）
+    const avatarUrl = item.user_avatar ? item.user_avatar.replace('http://', 'https://') : 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" fill="%233b82f6"/><text x="16" y="21" text-anchor="middle" fill="white" font-size="16" font-family="sans-serif">知</text></svg>'
+    
+    posts.push({
+      id: item.content_id,
+      platform: 'zhihu',
+      platformLabel: '知乎',
+      platformColor: 'bg-blue-500',
+      type: item.content_type === 'article' ? 'article' : 'answer',
+      author: {
+        name: item.user_nickname || '知乎用户',
+        avatar: avatarUrl,
+        id: item.user_id
+      },
+      title: item.title || '无标题',
+      content: item.content_text || '暂无内容',
+      // 知乎内容通常没有封面，这是正常的
+      cover: undefined,
+      url: item.content_url,
+      stats: {
+        likes: item.voteup_count,
+        comments: item.comment_count
+      },
+      createTime: item.created_time * 1000
+    })
+  })
+
+  // 按时间排序
+  return posts.sort((a, b) => b.createTime - a.createTime)
+}
+
+// 保留原有mockPosts用于后备
 const mockPosts = [
   {
     id: '8823901',
@@ -126,22 +271,67 @@ const platforms = [
 
 export default function DataHubPage() {
   const [viewMode, setViewMode] = useState<'cards' | 'crawler'>('cards')
-  const [selectedPost, setSelectedPost] = useState<typeof mockPosts[0] | null>(null)
+  const [selectedPost, setSelectedPost] = useState<UnifiedPost | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedPlatform, setSelectedPlatform] = useState('all')
   const [layoutMode, setLayoutMode] = useState<'grid' | 'list'>('grid')
+  const [sortBy, setSortBy] = useState<'time' | 'likes'>('time') // 排序方式
+  const [searchScope, setSearchScope] = useState<'all' | 'author' | 'title'>('all') // 搜索范围
+  const [realPosts, setRealPosts] = useState<UnifiedPost[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  // 过滤数据
-  const filteredPosts = mockPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.content.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesPlatform = selectedPlatform === 'all' || post.platform === selectedPlatform
-    return matchesSearch && matchesPlatform
-  })
+  // 加载真实数据
+  useEffect(() => {
+    setIsLoading(true)
+    try {
+      const loadedPosts = transformData()
+      setRealPosts(loadedPosts)
+    } catch (error) {
+      console.error('Failed to load data:', error)
+    } finally {
+      setTimeout(() => setIsLoading(false), 500) // 添加小延迟以显示加载动画
+    }
+  }, [])
+
+  // 过滤和排序数据
+  const filteredPosts = realPosts
+    .filter(post => {
+      // 平台筛选
+      const matchesPlatform = selectedPlatform === 'all' || post.platform === selectedPlatform
+      
+      // 搜索范围筛选
+      if (!searchTerm.trim()) return matchesPlatform
+      
+      const searchLower = searchTerm.toLowerCase()
+      let matchesSearch = false
+      
+      if (searchScope === 'all') {
+        matchesSearch = post.title.toLowerCase().includes(searchLower) ||
+                       post.content.toLowerCase().includes(searchLower) ||
+                       post.author.name.toLowerCase().includes(searchLower)
+      } else if (searchScope === 'title') {
+        matchesSearch = post.title.toLowerCase().includes(searchLower)
+      } else if (searchScope === 'author') {
+        matchesSearch = post.author.name.toLowerCase().includes(searchLower)
+      }
+      
+      return matchesSearch && matchesPlatform
+    })
+    .sort((a, b) => {
+      // 排序
+      if (sortBy === 'time') {
+        return b.createTime - a.createTime // 最新的在前
+      } else {
+        // 按点赞数排序
+        const aLikes = typeof a.stats.likes === 'string' ? parseInt(a.stats.likes) : a.stats.likes
+        const bLikes = typeof b.stats.likes === 'string' ? parseInt(b.stats.likes) : b.stats.likes
+        return bLikes - aLikes
+      }
+    })
 
   // 统计数据
   const stats = {
-    totalPosts: '12,450',
+    totalPosts: realPosts.length.toString(),
     avgSentiment: '8.5',
     totalEngagement: '842.1k',
     postsGrowth: '+12%',
@@ -149,10 +339,30 @@ export default function DataHubPage() {
     engagementGrowth: '+4.2%'
   }
 
+  // 格式化数字
+  const formatNumber = (num: number | string): string => {
+    if (typeof num === 'string') return num
+    if (num >= 10000) return `${(num / 10000).toFixed(1)}万`
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}k`
+    return num.toString()
+  }
+
+  // 格式化时间
+  const formatTime = (timestamp: number): string => {
+    const now = Date.now()
+    const diff = now - timestamp
+    const hours = Math.floor(diff / (1000 * 60 * 60))
+    const days = Math.floor(hours / 24)
+    
+    if (days > 0) return `${days}天前`
+    if (hours > 0) return `${hours}小时前`
+    return '刚刚'
+  }
+
   return (
-    <div className="flex-1 flex flex-col min-h-0">
-      {/* 顶部工具栏 */}
-      <div className="flex-shrink-0 border-b border-slate-200/60 px-4 sm:px-6 py-3">
+    <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
+      {/* 顶部工具栏 - 固定 */}
+      <div className="flex-shrink-0 border-b border-slate-200/60 px-4 sm:px-6 py-3 bg-white z-20">
         <div className="flex items-center justify-between gap-4">
           {/* 左侧：模式切换 */}
           <div className="flex items-center gap-2">
@@ -179,25 +389,55 @@ export default function DataHubPage() {
           {/* 右侧：搜索和筛选 */}
           {viewMode === 'cards' && (
             <div className="flex items-center gap-3">
+              {/* 排序选择 */}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as 'time' | 'likes')}
+                className="h-9 px-3 text-sm border border-gray-200 rounded-lg bg-white hover:border-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+              >
+                <option value="time">⏰ 最新发布</option>
+                <option value="likes">❤️ 最多点赞</option>
+              </select>
+
+              {/* 搜索范围选择 */}
+              <select
+                value={searchScope}
+                onChange={(e) => setSearchScope(e.target.value as 'all' | 'author' | 'title')}
+                className="h-9 px-3 text-sm border border-gray-200 rounded-lg bg-white hover:border-cyan-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+              >
+                <option value="all">🔍 全部搜索</option>
+                <option value="title">📝 标题</option>
+                <option value="author">👤 账号</option>
+              </select>
+
+              {/* 搜索框 */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  placeholder="搜索内容..."
+                  placeholder={
+                    searchScope === 'all' ? '搜索全部内容...' :
+                    searchScope === 'title' ? '搜索标题...' :
+                    '搜索账号名...'
+                  }
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-64 pl-9 bg-white border-gray-200 focus:border-cyan-500"
                 />
               </div>
+
+              {/* 布局切换 */}
               <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
                 <button
                   onClick={() => setLayoutMode('grid')}
                   className={`p-1.5 rounded ${layoutMode === 'grid' ? 'bg-white shadow-sm text-cyan-600' : 'text-gray-500 hover:text-gray-700'}`}
+                  title="瀑布流布局"
                 >
-                  <LayoutGrid className="h-4 w-4" />
+                  <Columns className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => setLayoutMode('list')}
                   className={`p-1.5 rounded ${layoutMode === 'list' ? 'bg-white shadow-sm text-cyan-600' : 'text-gray-500 hover:text-gray-700'}`}
+                  title="列表布局"
                 >
                   <List className="h-4 w-4" />
                 </button>
@@ -211,60 +451,9 @@ export default function DataHubPage() {
       {viewMode === 'cards' ? (
         <div className="flex-1 flex overflow-hidden">
           {/* 左侧：数据统计和帖子列表 */}
-          <div className="flex-1 flex flex-col overflow-hidden">
-            {/* 统计卡片 */}
-            <div className="flex-shrink-0 p-4 sm:p-6 border-b border-slate-200/60">
-              <div className="grid grid-cols-3 gap-4">
-                <Card className="p-4 border-gray-200 bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-500">采集总量</span>
-                    <div className="p-1.5 rounded-lg bg-cyan-50">
-                      <Database className="h-4 w-4 text-cyan-600" />
-                    </div>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-gray-900">{stats.totalPosts}</span>
-                    <span className="text-sm text-emerald-600 flex items-center">
-                      <TrendingUp className="h-3 w-3 mr-0.5" />
-                      {stats.postsGrowth}
-                    </span>
-                  </div>
-                </Card>
-                <Card className="p-4 border-gray-200 bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-500">情感指数</span>
-                    <div className="p-1.5 rounded-lg bg-amber-50">
-                      <Sparkles className="h-4 w-4 text-amber-600" />
-                    </div>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-gray-900">{stats.avgSentiment}<span className="text-base text-gray-400">/10</span></span>
-                    <span className="text-sm text-emerald-600 flex items-center">
-                      <TrendingUp className="h-3 w-3 mr-0.5" />
-                      {stats.sentimentChange}
-                    </span>
-                  </div>
-                </Card>
-                <Card className="p-4 border-gray-200 bg-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-500">互动总量</span>
-                    <div className="p-1.5 rounded-lg bg-rose-50">
-                      <Heart className="h-4 w-4 text-rose-500" />
-                    </div>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-gray-900">{stats.totalEngagement}</span>
-                    <span className="text-sm text-emerald-600 flex items-center">
-                      <TrendingUp className="h-3 w-3 mr-0.5" />
-                      {stats.engagementGrowth}
-                    </span>
-                  </div>
-                </Card>
-              </div>
-            </div>
-
-            {/* 平台筛选 */}
-            <div className="flex-shrink-0 px-4 sm:px-6 py-3 border-b border-slate-200/60">
+          <div className="flex-1 flex flex-col min-w-0">
+            {/* 平台筛选 - 固定 */}
+            <div className="flex-shrink-0 px-4 sm:px-6 py-3 border-b border-slate-200/60 bg-white z-10">
               <div className="flex items-center gap-2 overflow-x-auto">
                 {platforms.map((platform) => (
                   <button
@@ -285,100 +474,190 @@ export default function DataHubPage() {
               </div>
             </div>
 
-            {/* 帖子列表 */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-              <div className={layoutMode === 'grid' ? 'grid grid-cols-1 lg:grid-cols-2 gap-4' : 'space-y-3'}>
-                {filteredPosts.map((post) => (
+            {/* 帖子列表 - 瀑布流布局 - 独立滚动，隐藏滚动条 */}
+            <div className="flex-1 overflow-y-auto scrollbar-hide p-4 sm:p-6">
+              {isLoading ? (
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center">
+                    <Loader2 className="h-12 w-12 animate-spin text-cyan-600 mx-auto mb-4" />
+                    <p className="text-gray-600 font-medium">加载数据中...</p>
+                    <p className="text-gray-400 text-sm mt-1">正在从多个平台获取内容</p>
+                  </div>
+                </div>
+              ) : (
+                <div className={layoutMode === 'grid' ? 'columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4' : 'space-y-3'}>
+                  {filteredPosts.map((post) => (
                   <Card
                     key={post.id}
                     onClick={() => setSelectedPost(post)}
-                    className={`p-4 cursor-pointer transition-all hover:shadow-md hover:border-cyan-300 ${
-                      selectedPost?.id === post.id ? 'border-cyan-500 ring-1 ring-cyan-500/20 bg-cyan-50/30' : 'bg-white'
+                    className={`break-inside-avoid mb-4 cursor-pointer transition-all hover:shadow-lg hover:border-cyan-300 ${
+                      selectedPost?.id === post.id ? 'border-cyan-500 ring-2 ring-cyan-500/20 bg-cyan-50/30' : 'bg-white'
                     }`}
                   >
-                    <div className="flex items-start gap-3">
-                      {/* 头像 */}
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-lg">
-                        {post.author.avatar}
+                    {/* 封面图 */}
+                    {post.cover && (
+                      <div className="relative w-full aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-t-xl">
+                        <img 
+                          src={post.cover} 
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement
+                            img.style.display = 'none'
+                            const parent = img.parentElement
+                            if (parent) {
+                              parent.innerHTML = `
+                                <div class="flex items-center justify-center h-full">
+                                  <div class="text-center">
+                                    <svg class="w-12 h-12 mx-auto text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <p class="text-xs text-gray-400">图片加载失败</p>
+                                  </div>
+                                </div>
+                              `
+                            }
+                          }}
+                        />
+                        {post.type === 'video' && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
+                            <Play className="h-12 w-12 text-white opacity-90" />
+                          </div>
+                        )}
                       </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        {/* 作者信息 */}
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-medium text-gray-900">{post.author.name}</span>
-                          {post.author.verified && (
-                            <span className="text-cyan-500">✓</span>
-                          )}
-                          <span className={`text-xs px-1.5 py-0.5 rounded text-white ${post.platformColor}`}>
-                            {post.platformLabel}
-                          </span>
-                          <span className="text-xs text-gray-400 ml-auto">{post.crawledAt}</span>
+                    )}
+
+                    <div className="p-4">
+                      {/* 作者信息 */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0">
+                          <img 
+                            src={post.author.avatar} 
+                            alt={post.author.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" fill="%23e5e7eb"/><text x="16" y="21" text-anchor="middle" fill="%236b7280" font-size="16" font-family="sans-serif">👤</text></svg>'
+                            }}
+                          />
                         </div>
-                        
-                        {/* 标题 */}
-                        <h3 className="font-medium text-gray-900 mb-2 line-clamp-2">{post.title}</h3>
-                        
-                        {/* 内容预览 */}
-                        <p className="text-sm text-gray-500 line-clamp-2 mb-3">{post.content}</p>
-                        
-                        {/* 互动数据 */}
-                        <div className="flex items-center gap-4 text-sm text-gray-400">
-                          <span className="flex items-center gap-1">
-                            <Heart className="h-4 w-4" />
-                            {post.likes}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MessageCircle className="h-4 w-4" />
-                            {post.comments}
-                          </span>
-                          {post.shares && post.shares !== '0' && (
-                            <span className="flex items-center gap-1">
-                              <Share2 className="h-4 w-4" />
-                              {post.shares}
-                            </span>
-                          )}
-                          {post.imageCount > 0 && (
-                            <span className="ml-auto text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-500">
-                              {post.imageCount} 图
-                            </span>
-                          )}
-                          {post.videoLength && (
-                            <span className="ml-auto text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-500 flex items-center gap-1">
-                              <Play className="h-3 w-3" />
-                              {post.videoLength}
-                            </span>
-                          )}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900 text-sm truncate">{post.author.name}</p>
+                          <p className="text-xs text-gray-400">{formatTime(post.createTime)}</p>
                         </div>
+                        <span className={`text-xs px-2 py-1 rounded-full text-white ${post.platformColor} flex-shrink-0`}>
+                          {post.platformLabel}
+                        </span>
+                      </div>
+
+                      {/* 标题 */}
+                      <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-base leading-tight">
+                        {post.title}
+                      </h3>
+
+                      {/* 内容预览 */}
+                      <p className="text-sm text-gray-600 line-clamp-3 mb-3 leading-relaxed">
+                        {post.content}
+                      </p>
+
+                      {/* 标签 */}
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mb-3">
+                          {post.tags.slice(0, 3).map((tag, idx) => (
+                            <span key={idx} className="text-xs bg-cyan-50 text-cyan-600 px-2 py-0.5 rounded-full">
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* 互动数据 */}
+                      <div className="flex items-center gap-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <span className="flex items-center gap-1">
+                          <ThumbsUp className="h-3.5 w-3.5" />
+                          {formatNumber(post.stats.likes)}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MessageCircle className="h-3.5 w-3.5" />
+                          {formatNumber(post.stats.comments)}
+                        </span>
+                        {post.stats.views && (
+                          <span className="flex items-center gap-1">
+                            <Eye className="h-3.5 w-3.5" />
+                            {formatNumber(post.stats.views)}
+                          </span>
+                        )}
+                        {post.stats.coins && (
+                          <span className="flex items-center gap-1">
+                            <Coins className="h-3.5 w-3.5" />
+                            {formatNumber(post.stats.coins)}
+                          </span>
+                        )}
+                        {post.stats.shares && (
+                          <span className="flex items-center gap-1 ml-auto">
+                            <Share2 className="h-3.5 w-3.5" />
+                            {formatNumber(post.stats.shares)}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </Card>
-                ))}
-              </div>
+                  ))}
+                  
+                  {filteredPosts.length === 0 && (
+                    <div className="flex flex-col items-center justify-center py-20 text-gray-400">
+                      <Database className="h-16 w-16 mb-4 opacity-50" />
+                      <p className="text-lg font-medium">暂无数据</p>
+                      <p className="text-sm mt-1">尝试调整筛选条件</p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* 右侧：详情面板 */}
+          {/* 右侧：固定详情面板 - 加宽 */}
           {selectedPost && (
-            <div className="w-96 border-l border-slate-200/60 flex flex-col overflow-hidden">
-              {/* 详情头部 */}
+            <div className="w-[480px] border-l border-slate-200/60 flex flex-col bg-white shadow-lg">
+              {/* 详情头部 - 带访问原文按钮 */}
               <div className="flex-shrink-0 p-4 border-b border-slate-200/60">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-3">
                   <span className="font-medium text-gray-900">内容详情</span>
-                  <button 
-                    onClick={() => setSelectedPost(null)}
-                    className="p-1 text-gray-400 hover:text-gray-600 rounded hover:bg-gray-100"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={selectedPost.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 rounded-lg transition-all shadow-sm hover:shadow"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      访问原文
+                    </a>
+                    <button 
+                      onClick={() => setSelectedPost(null)}
+                      className="p-1 text-gray-400 hover:text-gray-600 rounded hover:bg-gray-100"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* 详情内容 */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {/* 详情内容 - 独立滚动，隐藏滚动条 */}
+              <div className="flex-1 overflow-y-auto scrollbar-hide p-4 space-y-4">
                 {/* 作者信息 */}
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-xl">
-                    {selectedPost.author.avatar}
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0">
+                    <img 
+                      src={selectedPost.author.avatar} 
+                      alt={selectedPost.author.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><rect width="48" height="48" fill="%23e5e7eb"/><text x="24" y="32" text-anchor="middle" fill="%236b7280" font-size="24" font-family="sans-serif">👤</text></svg>'
+                      }}
+                    />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
@@ -399,75 +678,110 @@ export default function DataHubPage() {
                 {/* 标题 */}
                 <h2 className="text-lg font-bold text-gray-900">{selectedPost.title}</h2>
 
-                {/* 图片占位 */}
-                <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center border border-gray-200">
-                  <span className="text-gray-400 text-sm">图片预览</span>
-                </div>
+                {/* 封面图 */}
+                {selectedPost.cover && (
+                  <div className="relative aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden border border-gray-200">
+                    <img 
+                      src={selectedPost.cover} 
+                      alt={selectedPost.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement
+                        target.style.display = 'none'
+                        const parent = target.parentElement
+                        if (parent) {
+                          parent.innerHTML = `
+                            <div class="flex items-center justify-center h-full">
+                              <div class="text-center">
+                                <svg class="w-16 h-16 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <p class="text-sm text-gray-400">封面图加载失败</p>
+                              </div>
+                            </div>
+                          `
+                        }
+                      }}
+                    />
+                    {selectedPost.type === 'video' && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none">
+                        <Play className="h-16 w-16 text-white opacity-80" />
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* 内容 */}
                 <p className="text-gray-600 leading-relaxed">{selectedPost.content}</p>
 
                 {/* 标签 */}
-                <div className="flex flex-wrap gap-2">
-                  {selectedPost.tags.map((tag, i) => (
-                    <span key={i} className="text-cyan-600 text-sm bg-cyan-50 px-2 py-0.5 rounded">{tag}</span>
-                  ))}
-                </div>
+                {selectedPost.tags && selectedPost.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {selectedPost.tags.map((tag, i) => (
+                      <span key={i} className="text-cyan-600 text-sm bg-cyan-50 px-2 py-0.5 rounded">{tag}</span>
+                    ))}
+                  </div>
+                )}
 
                 {/* 数据统计 */}
-                <div className="grid grid-cols-3 gap-3 py-4 border-y border-gray-200">
-                  <div className="text-center">
-                    <p className="text-xl font-bold text-gray-900">{selectedPost.likes}</p>
-                    <p className="text-xs text-gray-500">点赞</p>
+                <div className="space-y-3 py-4 border-y border-gray-200">
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="text-center">
+                      <p className="text-xl font-bold text-gray-900">{formatNumber(selectedPost.stats.likes)}</p>
+                      <p className="text-xs text-gray-500">点赞</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xl font-bold text-gray-900">{formatNumber(selectedPost.stats.comments)}</p>
+                      <p className="text-xs text-gray-500">评论</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xl font-bold text-gray-900">{selectedPost.stats.shares ? formatNumber(selectedPost.stats.shares) : '-'}</p>
+                      <p className="text-xs text-gray-500">分享</p>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <p className="text-xl font-bold text-gray-900">{selectedPost.comments}</p>
-                    <p className="text-xs text-gray-500">评论</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-xl font-bold text-gray-900">{selectedPost.shares || '-'}</p>
-                    <p className="text-xs text-gray-500">分享</p>
-                  </div>
+                  
+                  {/* 额外统计信息 */}
+                  {(selectedPost.stats.views || selectedPost.stats.coins || selectedPost.stats.favorites) && (
+                    <div className="grid grid-cols-3 gap-3 pt-2 border-t border-gray-100">
+                      {selectedPost.stats.views && (
+                        <div className="text-center">
+                          <p className="text-lg font-bold text-gray-900">{formatNumber(selectedPost.stats.views)}</p>
+                          <p className="text-xs text-gray-500">播放</p>
+                        </div>
+                      )}
+                      {selectedPost.stats.coins && (
+                        <div className="text-center">
+                          <p className="text-lg font-bold text-gray-900">{formatNumber(selectedPost.stats.coins)}</p>
+                          <p className="text-xs text-gray-500">投币</p>
+                        </div>
+                      )}
+                      {selectedPost.stats.favorites && (
+                        <div className="text-center">
+                          <p className="text-lg font-bold text-gray-900">{formatNumber(selectedPost.stats.favorites)}</p>
+                          <p className="text-xs text-gray-500">收藏</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
-                {/* AI 情感分析 */}
-                <Card className="p-4 bg-gradient-to-br from-cyan-50 to-teal-50 border-cyan-200">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="h-4 w-4 text-cyan-600" />
-                    <span className="font-medium text-cyan-900">AI 情感分析</span>
-                  </div>
-                  <p className="text-sm text-cyan-800">
-                    该内容情感倾向为{' '}
-                    <span className={selectedPost.sentiment.label === 'Positive' ? 'text-emerald-600 font-medium' : 'text-amber-600 font-medium'}>
-                      {selectedPost.sentiment.label === 'Positive' ? '积极' : '中性'} ({selectedPost.sentiment.score}%)
-                    </span>
-                  </p>
-                </Card>
-
-                {/* 打开原文按钮 */}
-                <a
-                  href={selectedPost.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full"
-                >
-                  <Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    查看原文
-                  </Button>
-                </a>
-
                 {/* 底部信息 */}
-                <p className="text-xs text-gray-400 text-center">
-                  采集时间: {selectedPost.crawledAt} • ID: {selectedPost.id}
-                </p>
+                <div className="pt-3 border-t border-gray-100">
+                  <p className="text-xs text-gray-400 text-center">
+                    发布时间: {formatTime(selectedPost.createTime)}
+                  </p>
+                  <p className="text-xs text-gray-400 text-center mt-1">
+                    ID: {selectedPost.id}
+                  </p>
+                </div>
               </div>
             </div>
           )}
         </div>
       ) : (
-        /* 爬虫配置模式 */
-        <div className="flex-1 overflow-y-auto p-6">
+        /* 爬虫配置模式 - 独立滚动，隐藏滚动条 */
+        <div className="flex-1 overflow-y-auto scrollbar-hide p-6">
           <div className="max-w-4xl mx-auto space-y-6">
             {/* 配置说明 */}
             <Card className="p-6 bg-white">

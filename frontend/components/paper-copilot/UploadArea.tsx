@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { FileText, Upload, X, Loader2, Link as LinkIcon, CheckCircle2, Zap } from 'lucide-react'
+import { FileText, Upload, X, Loader2, Link as LinkIcon, CheckCircle2, Zap, Wrench } from 'lucide-react'
 
 export interface UploadAreaProps {
   file: File | null
@@ -26,166 +26,194 @@ export const UploadArea: React.FC<UploadAreaProps> = ({
   fileInputRef,
 }) => {
   const hasInput = file || url.trim()
+  const [activeMode, setActiveMode] = useState<'pdf' | 'url'>('pdf')
 
   return (
     <div className="w-full flex-shrink-0">
-      <div className="p-8 sm:p-12 bg-gradient-to-br from-white via-cyan-50/30 to-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-shadow">
-        <div className="max-w-4xl mx-auto space-y-10">
-          {/* 标题区 - 现代化设计 */}
+      <div className="p-8 sm:p-12 bg-gradient-to-br from-white via-cyan-50/30 to-white rounded-2xl border border-gray-200 shadow-lg transition-all">
+        <div className="max-w-3xl mx-auto space-y-8">
+          {/* 标题区 */}
           <div className="text-center space-y-4">
             <div className="inline-flex items-center justify-center">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-3xl blur-xl opacity-30" />
-                <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-cyan-500 to-teal-600 border border-cyan-300/50">
-                  <FileText className="h-12 w-12 text-white" />
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-2xl blur-2xl opacity-20" />
+                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-600 shadow-xl">
+                  <FileText className="h-10 w-10 text-white" />
                 </div>
               </div>
             </div>
-            <div className="space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">开始论文分析</h2>
-              <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold text-gray-900">开始论文分析</h2>
+              <p className="text-gray-600 max-w-xl mx-auto">
                 上传 PDF 或粘贴 Arxiv URL，AI 将为您进行深度分析、生成摘要和实时讲解
               </p>
             </div>
           </div>
 
-          {/* 两种上传方式 - 卡片布局 */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* 左侧：文件上传 */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-cyan-100">
-                  <Upload className="h-5 w-5 text-cyan-600" />
-                </div>
-                <h3 className="font-semibold text-gray-900">上传 PDF 文件</h3>
-              </div>
-              
-              <Input
-                type="file"
-                accept=".pdf"
-                onChange={onFileSelect}
-                ref={fileInputRef}
-                className="hidden"
-              />
+          {/* Tab 切换 */}
+          <div className="flex items-center justify-center gap-2 p-1 bg-gray-100 rounded-xl w-fit mx-auto">
+            <button
+              onClick={() => setActiveMode('pdf')}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                activeMode === 'pdf'
+                  ? 'bg-white text-cyan-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Upload className="h-4 w-4" />
+              上传 PDF 文件
+            </button>
+            <button
+              onClick={() => setActiveMode('url')}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                activeMode === 'url'
+                  ? 'bg-white text-purple-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <LinkIcon className="h-4 w-4" />
+              粘贴 Arxiv URL
+            </button>
+          </div>
 
-              {!file ? (
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={isLoading}
-                  className="w-full relative overflow-hidden rounded-xl border-2 border-dashed border-gray-300 hover:border-cyan-400 p-8 sm:p-10 transition-all hover:bg-cyan-50/50 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {/* 背景装饰 */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-50 to-transparent opacity-0 hover:opacity-100 transition-opacity" />
-                  
-                  <div className="relative flex flex-col items-center justify-center space-y-4">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 group-hover:bg-cyan-100 transition-colors">
-                      <FileText className="h-8 w-8 text-gray-600" />
+          {/* 内容区 */}
+          <div className="min-h-[300px]">
+            {/* PDF 上传模式 */}
+            {activeMode === 'pdf' && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
+                <Input
+                  type="file"
+                  accept=".pdf"
+                  onChange={onFileSelect}
+                  ref={fileInputRef}
+                  className="hidden"
+                />
+
+                {!file ? (
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isLoading}
+                    className="w-full relative overflow-hidden rounded-xl border-2 border-dashed border-gray-300 hover:border-cyan-400 p-12 transition-all hover:bg-cyan-50/50 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    
+                    <div className="relative flex flex-col items-center justify-center space-y-4">
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-100 to-cyan-50 group-hover:scale-110 transition-transform">
+                        <FileText className="h-10 w-10 text-cyan-600" />
+                      </div>
+                      <div className="text-center">
+                        <p className="font-semibold text-gray-900 text-lg mb-1">点击上传或拖放文件</p>
+                        <p className="text-sm text-gray-600">支持 PDF 格式，单个文件最大 50MB</p>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <p className="font-semibold text-gray-900">点击上传或拖放文件</p>
-                      <p className="text-sm text-gray-600 mt-1">支持 PDF 格式，单个文件最大 50MB</p>
+                  </button>
+                ) : (
+                  <div className="relative rounded-xl border-2 border-emerald-300 bg-gradient-to-r from-emerald-50 to-green-50 p-6 shadow-sm">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 pt-1">
+                        <CheckCircle2 className="h-7 w-7 text-emerald-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-gray-900 mb-1">✓ 文件已选择</p>
+                        <p className="text-sm text-gray-700 truncate">{file.name}</p>
+                        <p className="text-xs text-gray-600 mt-2">
+                          大小：{(file.size / 1024 / 1024).toFixed(2)} MB
+                        </p>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="flex-shrink-0 h-9 w-9 p-0 hover:bg-red-100 text-red-600 rounded-lg"
+                        onClick={onFileRemove}
+                      >
+                        <X className="h-5 w-5" />
+                      </Button>
                     </div>
                   </div>
-                </button>
-              ) : (
-                <div className="relative rounded-xl border-2 border-green-300 bg-gradient-to-r from-green-50 to-emerald-50 p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 pt-1">
-                      <CheckCircle2 className="h-6 w-6 text-green-600" />
+                )}
+
+                {/* 分析按钮 */}
+                {file && (
+                  <Button
+                    onClick={onAnalyze}
+                    disabled={isLoading}
+                    className="w-full bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white font-semibold text-base py-3 rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                        AI 正在分析中...
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="h-5 w-5 mr-2" />
+                        开始智能分析
+                      </>
+                    )}
+                  </Button>
+                )}
+              </div>
+            )}
+
+            {/* URL 输入模式 - 开发中提示 */}
+            {activeMode === 'url' && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
+                <div className="relative rounded-xl border-2 border-dashed border-amber-300 bg-gradient-to-br from-amber-50 to-orange-50 p-10">
+                  <div className="text-center space-y-4">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100">
+                      <Wrench className="h-10 w-10 text-amber-600" />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-gray-900">已选择文件</p>
-                      <p className="text-sm text-gray-600 mt-1 truncate">{file.name}</p>
-                      <p className="text-xs text-gray-500 mt-2">
-                        大小：{(file.size / 1024 / 1024).toFixed(2)} MB
+                    <div className="space-y-2">
+                      <p className="font-semibold text-gray-900 text-lg">🚧 功能开发中</p>
+                      <p className="text-sm text-gray-600 max-w-md mx-auto">
+                        Arxiv URL 输入功能正在紧锣密鼓地开发中，敬请期待！<br/>
+                        目前请使用 <span className="font-semibold text-cyan-600">PDF 上传</span> 功能。
                       </p>
                     </div>
                     <Button
-                      variant="ghost"
-                      size="sm"
-                      className="flex-shrink-0 h-8 w-8 p-0 hover:bg-red-100 text-red-600"
-                      onClick={onFileRemove}
+                      onClick={() => setActiveMode('pdf')}
+                      variant="outline"
+                      className="border-cyan-300 text-cyan-600 hover:bg-cyan-50"
                     >
-                      <X className="h-4 w-4" />
+                      <Upload className="h-4 w-4 mr-2" />
+                      切换到 PDF 上传
                     </Button>
                   </div>
                 </div>
-              )}
-            </div>
 
-            {/* 右侧：URL 输入 */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-purple-100">
-                  <LinkIcon className="h-5 w-5 text-purple-600" />
-                </div>
-                <h3 className="font-semibold text-gray-900">粘贴 Arxiv URL</h3>
-              </div>
-
-              <div className="space-y-3">
-                <Input
-                  placeholder="粘贴 Arxiv URL..."
-                  value={url}
-                  onChange={(e) => onUrlChange(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && url.trim() && !file) {
-                      e.preventDefault()
-                      onAnalyze()
-                    }
-                  }}
-                  disabled={isLoading || !!file}
-                  className="border-gray-300 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 rounded-lg text-sm placeholder:text-gray-400 disabled:opacity-50"
-                />
-                
-                {url && (
-                  <div className="text-xs text-gray-600 bg-gray-50 p-3 rounded-lg">
-                    <p className="font-medium text-gray-700 mb-1">✓ URL 已识别</p>
-                    <p className="line-clamp-2">{url}</p>
-                  </div>
-                )}
-
-                <div className="text-xs text-gray-600 space-y-2 bg-blue-50 p-3 rounded-lg border border-blue-200">
-                  <p className="font-medium text-blue-900">示例 URL：</p>
-                  <p className="font-mono text-blue-800 break-all">https://arxiv.org/abs/2501.12345</p>
+                {/* 功能预览 */}
+                <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                  <p className="text-xs font-medium text-gray-700 mb-3">💡 即将支持的功能：</p>
+                  <ul className="text-xs text-gray-600 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500">▸</span>
+                      <span>直接粘贴 Arxiv 论文链接</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500">▸</span>
+                      <span>自动抓取和解析论文 PDF</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-500">▸</span>
+                      <span>支持更多学术平台链接</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* 分析按钮 */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            {hasInput && (
-              <Button
-                onClick={onAnalyze}
-                disabled={isLoading}
-                className="sm:min-w-[200px] bg-gradient-to-r from-cyan-500 via-teal-500 to-cyan-600 hover:from-cyan-600 hover:via-teal-600 hover:to-cyan-700 text-white font-semibold text-lg py-3 rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
-                    AI 分析中...
-                  </>
-                ) : (
-                  <>
-                    <Zap className="h-5 w-5 mr-2" />
-                    开始智能分析
-                  </>
-                )}
-              </Button>
             )}
           </div>
 
-          {/* 功能特点 - 三列网格 */}
-          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-gray-200">
+          {/* 功能特点 */}
+          <div className="grid grid-cols-3 gap-6 pt-6 border-t border-gray-200">
             {[
-              { icon: '📄', label: 'PDF 上传', desc: '支持本地上传' },
-              { icon: '🔗', label: '链接导入', desc: 'Arxiv 支持' },
-              { icon: '⚡', label: '快速分析', desc: '秒级生成' },
+              { icon: '📄', label: 'PDF 上传', desc: '本地文件分析' },
+              { icon: '🤖', label: 'AI 智能', desc: '深度理解论文' },
+              { icon: '⚡', label: '秒级响应', desc: '快速生成结果' },
             ].map((feature, idx) => (
               <div key={idx} className="text-center">
-                <div className="text-2xl mb-2">{feature.icon}</div>
+                <div className="text-3xl mb-2">{feature.icon}</div>
                 <p className="font-medium text-sm text-gray-900">{feature.label}</p>
-                <p className="text-xs text-gray-600 mt-1">{feature.desc}</p>
+                <p className="text-xs text-gray-500 mt-1">{feature.desc}</p>
               </div>
             ))}
           </div>

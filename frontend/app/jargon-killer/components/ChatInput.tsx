@@ -23,7 +23,7 @@ export function ChatInput({ input, isLoading, textareaRef, onInputChange, onSend
   }
 
   return (
-    <div className="flex-shrink-0 border-t border-slate-200/60 px-4 sm:px-8 py-3 sm:py-4">
+    <div className="fixed bottom-0 left-0 right-0 border-t border-slate-200/60 px-4 sm:px-8 py-3 sm:py-4 bg-white z-10">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-end gap-2">
           <Textarea
