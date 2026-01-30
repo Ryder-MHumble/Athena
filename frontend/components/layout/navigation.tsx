@@ -14,7 +14,11 @@ import {
   Database, 
   ChevronDown,
   Zap,
-  FolderOpen
+  FolderOpen,
+  Github,
+  HelpCircle,
+  MessageSquare,
+  ExternalLink
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -45,19 +49,29 @@ const dropdownGroups = [
   }
 ]
 
-// 重要的单独项
-const highlightedItems = [
-  { href: '/data-hub', label: '数据中心', icon: Database },
-  { href: '/settings', label: '设置', icon: Settings },
-]
+// 支持链接下拉菜单
+const supportDropdown = {
+  id: 'support',
+  label: '支持',
+  icon: HelpCircle,
+  items: [
+    { href: 'https://github.com/Ryder-MHumble/Athena', label: 'GitHub', icon: Github, description: '查看源代码', external: true },
+    { href: 'https://github.com/Ryder-MHumble/Athena/issues', label: '问题反馈', icon: MessageSquare, description: '提交 Issue', external: true },
+    { href: 'https://github.com/Ryder-MHumble/Athena#readme', label: '使用文档', icon: FileText, description: '快速入门指南', external: true },
+  ]
+}
 
-function DropdownMenu({ group, pathname }: { group: typeof dropdownGroups[0], pathname: string }) {
+function DropdownMenu({ group, pathname, isSupport = false }: { 
+  group: typeof dropdownGroups[0] | typeof supportDropdown, 
+  pathname: string,
+  isSupport?: boolean
+}) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // 检查当前路径是否在该组内
-  const isActiveGroup = group.items.some(item => pathname === item.href)
+  const isActiveGroup = !isSupport && 'items' in group && group.items.some(item => pathname === item.href)
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -105,12 +119,37 @@ function DropdownMenu({ group, pathname }: { group: typeof dropdownGroups[0], pa
 
       {/* 下拉菜单 */}
       <div className={cn(
-        "absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50 transition-all duration-200",
+        "absolute top-full mt-1 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50 transition-all duration-200",
+        isSupport ? "right-0" : "left-0",
         isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
       )}>
-        {group.items.map((item) => {
+        {group.items.map((item: any) => {
           const Icon = item.icon
-          const isActive = pathname === item.href
+          const isActive = !item.external && pathname === item.href
+          const isExternal = item.external
+          
+          if (isExternal) {
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 px-4 py-2.5 transition-colors text-gray-700 hover:bg-gray-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <Icon className="h-4 w-4 mt-0.5 flex-shrink-0 text-gray-400" />
+                <div className="flex-1">
+                  <div className="flex items-center gap-1">
+                    <p className="font-medium text-sm">{item.label}</p>
+                    <ExternalLink className="h-3 w-3 text-gray-400" />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>
+                </div>
+              </a>
+            )
+          }
+          
           return (
             <Link
               key={item.href}
@@ -184,15 +223,6 @@ export function Navigation() {
             {/* 分隔线 */}
             <div className="w-px h-6 bg-gray-200 mx-1 hidden sm:block" />
 
-            {/* 下拉菜单组 */}
-            {dropdownGroups.map((group) => (
-              <DropdownMenu key={group.id} group={group} pathname={pathname} />
-            ))}
-
-            {/* 分隔线 */}
-            <div className="w-px h-6 bg-gray-200 mx-1 hidden sm:block" />
-
-            {/* 数据中心 - 高亮显示 */}
             <Link
               href="/data-hub"
               className={cn(
@@ -205,6 +235,17 @@ export function Navigation() {
               <Database className="h-4 w-4" />
               <span className="hidden sm:inline">数据中心</span>
             </Link>
+
+            {/* 下拉菜单组 */}
+            {dropdownGroups.map((group) => (
+              <DropdownMenu key={group.id} group={group} pathname={pathname} />
+            ))}
+
+            {/* 分隔线 */}
+            <div className="w-px h-6 bg-gray-200 mx-1 hidden sm:block" />
+
+            {/* 支持下拉菜单 */}
+            <DropdownMenu group={supportDropdown} pathname={pathname} isSupport />
 
             {/* 设置 */}
             <Link
