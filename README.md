@@ -1,4 +1,4 @@
-# Athena - AI 战略分析师智能工作台
+# Athena - AI 战略分析师效率引擎
 
 <p align="center">
   <img src="frontend/public/Logo.png" alt="Athena Logo" width="400" />
@@ -13,8 +13,8 @@
 </p>
 
 <p align="center">
-  <b>专为非技术背景用户设计的 AI 智能工作台</b><br>
-  让学习和研究变得简单、高效、有趣
+  <b>为 AI 战略分析师打造的一站式智能工作台</b><br>
+  提升日常工作效率，洞察全球 AI 行业前沿
 </p>
 
 ---
@@ -58,7 +58,7 @@
     <td align="center" width="50%">
       <b>📊 数据中心</b><br>
       <img src="frontend/public/screenshots/DataCenter.png" width="100%" />
-      <sub>学习与使用统计分析（开发中）</sub>
+      <sub>海内外信源抓取</sub>
     </td>
   </tr>
 </table>
@@ -66,7 +66,7 @@
 
 ## 📖 项目背景
 
-Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要快速学习、理解复杂概念的用户设计。
+Athena 是一款为 AI 战略分析师打造的一站式智能工作台，融合了 AI 辅助认知提升和全球信源聚合两大核心能力。
 
 ### 核心痛点
 
@@ -74,6 +74,7 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 - **📚 论文分享压力**：需要快速理解论文核心观点并准备讲解材料
 - **📁 知识分散难查**：团队文档分散，缺乏统一管理和语义检索
 - **🧠 概念易遗忘**：学过的内容缺少系统化的记录和复习机制
+- **🌍 信源分散难追**：全球 AI 领域 KOL 动态分散在 YouTube、X 等平台，难以统一追踪
 
 ---
 
@@ -122,65 +123,19 @@ Athena 是一款面向知识工作者的 AI 智能工作台，特别针对需要
 - 🔍 **快速搜索**：支持关键词搜索已学概念
 - 💾 **本地存储**：数据持久化保存在浏览器本地
 
----
+### 5. 数据中心 (Data Hub)
 
-## 🏗️ 技术架构
+> 全球 AI 信源聚合，一站式追踪行业前沿动态
 
-### 前端技术栈
-
-| 技术 | 版本 | 说明 |
-|-----|-----|-----|
-| Next.js | 14 | 现代化全栈 React 框架 |
-| TypeScript | 5.4 | 类型安全的开发体验 |
-| Tailwind CSS | 3.4 | 实用优先的 CSS 框架 |
-| shadcn/ui | - | 可访问性优先的组件库 |
-| Zustand | 4.5 | 轻量级状态管理 |
-| react-pdf | - | PDF 文档预览 |
-
-### 后端技术栈
-
-| 技术 | 说明 |
-|-----|-----|
-| FastAPI | 高性能异步 Python Web 框架 |
-| LangChain | AI 应用开发框架 |
-| SiliconFlow API | LLM 服务提供商 |
-| Supabase + pgvector | 向量数据库 |
-| BGE-M3 | 多语言向量模型 |
-| PyMuPDF | PDF 文本提取 |
-
-### 架构图
-
-```
-┌─────────────────────────────────────────────────┐
-│           Frontend (Next.js 14)                 │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐        │
-│  │ 术语通   │ │ 论文伴侣 │ │ 知识沉淀 │        │
-│  └──────────┘ └──────────┘ └──────────┘        │
-│  ┌──────────┐ ┌──────────┐                      │
-│  │ 数据中心 │ │ 知识卡片 │                      │
-│  └──────────┘ └──────────┘                      │
-│                    │                            │
-│              HTTP/SSE API                       │
-└────────────────────┼────────────────────────────┘
-                     │
-┌────────────────────┼────────────────────────────┐
-│           Backend (FastAPI)                     │
-│  ┌──────────────────────────────────────────┐  │
-│  │            Service Layer                  │  │
-│  │  ┌────────┐ ┌────────┐ ┌────────┐        │  │
-│  │  │  LLM   │ │  RAG   │ │ Search │        │  │
-│  │  │Service │ │Service │ │Service │        │  │
-│  │  └────────┘ └────────┘ └────────┘        │  │
-│  └──────────────────────────────────────────┘  │
-└────────────────────┼────────────────────────────┘
-                     │
-    ┌────────────────┼────────────────┐
-    │                │                │
-┌───┴────┐    ┌─────┴─────┐    ┌─────┴─────┐
-│Silicon │    │ Supabase  │    │ DuckDuck  │
-│Flow API│    │ pgvector  │    │ Go Search │
-└────────┘    └───────────┘    └───────────┘
-```
+**核心特性：**
+- 🌍 **海外信源聚合**：整合 YouTube、X (Twitter) 等平台的 40+ AI 领域 KOL 内容
+- 📺 **iframe 嵌入渲染**：直接在页面内观看 YouTube 视频和阅读 X 推文
+- 🀄 **国内社媒采集**：支持小红书、B站、知乎等国内平台内容聚合
+- 🔄 **瀑布流布局**：自适应多列瀑布流展示，横向时间排序（最新在左上角）
+- 🔍 **智能搜索排序**：按账号名、内容、标题搜索；支持时间/热度排序
+- 🤖 **自动定时爬取**：后端每 6 小时自动更新数据，保持内容新鲜
+- 🕷️ **手动爬取**：支持一键触发爬取，立即获取最新内容
+- ⚙️ **前后端分离部署**：支持 Vercel + Render 独立部署
 
 ---
 
@@ -258,6 +213,17 @@ npm run dev
 2. 在应用的**设置页面** (`http://localhost:3000/settings`) 输入 API Key
 3. **选择 AI 模型**：在设置页面选择适合的模型（默认 Qwen2.5-7B-Instruct）
 4. （可选）配置 Supabase 用于知识库功能
+5. （可选）配置爬虫相关环境变量：
+
+```bash
+# 后端环境变量 (.env)
+TWITTER_API_KEY=your_twitter_api_key      # Twitter API 密钥
+ENABLE_AUTO_CRAWL=true                     # 启用自动爬虫（默认 true）
+CRAWLER_INTERVAL_SECONDS=21600             # 爬取间隔（默认 6 小时）
+
+# 前端环境变量 (.env.local) - 仅前后端分离部署时需要
+NEXT_PUBLIC_API_URL=https://your-backend.onrender.com
+```
 
 **支持的模型厂商：**
 - 通义千问 (Qwen)：Qwen2.5 系列、Qwen3-VL 多模态系列
@@ -277,19 +243,37 @@ Athena/
 │   │   ├── paper-copilot/   # 论文伴侣模块
 │   │   ├── team-brain/      # 知识沉淀模块
 │   │   ├── data-hub/        # 数据中心模块
+│   │   │   └── components/
+│   │   │       └── overseas/  # 海外信源组件（模块化）
+│   │   │           ├── types.ts
+│   │   │           ├── constants.ts
+│   │   │           ├── utils.ts
+│   │   │           ├── TwitterCard.tsx
+│   │   │           ├── YouTubeCard.tsx
+│   │   │           ├── DetailPanels.tsx
+│   │   │           └── useOverseasData.ts
 │   │   ├── flashcards/      # 知识卡片模块
 │   │   └── settings/        # 设置页面
 │   ├── components/          # 可复用组件
+│   ├── public/crawl-data/   # 爬虫数据存储（静态资源）
+│   │   ├── youtube/videos.json
+│   │   └── twitter/posts.json
 │   ├── lib/                 # 工具函数和 API 客户端
 │   └── stores/              # Zustand 状态管理
 │
 ├── backend/                  # FastAPI 后端应用
 │   ├── app/
 │   │   ├── api/             # API 路由
-│   │   ├── services/        # 业务逻辑层
+│   │   │   └── crawler.py   # 爬虫 API（支持自动/手动触发）
+│   │   ├── services/        
+│   │   │   └── crawler_service.py  # 爬虫核心服务
 │   │   ├── models/          # 数据模型
 │   │   ├── prompts/         # AI 提示词模板
+│   │   ├── Info_sources/    # 信源配置
+│   │   │   └── sources.json # 海外信源列表（28 Twitter + 12 YouTube）
+│   │   ├── main.py          # 应用入口（含自动爬虫调度）
 │   │   └── config.py        # 配置管理
+│   ├── run_crawler.py       # 爬虫命令行工具
 │   └── requirements.txt     # Python 依赖
 │
 ├── start.sh                 # Linux/Mac 一键启动脚本
@@ -303,9 +287,10 @@ Athena/
 
 ## 🌟 核心特色
 
-### 为非技术背景用户设计
+### 为 AI 战略分析师设计
 
-- **直观的界面设计**：无需技术背景，开箱即用
+- **一站式工作台**：认知提升 + 信源聚合，覆盖日常工作全场景
+- **全球视野**：整合 YouTube、X 等海外平台的 AI 领域 KOL 内容
 - **通俗易懂的语言**：AI 使用简单语言解释复杂概念
 - **生活化的类比**：降低理解门槛，让学习更有趣
 

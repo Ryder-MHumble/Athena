@@ -1,28 +1,22 @@
 'use client'
 
 /**
- * 主页 - 优化版设计
- * 动画更流畅、布局更紧凑
+ * 主页 - 简化版设计
+ * 移除复杂动画，保留渐变背景
  */
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from "next/link"
 import Image from "next/image"
 import { 
   ArrowUpRight, 
   Sparkles, 
-  BookOpen, 
-  FileText, 
-  Brain, 
-  Lightbulb, 
   Zap, 
   CheckCircle, 
-  Database,
   Settings,
   AlertCircle,
   X,
   ChevronRight,
-  ChevronLeft,
   Key,
   Rocket
 } from "lucide-react"
@@ -30,65 +24,11 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useAppStore } from '@/stores/useAppStore'
 
-// 功能模块配置
-const features = [
-  {
-    id: 'jargon',
-    icon: BookOpen,
-    title: "术语通",
-    description: "AI 实时解释专业术语，多轮追问深度理解",
-    href: "/jargon-killer",
-    gradient: "from-cyan-400 to-cyan-600",
-    bgGradient: "from-cyan-50 to-cyan-100/50",
-    iconColor: "text-cyan-600",
-  },
-  {
-    id: 'paper',
-    icon: FileText,
-    title: "论文伴侣",
-    description: "智能解析学术论文，生成结构化分析报告",
-    href: "/paper-copilot",
-    gradient: "from-teal-400 to-teal-600",
-    bgGradient: "from-teal-50 to-teal-100/50",
-    iconColor: "text-teal-600",
-  },
-  {
-    id: 'brain',
-    icon: Brain,
-    title: "知识沉淀",
-    description: "构建团队知识库，语义检索快速定位",
-    href: "/team-brain",
-    gradient: "from-emerald-400 to-emerald-600",
-    bgGradient: "from-emerald-50 to-emerald-100/50",
-    iconColor: "text-emerald-600",
-  },
-  {
-    id: 'flashcard',
-    icon: Lightbulb,
-    title: "知识卡片",
-    description: "收藏术语与论文，构建个人知识体系",
-    href: "/flashcards",
-    gradient: "from-purple-400 to-purple-600",
-    bgGradient: "from-purple-50 to-purple-100/50",
-    iconColor: "text-purple-600",
-  },
-  {
-    id: 'datahub',
-    icon: Database,
-    title: "数据中心",
-    description: "网页爬取、社媒采集，一站式数据管理",
-    href: "/data-hub",
-    gradient: "from-blue-400 to-blue-600",
-    bgGradient: "from-blue-50 to-blue-100/50",
-    iconColor: "text-blue-600",
-  },
-]
-
 // 产品特性
 const highlights = [
-  { icon: Zap, text: "Qwen 72B 大模型驱动" },
-  { icon: Sparkles, text: "RAG 增强语义检索" },
-  { icon: CheckCircle, text: "零门槛即开即用" },
+  { icon: Zap, text: "多源大模型智能调度" },
+  { icon: Sparkles, text: "全球信源实时聚合" },
+  { icon: CheckCircle, text: "一站式AI工作台" },
 ]
 
 // 新用户引导组件
@@ -98,7 +38,7 @@ function NewUserGuide({ onClose, hasApiKey }: { onClose: () => void; hasApiKey: 
   const steps = [
     {
       title: "欢迎使用 Athena 👋",
-      content: "专为 AI 战略分析师打造的智能工作台，让学习和研究更高效。",
+      content: "为 AI 战略分析师打造的一站式智能工作台，提升日常工作效率。",
       icon: Rocket,
     },
     {
@@ -111,9 +51,9 @@ function NewUserGuide({ onClose, hasApiKey }: { onClose: () => void; hasApiKey: 
     },
     {
       title: "开始探索 🚀",
-      content: "推荐从「术语通」开始，体验 AI 实时解答专业问题的能力。",
+      content: "推荐先浏览「数据中心」查看全球AI信源，或使用「术语通」快速理解专业概念。",
       icon: Sparkles,
-      action: { label: "开始使用", href: "/jargon-killer" },
+      action: { label: "进入数据中心", href: "/data-hub" },
     },
   ]
 
@@ -214,157 +154,25 @@ function ApiKeyBanner() {
   )
 }
 
-// 横向滚动功能卡片组件
-function HorizontalFeatureScroller() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
-
-  const checkScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
-      setCanScrollLeft(scrollLeft > 0)
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
-    }
-  }
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = 320
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      })
-    }
-  }
-
-  useEffect(() => {
-    const el = scrollRef.current
-    if (el) {
-      el.addEventListener('scroll', checkScroll)
-      checkScroll()
-      return () => el.removeEventListener('scroll', checkScroll)
-    }
-  }, [])
-
-  return (
-    <div className="relative">
-      {/* 左箭头 */}
-      {canScrollLeft && (
-        <button
-          onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-10 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:text-gray-900 hover:shadow-xl transition-all"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-      )}
-      
-      {/* 右箭头 */}
-      {canScrollRight && (
-        <button
-          onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-10 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center text-gray-600 hover:text-gray-900 hover:shadow-xl transition-all"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      )}
-
-      {/* 滚动容器 */}
-      <div
-        ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 -mx-1 px-1"
-        style={{ scrollSnapType: 'x mandatory' }}
-      >
-        {features.map((feature) => (
-          <Link 
-            key={feature.id} 
-            href={feature.href}
-            className="flex-shrink-0 w-[280px]"
-            style={{ scrollSnapAlign: 'start' }}
-          >
-            <div className={`group relative p-5 rounded-2xl border border-gray-200/60 bg-white
-              transition-all duration-300 cursor-pointer
-              hover:shadow-xl hover:shadow-gray-200/50 hover:border-gray-300/60 hover:-translate-y-1`}
-            >
-              {/* 悬停背景 */}
-              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${feature.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-              
-              <div className="relative flex items-start gap-4">
-                {/* 图标 */}
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg
-                  transition-transform duration-300 group-hover:scale-110`}>
-                  <feature.icon className="h-6 w-6 text-white" />
-                </div>
-                
-                {/* 内容 */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-bold text-gray-900">
-                      {feature.title}
-                    </h3>
-                    <ArrowUpRight className="h-4 w-4 text-gray-400 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-gray-600" />
-                  </div>
-                  <p className="text-sm text-gray-600 mt-1 leading-relaxed line-clamp-2">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-              
-              {/* 底部进度条 */}
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 overflow-hidden rounded-b-2xl">
-                <div className={`h-full bg-gradient-to-r ${feature.gradient} transition-transform duration-500 -translate-x-full group-hover:translate-x-0`} />
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {/* 渐变遮罩 */}
-      {canScrollLeft && (
-        <div className="absolute left-0 top-0 bottom-2 w-12 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none" />
-      )}
-      {canScrollRight && (
-        <div className="absolute right-0 top-0 bottom-2 w-12 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none" />
-      )}
-    </div>
-  )
-}
-
-// Logo 动画背景组件
+// 简化的 Logo 背景 - 只保留渐变色
 function LogoBackground() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      {/* 主光晕 - 更大更明显 */}
-      <div className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-br from-cyan-300/50 via-teal-200/40 to-emerald-200/30 blur-[80px] animate-pulse" 
-        style={{ animationDuration: '4s' }} />
+    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+      {/* 深空背景渐变 */}
+      <div className="absolute w-[700px] h-[700px] rounded-full bg-gradient-radial from-cyan-400/25 via-teal-300/15 to-transparent" />
       
-      {/* 外圈光环 */}
-      <div className="absolute w-[420px] h-[420px] rounded-full border-2 border-cyan-300/40" 
+      {/* 主光晕层 */}
+      <div className="absolute w-[550px] h-[550px] rounded-full bg-gradient-to-br from-cyan-300/30 via-transparent to-teal-300/30 blur-[80px]" />
+      
+      {/* 中心聚焦光环 */}
+      <div className="absolute w-[450px] h-[450px] rounded-full"
         style={{ 
-          animation: 'spin 25s linear infinite',
-          background: 'linear-gradient(135deg, transparent 40%, rgba(34, 211, 238, 0.1) 50%, transparent 60%)'
+          background: 'radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, rgba(20, 184, 166, 0.1) 40%, transparent 70%)',
         }} />
       
-      {/* 内圈虚线 */}
-      <div className="absolute w-[340px] h-[340px] rounded-full border-2 border-dashed border-teal-300/30"
-        style={{ animation: 'spin 35s linear infinite reverse' }} />
-      
-      {/* 粒子效果 - 使用伪静态圆点代替频繁动画 */}
-      <div className="absolute w-[380px] h-[380px]">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 rounded-full bg-cyan-400/60"
-            style={{
-              top: `${50 + 45 * Math.sin((i * Math.PI * 2) / 8)}%`,
-              left: `${50 + 45 * Math.cos((i * Math.PI * 2) / 8)}%`,
-              transform: 'translate(-50%, -50%)',
-              animation: `pulse ${2 + i * 0.3}s ease-in-out infinite`,
-              animationDelay: `${i * 0.2}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* 外圈装饰环 */}
+      <div className="absolute w-[520px] h-[520px] rounded-full border border-cyan-200/30" />
+      <div className="absolute w-[580px] h-[580px] rounded-full border border-teal-200/20" />
     </div>
   )
 }
@@ -390,7 +198,7 @@ export default function HomePage() {
       {/* 新用户引导 */}
       {showGuide && <NewUserGuide onClose={() => setShowGuide(false)} hasApiKey={hasApiKey} />}
       
-      {/* 静态背景装饰 - 减少动画 */}
+      {/* 静态背景装饰 */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-200/15 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-teal-200/15 rounded-full blur-3xl" />
@@ -398,7 +206,7 @@ export default function HomePage() {
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[calc(100vh-10rem)]">
-          {/* 左侧：功能模块 + 文本 */}
+          {/* 左侧：文本内容 */}
           <div className="space-y-6">
             {/* API Key 提示 */}
             {mounted && !hasApiKey && <ApiKeyBanner />}
@@ -407,7 +215,7 @@ export default function HomePage() {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-200/50">
                 <Sparkles className="w-4 h-4 text-cyan-600" />
-                <span className="text-sm font-medium text-cyan-700">AI 驱动的学习助手</span>
+                <span className="text-sm font-medium text-cyan-700">AI 战略分析师的效率引擎</span>
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1]">
@@ -415,16 +223,16 @@ export default function HomePage() {
                   Athena
                 </span>
                 <br />
-                <span className="text-gray-900">让学习变得</span>
+                <span className="text-gray-900">让工作变得</span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-cyan-500 ml-2">
-                  简单有趣
+                  高效智能
                 </span>
               </h1>
               
               <p className="text-lg text-gray-600 max-w-xl leading-relaxed">
-                专为 AI 战略分析师打造的智能工作台。
-                <span className="text-gray-900 font-medium">术语秒懂、论文秒解、知识秒查</span>，
-                用 AI 的力量让复杂概念变得通俗易懂。
+                为 AI 战略分析师打造的一站式智能工作台。
+                <span className="text-gray-900 font-medium">术语秒懂、论文秒解、全球信源聚合</span>，
+                用 AI 提升日常工作效率，洞察行业前沿。
               </p>
               
               {/* 特性标签 */}
@@ -441,21 +249,12 @@ export default function HomePage() {
               </div>
             </div>
             
-            {/* 横向滚动功能模块 */}
-            <div className="space-y-3 pt-2">
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-2">
-                <span className="w-8 h-px bg-gray-300" />
-                核心功能
-              </h2>
-              <HorizontalFeatureScroller />
-            </div>
-            
-            {/* 快速开始按钮 */}
-            <div className="flex items-center gap-4 pt-2">
-              <Link href="/jargon-killer">
+            {/* 快速开始按钮 - 跳转到数据中心 */}
+            <div className="flex items-center gap-4 pt-6">
+              <Link href="/data-hub">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:from-cyan-600 hover:to-teal-600 shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30 group"
+                  className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:from-cyan-600 hover:to-teal-600 shadow-lg shadow-cyan-500/25 transition-all hover:shadow-xl hover:shadow-cyan-500/30 group px-8"
                 >
                   立即开始
                   <Rocket className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -471,14 +270,14 @@ export default function HomePage() {
             </div>
           </div>
           
-          {/* 右侧：大 Logo 居中 */}
+          {/* 右侧：放大的 Logo */}
           <div className="hidden lg:flex items-center justify-center">
-            <div className="relative w-full max-w-lg aspect-square flex items-center justify-center">
-              {/* 动画背景 */}
+            <div className="relative w-full max-w-2xl aspect-square flex items-center justify-center">
+              {/* 渐变背景 */}
               <LogoBackground />
               
-              {/* Logo */}
-              <div className="relative w-80 h-80 xl:w-96 xl:h-96 transition-transform duration-500 hover:scale-105">
+              {/* Logo - 放大 */}
+              <div className="relative w-[420px] h-[420px] xl:w-[500px] xl:h-[500px] 2xl:w-[560px] 2xl:h-[560px]">
                 <Image 
                   src="/Logo.png" 
                   alt="Athena Logo" 
@@ -520,12 +319,8 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 全局动画样式 */}
+      {/* 简化样式 */}
       <style jsx global>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;

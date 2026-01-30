@@ -228,8 +228,8 @@ export function Navigation() {
               className={cn(
                 "relative flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                 pathname === '/data-hub'
-                  ? "text-white bg-gradient-to-r from-cyan-500 to-teal-600 shadow-sm"
-                  : "text-cyan-600 bg-cyan-50 hover:bg-cyan-100"
+                  ? "text-cyan-600 bg-cyan-50"
+                  : "text-gray-600 hover:text-cyan-600 hover:bg-cyan-50/50"
               )}
             >
               <Database className="h-4 w-4" />

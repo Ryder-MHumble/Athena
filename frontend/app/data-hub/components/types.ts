@@ -2,7 +2,7 @@
  * 数据中心类型定义
  */
 
-// 统一数据格式接口
+// 统一数据格式接口 - 国内社媒
 export interface UnifiedPost {
   id: string
   platform: 'bilibili' | 'xiaohongshu' | 'zhihu'
@@ -31,6 +31,31 @@ export interface UnifiedPost {
   tags?: string[]
   videoLength?: string
 }
+
+// 海外信源数据格式
+export interface OverseasItem {
+  title: string
+  url: string
+  video_id?: string
+  status_id?: string
+  username?: string
+  platform: 'youtube' | 'twitter'
+  source_name: string
+}
+
+export interface OverseasSource {
+  source_name: string
+  source_url: string
+  platform: string
+  scraped_at: string
+  items: OverseasItem[]
+}
+
+// 海外平台类型
+export type OverseasPlatform = 'all' | 'youtube' | 'twitter'
+
+// 数据源类型
+export type DataSource = 'overseas' | 'domestic'
 
 // 平台配置
 export interface PlatformConfig {

@@ -1,0 +1,3287 @@
+{
+    "status": "success",
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "pin_tweet": null,
+        "tweets": [
+            {
+                "type": "tweet",
+                "id": "2016959338523611621",
+                "url": "https://x.com/OpenAI/status/2016959338523611621",
+                "twitterUrl": "https://twitter.com/OpenAI/status/2016959338523611621",
+                "text": "https://t.co/fJxV8cVORd https://t.co/71q5YPcMKD",
+                "source": "Twitter for iPhone",
+                "retweetCount": 472,
+                "replyCount": 680,
+                "likeCount": 6564,
+                "quoteCount": 428,
+                "viewCount": 1241889,
+                "createdAt": "Thu Jan 29 19:39:14 +0000 2026",
+                "lang": "zxx",
+                "bookmarkCount": 1573,
+                "isReply": false,
+                "inReplyToId": null,
+                "conversationId": "2016959338523611621",
+                "displayTextRange": [
+                    0,
+                    23
+                ],
+                "inReplyToUserId": null,
+                "inReplyToUsername": null,
+                "author": {
+                    "type": "user",
+                    "userName": "OpenAI",
+                    "url": "https://x.com/OpenAI",
+                    "twitterUrl": "https://twitter.com/OpenAI",
+                    "id": "4398626122",
+                    "name": "OpenAI",
+                    "isVerified": false,
+                    "isBlueVerified": true,
+                    "verifiedType": "Business",
+                    "profilePicture": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg",
+                    "coverPicture": "https://pbs.twimg.com/profile_banners/4398626122/1759076948",
+                    "description": "",
+                    "location": "",
+                    "followers": 4599928,
+                    "following": 4,
+                    "status": "",
+                    "canDm": false,
+                    "canMediaTag": true,
+                    "createdAt": "Sun Dec 06 22:51:08 +0000 2015",
+                    "entities": {
+                        "description": {
+                            "urls": []
+                        },
+                        "url": {}
+                    },
+                    "fastFollowersCount": 0,
+                    "favouritesCount": 1487,
+                    "hasCustomTimelines": true,
+                    "isTranslator": false,
+                    "mediaCount": 502,
+                    "statusesCount": 1642,
+                    "withheldInCountries": [],
+                    "affiliatesHighlightedLabel": {},
+                    "possiblySensitive": false,
+                    "pinnedTweetIds": [
+                        "2016209462621831448"
+                    ],
+                    "profile_bio": {
+                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                        "entities": {
+                            "description": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com/jobs",
+                                        "expanded_url": "http://openai.com/jobs",
+                                        "indices": [
+                                            107,
+                                            130
+                                        ],
+                                        "url": "https://t.co/dJGr6Lg202"
+                                    }
+                                ]
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com",
+                                        "expanded_url": "https://openai.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "isAutomated": false,
+                    "automatedBy": null
+                },
+                "extendedEntities": {
+                    "media": [
+                        {
+                            "display_url": "pic.twitter.com/71q5YPcMKD",
+                            "expanded_url": "https://twitter.com/OpenAI/status/2016959338523611621/photo/1",
+                            "ext_media_availability": {
+                                "status": "Available"
+                            },
+                            "features": {
+                                "large": {},
+                                "orig": {}
+                            },
+                            "id_str": "2016959195594301440",
+                            "indices": [
+                                24,
+                                47
+                            ],
+                            "media_key": "3_2016959195594301440",
+                            "media_results": {
+                                "id": "QXBpTWVkaWFSZXN1bHRzOgwAAQoAARv9rbO72yAACgACG/2t1QMbUeUAAA==",
+                                "result": {
+                                    "__typename": "ApiMedia",
+                                    "id": "QXBpTWVkaWE6DAABCgABG/2ts7vbIAAKAAIb/a3VAxtR5QAA",
+                                    "media_key": "3_2016959195594301440"
+                                }
+                            },
+                            "media_url_https": "https://pbs.twimg.com/media/G_2ts7vbIAAK_Rf.png",
+                            "original_info": {
+                                "focus_rects": [
+                                    {
+                                        "h": 1133,
+                                        "w": 2024,
+                                        "x": 0,
+                                        "y": 167
+                                    },
+                                    {
+                                        "h": 1300,
+                                        "w": 1300,
+                                        "x": 612,
+                                        "y": 0
+                                    },
+                                    {
+                                        "h": 1300,
+                                        "w": 1140,
+                                        "x": 692,
+                                        "y": 0
+                                    },
+                                    {
+                                        "h": 1300,
+                                        "w": 650,
+                                        "x": 937,
+                                        "y": 0
+                                    },
+                                    {
+                                        "h": 1300,
+                                        "w": 2024,
+                                        "x": 0,
+                                        "y": 0
+                                    }
+                                ],
+                                "height": 1300,
+                                "width": 2024
+                            },
+                            "sizes": {
+                                "large": {
+                                    "h": 1300,
+                                    "w": 2024
+                                }
+                            },
+                            "type": "photo",
+                            "url": "https://t.co/71q5YPcMKD"
+                        }
+                    ]
+                },
+                "card": null,
+                "place": {},
+                "entities": {
+                    "urls": [
+                        {
+                            "display_url": "chatgpt.com/translate/",
+                            "expanded_url": "https://chatgpt.com/translate/",
+                            "indices": [
+                                0,
+                                23
+                            ],
+                            "url": "https://t.co/fJxV8cVORd"
+                        }
+                    ]
+                },
+                "quoted_tweet": null,
+                "retweeted_tweet": null,
+                "isLimitedReply": false,
+                "article": null
+            },
+            {
+                "type": "tweet",
+                "id": "2015552679884603453",
+                "url": "https://x.com/OpenAI/status/2015552679884603453",
+                "twitterUrl": "https://twitter.com/OpenAI/status/2015552679884603453",
+                "text": "RT @sama: Tomorrow we’re hosting a town hall for AI builders at OpenAI. We want feedback as we start building a new generation of tools.\n\nT…",
+                "source": "Twitter for iPhone",
+                "retweetCount": 659,
+                "replyCount": 2974,
+                "likeCount": 8166,
+                "quoteCount": 245,
+                "viewCount": 1588765,
+                "createdAt": "Sun Jan 25 22:29:40 +0000 2026",
+                "lang": "en",
+                "bookmarkCount": 1136,
+                "isReply": false,
+                "inReplyToId": null,
+                "conversationId": "2015552679884603453",
+                "displayTextRange": [
+                    0,
+                    140
+                ],
+                "inReplyToUserId": null,
+                "inReplyToUsername": null,
+                "author": {
+                    "type": "user",
+                    "userName": "OpenAI",
+                    "url": "https://x.com/OpenAI",
+                    "twitterUrl": "https://twitter.com/OpenAI",
+                    "id": "4398626122",
+                    "name": "OpenAI",
+                    "isVerified": false,
+                    "isBlueVerified": true,
+                    "verifiedType": "Business",
+                    "profilePicture": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg",
+                    "coverPicture": "https://pbs.twimg.com/profile_banners/4398626122/1759076948",
+                    "description": "",
+                    "location": "",
+                    "followers": 4599928,
+                    "following": 4,
+                    "status": "",
+                    "canDm": false,
+                    "canMediaTag": true,
+                    "createdAt": "Sun Dec 06 22:51:08 +0000 2015",
+                    "entities": {
+                        "description": {
+                            "urls": []
+                        },
+                        "url": {}
+                    },
+                    "fastFollowersCount": 0,
+                    "favouritesCount": 1487,
+                    "hasCustomTimelines": true,
+                    "isTranslator": false,
+                    "mediaCount": 502,
+                    "statusesCount": 1642,
+                    "withheldInCountries": [],
+                    "affiliatesHighlightedLabel": {},
+                    "possiblySensitive": false,
+                    "pinnedTweetIds": [
+                        "2016209462621831448"
+                    ],
+                    "profile_bio": {
+                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                        "entities": {
+                            "description": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com/jobs",
+                                        "expanded_url": "http://openai.com/jobs",
+                                        "indices": [
+                                            107,
+                                            130
+                                        ],
+                                        "url": "https://t.co/dJGr6Lg202"
+                                    }
+                                ]
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com",
+                                        "expanded_url": "https://openai.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "isAutomated": false,
+                    "automatedBy": null
+                },
+                "extendedEntities": {},
+                "card": null,
+                "place": {},
+                "entities": {
+                    "user_mentions": [
+                        {
+                            "id_str": "1605",
+                            "indices": [
+                                3,
+                                8
+                            ],
+                            "name": "Sam Altman",
+                            "screen_name": "sama"
+                        }
+                    ]
+                },
+                "quoted_tweet": null,
+                "retweeted_tweet": {
+                    "type": "tweet",
+                    "id": "2015548504194654707",
+                    "url": "https://x.com/sama/status/2015548504194654707",
+                    "twitterUrl": "https://twitter.com/sama/status/2015548504194654707",
+                    "text": "Tomorrow we’re hosting a town hall for AI builders at OpenAI. We want feedback as we start building a new generation of tools.\n\nThis is an experiment and a first pass at a new format — we’ll livestream the discussion on YouTube at 4 pm PT.\n\nReply here with questions and we’ll answer as many as we can!",
+                    "source": "Twitter for iPhone",
+                    "retweetCount": 659,
+                    "replyCount": 2974,
+                    "likeCount": 8166,
+                    "quoteCount": 245,
+                    "viewCount": 1588765,
+                    "createdAt": "Sun Jan 25 22:13:05 +0000 2026",
+                    "lang": "en",
+                    "bookmarkCount": 1136,
+                    "isReply": false,
+                    "inReplyToId": null,
+                    "conversationId": "2015548504194654707",
+                    "displayTextRange": [
+                        0,
+                        301
+                    ],
+                    "inReplyToUserId": null,
+                    "inReplyToUsername": null,
+                    "author": {
+                        "type": "user",
+                        "userName": "sama",
+                        "url": "https://x.com/sama",
+                        "twitterUrl": "https://twitter.com/sama",
+                        "id": "1605",
+                        "name": "Sam Altman",
+                        "isVerified": false,
+                        "isBlueVerified": true,
+                        "verifiedType": null,
+                        "profilePicture": "https://pbs.twimg.com/profile_images/1904933748015255552/k43GMz63_normal.jpg",
+                        "coverPicture": "",
+                        "description": "",
+                        "location": "SF",
+                        "followers": 4256249,
+                        "following": 977,
+                        "status": "",
+                        "canDm": false,
+                        "canMediaTag": false,
+                        "createdAt": "Sun Jul 16 22:01:55 +0000 2006",
+                        "entities": {
+                            "description": {
+                                "urls": []
+                            },
+                            "url": {}
+                        },
+                        "fastFollowersCount": 0,
+                        "favouritesCount": 1019,
+                        "hasCustomTimelines": true,
+                        "isTranslator": false,
+                        "mediaCount": 380,
+                        "statusesCount": 7343,
+                        "withheldInCountries": [],
+                        "affiliatesHighlightedLabel": {},
+                        "possiblySensitive": false,
+                        "pinnedTweetIds": [],
+                        "profile_bio": {
+                            "description": "AI is cool i guess",
+                            "entities": {
+                                "description": {},
+                                "url": {
+                                    "urls": [
+                                        {
+                                            "display_url": "blog.samaltman.com",
+                                            "expanded_url": "http://blog.samaltman.com",
+                                            "indices": [
+                                                0,
+                                                23
+                                            ],
+                                            "url": "https://t.co/teHmy8EFSH"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "isAutomated": false,
+                        "automatedBy": null
+                    },
+                    "extendedEntities": {},
+                    "card": null,
+                    "place": {},
+                    "entities": {},
+                    "quoted_tweet": null,
+                    "retweeted_tweet": null,
+                    "isLimitedReply": false,
+                    "article": null
+                },
+                "isLimitedReply": false,
+                "article": null
+            },
+            {
+                "type": "tweet",
+                "id": "2014382658990834064",
+                "url": "https://x.com/OpenAI/status/2014382658990834064",
+                "twitterUrl": "https://twitter.com/OpenAI/status/2014382658990834064",
+                "text": "Meet the Frontier Builders. https://t.co/5PWbj6B2V5",
+                "source": "Twitter for iPhone",
+                "retweetCount": 105,
+                "replyCount": 153,
+                "likeCount": 1519,
+                "quoteCount": 23,
+                "viewCount": 218744,
+                "createdAt": "Thu Jan 22 17:00:25 +0000 2026",
+                "lang": "en",
+                "bookmarkCount": 304,
+                "isReply": false,
+                "inReplyToId": null,
+                "conversationId": "2014382658990834064",
+                "displayTextRange": [
+                    0,
+                    27
+                ],
+                "inReplyToUserId": null,
+                "inReplyToUsername": null,
+                "author": {
+                    "type": "user",
+                    "userName": "OpenAI",
+                    "url": "https://x.com/OpenAI",
+                    "twitterUrl": "https://twitter.com/OpenAI",
+                    "id": "4398626122",
+                    "name": "OpenAI",
+                    "isVerified": false,
+                    "isBlueVerified": true,
+                    "verifiedType": "Business",
+                    "profilePicture": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg",
+                    "coverPicture": "https://pbs.twimg.com/profile_banners/4398626122/1759076948",
+                    "description": "",
+                    "location": "",
+                    "followers": 4599928,
+                    "following": 4,
+                    "status": "",
+                    "canDm": false,
+                    "canMediaTag": true,
+                    "createdAt": "Sun Dec 06 22:51:08 +0000 2015",
+                    "entities": {
+                        "description": {
+                            "urls": []
+                        },
+                        "url": {}
+                    },
+                    "fastFollowersCount": 0,
+                    "favouritesCount": 1487,
+                    "hasCustomTimelines": true,
+                    "isTranslator": false,
+                    "mediaCount": 502,
+                    "statusesCount": 1642,
+                    "withheldInCountries": [],
+                    "affiliatesHighlightedLabel": {},
+                    "possiblySensitive": false,
+                    "pinnedTweetIds": [
+                        "2016209462621831448"
+                    ],
+                    "profile_bio": {
+                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                        "entities": {
+                            "description": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com/jobs",
+                                        "expanded_url": "http://openai.com/jobs",
+                                        "indices": [
+                                            107,
+                                            130
+                                        ],
+                                        "url": "https://t.co/dJGr6Lg202"
+                                    }
+                                ]
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com",
+                                        "expanded_url": "https://openai.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "isAutomated": false,
+                    "automatedBy": null
+                },
+                "extendedEntities": {
+                    "media": [
+                        {
+                            "additional_media_info": {
+                                "monetizable": false
+                            },
+                            "allow_download_status": {},
+                            "display_url": "pic.twitter.com/5PWbj6B2V5",
+                            "expanded_url": "https://twitter.com/OpenAI/status/2014382658990834064/video/1",
+                            "ext_media_availability": {
+                                "status": "Available"
+                            },
+                            "id_str": "2014382608583667712",
+                            "indices": [
+                                28,
+                                51
+                            ],
+                            "media_key": "13_2014382608583667712",
+                            "media_results": {
+                                "id": "QXBpTWVkaWFSZXN1bHRzOgwABAoAARv0hk9SWrAAAAA=",
+                                "result": {
+                                    "__typename": "ApiMedia",
+                                    "id": "QXBpTWVkaWE6DAAECgABG/SGT1JasAAAAA==",
+                                    "media_key": "13_2014382608583667712"
+                                }
+                            },
+                            "media_url_https": "https://pbs.twimg.com/media/G_SGaRybEAAch2f.jpg",
+                            "original_info": {
+                                "focus_rects": [],
+                                "height": 1880,
+                                "width": 3370
+                            },
+                            "sizes": {
+                                "large": {
+                                    "h": 1143,
+                                    "w": 2048
+                                }
+                            },
+                            "type": "video",
+                            "url": "https://t.co/5PWbj6B2V5",
+                            "video_info": {
+                                "aspect_ratio": [
+                                    16,
+                                    9
+                                ],
+                                "duration_millis": 16597,
+                                "variants": [
+                                    {
+                                        "content_type": "application/x-mpegURL",
+                                        "url": "https://video.twimg.com/amplify_video/2014382608583667712/pl/o5rB8Y1Emmjb3jG7.m3u8?tag=21&v=cfc"
+                                    },
+                                    {
+                                        "bitrate": 256000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2014382608583667712/vid/avc1/480x270/V349CxR0bH1Gek5V.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 832000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2014382608583667712/vid/avc1/640x360/gNdA5ZDFtKSfd3MD.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 2176000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2014382608583667712/vid/avc1/1280x720/QhRHJaj84RTmA9Kk.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 10368000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2014382608583667712/vid/avc1/1920x1080/vHmbyzZIUJd-8mK4.mp4?tag=21"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "card": null,
+                "place": {},
+                "entities": {},
+                "quoted_tweet": null,
+                "retweeted_tweet": null,
+                "isLimitedReply": false,
+                "article": null
+            },
+            {
+                "type": "tweet",
+                "id": "2014095512874655867",
+                "url": "https://x.com/OpenAI/status/2014095512874655867",
+                "twitterUrl": "https://twitter.com/OpenAI/status/2014095512874655867",
+                "text": "Tab groups are now in ChatGPT Atlas. https://t.co/XxZknWHwaY",
+                "source": "Twitter for iPhone",
+                "retweetCount": 149,
+                "replyCount": 254,
+                "likeCount": 2071,
+                "quoteCount": 83,
+                "viewCount": 392375,
+                "createdAt": "Wed Jan 21 21:59:25 +0000 2026",
+                "lang": "en",
+                "bookmarkCount": 287,
+                "isReply": false,
+                "inReplyToId": null,
+                "conversationId": "2014095512874655867",
+                "displayTextRange": [
+                    0,
+                    36
+                ],
+                "inReplyToUserId": null,
+                "inReplyToUsername": null,
+                "author": {
+                    "type": "user",
+                    "userName": "OpenAI",
+                    "url": "https://x.com/OpenAI",
+                    "twitterUrl": "https://twitter.com/OpenAI",
+                    "id": "4398626122",
+                    "name": "OpenAI",
+                    "isVerified": false,
+                    "isBlueVerified": true,
+                    "verifiedType": "Business",
+                    "profilePicture": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg",
+                    "coverPicture": "https://pbs.twimg.com/profile_banners/4398626122/1759076948",
+                    "description": "",
+                    "location": "",
+                    "followers": 4599928,
+                    "following": 4,
+                    "status": "",
+                    "canDm": false,
+                    "canMediaTag": true,
+                    "createdAt": "Sun Dec 06 22:51:08 +0000 2015",
+                    "entities": {
+                        "description": {
+                            "urls": []
+                        },
+                        "url": {}
+                    },
+                    "fastFollowersCount": 0,
+                    "favouritesCount": 1487,
+                    "hasCustomTimelines": true,
+                    "isTranslator": false,
+                    "mediaCount": 502,
+                    "statusesCount": 1642,
+                    "withheldInCountries": [],
+                    "affiliatesHighlightedLabel": {},
+                    "possiblySensitive": false,
+                    "pinnedTweetIds": [
+                        "2016209462621831448"
+                    ],
+                    "profile_bio": {
+                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                        "entities": {
+                            "description": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com/jobs",
+                                        "expanded_url": "http://openai.com/jobs",
+                                        "indices": [
+                                            107,
+                                            130
+                                        ],
+                                        "url": "https://t.co/dJGr6Lg202"
+                                    }
+                                ]
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com",
+                                        "expanded_url": "https://openai.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "isAutomated": false,
+                    "automatedBy": null
+                },
+                "extendedEntities": {
+                    "media": [
+                        {
+                            "additional_media_info": {
+                                "description": "",
+                                "monetizable": false,
+                                "title": "Now in Atlas: Tab Groups"
+                            },
+                            "allow_download_status": {
+                                "allow_download": false
+                            },
+                            "display_url": "pic.twitter.com/XxZknWHwaY",
+                            "expanded_url": "https://twitter.com/OpenAI/status/2014095512874655867/video/1",
+                            "ext_media_availability": {
+                                "status": "Available"
+                            },
+                            "id_str": "2014094011049582594",
+                            "indices": [
+                                37,
+                                60
+                            ],
+                            "media_key": "13_2014094011049582594",
+                            "media_results": {
+                                "id": "QXBpTWVkaWFSZXN1bHRzOgwABAoAARvzf9T42iACAAA=",
+                                "result": {
+                                    "__typename": "ApiMedia",
+                                    "id": "QXBpTWVkaWE6DAAECgABG/N/1PjaIAIAAA==",
+                                    "media_key": "13_2014094011049582594"
+                                }
+                            },
+                            "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2014094011049582594/img/JilblTDNhrN_s3gn.jpg",
+                            "original_info": {
+                                "focus_rects": [],
+                                "height": 1080,
+                                "width": 1756
+                            },
+                            "sizes": {
+                                "large": {
+                                    "h": 1080,
+                                    "w": 1756
+                                }
+                            },
+                            "type": "video",
+                            "url": "https://t.co/XxZknWHwaY",
+                            "video_info": {
+                                "aspect_ratio": [
+                                    439,
+                                    270
+                                ],
+                                "duration_millis": 21150,
+                                "variants": [
+                                    {
+                                        "content_type": "application/x-mpegURL",
+                                        "url": "https://video.twimg.com/amplify_video/2014094011049582594/pl/9uuRJ-e9ep4grATc.m3u8?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 256000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2014094011049582594/vid/avc1/438x270/yZzGpxTLveQxjHPb.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 832000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2014094011049582594/vid/avc1/584x360/RG95FcCLaXR5LdTk.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 2176000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2014094011049582594/vid/avc1/1170x720/lx3FGber5r3s28P4.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 10368000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2014094011049582594/vid/avc1/1756x1080/AsjknVA8oSyQIiVH.mp4?tag=21"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "card": null,
+                "place": {},
+                "entities": {},
+                "quoted_tweet": null,
+                "retweeted_tweet": null,
+                "isLimitedReply": false,
+                "article": null
+            },
+            {
+                "type": "tweet",
+                "id": "2013842364763136418",
+                "url": "https://x.com/OpenAI/status/2013842364763136418",
+                "twitterUrl": "https://twitter.com/OpenAI/status/2013842364763136418",
+                "text": "Horizon 1000 is a new $50 million initiative with the Gates Foundation, combining funding and technology to support health leaders in African countries as they strengthen primary health care across 1,000 clinics and the communities they serve.\n\nhttps://t.co/G1viarM8Zz",
+                "source": "Twitter for iPhone",
+                "retweetCount": 122,
+                "replyCount": 144,
+                "likeCount": 1196,
+                "quoteCount": 16,
+                "viewCount": 173795,
+                "createdAt": "Wed Jan 21 05:13:29 +0000 2026",
+                "lang": "en",
+                "bookmarkCount": 133,
+                "isReply": false,
+                "inReplyToId": null,
+                "conversationId": "2013842364763136418",
+                "displayTextRange": [
+                    0,
+                    268
+                ],
+                "inReplyToUserId": null,
+                "inReplyToUsername": null,
+                "author": {
+                    "type": "user",
+                    "userName": "OpenAI",
+                    "url": "https://x.com/OpenAI",
+                    "twitterUrl": "https://twitter.com/OpenAI",
+                    "id": "4398626122",
+                    "name": "OpenAI",
+                    "isVerified": false,
+                    "isBlueVerified": true,
+                    "verifiedType": "Business",
+                    "profilePicture": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg",
+                    "coverPicture": "https://pbs.twimg.com/profile_banners/4398626122/1759076948",
+                    "description": "",
+                    "location": "",
+                    "followers": 4599928,
+                    "following": 4,
+                    "status": "",
+                    "canDm": false,
+                    "canMediaTag": true,
+                    "createdAt": "Sun Dec 06 22:51:08 +0000 2015",
+                    "entities": {
+                        "description": {
+                            "urls": []
+                        },
+                        "url": {}
+                    },
+                    "fastFollowersCount": 0,
+                    "favouritesCount": 1487,
+                    "hasCustomTimelines": true,
+                    "isTranslator": false,
+                    "mediaCount": 502,
+                    "statusesCount": 1642,
+                    "withheldInCountries": [],
+                    "affiliatesHighlightedLabel": {},
+                    "possiblySensitive": false,
+                    "pinnedTweetIds": [
+                        "2016209462621831448"
+                    ],
+                    "profile_bio": {
+                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                        "entities": {
+                            "description": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com/jobs",
+                                        "expanded_url": "http://openai.com/jobs",
+                                        "indices": [
+                                            107,
+                                            130
+                                        ],
+                                        "url": "https://t.co/dJGr6Lg202"
+                                    }
+                                ]
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com",
+                                        "expanded_url": "https://openai.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "isAutomated": false,
+                    "automatedBy": null
+                },
+                "extendedEntities": {},
+                "card": {
+                    "binding_values": [
+                        {
+                            "key": "photo_image_full_size_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 419,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=800x419",
+                                    "width": 800
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image",
+                            "value": {
+                                "image_value": {
+                                    "height": 150,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=280x150",
+                                    "width": 267
+                                }
+                            }
+                        },
+                        {
+                            "key": "description",
+                            "value": {
+                                "string_value": "Together, with the Gates Foundation, we’re committing $50 million in funding and technology to help strengthen primary healthcare for 1,000 African clinics and their communities."
+                            }
+                        },
+                        {
+                            "key": "domain",
+                            "value": {
+                                "string_value": "openai.com"
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 320,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=800x320_1",
+                                    "width": 569
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 202,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=386x202",
+                                    "width": 386
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "site",
+                            "value": {
+                                "scribe_key": "publisher_id",
+                                "user_value": {
+                                    "id_str": "4398626122"
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 202,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=386x202",
+                                    "width": 386
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 419,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=800x419",
+                                    "width": 800
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 81,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=144x144",
+                                    "width": 144
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "vanity_url",
+                            "value": {
+                                "scribe_key": "vanity_url",
+                                "string_value": "openai.com"
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size",
+                            "value": {
+                                "image_value": {
+                                    "height": 314,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=600x314",
+                                    "width": 600
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 62.58,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 195,
+                                                "red": 90
+                                            }
+                                        },
+                                        {
+                                            "percentage": 21.51,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 153,
+                                                "red": 132
+                                            }
+                                        },
+                                        {
+                                            "percentage": 5.46,
+                                            "rgb": {
+                                                "blue": 248,
+                                                "green": 161,
+                                                "red": 32
+                                            }
+                                        },
+                                        {
+                                            "percentage": 2.38,
+                                            "rgb": {
+                                                "blue": 252,
+                                                "green": 136,
+                                                "red": 147
+                                            }
+                                        },
+                                        {
+                                            "percentage": 1.51,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 219,
+                                                "red": 205
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "title",
+                            "value": {
+                                "string_value": "Horizon 1000: Advancing AI for primary healthcare"
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 62.58,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 195,
+                                                "red": 90
+                                            }
+                                        },
+                                        {
+                                            "percentage": 21.51,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 153,
+                                                "red": 132
+                                            }
+                                        },
+                                        {
+                                            "percentage": 5.46,
+                                            "rgb": {
+                                                "blue": 248,
+                                                "green": 161,
+                                                "red": 32
+                                            }
+                                        },
+                                        {
+                                            "percentage": 2.38,
+                                            "rgb": {
+                                                "blue": 252,
+                                                "green": 136,
+                                                "red": 147
+                                            }
+                                        },
+                                        {
+                                            "percentage": 1.51,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 219,
+                                                "red": 205
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image",
+                            "value": {
+                                "image_value": {
+                                    "height": 314,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=600x314",
+                                    "width": 600
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 62.58,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 195,
+                                                "red": 90
+                                            }
+                                        },
+                                        {
+                                            "percentage": 21.51,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 153,
+                                                "red": 132
+                                            }
+                                        },
+                                        {
+                                            "percentage": 5.46,
+                                            "rgb": {
+                                                "blue": 248,
+                                                "green": 161,
+                                                "red": 32
+                                            }
+                                        },
+                                        {
+                                            "percentage": 2.38,
+                                            "rgb": {
+                                                "blue": 252,
+                                                "green": 136,
+                                                "red": 147
+                                            }
+                                        },
+                                        {
+                                            "percentage": 1.51,
+                                            "rgb": {
+                                                "blue": 253,
+                                                "green": 219,
+                                                "red": 205
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "card_url",
+                            "value": {
+                                "scribe_key": "card_url",
+                                "string_value": "https://t.co/G1viarM8Zz"
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016503746746847232/r4vRxJ2d?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        }
+                    ],
+                    "card_platform": {
+                        "platform": {
+                            "audience": {
+                                "name": "production"
+                            },
+                            "device": {
+                                "name": "iPhone",
+                                "version": "13"
+                            }
+                        }
+                    },
+                    "name": "summary_large_image",
+                    "url": "https://t.co/G1viarM8Zz",
+                    "user_refs_results": [
+                        {
+                            "rest_id": "4398626122",
+                            "result": {
+                                "__typename": "User",
+                                "action_counts": {
+                                    "favorites_count": 1487
+                                },
+                                "avatar": {
+                                    "image_url": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg"
+                                },
+                                "banner": {
+                                    "image_url": "https://pbs.twimg.com/profile_banners/4398626122/1759076948"
+                                },
+                                "core": {
+                                    "created_at": "Sun Dec 06 22:51:08 +0000 2015",
+                                    "name": "OpenAI",
+                                    "screen_name": "OpenAI"
+                                },
+                                "dm_permissions": {
+                                    "can_dm": false
+                                },
+                                "exclusive_tweet_following": false,
+                                "identity_profile_labels_highlighted_label": {},
+                                "location": {
+                                    "location": ""
+                                },
+                                "media_permissions": {
+                                    "can_media_tag": true
+                                },
+                                "notifications_settings": {},
+                                "pinned_items": {
+                                    "tweet_ids_str": [
+                                        "2016209462621831448"
+                                    ]
+                                },
+                                "privacy": {},
+                                "private_super_following": false,
+                                "profile_bio": {
+                                    "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                                    "entities": {
+                                        "description": {
+                                            "urls": [
+                                                {
+                                                    "display_url": "openai.com/jobs",
+                                                    "expanded_url": "http://openai.com/jobs",
+                                                    "indices": [
+                                                        107,
+                                                        130
+                                                    ],
+                                                    "url": "https://t.co/dJGr6Lg202"
+                                                }
+                                            ]
+                                        },
+                                        "url": {
+                                            "urls": [
+                                                {
+                                                    "display_url": "openai.com",
+                                                    "expanded_url": "https://openai.com",
+                                                    "indices": [
+                                                        0,
+                                                        23
+                                                    ],
+                                                    "url": "https://t.co/3bPlZZjXod"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "profile_image_shape": "Square",
+                                "profile_metadata": {
+                                    "profile_interstitial_type": "",
+                                    "profile_link_color": "1DA1F2"
+                                },
+                                "profile_translation": {
+                                    "translator_type_enum": "None"
+                                },
+                                "properties": {
+                                    "has_extended_profile": false
+                                },
+                                "relationship_counts": {
+                                    "followers": 4599928,
+                                    "following": 4
+                                },
+                                "relationship_perspectives": {},
+                                "rest_id": "4398626122",
+                                "super_follow_eligible": false,
+                                "super_followed_by": false,
+                                "super_following": false,
+                                "tweet_counts": {
+                                    "media_tweets": 502,
+                                    "tweets": 1642
+                                },
+                                "website": {
+                                    "url": "https://t.co/3bPlZZjXod"
+                                },
+                                "verification": {
+                                    "is_blue_verified": true,
+                                    "verified_type": "Business"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "place": {},
+                "entities": {
+                    "urls": [
+                        {
+                            "display_url": "openai.com/index/horizon-…",
+                            "expanded_url": "https://openai.com/index/horizon-1000/",
+                            "indices": [
+                                245,
+                                268
+                            ],
+                            "url": "https://t.co/G1viarM8Zz"
+                        }
+                    ]
+                },
+                "quoted_tweet": null,
+                "retweeted_tweet": null,
+                "isLimitedReply": false,
+                "article": null
+            },
+            {
+                "type": "tweet",
+                "id": "2013826395835900136",
+                "url": "https://x.com/OpenAI/status/2013826395835900136",
+                "twitterUrl": "https://twitter.com/OpenAI/status/2013826395835900136",
+                "text": "RT @gdb: Stargate Community: https://t.co/FrTp1JIAkd",
+                "source": "Twitter for iPhone",
+                "retweetCount": 91,
+                "replyCount": 71,
+                "likeCount": 886,
+                "quoteCount": 15,
+                "viewCount": 219896,
+                "createdAt": "Wed Jan 21 04:10:02 +0000 2026",
+                "lang": "en",
+                "bookmarkCount": 179,
+                "isReply": false,
+                "inReplyToId": null,
+                "conversationId": "2013826395835900136",
+                "displayTextRange": [
+                    0,
+                    52
+                ],
+                "inReplyToUserId": null,
+                "inReplyToUsername": null,
+                "author": {
+                    "type": "user",
+                    "userName": "OpenAI",
+                    "url": "https://x.com/OpenAI",
+                    "twitterUrl": "https://twitter.com/OpenAI",
+                    "id": "4398626122",
+                    "name": "OpenAI",
+                    "isVerified": false,
+                    "isBlueVerified": true,
+                    "verifiedType": "Business",
+                    "profilePicture": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg",
+                    "coverPicture": "https://pbs.twimg.com/profile_banners/4398626122/1759076948",
+                    "description": "",
+                    "location": "",
+                    "followers": 4599928,
+                    "following": 4,
+                    "status": "",
+                    "canDm": false,
+                    "canMediaTag": true,
+                    "createdAt": "Sun Dec 06 22:51:08 +0000 2015",
+                    "entities": {
+                        "description": {
+                            "urls": []
+                        },
+                        "url": {}
+                    },
+                    "fastFollowersCount": 0,
+                    "favouritesCount": 1487,
+                    "hasCustomTimelines": true,
+                    "isTranslator": false,
+                    "mediaCount": 502,
+                    "statusesCount": 1642,
+                    "withheldInCountries": [],
+                    "affiliatesHighlightedLabel": {},
+                    "possiblySensitive": false,
+                    "pinnedTweetIds": [
+                        "2016209462621831448"
+                    ],
+                    "profile_bio": {
+                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                        "entities": {
+                            "description": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com/jobs",
+                                        "expanded_url": "http://openai.com/jobs",
+                                        "indices": [
+                                            107,
+                                            130
+                                        ],
+                                        "url": "https://t.co/dJGr6Lg202"
+                                    }
+                                ]
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com",
+                                        "expanded_url": "https://openai.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "isAutomated": false,
+                    "automatedBy": null
+                },
+                "extendedEntities": {},
+                "card": {
+                    "binding_values": [
+                        {
+                            "key": "photo_image_full_size_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 419,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=800x419",
+                                    "width": 800
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image",
+                            "value": {
+                                "image_value": {
+                                    "height": 150,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=280x150",
+                                    "width": 267
+                                }
+                            }
+                        },
+                        {
+                            "key": "description",
+                            "value": {
+                                "string_value": "Stargate Community plans detail a community-first approach to AI infrastructure, using locally tailored plans shaped by community input, energy needs, and workforce priorities."
+                            }
+                        },
+                        {
+                            "key": "domain",
+                            "value": {
+                                "string_value": "openai.com"
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 320,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=800x320_1",
+                                    "width": 569
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 202,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=386x202",
+                                    "width": 386
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "site",
+                            "value": {
+                                "scribe_key": "publisher_id",
+                                "user_value": {
+                                    "id_str": "4398626122"
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 202,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=386x202",
+                                    "width": 386
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 419,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=800x419",
+                                    "width": 800
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 81,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=144x144",
+                                    "width": 144
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "vanity_url",
+                            "value": {
+                                "scribe_key": "vanity_url",
+                                "string_value": "openai.com"
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size",
+                            "value": {
+                                "image_value": {
+                                    "height": 314,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=600x314",
+                                    "width": 600
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 53.5,
+                                            "rgb": {
+                                                "blue": 194,
+                                                "green": 143,
+                                                "red": 231
+                                            }
+                                        },
+                                        {
+                                            "percentage": 19.18,
+                                            "rgb": {
+                                                "blue": 208,
+                                                "green": 173,
+                                                "red": 215
+                                            }
+                                        },
+                                        {
+                                            "percentage": 17.32,
+                                            "rgb": {
+                                                "blue": 172,
+                                                "green": 103,
+                                                "red": 240
+                                            }
+                                        },
+                                        {
+                                            "percentage": 6,
+                                            "rgb": {
+                                                "blue": 82,
+                                                "green": 84,
+                                                "red": 208
+                                            }
+                                        },
+                                        {
+                                            "percentage": 1.2,
+                                            "rgb": {
+                                                "blue": 220,
+                                                "green": 191,
+                                                "red": 163
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "title",
+                            "value": {
+                                "string_value": "Stargate Community"
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 53.5,
+                                            "rgb": {
+                                                "blue": 194,
+                                                "green": 143,
+                                                "red": 231
+                                            }
+                                        },
+                                        {
+                                            "percentage": 19.18,
+                                            "rgb": {
+                                                "blue": 208,
+                                                "green": 173,
+                                                "red": 215
+                                            }
+                                        },
+                                        {
+                                            "percentage": 17.32,
+                                            "rgb": {
+                                                "blue": 172,
+                                                "green": 103,
+                                                "red": 240
+                                            }
+                                        },
+                                        {
+                                            "percentage": 6,
+                                            "rgb": {
+                                                "blue": 82,
+                                                "green": 84,
+                                                "red": 208
+                                            }
+                                        },
+                                        {
+                                            "percentage": 1.2,
+                                            "rgb": {
+                                                "blue": 220,
+                                                "green": 191,
+                                                "red": 163
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image",
+                            "value": {
+                                "image_value": {
+                                    "height": 314,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=600x314",
+                                    "width": 600
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 53.5,
+                                            "rgb": {
+                                                "blue": 194,
+                                                "green": 143,
+                                                "red": 231
+                                            }
+                                        },
+                                        {
+                                            "percentage": 19.18,
+                                            "rgb": {
+                                                "blue": 208,
+                                                "green": 173,
+                                                "red": 215
+                                            }
+                                        },
+                                        {
+                                            "percentage": 17.32,
+                                            "rgb": {
+                                                "blue": 172,
+                                                "green": 103,
+                                                "red": 240
+                                            }
+                                        },
+                                        {
+                                            "percentage": 6,
+                                            "rgb": {
+                                                "blue": 82,
+                                                "green": 84,
+                                                "red": 208
+                                            }
+                                        },
+                                        {
+                                            "percentage": 1.2,
+                                            "rgb": {
+                                                "blue": 220,
+                                                "green": 191,
+                                                "red": 163
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "card_url",
+                            "value": {
+                                "scribe_key": "card_url",
+                                "string_value": "https://t.co/FrTp1JIAkd"
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        }
+                    ],
+                    "card_platform": {
+                        "platform": {
+                            "audience": {
+                                "name": "production"
+                            },
+                            "device": {
+                                "name": "iPhone",
+                                "version": "13"
+                            }
+                        }
+                    },
+                    "name": "summary_large_image",
+                    "url": "https://t.co/FrTp1JIAkd",
+                    "user_refs_results": [
+                        {
+                            "rest_id": "4398626122",
+                            "result": {
+                                "__typename": "User",
+                                "action_counts": {
+                                    "favorites_count": 1487
+                                },
+                                "avatar": {
+                                    "image_url": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg"
+                                },
+                                "banner": {
+                                    "image_url": "https://pbs.twimg.com/profile_banners/4398626122/1759076948"
+                                },
+                                "core": {
+                                    "created_at": "Sun Dec 06 22:51:08 +0000 2015",
+                                    "name": "OpenAI",
+                                    "screen_name": "OpenAI"
+                                },
+                                "dm_permissions": {
+                                    "can_dm": false
+                                },
+                                "exclusive_tweet_following": false,
+                                "identity_profile_labels_highlighted_label": {},
+                                "location": {
+                                    "location": ""
+                                },
+                                "media_permissions": {
+                                    "can_media_tag": true
+                                },
+                                "notifications_settings": {},
+                                "pinned_items": {
+                                    "tweet_ids_str": [
+                                        "2016209462621831448"
+                                    ]
+                                },
+                                "privacy": {},
+                                "private_super_following": false,
+                                "profile_bio": {
+                                    "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                                    "entities": {
+                                        "description": {
+                                            "urls": [
+                                                {
+                                                    "display_url": "openai.com/jobs",
+                                                    "expanded_url": "http://openai.com/jobs",
+                                                    "indices": [
+                                                        107,
+                                                        130
+                                                    ],
+                                                    "url": "https://t.co/dJGr6Lg202"
+                                                }
+                                            ]
+                                        },
+                                        "url": {
+                                            "urls": [
+                                                {
+                                                    "display_url": "openai.com",
+                                                    "expanded_url": "https://openai.com",
+                                                    "indices": [
+                                                        0,
+                                                        23
+                                                    ],
+                                                    "url": "https://t.co/3bPlZZjXod"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "profile_image_shape": "Square",
+                                "profile_metadata": {
+                                    "profile_interstitial_type": "",
+                                    "profile_link_color": "1DA1F2"
+                                },
+                                "profile_translation": {
+                                    "translator_type_enum": "None"
+                                },
+                                "properties": {
+                                    "has_extended_profile": false
+                                },
+                                "relationship_counts": {
+                                    "followers": 4599928,
+                                    "following": 4
+                                },
+                                "relationship_perspectives": {},
+                                "rest_id": "4398626122",
+                                "super_follow_eligible": false,
+                                "super_followed_by": false,
+                                "super_following": false,
+                                "tweet_counts": {
+                                    "media_tweets": 502,
+                                    "tweets": 1642
+                                },
+                                "website": {
+                                    "url": "https://t.co/3bPlZZjXod"
+                                },
+                                "verification": {
+                                    "is_blue_verified": true,
+                                    "verified_type": "Business"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "place": {},
+                "entities": {
+                    "urls": [
+                        {
+                            "display_url": "openai.com/index/stargate…",
+                            "expanded_url": "https://openai.com/index/stargate-community/",
+                            "indices": [
+                                29,
+                                52
+                            ],
+                            "url": "https://t.co/FrTp1JIAkd"
+                        }
+                    ],
+                    "user_mentions": [
+                        {
+                            "id_str": "162124540",
+                            "indices": [
+                                3,
+                                7
+                            ],
+                            "name": "Greg Brockman",
+                            "screen_name": "gdb"
+                        }
+                    ]
+                },
+                "quoted_tweet": null,
+                "retweeted_tweet": {
+                    "type": "tweet",
+                    "id": "2013825470379237505",
+                    "url": "https://x.com/gdb/status/2013825470379237505",
+                    "twitterUrl": "https://twitter.com/gdb/status/2013825470379237505",
+                    "text": "Stargate Community: https://t.co/FrTp1JIAkd",
+                    "source": "Twitter for iPhone",
+                    "retweetCount": 91,
+                    "replyCount": 71,
+                    "likeCount": 886,
+                    "quoteCount": 15,
+                    "viewCount": 219896,
+                    "createdAt": "Wed Jan 21 04:06:21 +0000 2026",
+                    "lang": "en",
+                    "bookmarkCount": 179,
+                    "isReply": false,
+                    "inReplyToId": null,
+                    "conversationId": "2013825470379237505",
+                    "displayTextRange": [
+                        0,
+                        43
+                    ],
+                    "inReplyToUserId": null,
+                    "inReplyToUsername": null,
+                    "author": {
+                        "type": "user",
+                        "userName": "gdb",
+                        "url": "https://x.com/gdb",
+                        "twitterUrl": "https://twitter.com/gdb",
+                        "id": "162124540",
+                        "name": "Greg Brockman",
+                        "isVerified": false,
+                        "isBlueVerified": true,
+                        "verifiedType": null,
+                        "profilePicture": "https://pbs.twimg.com/profile_images/1347621377503711233/bHg3ipfD_normal.jpg",
+                        "coverPicture": "https://pbs.twimg.com/profile_banners/162124540/1399179172",
+                        "description": "",
+                        "location": "",
+                        "followers": 901353,
+                        "following": 8,
+                        "status": "",
+                        "canDm": false,
+                        "canMediaTag": true,
+                        "createdAt": "Fri Jul 02 19:38:09 +0000 2010",
+                        "entities": {
+                            "description": {
+                                "urls": []
+                            },
+                            "url": {}
+                        },
+                        "fastFollowersCount": 0,
+                        "favouritesCount": 1872,
+                        "hasCustomTimelines": true,
+                        "isTranslator": false,
+                        "mediaCount": 432,
+                        "statusesCount": 5773,
+                        "withheldInCountries": [],
+                        "affiliatesHighlightedLabel": {},
+                        "possiblySensitive": false,
+                        "pinnedTweetIds": [],
+                        "profile_bio": {
+                            "description": "President & Co-Founder @OpenAI",
+                            "entities": {
+                                "description": {
+                                    "user_mentions": [
+                                        {
+                                            "id_str": "0",
+                                            "indices": [
+                                                23,
+                                                30
+                                            ],
+                                            "name": "",
+                                            "screen_name": "OpenAI"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "urls": [
+                                        {
+                                            "display_url": "gregbrockman.com",
+                                            "expanded_url": "http://gregbrockman.com",
+                                            "indices": [
+                                                0,
+                                                23
+                                            ],
+                                            "url": "https://t.co/k4cALifwtx"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "isAutomated": false,
+                        "automatedBy": null
+                    },
+                    "extendedEntities": {},
+                    "card": {
+                        "binding_values": [
+                            {
+                                "key": "photo_image_full_size_large",
+                                "value": {
+                                    "image_value": {
+                                        "height": 419,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=800x419",
+                                        "width": 800
+                                    }
+                                }
+                            },
+                            {
+                                "key": "thumbnail_image",
+                                "value": {
+                                    "image_value": {
+                                        "height": 150,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=280x150",
+                                        "width": 267
+                                    }
+                                }
+                            },
+                            {
+                                "key": "description",
+                                "value": {
+                                    "string_value": "Stargate Community plans detail a community-first approach to AI infrastructure, using locally tailored plans shaped by community input, energy needs, and workforce priorities."
+                                }
+                            },
+                            {
+                                "key": "domain",
+                                "value": {
+                                    "string_value": "openai.com"
+                                }
+                            },
+                            {
+                                "key": "thumbnail_image_large",
+                                "value": {
+                                    "image_value": {
+                                        "height": 320,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=800x320_1",
+                                        "width": 569
+                                    }
+                                }
+                            },
+                            {
+                                "key": "summary_photo_image_small",
+                                "value": {
+                                    "image_value": {
+                                        "height": 202,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=386x202",
+                                        "width": 386
+                                    }
+                                }
+                            },
+                            {
+                                "key": "thumbnail_image_original",
+                                "value": {
+                                    "image_value": {
+                                        "height": 900,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=orig",
+                                        "width": 1600
+                                    }
+                                }
+                            },
+                            {
+                                "key": "site",
+                                "value": {
+                                    "scribe_key": "publisher_id",
+                                    "user_value": {
+                                        "id_str": "4398626122"
+                                    }
+                                }
+                            },
+                            {
+                                "key": "photo_image_full_size_small",
+                                "value": {
+                                    "image_value": {
+                                        "height": 202,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=386x202",
+                                        "width": 386
+                                    }
+                                }
+                            },
+                            {
+                                "key": "summary_photo_image_large",
+                                "value": {
+                                    "image_value": {
+                                        "height": 419,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=800x419",
+                                        "width": 800
+                                    }
+                                }
+                            },
+                            {
+                                "key": "thumbnail_image_small",
+                                "value": {
+                                    "image_value": {
+                                        "height": 81,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=144x144",
+                                        "width": 144
+                                    }
+                                }
+                            },
+                            {
+                                "key": "thumbnail_image_x_large",
+                                "value": {
+                                    "image_value": {
+                                        "height": 900,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=png&name=2048x2048_2_exp",
+                                        "width": 1600
+                                    }
+                                }
+                            },
+                            {
+                                "key": "photo_image_full_size_original",
+                                "value": {
+                                    "image_value": {
+                                        "height": 900,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=orig",
+                                        "width": 1600
+                                    }
+                                }
+                            },
+                            {
+                                "key": "vanity_url",
+                                "value": {
+                                    "scribe_key": "vanity_url",
+                                    "string_value": "openai.com"
+                                }
+                            },
+                            {
+                                "key": "photo_image_full_size",
+                                "value": {
+                                    "image_value": {
+                                        "height": 314,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=600x314",
+                                        "width": 600
+                                    }
+                                }
+                            },
+                            {
+                                "key": "thumbnail_image_color",
+                                "value": {
+                                    "image_color_value": {
+                                        "palette": [
+                                            {
+                                                "percentage": 53.5,
+                                                "rgb": {
+                                                    "blue": 194,
+                                                    "green": 143,
+                                                    "red": 231
+                                                }
+                                            },
+                                            {
+                                                "percentage": 19.18,
+                                                "rgb": {
+                                                    "blue": 208,
+                                                    "green": 173,
+                                                    "red": 215
+                                                }
+                                            },
+                                            {
+                                                "percentage": 17.32,
+                                                "rgb": {
+                                                    "blue": 172,
+                                                    "green": 103,
+                                                    "red": 240
+                                                }
+                                            },
+                                            {
+                                                "percentage": 6,
+                                                "rgb": {
+                                                    "blue": 82,
+                                                    "green": 84,
+                                                    "red": 208
+                                                }
+                                            },
+                                            {
+                                                "percentage": 1.2,
+                                                "rgb": {
+                                                    "blue": 220,
+                                                    "green": 191,
+                                                    "red": 163
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "key": "title",
+                                "value": {
+                                    "string_value": "Stargate Community"
+                                }
+                            },
+                            {
+                                "key": "summary_photo_image_color",
+                                "value": {
+                                    "image_color_value": {
+                                        "palette": [
+                                            {
+                                                "percentage": 53.5,
+                                                "rgb": {
+                                                    "blue": 194,
+                                                    "green": 143,
+                                                    "red": 231
+                                                }
+                                            },
+                                            {
+                                                "percentage": 19.18,
+                                                "rgb": {
+                                                    "blue": 208,
+                                                    "green": 173,
+                                                    "red": 215
+                                                }
+                                            },
+                                            {
+                                                "percentage": 17.32,
+                                                "rgb": {
+                                                    "blue": 172,
+                                                    "green": 103,
+                                                    "red": 240
+                                                }
+                                            },
+                                            {
+                                                "percentage": 6,
+                                                "rgb": {
+                                                    "blue": 82,
+                                                    "green": 84,
+                                                    "red": 208
+                                                }
+                                            },
+                                            {
+                                                "percentage": 1.2,
+                                                "rgb": {
+                                                    "blue": 220,
+                                                    "green": 191,
+                                                    "red": 163
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "key": "summary_photo_image_x_large",
+                                "value": {
+                                    "image_value": {
+                                        "height": 900,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=png&name=2048x2048_2_exp",
+                                        "width": 1600
+                                    }
+                                }
+                            },
+                            {
+                                "key": "summary_photo_image",
+                                "value": {
+                                    "image_value": {
+                                        "height": 314,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=600x314",
+                                        "width": 600
+                                    }
+                                }
+                            },
+                            {
+                                "key": "photo_image_full_size_color",
+                                "value": {
+                                    "image_color_value": {
+                                        "palette": [
+                                            {
+                                                "percentage": 53.5,
+                                                "rgb": {
+                                                    "blue": 194,
+                                                    "green": 143,
+                                                    "red": 231
+                                                }
+                                            },
+                                            {
+                                                "percentage": 19.18,
+                                                "rgb": {
+                                                    "blue": 208,
+                                                    "green": 173,
+                                                    "red": 215
+                                                }
+                                            },
+                                            {
+                                                "percentage": 17.32,
+                                                "rgb": {
+                                                    "blue": 172,
+                                                    "green": 103,
+                                                    "red": 240
+                                                }
+                                            },
+                                            {
+                                                "percentage": 6,
+                                                "rgb": {
+                                                    "blue": 82,
+                                                    "green": 84,
+                                                    "red": 208
+                                                }
+                                            },
+                                            {
+                                                "percentage": 1.2,
+                                                "rgb": {
+                                                    "blue": 220,
+                                                    "green": 191,
+                                                    "red": 163
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "key": "photo_image_full_size_x_large",
+                                "value": {
+                                    "image_value": {
+                                        "height": 900,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=png&name=2048x2048_2_exp",
+                                        "width": 1600
+                                    }
+                                }
+                            },
+                            {
+                                "key": "card_url",
+                                "value": {
+                                    "scribe_key": "card_url",
+                                    "string_value": "https://t.co/FrTp1JIAkd"
+                                }
+                            },
+                            {
+                                "key": "summary_photo_image_original",
+                                "value": {
+                                    "image_value": {
+                                        "height": 900,
+                                        "url": "https://pbs.twimg.com/card_img/2016346982948929536/Jl3Q5-je?format=jpg&name=orig",
+                                        "width": 1600
+                                    }
+                                }
+                            }
+                        ],
+                        "card_platform": {
+                            "platform": {
+                                "audience": {
+                                    "name": "production"
+                                },
+                                "device": {
+                                    "name": "iPhone",
+                                    "version": "13"
+                                }
+                            }
+                        },
+                        "name": "summary_large_image",
+                        "url": "https://t.co/FrTp1JIAkd",
+                        "user_refs_results": [
+                            {
+                                "rest_id": "4398626122",
+                                "result": {
+                                    "__typename": "User",
+                                    "action_counts": {
+                                        "favorites_count": 1487
+                                    },
+                                    "avatar": {
+                                        "image_url": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg"
+                                    },
+                                    "banner": {
+                                        "image_url": "https://pbs.twimg.com/profile_banners/4398626122/1759076948"
+                                    },
+                                    "core": {
+                                        "created_at": "Sun Dec 06 22:51:08 +0000 2015",
+                                        "name": "OpenAI",
+                                        "screen_name": "OpenAI"
+                                    },
+                                    "dm_permissions": {
+                                        "can_dm": false
+                                    },
+                                    "exclusive_tweet_following": false,
+                                    "identity_profile_labels_highlighted_label": {},
+                                    "location": {
+                                        "location": ""
+                                    },
+                                    "media_permissions": {
+                                        "can_media_tag": true
+                                    },
+                                    "notifications_settings": {},
+                                    "pinned_items": {
+                                        "tweet_ids_str": [
+                                            "2016209462621831448"
+                                        ]
+                                    },
+                                    "privacy": {},
+                                    "private_super_following": false,
+                                    "profile_bio": {
+                                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                                        "entities": {
+                                            "description": {
+                                                "urls": [
+                                                    {
+                                                        "display_url": "openai.com/jobs",
+                                                        "expanded_url": "http://openai.com/jobs",
+                                                        "indices": [
+                                                            107,
+                                                            130
+                                                        ],
+                                                        "url": "https://t.co/dJGr6Lg202"
+                                                    }
+                                                ]
+                                            },
+                                            "url": {
+                                                "urls": [
+                                                    {
+                                                        "display_url": "openai.com",
+                                                        "expanded_url": "https://openai.com",
+                                                        "indices": [
+                                                            0,
+                                                            23
+                                                        ],
+                                                        "url": "https://t.co/3bPlZZjXod"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "profile_image_shape": "Square",
+                                    "profile_metadata": {
+                                        "profile_interstitial_type": "",
+                                        "profile_link_color": "1DA1F2"
+                                    },
+                                    "profile_translation": {
+                                        "translator_type_enum": "None"
+                                    },
+                                    "properties": {
+                                        "has_extended_profile": false
+                                    },
+                                    "relationship_counts": {
+                                        "followers": 4599928,
+                                        "following": 4
+                                    },
+                                    "relationship_perspectives": {},
+                                    "rest_id": "4398626122",
+                                    "super_follow_eligible": false,
+                                    "super_followed_by": false,
+                                    "super_following": false,
+                                    "tweet_counts": {
+                                        "media_tweets": 502,
+                                        "tweets": 1642
+                                    },
+                                    "website": {
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    },
+                                    "verification": {
+                                        "is_blue_verified": true,
+                                        "verified_type": "Business"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "place": {},
+                    "entities": {
+                        "urls": [
+                            {
+                                "display_url": "openai.com/index/stargate…",
+                                "expanded_url": "https://openai.com/index/stargate-community/",
+                                "indices": [
+                                    20,
+                                    43
+                                ],
+                                "url": "https://t.co/FrTp1JIAkd"
+                            }
+                        ]
+                    },
+                    "quoted_tweet": null,
+                    "retweeted_tweet": null,
+                    "isLimitedReply": false,
+                    "article": null
+                },
+                "isLimitedReply": false,
+                "article": null
+            },
+            {
+                "type": "tweet",
+                "id": "2013755708110709135",
+                "url": "https://x.com/OpenAI/status/2013755708110709135",
+                "twitterUrl": "https://twitter.com/OpenAI/status/2013755708110709135",
+                "text": "Compute is the scarcest resource in AI, and demand keeps growing.\n\nOn the OpenAI Podcast, our CFO Sarah Friar and Khosla Ventures founder @vkhosla talk to host @AndrewMayne about the demand for compute and how we get the benefits of AI to more people. https://t.co/9QJLBoPssm",
+                "source": "Twitter for iPhone",
+                "retweetCount": 94,
+                "replyCount": 113,
+                "likeCount": 995,
+                "quoteCount": 20,
+                "viewCount": 213172,
+                "createdAt": "Tue Jan 20 23:29:09 +0000 2026",
+                "lang": "en",
+                "bookmarkCount": 219,
+                "isReply": false,
+                "inReplyToId": null,
+                "conversationId": "2013755708110709135",
+                "displayTextRange": [
+                    0,
+                    251
+                ],
+                "inReplyToUserId": null,
+                "inReplyToUsername": null,
+                "author": {
+                    "type": "user",
+                    "userName": "OpenAI",
+                    "url": "https://x.com/OpenAI",
+                    "twitterUrl": "https://twitter.com/OpenAI",
+                    "id": "4398626122",
+                    "name": "OpenAI",
+                    "isVerified": false,
+                    "isBlueVerified": true,
+                    "verifiedType": "Business",
+                    "profilePicture": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg",
+                    "coverPicture": "https://pbs.twimg.com/profile_banners/4398626122/1759076948",
+                    "description": "",
+                    "location": "",
+                    "followers": 4599928,
+                    "following": 4,
+                    "status": "",
+                    "canDm": false,
+                    "canMediaTag": true,
+                    "createdAt": "Sun Dec 06 22:51:08 +0000 2015",
+                    "entities": {
+                        "description": {
+                            "urls": []
+                        },
+                        "url": {}
+                    },
+                    "fastFollowersCount": 0,
+                    "favouritesCount": 1487,
+                    "hasCustomTimelines": true,
+                    "isTranslator": false,
+                    "mediaCount": 502,
+                    "statusesCount": 1642,
+                    "withheldInCountries": [],
+                    "affiliatesHighlightedLabel": {},
+                    "possiblySensitive": false,
+                    "pinnedTweetIds": [
+                        "2016209462621831448"
+                    ],
+                    "profile_bio": {
+                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                        "entities": {
+                            "description": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com/jobs",
+                                        "expanded_url": "http://openai.com/jobs",
+                                        "indices": [
+                                            107,
+                                            130
+                                        ],
+                                        "url": "https://t.co/dJGr6Lg202"
+                                    }
+                                ]
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com",
+                                        "expanded_url": "https://openai.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "isAutomated": false,
+                    "automatedBy": null
+                },
+                "extendedEntities": {
+                    "media": [
+                        {
+                            "additional_media_info": {
+                                "call_to_actions": {
+                                    "visit_site": {
+                                        "url": "https://openai.com/podcast/"
+                                    }
+                                },
+                                "description": "",
+                                "monetizable": false,
+                                "title": "State of the AI Industry — the OpenAI Podcast Ep. 12"
+                            },
+                            "allow_download_status": {
+                                "allow_download": false
+                            },
+                            "display_url": "pic.twitter.com/9QJLBoPssm",
+                            "expanded_url": "https://twitter.com/OpenAI/status/2013755708110709135/video/1",
+                            "ext_media_availability": {
+                                "status": "Available"
+                            },
+                            "id_str": "2013692057244807168",
+                            "indices": [
+                                252,
+                                275
+                            ],
+                            "media_key": "13_2013692057244807168",
+                            "media_results": {
+                                "id": "QXBpTWVkaWFSZXN1bHRzOgwABAoAARvyEkHPGjAAAAA=",
+                                "result": {
+                                    "__typename": "ApiMedia",
+                                    "id": "QXBpTWVkaWE6DAAECgABG/ISQc8aMAAAAA==",
+                                    "media_key": "13_2013692057244807168"
+                                }
+                            },
+                            "media_url_https": "https://pbs.twimg.com/amplify_video_thumb/2013692057244807168/img/D8Y0CP-SbHS_T7C0.jpg",
+                            "original_info": {
+                                "focus_rects": [],
+                                "height": 1080,
+                                "width": 1920
+                            },
+                            "sizes": {
+                                "large": {
+                                    "h": 1080,
+                                    "w": 1920
+                                }
+                            },
+                            "type": "video",
+                            "url": "https://t.co/9QJLBoPssm",
+                            "video_info": {
+                                "aspect_ratio": [
+                                    16,
+                                    9
+                                ],
+                                "duration_millis": 2981520,
+                                "variants": [
+                                    {
+                                        "content_type": "application/x-mpegURL",
+                                        "url": "https://video.twimg.com/amplify_video/2013692057244807168/pl/qa8TELrqiFf5T1cp.m3u8?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 256000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2013692057244807168/vid/avc1/480x270/j-pm34nIpqk-V1Oa.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 832000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2013692057244807168/vid/avc1/640x360/DCODzUa9ay3shNDf.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 2176000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2013692057244807168/vid/avc1/1280x720/88MnAovD-IgOUdea.mp4?tag=21"
+                                    },
+                                    {
+                                        "bitrate": 10368000,
+                                        "content_type": "video/mp4",
+                                        "url": "https://video.twimg.com/amplify_video/2013692057244807168/vid/avc1/1920x1080/V1H8ow1xMhJmORHy.mp4?tag=21"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "card": null,
+                "place": {},
+                "entities": {
+                    "user_mentions": [
+                        {
+                            "id_str": "42226885",
+                            "indices": [
+                                138,
+                                146
+                            ],
+                            "name": "Vinod Khosla",
+                            "screen_name": "vkhosla"
+                        },
+                        {
+                            "id_str": "5548212",
+                            "indices": [
+                                160,
+                                172
+                            ],
+                            "name": "Andrew Mayne",
+                            "screen_name": "AndrewMayne"
+                        }
+                    ]
+                },
+                "quoted_tweet": null,
+                "retweeted_tweet": null,
+                "isLimitedReply": false,
+                "article": null
+            },
+            {
+                "type": "tweet",
+                "id": "2013688237772898532",
+                "url": "https://x.com/OpenAI/status/2013688237772898532",
+                "twitterUrl": "https://twitter.com/OpenAI/status/2013688237772898532",
+                "text": "We’re rolling out age prediction on ChatGPT to help determine when an account likely belongs to someone under 18, so we can apply the right experience and safeguards for teens.\n\nAdults who are incorrectly placed in the teen experience can confirm their age in Settings > Account.\n\nRolling out globally now. EU to follow in the coming weeks.\n\nhttps://t.co/0mMO42pNdg",
+                "source": "Twitter for iPhone",
+                "retweetCount": 582,
+                "replyCount": 800,
+                "likeCount": 4473,
+                "quoteCount": 345,
+                "viewCount": 1332586,
+                "createdAt": "Tue Jan 20 19:01:03 +0000 2026",
+                "lang": "en",
+                "bookmarkCount": 879,
+                "isReply": false,
+                "inReplyToId": null,
+                "conversationId": "2013688237772898532",
+                "displayTextRange": [
+                    0,
+                    307
+                ],
+                "inReplyToUserId": null,
+                "inReplyToUsername": null,
+                "author": {
+                    "type": "user",
+                    "userName": "OpenAI",
+                    "url": "https://x.com/OpenAI",
+                    "twitterUrl": "https://twitter.com/OpenAI",
+                    "id": "4398626122",
+                    "name": "OpenAI",
+                    "isVerified": false,
+                    "isBlueVerified": true,
+                    "verifiedType": "Business",
+                    "profilePicture": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg",
+                    "coverPicture": "https://pbs.twimg.com/profile_banners/4398626122/1759076948",
+                    "description": "",
+                    "location": "",
+                    "followers": 4599928,
+                    "following": 4,
+                    "status": "",
+                    "canDm": false,
+                    "canMediaTag": true,
+                    "createdAt": "Sun Dec 06 22:51:08 +0000 2015",
+                    "entities": {
+                        "description": {
+                            "urls": []
+                        },
+                        "url": {}
+                    },
+                    "fastFollowersCount": 0,
+                    "favouritesCount": 1487,
+                    "hasCustomTimelines": true,
+                    "isTranslator": false,
+                    "mediaCount": 502,
+                    "statusesCount": 1642,
+                    "withheldInCountries": [],
+                    "affiliatesHighlightedLabel": {},
+                    "possiblySensitive": false,
+                    "pinnedTweetIds": [
+                        "2016209462621831448"
+                    ],
+                    "profile_bio": {
+                        "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                        "entities": {
+                            "description": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com/jobs",
+                                        "expanded_url": "http://openai.com/jobs",
+                                        "indices": [
+                                            107,
+                                            130
+                                        ],
+                                        "url": "https://t.co/dJGr6Lg202"
+                                    }
+                                ]
+                            },
+                            "url": {
+                                "urls": [
+                                    {
+                                        "display_url": "openai.com",
+                                        "expanded_url": "https://openai.com",
+                                        "indices": [
+                                            0,
+                                            23
+                                        ],
+                                        "url": "https://t.co/3bPlZZjXod"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "isAutomated": false,
+                    "automatedBy": null
+                },
+                "extendedEntities": {},
+                "card": {
+                    "binding_values": [
+                        {
+                            "key": "photo_image_full_size_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 419,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=800x419",
+                                    "width": 800
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image",
+                            "value": {
+                                "image_value": {
+                                    "height": 150,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=280x150",
+                                    "width": 267
+                                }
+                            }
+                        },
+                        {
+                            "key": "description",
+                            "value": {
+                                "string_value": "Building on our work to strengthen teen safety."
+                            }
+                        },
+                        {
+                            "key": "domain",
+                            "value": {
+                                "string_value": "openai.com"
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 320,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=800x320_1",
+                                    "width": 569
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 202,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=386x202",
+                                    "width": 386
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "site",
+                            "value": {
+                                "scribe_key": "publisher_id",
+                                "user_value": {
+                                    "id_str": "4398626122"
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 202,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=386x202",
+                                    "width": 386
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 419,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=800x419",
+                                    "width": 800
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_small",
+                            "value": {
+                                "image_value": {
+                                    "height": 81,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=144x144",
+                                    "width": 144
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "vanity_url",
+                            "value": {
+                                "scribe_key": "vanity_url",
+                                "string_value": "openai.com"
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size",
+                            "value": {
+                                "image_value": {
+                                    "height": 314,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=600x314",
+                                    "width": 600
+                                }
+                            }
+                        },
+                        {
+                            "key": "thumbnail_image_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 76.09,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 217,
+                                                "red": 159
+                                            }
+                                        },
+                                        {
+                                            "percentage": 10.72,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 232,
+                                                "red": 216
+                                            }
+                                        },
+                                        {
+                                            "percentage": 6.3,
+                                            "rgb": {
+                                                "blue": 240,
+                                                "green": 193,
+                                                "red": 171
+                                            }
+                                        },
+                                        {
+                                            "percentage": 3.44,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 183,
+                                                "red": 95
+                                            }
+                                        },
+                                        {
+                                            "percentage": 2.2,
+                                            "rgb": {
+                                                "blue": 170,
+                                                "green": 201,
+                                                "red": 244
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "title",
+                            "value": {
+                                "string_value": "Our approach to age prediction"
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 76.09,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 217,
+                                                "red": 159
+                                            }
+                                        },
+                                        {
+                                            "percentage": 10.72,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 232,
+                                                "red": 216
+                                            }
+                                        },
+                                        {
+                                            "percentage": 6.3,
+                                            "rgb": {
+                                                "blue": 240,
+                                                "green": 193,
+                                                "red": 171
+                                            }
+                                        },
+                                        {
+                                            "percentage": 3.44,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 183,
+                                                "red": 95
+                                            }
+                                        },
+                                        {
+                                            "percentage": 2.2,
+                                            "rgb": {
+                                                "blue": 170,
+                                                "green": 201,
+                                                "red": 244
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image",
+                            "value": {
+                                "image_value": {
+                                    "height": 314,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=600x314",
+                                    "width": 600
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_color",
+                            "value": {
+                                "image_color_value": {
+                                    "palette": [
+                                        {
+                                            "percentage": 76.09,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 217,
+                                                "red": 159
+                                            }
+                                        },
+                                        {
+                                            "percentage": 10.72,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 232,
+                                                "red": 216
+                                            }
+                                        },
+                                        {
+                                            "percentage": 6.3,
+                                            "rgb": {
+                                                "blue": 240,
+                                                "green": 193,
+                                                "red": 171
+                                            }
+                                        },
+                                        {
+                                            "percentage": 3.44,
+                                            "rgb": {
+                                                "blue": 254,
+                                                "green": 183,
+                                                "red": 95
+                                            }
+                                        },
+                                        {
+                                            "percentage": 2.2,
+                                            "rgb": {
+                                                "blue": 170,
+                                                "green": 201,
+                                                "red": 244
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "key": "photo_image_full_size_x_large",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=png&name=2048x2048_2_exp",
+                                    "width": 1600
+                                }
+                            }
+                        },
+                        {
+                            "key": "card_url",
+                            "value": {
+                                "scribe_key": "card_url",
+                                "string_value": "https://t.co/0mMO42pNdg"
+                            }
+                        },
+                        {
+                            "key": "summary_photo_image_original",
+                            "value": {
+                                "image_value": {
+                                    "height": 900,
+                                    "url": "https://pbs.twimg.com/card_img/2014539975308509184/Ho87yOIG?format=jpg&name=orig",
+                                    "width": 1600
+                                }
+                            }
+                        }
+                    ],
+                    "card_platform": {
+                        "platform": {
+                            "audience": {
+                                "name": "production"
+                            },
+                            "device": {
+                                "name": "iPhone",
+                                "version": "13"
+                            }
+                        }
+                    },
+                    "name": "summary_large_image",
+                    "url": "https://t.co/0mMO42pNdg",
+                    "user_refs_results": [
+                        {
+                            "rest_id": "4398626122",
+                            "result": {
+                                "__typename": "User",
+                                "action_counts": {
+                                    "favorites_count": 1487
+                                },
+                                "avatar": {
+                                    "image_url": "https://pbs.twimg.com/profile_images/1885410181409820672/ztsaR0JW_normal.jpg"
+                                },
+                                "banner": {
+                                    "image_url": "https://pbs.twimg.com/profile_banners/4398626122/1759076948"
+                                },
+                                "core": {
+                                    "created_at": "Sun Dec 06 22:51:08 +0000 2015",
+                                    "name": "OpenAI",
+                                    "screen_name": "OpenAI"
+                                },
+                                "dm_permissions": {
+                                    "can_dm": false
+                                },
+                                "exclusive_tweet_following": false,
+                                "identity_profile_labels_highlighted_label": {},
+                                "location": {
+                                    "location": ""
+                                },
+                                "media_permissions": {
+                                    "can_media_tag": true
+                                },
+                                "notifications_settings": {},
+                                "pinned_items": {
+                                    "tweet_ids_str": [
+                                        "2016209462621831448"
+                                    ]
+                                },
+                                "privacy": {},
+                                "private_super_following": false,
+                                "profile_bio": {
+                                    "description": "OpenAI’s mission is to ensure that artificial general intelligence benefits all of humanity. We’re hiring: https://t.co/dJGr6Lg202",
+                                    "entities": {
+                                        "description": {
+                                            "urls": [
+                                                {
+                                                    "display_url": "openai.com/jobs",
+                                                    "expanded_url": "http://openai.com/jobs",
+                                                    "indices": [
+                                                        107,
+                                                        130
+                                                    ],
+                                                    "url": "https://t.co/dJGr6Lg202"
+                                                }
+                                            ]
+                                        },
+                                        "url": {
+                                            "urls": [
+                                                {
+                                                    "display_url": "openai.com",
+                                                    "expanded_url": "https://openai.com",
+                                                    "indices": [
+                                                        0,
+                                                        23
+                                                    ],
+                                                    "url": "https://t.co/3bPlZZjXod"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                "profile_image_shape": "Square",
+                                "profile_metadata": {
+                                    "profile_interstitial_type": "",
+                                    "profile_link_color": "1DA1F2"
+                                },
+                                "profile_translation": {
+                                    "translator_type_enum": "None"
+                                },
+                                "properties": {
+                                    "has_extended_profile": false
+                                },
+                                "relationship_counts": {
+                                    "followers": 4599928,
+                                    "following": 4
+                                },
+                                "relationship_perspectives": {},
+                                "rest_id": "4398626122",
+                                "super_follow_eligible": false,
+                                "super_followed_by": false,
+                                "super_following": false,
+                                "tweet_counts": {
+                                    "media_tweets": 502,
+                                    "tweets": 1642
+                                },
+                                "website": {
+                                    "url": "https://t.co/3bPlZZjXod"
+                                },
+                                "verification": {
+                                    "is_blue_verified": true,
+                                    "verified_type": "Business"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "place": {},
+                "entities": {
+                    "urls": [
+                        {
+                            "display_url": "openai.com/index/our-appr…",
+                            "expanded_url": "http://openai.com/index/our-approach-to-age-prediction/",
+                            "indices": [
+                                342,
+                                365
+                            ],
+                            "url": "https://t.co/0mMO42pNdg"
+                        }
+                    ]
+                },
+                "quoted_tweet": null,
+                "retweeted_tweet": null,
+                "isLimitedReply": false,
+                "article": null
+            }
+        ]
+    },
+    "has_next_page": true,
+    "next_cursor": "DAADDAABCgABG_2t1QMbUeUKAAIb8g7IhNYA5AAIAAIAAAACCAADAAAAAAgABAAAAAAKAAUb_mrK4kAnEAoABhv-asriP9jwAAA"
+}

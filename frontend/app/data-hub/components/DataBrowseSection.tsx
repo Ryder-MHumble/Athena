@@ -150,68 +150,128 @@ export function DataBrowseSection() {
           ) : (
             <div className={layoutMode === 'grid' ? 'columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4' : 'space-y-3'}>
               {filteredPosts.map((post) => (
-                <Card 
-                  key={post.id} 
-                  onClick={() => setSelectedPost(post)}
-                  className={`break-inside-avoid mb-4 cursor-pointer transition-all hover:shadow-lg hover:border-cyan-300 ${
-                    selectedPost?.id === post.id ? 'border-cyan-500 ring-2 ring-cyan-500/20 bg-cyan-50/30' : 'bg-white'
-                  }`}
-                >
-                  {/* 封面图 */}
-                  {post.cover && (
-                    <div className="relative w-full aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-t-xl">
-                      <img 
-                        src={post.cover} 
-                        alt={post.title} 
-                        className="w-full h-full object-cover" 
-                        loading="lazy" 
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} 
-                      />
-                      {post.type === 'video' && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
-                          <Play className="h-12 w-12 text-white opacity-90" />
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  
-                  <div className="p-4">
-                    {/* 作者信息 */}
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0">
-                        <img src={post.author.avatar} alt={post.author.name} className="w-full h-full object-cover" loading="lazy" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900 text-sm truncate">{post.author.name}</p>
-                        <p className="text-xs text-gray-400">{formatRelativeTime(post.createTime)}</p>
-                      </div>
-                      <span className={`text-xs px-2 py-1 rounded-full text-white ${post.platformColor} flex-shrink-0`}>
-                        {post.platformLabel}
-                      </span>
-                    </div>
-                    
-                    {/* 标题和内容 */}
-                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-base leading-tight">{post.title}</h3>
-                    <p className="text-sm text-gray-600 line-clamp-3 mb-3 leading-relaxed">{post.content}</p>
-                    
-                    {/* 标签 */}
-                    {post.tags && post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mb-3">
-                        {post.tags.slice(0, 3).map((tag, idx) => (
-                          <span key={idx} className="text-xs bg-cyan-50 text-cyan-600 px-2 py-0.5 rounded-full">#{tag}</span>
-                        ))}
+                layoutMode === 'grid' ? (
+                  // 卡片式布局
+                  <Card 
+                    key={post.id} 
+                    onClick={() => setSelectedPost(post)}
+                    className={`break-inside-avoid mb-4 cursor-pointer transition-all hover:shadow-lg hover:border-cyan-300 ${
+                      selectedPost?.id === post.id ? 'border-cyan-500 ring-2 ring-cyan-500/20 bg-cyan-50/30' : 'bg-white'
+                    }`}
+                  >
+                    {/* 封面图 */}
+                    {post.cover && (
+                      <div className="relative w-full aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-t-xl">
+                        <img 
+                          src={post.cover} 
+                          alt={post.title} 
+                          className="w-full h-full object-cover" 
+                          loading="lazy" 
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} 
+                        />
+                        {post.type === 'video' && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
+                            <Play className="h-12 w-12 text-white opacity-90" />
+                          </div>
+                        )}
                       </div>
                     )}
                     
-                    {/* 互动数据 */}
-                    <div className="flex items-center gap-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
-                      <span className="flex items-center gap-1"><ThumbsUp className="h-3.5 w-3.5" />{formatNumber(post.stats.likes)}</span>
-                      <span className="flex items-center gap-1"><MessageCircle className="h-3.5 w-3.5" />{formatNumber(post.stats.comments)}</span>
-                      {post.stats.views && <span className="flex items-center gap-1"><Eye className="h-3.5 w-3.5" />{formatNumber(post.stats.views)}</span>}
-                      {post.stats.shares && <span className="flex items-center gap-1 ml-auto"><Share2 className="h-3.5 w-3.5" />{formatNumber(post.stats.shares)}</span>}
+                    <div className="p-4">
+                      {/* 作者信息 */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0">
+                          <img src={post.author.avatar} alt={post.author.name} className="w-full h-full object-cover" loading="lazy" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900 text-sm truncate">{post.author.name}</p>
+                          <p className="text-xs text-gray-400">{formatRelativeTime(post.createTime)}</p>
+                        </div>
+                        <span className={`text-xs px-2 py-1 rounded-full text-white ${post.platformColor} flex-shrink-0`}>
+                          {post.platformLabel}
+                        </span>
+                      </div>
+                      
+                      {/* 标题和内容 */}
+                      <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-base leading-tight">{post.title}</h3>
+                      <p className="text-sm text-gray-600 line-clamp-3 mb-3 leading-relaxed">{post.content}</p>
+                      
+                      {/* 标签 */}
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mb-3">
+                          {post.tags.slice(0, 3).map((tag, idx) => (
+                            <span key={idx} className="text-xs bg-cyan-50 text-cyan-600 px-2 py-0.5 rounded-full">#{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                      
+                      {/* 互动数据 */}
+                      <div className="flex items-center gap-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <span className="flex items-center gap-1"><ThumbsUp className="h-3.5 w-3.5" />{formatNumber(post.stats.likes)}</span>
+                        <span className="flex items-center gap-1"><MessageCircle className="h-3.5 w-3.5" />{formatNumber(post.stats.comments)}</span>
+                        {post.stats.views && <span className="flex items-center gap-1"><Eye className="h-3.5 w-3.5" />{formatNumber(post.stats.views)}</span>}
+                        {post.stats.shares && <span className="flex items-center gap-1 ml-auto"><Share2 className="h-3.5 w-3.5" />{formatNumber(post.stats.shares)}</span>}
+                      </div>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                ) : (
+                  // 列表式布局 - 图片在左侧
+                  <Card 
+                    key={post.id} 
+                    onClick={() => setSelectedPost(post)}
+                    className={`cursor-pointer transition-all hover:shadow-lg hover:border-cyan-300 ${
+                      selectedPost?.id === post.id ? 'border-cyan-500 ring-2 ring-cyan-500/20 bg-cyan-50/30' : 'bg-white'
+                    }`}
+                  >
+                    <div className="flex">
+                      {/* 左侧封面图 */}
+                      {post.cover && (
+                        <div className="relative w-40 h-28 flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-l-xl">
+                          <img 
+                            src={post.cover} 
+                            alt={post.title} 
+                            className="w-full h-full object-cover" 
+                            loading="lazy" 
+                            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} 
+                          />
+                          {post.type === 'video' && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
+                              <Play className="h-8 w-8 text-white opacity-90" />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* 右侧内容 */}
+                      <div className="flex-1 p-3 min-w-0">
+                        {/* 顶部：作者和平台 */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-6 h-6 rounded-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex-shrink-0">
+                            <img src={post.author.avatar} alt={post.author.name} className="w-full h-full object-cover" loading="lazy" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-900 truncate">{post.author.name}</span>
+                          <span className="text-xs text-gray-400">{formatRelativeTime(post.createTime)}</span>
+                          <span className={`text-xs px-1.5 py-0.5 rounded text-white ${post.platformColor} ml-auto flex-shrink-0`}>
+                            {post.platformLabel}
+                          </span>
+                        </div>
+                        
+                        {/* 标题 */}
+                        <h3 className="font-medium text-gray-900 text-sm line-clamp-1 mb-1">{post.title}</h3>
+                        
+                        {/* 简短描述 */}
+                        <p className="text-xs text-gray-500 line-clamp-1 mb-2">{post.content}</p>
+                        
+                        {/* 互动数据 */}
+                        <div className="flex items-center gap-3 text-xs text-gray-400">
+                          <span className="flex items-center gap-1"><ThumbsUp className="h-3 w-3" />{formatNumber(post.stats.likes)}</span>
+                          <span className="flex items-center gap-1"><MessageCircle className="h-3 w-3" />{formatNumber(post.stats.comments)}</span>
+                          {post.stats.views && <span className="flex items-center gap-1"><Eye className="h-3 w-3" />{formatNumber(post.stats.views)}</span>}
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                )
               ))}
               
               {filteredPosts.length === 0 && (
