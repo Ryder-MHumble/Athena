@@ -5,6 +5,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { api, ChatMessage } from '@/lib/api'
 import { toast } from 'sonner'
+import { useAppStore } from '@/stores/useAppStore'
 
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -12,6 +13,7 @@ export function useChat() {
   const [isLoading, setIsLoading] = useState(false)
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const getSystemPrompt = useAppStore((state) => state.getSystemPrompt)
 
   // 自动滚动到底部
   useEffect(() => {
@@ -35,11 +37,15 @@ export function useChat() {
     try {
       let fullContent = ''
       
+      // 获取用户自定义的 system prompt（如果有）
+      const customSystemPrompt = getSystemPrompt('jargon-killer')
+      
       for await (const event of api.chatStream({
         session_id: sessionId,
         message: question,
         history: messages,
         thinking_mode: false,
+        system_prompt: customSystemPrompt || undefined,
       })) {
         if (event.type === 'content') {
           fullContent += event.delta

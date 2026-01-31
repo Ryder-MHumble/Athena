@@ -687,8 +687,8 @@ export default function SettingsPage() {
                 </div>
               </div>
 
-              {/* Prompt 卡片网格 */}
-              <div className="grid gap-4">
+              {/* Prompt 卡片列表 */}
+              <div className="space-y-3">
                 {Object.entries(MODULE_INFO).map(([module, info]) => {
                   const isExpanded = expandedModules.has(module)
                   const isEditing = editingModule === module
@@ -700,52 +700,59 @@ export default function SettingsPage() {
                     <div 
                       key={module} 
                       className={cn(
-                        "bg-white rounded-2xl border-2 shadow-sm overflow-hidden transition-all duration-300",
-                        isExpanded ? "border-slate-200 shadow-lg" : "border-slate-100 hover:border-slate-200 hover:shadow-md"
+                        "bg-white rounded-2xl overflow-hidden transition-all duration-300",
+                        isExpanded 
+                          ? "shadow-lg ring-2 ring-slate-200" 
+                          : "shadow-sm hover:shadow-md border border-slate-200 hover:border-slate-300"
                       )}
                     >
-                      {/* 模块头 - 带渐变装饰条 */}
-                      <div className={cn(
-                        "h-1.5 w-full bg-gradient-to-r",
-                        info.gradient
-                      )} />
-                      
-                      <button
-                        onClick={() => toggleModuleExpand(module)}
-                        className="w-full flex items-center gap-4 p-5 text-left transition-colors hover:bg-slate-50/50"
-                      >
-                        {/* 图标 */}
+                      {/* 模块头 - 左侧渐变条 */}
+                      <div className="flex">
                         <div className={cn(
-                          "w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 shadow-inner",
-                          info.iconBg
-                        )}>
-                          {info.icon}
-                        </div>
+                          "w-1 flex-shrink-0 bg-gradient-to-b",
+                          info.gradient
+                        )} />
                         
-                        {/* 信息 */}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-gray-900">{info.name}</h3>
-                            {isModified && (
-                              <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-cyan-100 text-cyan-700">
-                                已自定义
-                              </span>
-                            )}
-                            {hasUnsavedChanges && (
-                              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                            )}
+                        <button
+                          onClick={() => toggleModuleExpand(module)}
+                          className="flex-1 flex items-center gap-4 p-4 text-left transition-colors hover:bg-slate-50/50"
+                        >
+                          {/* 图标 */}
+                          <div className={cn(
+                            "w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0",
+                            info.iconBg
+                          )}>
+                            {info.icon}
                           </div>
-                          <p className="text-sm text-gray-500 mt-1">{info.description}</p>
-                        </div>
-                        
-                        {/* 展开图标 */}
-                        <div className={cn(
-                          "w-10 h-10 rounded-xl flex items-center justify-center transition-all",
-                          isExpanded ? "bg-slate-100 rotate-90" : "bg-slate-50"
-                        )}>
-                          <ChevronRight className="h-5 w-5 text-gray-400" />
-                        </div>
-                      </button>
+                          
+                          {/* 信息 */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h3 className="font-semibold text-gray-900">{info.name}</h3>
+                              {isModified && (
+                                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-sm">
+                                  已自定义
+                                </span>
+                              )}
+                              {hasUnsavedChanges && (
+                                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                              )}
+                            </div>
+                            <p className="text-sm text-gray-500 mt-0.5 line-clamp-1">{info.description}</p>
+                          </div>
+                          
+                          {/* 展开图标 */}
+                          <div className={cn(
+                            "w-8 h-8 rounded-lg flex items-center justify-center transition-all flex-shrink-0",
+                            isExpanded ? "bg-slate-100" : "bg-slate-50"
+                          )}>
+                            <ChevronRight className={cn(
+                              "h-4 w-4 text-gray-400 transition-transform",
+                              isExpanded && "rotate-90"
+                            )} />
+                          </div>
+                        </button>
+                      </div>
 
                       {/* 模块内容 */}
                       {isExpanded && (

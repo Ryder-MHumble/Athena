@@ -5,16 +5,24 @@ import type { OverseasItem, OverseasPlatform, SortOrder } from './types'
 import { API_BASE } from './constants'
 import { getPublishTime, getPopularityScore, matchesSearch } from './utils'
 
+interface SourceAccount {
+  name: string
+  platform: 'twitter' | 'youtube'
+}
+
 interface UseOverseasDataReturn {
   items: OverseasItem[]
   filteredItems: OverseasItem[]
+  sourceAccounts: SourceAccount[]
   isLoading: boolean
   isCrawling: boolean
   error: string | null
   selectedPlatform: OverseasPlatform
+  selectedAccounts: string[]
   searchTerm: string
   sortOrder: SortOrder
   setSelectedPlatform: (platform: OverseasPlatform) => void
+  setSelectedAccounts: (accounts: string[]) => void
   setSearchTerm: (term: string) => void
   setSortOrder: (order: SortOrder) => void
   refresh: () => Promise<void>
@@ -27,9 +35,36 @@ export function useOverseasData(): UseOverseasDataReturn {
   const [isCrawling, setIsCrawling] = useState(false)
   const [error, setError] = useState<string | null>(null)
   
-  const [selectedPlatform, setSelectedPlatform] = useState<OverseasPlatform>('all')
+  const [selectedPlatform, setSelectedPlatformState] = useState<OverseasPlatform>('all')
+  const [selectedAccounts, setSelectedAccounts] = useState<string[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest')
+  
+  // 提取所有独立的账号列表
+  const sourceAccounts = useMemo(() => {
+    const accountMap = new Map<string, SourceAccount>()
+    items.forEach(item => {
+      const name = item.source_name
+      if (name && !accountMap.has(name)) {
+        accountMap.set(name, { name, platform: item.platform })
+      }
+    })
+    return Array.from(accountMap.values()).sort((a, b) => a.name.localeCompare(b.name))
+  }, [items])
+  
+  // 切换平台时清空不匹配的已选账号
+  const setSelectedPlatform = useCallback((platform: OverseasPlatform) => {
+    setSelectedPlatformState(platform)
+    // 当切换平台时，清除与新平台不匹配的已选账号
+    if (platform !== 'all') {
+      setSelectedAccounts(prev => 
+        prev.filter(accountName => {
+          const account = sourceAccounts.find(a => a.name === accountName)
+          return account && account.platform === platform
+        })
+      )
+    }
+  }, [sourceAccounts])
 
   // 获取数据
   const fetchData = useCallback(async () => {
@@ -116,8 +151,14 @@ export function useOverseasData(): UseOverseasDataReturn {
   // 过滤和排序
   const filteredItems = useMemo(() => {
     let filtered = items.filter(item => {
+      // 平台筛选
       const matchesPlatform = selectedPlatform === 'all' || item.platform === selectedPlatform
       if (!matchesPlatform) return false
+      
+      // 账号筛选（多选）
+      if (selectedAccounts.length > 0 && !selectedAccounts.includes(item.source_name)) return false
+      
+      // 搜索
       return matchesSearch(item, searchTerm)
     })
     
@@ -135,18 +176,21 @@ export function useOverseasData(): UseOverseasDataReturn {
     })
     
     return filtered
-  }, [items, selectedPlatform, searchTerm, sortOrder])
+  }, [items, selectedPlatform, selectedAccounts, searchTerm, sortOrder])
 
   return {
     items,
     filteredItems,
+    sourceAccounts,
     isLoading,
     isCrawling,
     error,
     selectedPlatform,
+    selectedAccounts,
     searchTerm,
     sortOrder,
     setSelectedPlatform,
+    setSelectedAccounts,
     setSearchTerm,
     setSortOrder,
     refresh: fetchData,

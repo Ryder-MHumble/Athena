@@ -292,7 +292,7 @@ export default function HomePage() {
       </div>
       
       {/* 底部信息 */}
-      <div className="relative border-t border-gray-200/50 bg-white/50 backdrop-blur-sm">
+      {/* <div className="relative border-t border-gray-200/50 bg-white/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-500">
             <div className="flex items-center gap-2">
@@ -317,7 +317,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* 简化样式 */}
       <style jsx global>{`

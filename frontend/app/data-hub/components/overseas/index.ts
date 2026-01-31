@@ -9,4 +9,5 @@ export * from './TwitterCard'
 export * from './YouTubeCard'
 export * from './DetailPanels'
 export * from './useOverseasData'
+export * from './NewLayoutView'
 

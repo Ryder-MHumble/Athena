@@ -2,13 +2,14 @@
 
 /**
  * 海外信源浏览组件
- * 支持 YouTube 和 Twitter 内容的瀑布流展示
+ * 支持 YouTube 和 Twitter 内容展示
+ * 默认使用新布局（左侧筛选 + 中间卡片列表）
  */
 
 import React, { useState, useMemo, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Search, Loader2, Globe, RefreshCw } from 'lucide-react'
+import { Search, Loader2, Globe, RefreshCw, X } from 'lucide-react'
 
 // 从模块导入
 import {
@@ -19,6 +20,7 @@ import {
   TwitterDetailPanel,
   YouTubeDetailPanel,
   useOverseasData,
+  NewLayoutView,
   type OverseasItem,
   type TwitterItem,
   type YouTubeItem,
@@ -254,9 +256,216 @@ function CardGrid({
 }
 
 /**
- * 主组件
+ * 添加信源弹窗组件 - 支持批量添加
+ */
+function AddSourceModal({
+  isOpen,
+  onClose,
+  onAdd,
+}: {
+  isOpen: boolean
+  onClose: () => void
+  onAdd: (urls: string[]) => Promise<void>
+}) {
+  const [urls, setUrls] = useState('')
+  const [isAdding, setIsAdding] = useState(false)
+  const [error, setError] = useState('')
+  const [results, setResults] = useState<Array<{ url: string; success: boolean; message: string }>>([])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!urls.trim()) {
+      setError('请输入 URL')
+      return
+    }
+
+    // 解析多行 URL
+    const urlList = urls
+      .split('\n')
+      .map(u => u.trim())
+      .filter(u => u.length > 0)
+
+    if (urlList.length === 0) {
+      setError('请输入有效的 URL')
+      return
+    }
+
+    // 验证所有 URL 格式
+    const invalidUrls = urlList.filter(url => {
+      const isTwitter = url.includes('x.com/') || url.includes('twitter.com/')
+      const isYoutube = url.includes('youtube.com/')
+      return !isTwitter && !isYoutube
+    })
+
+    if (invalidUrls.length > 0) {
+      setError(`以下 URL 格式无效：\n${invalidUrls.join('\n')}`)
+      return
+    }
+
+    setIsAdding(true)
+    setError('')
+    setResults([])
+    
+    try {
+      await onAdd(urlList)
+      setUrls('')
+      onClose()
+    } catch (err: any) {
+      setError(err.message || '添加失败')
+    } finally {
+      setIsAdding(false)
+    }
+  }
+
+  const handleClose = () => {
+    setUrls('')
+    setError('')
+    setResults([])
+    onClose()
+  }
+
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">添加信源账号</h3>
+          <button onClick={handleClose} className="text-gray-400 hover:text-gray-600">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="p-6">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                账号 URL（支持批量添加，一行一个）
+              </label>
+              <textarea
+                placeholder={`输入 X 或 YouTube 账号 URL，一行一个...\n\n例如：\nhttps://x.com/karpathy\nhttps://x.com/AndrewYNg\nhttps://youtube.com/@a16z`}
+                value={urls}
+                onChange={(e) => {
+                  setUrls(e.target.value)
+                  setError('')
+                }}
+                rows={6}
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none resize-none"
+              />
+              <p className="mt-1.5 text-xs text-gray-500">
+                支持格式：https://x.com/username 或 https://youtube.com/@channel
+              </p>
+              {error && <p className="mt-1.5 text-xs text-red-500 whitespace-pre-wrap">{error}</p>}
+            </div>
+          </div>
+          
+          <div className="flex gap-3 mt-6">
+            <Button type="button" variant="outline" onClick={handleClose} className="flex-1">
+              取消
+            </Button>
+            <Button
+              type="submit"
+              disabled={isAdding}
+              className="flex-1 bg-cyan-600 hover:bg-cyan-700"
+            >
+              {isAdding ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  添加中...
+                </>
+              ) : (
+                '添加'
+              )}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * 主组件 - 使用新布局
  */
 export function OverseasBrowseSection() {
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [isAutoCrawling, setIsAutoCrawling] = useState(false)
+
+  const handleAddSource = async (urls: string[]) => {
+    const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+    const errors: string[] = []
+    let successCount = 0
+    
+    // 逐个添加信源
+    for (const url of urls) {
+      try {
+        const response = await fetch(`${API_BASE}/api/crawler/sources`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url }),
+        })
+        
+        if (!response.ok) {
+          const error = await response.json()
+          errors.push(`${url}: ${error.detail || '添加失败'}`)
+        } else {
+          successCount++
+        }
+      } catch (err: any) {
+        errors.push(`${url}: ${err.message || '网络错误'}`)
+      }
+    }
+    
+    // 如果有任何成功的，触发爬虫任务
+    if (successCount > 0) {
+      setIsAutoCrawling(true)
+      try {
+        const crawlResponse = await fetch(`${API_BASE}/api/crawler/crawl/all`, {
+          method: 'POST',
+        })
+        if (!crawlResponse.ok) {
+          console.warn('自动爬取失败，但信源已添加成功')
+        }
+      } catch (err) {
+        console.warn('自动爬取失败:', err)
+      } finally {
+        setIsAutoCrawling(false)
+      }
+    }
+    
+    // 如果有错误，抛出
+    if (errors.length > 0) {
+      if (successCount > 0) {
+        throw new Error(`成功添加 ${successCount} 个，失败 ${errors.length} 个:\n${errors.join('\n')}`)
+      } else {
+        throw new Error(errors.join('\n'))
+      }
+    }
+  }
+
+  return (
+    <>
+      <NewLayoutView onAddSource={() => setShowAddModal(true)} />
+      <AddSourceModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onAdd={handleAddSource}
+      />
+      {/* 自动爬取提示 */}
+      {isAutoCrawling && (
+        <div className="fixed bottom-4 right-4 bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 z-50">
+          <Loader2 className="h-4 w-4 animate-spin" />
+          <span>正在获取新信源数据...</span>
+        </div>
+      )}
+    </>
+  )
+}
+
+/**
+ * 旧版瀑布流布局（保留备用）
+ */
+export function OverseasBrowseSectionLegacy() {
   const [selectedItem, setSelectedItem] = useState<OverseasItem | null>(null)
   
   const {

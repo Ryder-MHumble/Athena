@@ -197,6 +197,7 @@ async def generate_qa(
 async def chat_with_paper(
     question: str = Body(..., embed=True),
     paper_text: str = Body(..., embed=True),
+    system_prompt: str = Body(None, embed=True),
     x_api_key: str = Header(None),
 ):
     """
@@ -205,6 +206,7 @@ async def chat_with_paper(
     Args:
         question: 用户问题
         paper_text: 论文文本内容
+        system_prompt: 自定义 System Prompt（可选，如果为空则使用默认值）
         x_api_key: API Key
     
     Returns:
@@ -214,20 +216,24 @@ async def chat_with_paper(
         raise HTTPException(status_code=401, detail="API Key is required")
     
     try:
+        from app.prompts.paper_chat_prompt import PAPER_CHAT_SYSTEM_PROMPT
+        
         llm_service = get_llm_service(api_key=x_api_key)
         
-        # 构建提示词
-        prompt = f"""基于以下论文内容，回答用户的问题。请用通俗易懂的语言解释，必要时使用生活化的类比。
+        # 构建提示词，将论文内容作为上下文
+        prompt = f"""以下是用户正在阅读的论文内容：
 
-论文内容：
-{paper_text[:5000]}  # 限制长度避免token过多
+---论文内容开始---
+{paper_text[:5000]}
+---论文内容结束---
 
 用户问题：{question}
 
-请直接回答，无需重复论文内容。
-"""
+请基于论文内容回答用户的问题。"""
         
-        answer = llm_service.chat(prompt, system_prompt="你是一个论文解读助手，擅长用通俗易懂的语言解释学术内容。")
+        # 使用自定义 system_prompt，如果没有则使用默认值
+        final_system_prompt = system_prompt if system_prompt else PAPER_CHAT_SYSTEM_PROMPT
+        answer = llm_service.chat(prompt, system_prompt=final_system_prompt)
         
         return {"answer": answer}
         

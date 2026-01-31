@@ -1,47 +1,170 @@
 {
   "youtube": [
-    {"name": "a16z", "url": "https://www.youtube.com/@a16z/videos"},
-    {"name": "Axios", "url": "https://www.youtube.com/@axios/videos"},
-    {"name": "DeepMind", "url": "https://www.youtube.com/@GoogleDeepMind/videos"},
-    {"name": "Dwarkesh Podcast", "url": "https://www.youtube.com/@DwarkeshPatel/videos"},
-    {"name": "Eye on AI with Craig S. Smith", "url": "https://www.youtube.com/@EyeonAI/videos"},
-    {"name": "Peter Diamandis", "url": "https://www.youtube.com/@PeterDiamandis/videos"},
-    {"name": "The Diary of a CEO with Steven Bartlett", "url": "https://www.youtube.com/@TheDiaryOfACEO/videos"},
-    {"name": "The Robot Brains Podcast", "url": "https://www.youtube.com/@TheRobotBrainsPodcast/videos"},
-    {"name": "Y Combinator", "url": "https://www.youtube.com/c/ycombinator"},
-    {"name": "No Priors: AI, Machine Learning, Tech, & Startups", "url": "https://www.youtube.com/@NoPriorsPodcast"},
-    {"name": "The MAD Podcast with Matt Turck", "url": "https://www.youtube.com/@DataDrivenNYC/videos"},
-    {"name": "Hard Fork", "url": "https://www.youtube.com/@hardfork/videos"}
+    {
+      "name": "a16z",
+      "url": "https://www.youtube.com/@a16z/videos"
+    },
+    {
+      "name": "Axios",
+      "url": "https://www.youtube.com/@axios/videos"
+    },
+    {
+      "name": "DeepMind",
+      "url": "https://www.youtube.com/@GoogleDeepMind/videos"
+    },
+    {
+      "name": "Dwarkesh Podcast",
+      "url": "https://www.youtube.com/@DwarkeshPatel/videos"
+    },
+    {
+      "name": "Eye on AI with Craig S. Smith",
+      "url": "https://www.youtube.com/@EyeonAI/videos"
+    },
+    {
+      "name": "Peter Diamandis",
+      "url": "https://www.youtube.com/@PeterDiamandis/videos"
+    },
+    {
+      "name": "The Diary of a CEO with Steven Bartlett",
+      "url": "https://www.youtube.com/@TheDiaryOfACEO/videos"
+    },
+    {
+      "name": "The Robot Brains Podcast",
+      "url": "https://www.youtube.com/@TheRobotBrainsPodcast/videos"
+    },
+    {
+      "name": "Y Combinator",
+      "url": "https://www.youtube.com/c/ycombinator"
+    },
+    {
+      "name": "No Priors: AI, Machine Learning, Tech, & Startups",
+      "url": "https://www.youtube.com/@NoPriorsPodcast"
+    },
+    {
+      "name": "The MAD Podcast with Matt Turck",
+      "url": "https://www.youtube.com/@DataDrivenNYC/videos"
+    },
+    {
+      "name": "Hard Fork",
+      "url": "https://www.youtube.com/@hardfork/videos"
+    }
   ],
   "twitter": [
-    {"name": "Aidan Gomez", "url": "https://x.com/aidangomez"},
-    {"name": "Andrej Karpathy", "url": "https://x.com/karpathy"},
-    {"name": "Dario Amodei", "url": "https://x.com/DarioAmodei"},
-    {"name": "Demis Hassabis", "url": "https://x.com/demishassabis"},
-    {"name": "Epoch AI", "url": "https://x.com/EpochAIResearch"},
-    {"name": "Fei-Fei Li", "url": "https://x.com/drfeifei"},
-    {"name": "François Chollet", "url": "https://x.com/fchollet"},
-    {"name": "Geoffrey Hinton", "url": "https://x.com/geoffreyhinton"},
-    {"name": "Greg Brockman", "url": "https://x.com/gdb"},
-    {"name": "Ilya Sutskever", "url": "https://x.com/ilyasut"},
-    {"name": "indigo", "url": "https://x.com/indigox"},
-    {"name": "Jack Clark", "url": "https://x.com/jackclarkSF"},
-    {"name": "Jeff Dean", "url": "https://x.com/JeffDean"},
-    {"name": "John Schulman", "url": "https://x.com/johnschulman2"},
-    {"name": "Mustafa Suleyman", "url": "https://x.com/mustafasuleyman"},
-    {"name": "Noam Shazeer", "url": "https://x.com/NoamShazeer"},
-    {"name": "Oriol Vinyals", "url": "https://x.com/OriolVinyalsML"},
-    {"name": "Pieter Abbeel", "url": "https://x.com/pabbeel"},
-    {"name": "Sebastian Raschka", "url": "https://x.com/rasbt"},
-    {"name": "Sébastien Bubeck", "url": "https://x.com/SebastienBubeck"},
-    {"name": "Soumith Chintala", "url": "https://x.com/soumithchintala"},
-    {"name": "Wojciech Zaremba", "url": "https://x.com/woj_zaremba"},
-    {"name": "Yoshua Bengio", "url": "https://x.com/Yoshua_Bengio"},
-    {"name": "Zephyr", "url": "https://x.com/zephyr_z9"},
-    {"name": "Andrew Ng", "url": "https://x.com/AndrewYNg"},
-    {"name": "Jason Wei", "url": "https://x.com/_jasonwei"},
-    {"name": "Lenny Rachitsky", "url": "https://x.com/lennysan"},
-    {"name": "Thinking Machines", "url": "https://x.com/thinkymachines"}
+    {
+      "name": "Aidan Gomez",
+      "url": "https://x.com/aidangomez"
+    },
+    {
+      "name": "Andrej Karpathy",
+      "url": "https://x.com/karpathy"
+    },
+    {
+      "name": "Dario Amodei",
+      "url": "https://x.com/DarioAmodei"
+    },
+    {
+      "name": "Demis Hassabis",
+      "url": "https://x.com/demishassabis"
+    },
+    {
+      "name": "Epoch AI",
+      "url": "https://x.com/EpochAIResearch"
+    },
+    {
+      "name": "Fei-Fei Li",
+      "url": "https://x.com/drfeifei"
+    },
+    {
+      "name": "François Chollet",
+      "url": "https://x.com/fchollet"
+    },
+    {
+      "name": "Geoffrey Hinton",
+      "url": "https://x.com/geoffreyhinton"
+    },
+    {
+      "name": "Greg Brockman",
+      "url": "https://x.com/gdb"
+    },
+    {
+      "name": "Ilya Sutskever",
+      "url": "https://x.com/ilyasut"
+    },
+    {
+      "name": "indigo",
+      "url": "https://x.com/indigox"
+    },
+    {
+      "name": "Jack Clark",
+      "url": "https://x.com/jackclarkSF"
+    },
+    {
+      "name": "Jeff Dean",
+      "url": "https://x.com/JeffDean"
+    },
+    {
+      "name": "John Schulman",
+      "url": "https://x.com/johnschulman2"
+    },
+    {
+      "name": "Mustafa Suleyman",
+      "url": "https://x.com/mustafasuleyman"
+    },
+    {
+      "name": "Noam Shazeer",
+      "url": "https://x.com/NoamShazeer"
+    },
+    {
+      "name": "Oriol Vinyals",
+      "url": "https://x.com/OriolVinyalsML"
+    },
+    {
+      "name": "Pieter Abbeel",
+      "url": "https://x.com/pabbeel"
+    },
+    {
+      "name": "Sebastian Raschka",
+      "url": "https://x.com/rasbt"
+    },
+    {
+      "name": "Sébastien Bubeck",
+      "url": "https://x.com/SebastienBubeck"
+    },
+    {
+      "name": "Soumith Chintala",
+      "url": "https://x.com/soumithchintala"
+    },
+    {
+      "name": "Wojciech Zaremba",
+      "url": "https://x.com/woj_zaremba"
+    },
+    {
+      "name": "Yoshua Bengio",
+      "url": "https://x.com/Yoshua_Bengio"
+    },
+    {
+      "name": "Zephyr",
+      "url": "https://x.com/zephyr_z9"
+    },
+    {
+      "name": "Andrew Ng",
+      "url": "https://x.com/AndrewYNg"
+    },
+    {
+      "name": "Jason Wei",
+      "url": "https://x.com/_jasonwei"
+    },
+    {
+      "name": "Lenny Rachitsky",
+      "url": "https://x.com/lennysan"
+    },
+    {
+      "name": "Thinking Machines",
+      "url": "https://x.com/thinkymachines"
+    },
+    {
+      "name": "Kimi_Moonshot",
+      "url": "https://x.com/Kimi_Moonshot"
+    }
   ]
 }
-

@@ -188,15 +188,96 @@ def save_twitter_data(sources_data: List[Dict[str, Any]]) -> str:
 
 # ==================== YouTube 爬虫 ====================
 
+async def get_youtube_channel_id(url: str, timeout: int = 30) -> Optional[str]:
+    """
+    从 YouTube 频道 URL 获取 channel_id
+    支持多种 URL 格式：@username, /c/name, /channel/ID
+    """
+    try:
+        async with httpx.AsyncClient(timeout=timeout, follow_redirects=True) as client:
+            # 如果已经是 channel_id 格式
+            channel_match = re.search(r'/channel/([a-zA-Z0-9_-]+)', url)
+            if channel_match:
+                return channel_match.group(1)
+            
+            # 访问频道页面获取真实的 channel_id
+            response = await client.get(url, headers={
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+            })
+            
+            if response.status_code == 200:
+                html = response.text
+                
+                # 方法1: 从 meta 标签提取
+                meta_match = re.search(r'<meta\s+itemprop="channelId"\s+content="([^"]+)"', html)
+                if meta_match:
+                    return meta_match.group(1)
+                
+                # 方法2: 从 canonical URL 提取
+                canonical_match = re.search(r'"canonicalBaseUrl"\s*:\s*"/channel/([^"]+)"', html)
+                if canonical_match:
+                    return canonical_match.group(1)
+                
+                # 方法3: 从 externalId 提取
+                external_match = re.search(r'"externalId"\s*:\s*"([^"]+)"', html)
+                if external_match:
+                    return external_match.group(1)
+                
+                # 方法4: 从 browseId 提取
+                browse_match = re.search(r'"browseId"\s*:\s*"(UC[a-zA-Z0-9_-]+)"', html)
+                if browse_match:
+                    return browse_match.group(1)
+            
+            return None
+    except Exception as e:
+        print(f"[YouTube] Error getting channel_id for {url}: {e}")
+        return None
+
+
+async def fetch_youtube_rss_feed(channel_id: str, timeout: int = 30) -> Optional[str]:
+    """
+    获取 YouTube 频道的 RSS Feed
+    """
+    try:
+        rss_url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
+        async with httpx.AsyncClient(timeout=timeout) as client:
+            response = await client.get(rss_url)
+            if response.status_code == 200:
+                return response.text
+            print(f"[YouTube RSS] Failed for {channel_id}: HTTP {response.status_code}")
+            return None
+    except Exception as e:
+        print(f"[YouTube RSS] Error for {channel_id}: {e}")
+        return None
+
+
 async def fetch_youtube_channel_page(url: str, timeout: int = 60) -> Optional[Dict[str, Any]]:
     """
     获取 YouTube 频道视频列表
-    方法1: 尝试使用 FireCrawl
-    方法2: 尝试获取 RSS Feed (需要 channel_id)
+    优先使用 RSS Feed，更可靠
     """
     try:
+        # 首先获取 channel_id
+        channel_id = await get_youtube_channel_id(url, timeout=30)
+        
+        if channel_id:
+            print(f"[YouTube] Got channel_id: {channel_id}")
+            # 获取 RSS Feed
+            rss_content = await fetch_youtube_rss_feed(channel_id, timeout=30)
+            
+            if rss_content and '<entry>' in rss_content:
+                return {
+                    "success": True,
+                    "data": {
+                        "markdown": rss_content,
+                        "metadata": {"channel_id": channel_id},
+                        "is_rss": True
+                    }
+                }
+        
+        # 如果 RSS 失败，尝试 FireCrawl 作为备选
+        print(f"[YouTube] RSS failed, trying FireCrawl for {url}")
         async with httpx.AsyncClient(timeout=timeout) as client:
-            # 先尝试 FireCrawl
             response = await client.post(
                 FIRECRAWL_API_URL,
                 json={"url": url},
@@ -206,41 +287,13 @@ async def fetch_youtube_channel_page(url: str, timeout: int = 60) -> Optional[Di
             if response.status_code == 200:
                 data = response.json()
                 if data.get("success"):
-                    markdown = data.get("data", {}).get("markdown", "")
-                    # 检查是否有足够的内容
-                    if len(markdown) > 2000:
-                        return data
-                    
-                    # 尝试从页面提取 channel_id 然后获取 RSS
-                    metadata = data.get("data", {}).get("metadata", {})
-                    channel_url = metadata.get("og:url", "")
-                    
-                    # 提取 channel_id
-                    channel_id_match = re.search(r'channel/([a-zA-Z0-9_-]+)', channel_url)
-                    if channel_id_match:
-                        channel_id = channel_id_match.group(1)
-                        rss_url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
-                        
-                        rss_response = await client.get(rss_url, timeout=30)
-                        if rss_response.status_code == 200:
-                            # 解析 RSS 并转换为类似格式
-                            rss_content = rss_response.text
-                            return {
-                                "success": True,
-                                "data": {
-                                    "markdown": rss_content,
-                                    "metadata": metadata,
-                                    "is_rss": True
-                                }
-                            }
-                    
                     return data
             
             print(f"[FireCrawl] Failed {url}: HTTP {response.status_code}")
             return None
                 
     except Exception as e:
-        print(f"[FireCrawl] Error {url}: {str(e)}")
+        print(f"[YouTube] Error {url}: {str(e)}")
         return None
 
 

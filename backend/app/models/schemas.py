@@ -31,6 +31,10 @@ class ChatRequest(BaseModel):
         default=None,
         description="指定使用的模型ID，如果为空则使用默认模型"
     )
+    system_prompt: Optional[str] = Field(
+        default=None,
+        description="自定义 System Prompt，如果为空则使用默认值"
+    )
 
 
 class ChatResponse(BaseModel):

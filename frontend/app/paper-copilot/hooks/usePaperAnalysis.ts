@@ -5,8 +5,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { api, PaperAnalysisResponse } from '@/lib/api'
 import { toast } from 'sonner'
+import { useAppStore } from '@/stores/useAppStore'
 
 export function usePaperAnalysis() {
+  // 获取自定义 System Prompt
+  const getSystemPrompt = useAppStore((state) => state.getSystemPrompt)
   const [file, setFile] = useState<File | null>(null)
   const [url, setUrl] = useState('')
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
@@ -231,7 +234,7 @@ export function usePaperAnalysis() {
     toast.success('已清除，可以重新上传论文')
   }
 
-  // 处理AI解读提问 - 支持流式输出
+  // 处理AI解读提问 - 使用论文专用对话接口
   const handleChatSend = async () => {
     if (!chatQuestion.trim() || !paperText || isChatLoading) return
 
@@ -243,28 +246,12 @@ export function usePaperAnalysis() {
     setStreamingChatContent('')
 
     try {
-      let fullContent = ''
-      let isUsingStream = false
-
-      try {
-        for await (const event of api.chatStream({
-          session_id: `paper-${Date.now()}`,
-          message: question,
-          history: [],
-          thinking_mode: false,
-        })) {
-          if (event.type === 'content') {
-            fullContent += event.delta
-            setStreamingChatContent(fullContent)
-            isUsingStream = true
-          }
-        }
-      } catch {
-        if (!isUsingStream && fullContent === '') {
-          const response = await api.chatWithPaper(question, paperText)
-          fullContent = response.answer
-        }
-      }
+      // 获取用户自定义的 system prompt（如果有）
+      const customSystemPrompt = getSystemPrompt('paper-chat')
+      
+      // 使用论文专用对话接口，传递论文内容作为上下文
+      const response = await api.chatWithPaper(question, paperText, customSystemPrompt || undefined)
+      const fullContent = response.answer
 
       const assistantMessage = { role: 'assistant' as const, content: fullContent }
       setChatHistory((prev) => [...prev, assistantMessage])

@@ -26,6 +26,10 @@ export interface TwitterItem {
   media?: Array<{ type: string; url: string }>
   created_at: string
   scraped_at: string
+  // AI 分析字段
+  summary?: string
+  ai_summary?: string
+  key_points?: string[]
 }
 
 export interface YouTubeItem {
@@ -36,8 +40,13 @@ export interface YouTubeItem {
   source_name: string
   thumbnail?: string
   views?: string
+  description?: string
   published_at?: string
   scraped_at: string
+  // AI 分析字段
+  summary?: string
+  ai_summary?: string
+  key_points?: string[]
 }
 
 export type OverseasItem = TwitterItem | YouTubeItem

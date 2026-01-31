@@ -47,6 +47,7 @@ async def chat(request: ChatRequest, x_api_key: str = Header(None)):
             message=request.message,
             history=history,
             temperature=0.3 if thinking_mode else 0.9,  # 思考模式：0.3，快速模式：0.9
+            system_prompt=request.system_prompt,  # 使用用户自定义的 system prompt
         )
         
         return ChatResponse(
@@ -96,6 +97,7 @@ async def chat_stream(request: ChatRequest, x_api_key: str = Header(None)):
                 message=request.message,
                 history=history,
                 temperature=0.3 if thinking_mode else 0.9,
+                system_prompt=request.system_prompt,  # 使用用户自定义的 system prompt
             )
             
             # 发送流式数据

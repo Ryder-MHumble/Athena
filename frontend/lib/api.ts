@@ -78,6 +78,7 @@ export interface ChatRequest {
   history?: ChatMessage[]
   thinking_mode?: boolean  // 思考模式（可选，前端控制）
   model?: string  // 指定使用的模型 ID（可选）
+  system_prompt?: string  // 自定义 System Prompt（可选）
 }
 
 export interface ChatResponse {
@@ -249,9 +250,13 @@ export const api = {
   },
 
   // 论文伴侣 - AI 解读
-  chatWithPaper: async (question: string, paperText: string): Promise<{ answer: string }> => {
+  chatWithPaper: async (question: string, paperText: string, systemPrompt?: string): Promise<{ answer: string }> => {
     return apiClient.post('paper/chat', { 
-      json: { question, paper_text: paperText } 
+      json: { 
+        question, 
+        paper_text: paperText,
+        system_prompt: systemPrompt || undefined,
+      } 
     }).json()
   },
 

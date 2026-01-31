@@ -11,8 +11,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.api import chat, paper, knowledge, crawler
 
-# 爬虫调度间隔（秒）- 默认 6 小时
-CRAWLER_INTERVAL = int(os.getenv("CRAWLER_INTERVAL_SECONDS", 6 * 60 * 60))
+# 爬虫调度间隔（秒）- 默认 3 小时
+CRAWLER_INTERVAL = int(os.getenv("CRAWLER_INTERVAL_SECONDS", 3 * 60 * 60))
 ENABLE_AUTO_CRAWL = os.getenv("ENABLE_AUTO_CRAWL", "true").lower() == "true"
 
 
