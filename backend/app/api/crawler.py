@@ -49,9 +49,8 @@ class CrawlResponse(BaseModel):
     task_id: Optional[str] = None
 
 
-async def background_crawl_all():
+async def background_crawl_all(task_id: str):
     """后台执行全量爬取"""
-    task_id = get_task_id()
     _crawl_tasks[task_id] = {
         "status": "running",
         "started_at": datetime.now().isoformat(),
@@ -59,9 +58,13 @@ async def background_crawl_all():
     }
     
     try:
+        # 更新进度：开始爬取 Twitter
+        _crawl_tasks[task_id]["progress"] = "正在爬取 Twitter..."
+        
         result = await crawl_all_overseas()
         twitter_count = result.get("twitter", {}).get("total_posts", 0)
         youtube_count = result.get("youtube", {}).get("total_videos", 0)
+        
         # 更新缓存
         _data_cache["twitter"] = result.get("twitter", {}).get("data")
         _data_cache["youtube"] = result.get("youtube", {}).get("data")
@@ -69,15 +72,17 @@ async def background_crawl_all():
         _crawl_tasks[task_id] = {
             "status": "completed",
             "completed_at": datetime.now().isoformat(),
-            "result": f"Twitter {twitter_count} posts, YouTube {youtube_count} videos"
+            "result": f"Twitter {twitter_count} posts, YouTube {youtube_count} videos",
+            "twitter_count": twitter_count,
+            "youtube_count": youtube_count
         }
+        print(f"[Crawler] Task {task_id} completed: Twitter {twitter_count}, YouTube {youtube_count}")
     except Exception as e:
+        print(f"[Crawler] Task {task_id} failed: {str(e)}")
         _crawl_tasks[task_id] = {
             "status": "failed",
             "error": str(e)
         }
-    
-    return task_id
 
 
 async def background_crawl_single_source(source: Dict[str, str], platform: str):
@@ -90,18 +95,29 @@ async def background_crawl_single_source(source: Dict[str, str], platform: str):
             new_items = result.get("items", [])
             
             if new_items:
-                # 读取现有数据
-                filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
-                existing_data = {"items": [], "sources": []}
-                if filepath.exists():
-                    with open(filepath, "r", encoding="utf-8") as f:
-                        existing_data = json.load(f)
+                # 优先从内存缓存读取现有数据（生产环境关键！）
+                existing_data = _data_cache.get("twitter")
+                if not existing_data:
+                    # 尝试从文件读取（本地开发）
+                    filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
+                    if filepath.exists():
+                        try:
+                            with open(filepath, "r", encoding="utf-8") as f:
+                                existing_data = json.load(f)
+                        except Exception as e:
+                            print(f"[Background] Could not read file: {e}")
+                    
+                    # 如果还是没有，初始化空数据
+                    if not existing_data:
+                        existing_data = {"items": [], "sources": [], "platform": "twitter"}
                 
                 # 合并新数据（去重）
                 existing_ids = {item["id"] for item in existing_data.get("items", [])}
+                added_count = 0
                 for item in new_items:
                     if item["id"] not in existing_ids:
                         existing_data["items"].append(item)
+                        added_count += 1
                 
                 # 更新 sources
                 source_names = {s["name"] for s in existing_data.get("sources", [])}
@@ -117,35 +133,51 @@ async def background_crawl_single_source(source: Dict[str, str], platform: str):
                 existing_data["total_count"] = len(existing_data["items"])
                 existing_data["scraped_at"] = datetime.now().isoformat()
                 
-                # 保存
-                filepath.parent.mkdir(parents=True, exist_ok=True)
-                with open(filepath, "w", encoding="utf-8") as f:
-                    json.dump(existing_data, f, ensure_ascii=False, indent=2)
-                
-                # 更新作者信息
-                authors = extract_unique_authors(existing_data["items"])
-                save_authors_data(authors)
-                
-                # 更新缓存
+                # 【关键】先更新内存缓存（生产环境依赖此缓存）
                 _data_cache["twitter"] = existing_data
                 
-                print(f"[Background] Added {len(new_items)} new tweets from {source['name']}")
+                # 尝试保存到文件（本地开发，生产环境可能失败但不影响）
+                try:
+                    filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
+                    filepath.parent.mkdir(parents=True, exist_ok=True)
+                    with open(filepath, "w", encoding="utf-8") as f:
+                        json.dump(existing_data, f, ensure_ascii=False, indent=2)
+                    
+                    # 更新作者信息
+                    authors = extract_unique_authors(existing_data["items"])
+                    save_authors_data(authors)
+                except Exception as e:
+                    print(f"[Background] Could not save to file (OK in production): {e}")
+                
+                print(f"[Background] Added {added_count} new tweets from {source['name']}, total: {len(existing_data['items'])}")
         
         elif platform == "youtube":
             result = await crawl_youtube_source(source)
             new_items = result.get("items", [])
             
             if new_items:
-                filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
-                existing_data = {"items": [], "sources": []}
-                if filepath.exists():
-                    with open(filepath, "r", encoding="utf-8") as f:
-                        existing_data = json.load(f)
+                # 优先从内存缓存读取现有数据（生产环境关键！）
+                existing_data = _data_cache.get("youtube")
+                if not existing_data:
+                    # 尝试从文件读取（本地开发）
+                    filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
+                    if filepath.exists():
+                        try:
+                            with open(filepath, "r", encoding="utf-8") as f:
+                                existing_data = json.load(f)
+                        except Exception as e:
+                            print(f"[Background] Could not read file: {e}")
+                    
+                    # 如果还是没有，初始化空数据
+                    if not existing_data:
+                        existing_data = {"items": [], "sources": [], "platform": "youtube"}
                 
                 existing_ids = {item["id"] for item in existing_data.get("items", [])}
+                added_count = 0
                 for item in new_items:
                     if item["id"] not in existing_ids:
                         existing_data["items"].append(item)
+                        added_count += 1
                 
                 source_names = {s["name"] for s in existing_data.get("sources", [])}
                 if result["source_name"] not in source_names:
@@ -158,13 +190,19 @@ async def background_crawl_single_source(source: Dict[str, str], platform: str):
                 existing_data["total_count"] = len(existing_data["items"])
                 existing_data["scraped_at"] = datetime.now().isoformat()
                 
-                filepath.parent.mkdir(parents=True, exist_ok=True)
-                with open(filepath, "w", encoding="utf-8") as f:
-                    json.dump(existing_data, f, ensure_ascii=False, indent=2)
-                
+                # 【关键】先更新内存缓存（生产环境依赖此缓存）
                 _data_cache["youtube"] = existing_data
                 
-                print(f"[Background] Added {len(new_items)} new videos from {source['name']}")
+                # 尝试保存到文件（本地开发，生产环境可能失败但不影响）
+                try:
+                    filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
+                    filepath.parent.mkdir(parents=True, exist_ok=True)
+                    with open(filepath, "w", encoding="utf-8") as f:
+                        json.dump(existing_data, f, ensure_ascii=False, indent=2)
+                except Exception as e:
+                    print(f"[Background] Could not save to file (OK in production): {e}")
+                
+                print(f"[Background] Added {added_count} new videos from {source['name']}, total: {len(existing_data['items'])}")
     
     except Exception as e:
         print(f"[Background] Error crawling {source['name']}: {e}")
@@ -213,7 +251,7 @@ async def crawl_all_sources(background_tasks: BackgroundTasks, async_mode: bool 
             "status": "pending",
             "started_at": datetime.now().isoformat()
         }
-        background_tasks.add_task(background_crawl_all)
+        background_tasks.add_task(background_crawl_all, task_id)
         return CrawlResponse(
             success=True,
             message="爬取任务已在后台启动",
@@ -486,39 +524,68 @@ async def get_twitter_data():
     try:
         data = None
         source = None
+        authors = None
         
-        # 1. 先检查内存缓存
+        # 1. 先检查内存缓存（生产环境主要依赖这个）
         if _data_cache.get("twitter"):
             data = _data_cache["twitter"]
             source = "cache"
+            print(f"[API] Twitter data from cache: {len(data.get('items', []))} items")
         else:
-            # 2. 尝试读取文件
-            filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
-            
-            if filepath.exists():
-                with open(filepath, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                _data_cache["twitter"] = data  # 更新缓存
-                source = "file"
+            # 2. 尝试读取文件（本地开发用）
+            try:
+                filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
+                if filepath.exists():
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    _data_cache["twitter"] = data  # 更新缓存
+                    source = "file"
+                    print(f"[API] Twitter data from file: {len(data.get('items', []))} items")
+            except Exception as e:
+                print(f"[API] Could not read twitter file: {e}")
         
         if data is None:
-            return {"success": True, "data": None, "message": "No data available. Please run crawler first."}
+            return {"success": True, "data": None, "authors": None, "message": "No data available. Please run crawler first."}
         
-        # 3. 同时返回 authors 信息（解决线上环境前端无法访问静态文件的问题）
-        authors = None
-        authors_filepath = CRAWL_DATA_BASE_PATH / "twitter" / "authors.json"
-        if authors_filepath.exists():
-            with open(authors_filepath, "r", encoding="utf-8") as f:
-                authors_data = json.load(f)
-                authors = authors_data.get("authors", [])
+        # 3. 从数据中提取 authors 信息（不依赖文件）
+        items = data.get("items", [])
+        if items:
+            authors_map = {}
+            for item in items:
+                author = item.get("author", {})
+                username = author.get("username")
+                if username and username not in authors_map:
+                    authors_map[username] = {
+                        "username": username,
+                        "name": author.get("name"),
+                        "avatar": author.get("avatar"),
+                        "followers": author.get("followers", 0),
+                        "verified": author.get("verified", False),
+                        "platform": "twitter"
+                    }
+            authors = list(authors_map.values())
+            authors.sort(key=lambda x: x.get("followers", 0), reverse=True)
+        
+        # 4. 也尝试从文件读取 authors（可能有更完整的信息）
+        try:
+            authors_filepath = CRAWL_DATA_BASE_PATH / "twitter" / "authors.json"
+            if authors_filepath.exists():
+                with open(authors_filepath, "r", encoding="utf-8") as f:
+                    authors_data = json.load(f)
+                    file_authors = authors_data.get("authors", [])
+                    if file_authors:
+                        authors = file_authors  # 使用文件中的（可能更完整）
+        except Exception:
+            pass  # 忽略文件读取错误
         
         return {
             "success": True,
             "data": data,
-            "authors": authors,  # 新增：返回作者信息
+            "authors": authors,
             "source": source
         }
     except Exception as e:
+        print(f"[API] Error getting twitter data: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -526,27 +593,35 @@ async def get_twitter_data():
 async def get_youtube_data():
     """获取已爬取的 YouTube 数据 - 先检查缓存，再读取文件"""
     try:
-        # 1. 先检查内存缓存
+        data = None
+        source = None
+        
+        # 1. 先检查内存缓存（生产环境主要依赖这个）
         if _data_cache.get("youtube"):
-            return {
-                "success": True,
-                "data": _data_cache["youtube"],
-                "source": "cache"
-            }
+            data = _data_cache["youtube"]
+            source = "cache"
+            print(f"[API] YouTube data from cache: {len(data.get('items', []))} items")
+        else:
+            # 2. 尝试读取文件（本地开发用）
+            try:
+                filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
+                if filepath.exists():
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    _data_cache["youtube"] = data
+                    source = "file"
+                    print(f"[API] YouTube data from file: {len(data.get('items', []))} items")
+            except Exception as e:
+                print(f"[API] Could not read youtube file: {e}")
         
-        # 2. 尝试读取文件
-        filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
+        if data is None:
+            return {"success": True, "data": None, "message": "No data available. Please run crawler first."}
         
-        if filepath.exists():
-            with open(filepath, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            _data_cache["youtube"] = data
-            return {
-                "success": True,
-                "data": data,
-                "source": "file"
-            }
-        
-        return {"success": True, "data": None, "message": "No data available. Please run crawler first."}
+        return {
+            "success": True,
+            "data": data,
+            "source": source
+        }
     except Exception as e:
+        print(f"[API] Error getting youtube data: {e}")
         raise HTTPException(status_code=500, detail=str(e))

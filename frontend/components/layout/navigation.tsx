@@ -56,7 +56,7 @@ const supportDropdown = {
   icon: HelpCircle,
   items: [
     { href: 'https://github.com/Ryder-MHumble/Athena', label: 'GitHub', icon: Github, description: '查看源代码', external: true },
-    { href: 'https://github.com/Ryder-MHumble/Athena/issues', label: '问题反馈', icon: MessageSquare, description: '提交 Issue or 需求', external: true },
+    { href: 'https://alidocs.dingtalk.com/i/nodes/b9Y4gmKWrPDxnE5whxyY1x7KJGXn6lpz', label: '问题反馈', icon: MessageSquare, description: '提交 Issue', external: true },
     { href: 'https://github.com/Ryder-MHumble/Athena#readme', label: '使用文档', icon: FileText, description: '快速入门指南', external: true },
   ]
 }

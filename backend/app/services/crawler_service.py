@@ -38,29 +38,97 @@ def extract_username_from_url(url: str) -> Optional[str]:
     return match.group(1) if match else None
 
 
-async def fetch_twitter_user_tweets(username: str, timeout: int = 30) -> Optional[Dict[str, Any]]:
+async def fetch_twitter_user_tweets(username: str, max_pages: int = 3, timeout: int = 60) -> Optional[Dict[str, Any]]:
     """
-    使用 twitterapi.io 获取用户最近的推文
+    使用 twitterapi.io 获取用户最近的推文（支持分页）
+    
+    参数:
+        username: Twitter 用户名
+        max_pages: 最大获取页数，每页 20 条（默认 3 页 = 60 条）
+        timeout: 请求超时时间（秒）
+    
+    API 文档: https://docs.twitterapi.io/api-reference/endpoint/get_user_last_tweets
+    - 每页固定返回 20 条推文
+    - 通过 cursor 参数进行分页
     """
+    all_tweets = []
+    cursor = ""  # 首页 cursor 为空字符串
+    page = 0
+    
     try:
         async with httpx.AsyncClient(timeout=timeout) as client:
-            response = await client.get(
-                TWITTER_API_URL,
-                params={"userName": username},
-                headers={
-                    "Content-Type": "application/json",
-                    "x-api-key": TWITTER_API_KEY
-                }
-            )
-            
-            if response.status_code == 200:
-                return response.json()
-            else:
-                print(f"[Twitter API] Failed @{username}: HTTP {response.status_code}")
-                return None
+            while page < max_pages:
+                page += 1
                 
+                # 构建请求参数
+                params = {"userName": username}
+                if cursor:  # 非首页需要传 cursor
+                    params["cursor"] = cursor
+                
+                response = await client.get(
+                    TWITTER_API_URL,
+                    params=params,
+                    headers={
+                        "Content-Type": "application/json",
+                        "x-api-key": TWITTER_API_KEY
+                    }
+                )
+                
+                if response.status_code != 200:
+                    print(f"[Twitter API] Failed @{username} page {page}: HTTP {response.status_code}")
+                    break
+                
+                data = response.json()
+                
+                if data.get("status") != "success":
+                    print(f"[Twitter API] Error @{username} page {page}: {data.get('message', 'Unknown error')}")
+                    break
+                
+                # 获取本页推文（API 直接返回 tweets，不是嵌套在 data 里）
+                page_tweets = data.get("tweets", [])
+                if not page_tweets:
+                    break
+                    
+                all_tweets.extend(page_tweets)
+                print(f"[Twitter API] @{username} page {page}: got {len(page_tweets)} tweets (total: {len(all_tweets)})")
+                
+                # 检查是否有下一页（API 直接返回，不是嵌套在 data 里）
+                has_next = data.get("has_next_page", False)
+                next_cursor = data.get("next_cursor", "")
+                
+                if not has_next or not next_cursor:
+                    break
+                    
+                cursor = next_cursor
+        
+        if all_tweets:
+            # 返回合并后的数据（保持原有格式）
+            return {
+                "status": "success",
+                "data": {
+                    "tweets": all_tweets,
+                    "has_next_page": False,  # 已获取完指定页数
+                    "next_cursor": cursor
+                }
+            }
+        return None
+                
+    except httpx.TimeoutException:
+        print(f"[Twitter API] Timeout @{username} after {timeout}s")
+        # 如果已获取部分数据，仍然返回
+        if all_tweets:
+            return {
+                "status": "success",
+                "data": {"tweets": all_tweets, "has_next_page": True, "next_cursor": cursor}
+            }
+        return None
     except Exception as e:
         print(f"[Twitter API] Error @{username}: {str(e)}")
+        if all_tweets:
+            return {
+                "status": "success", 
+                "data": {"tweets": all_tweets, "has_next_page": True, "next_cursor": cursor}
+            }
         return None
 
 
@@ -250,10 +318,11 @@ def save_twitter_data(sources_data: List[Dict[str, Any]]) -> str:
 
 # ==================== YouTube 爬虫 ====================
 
-async def get_youtube_channel_id(url: str, timeout: int = 30) -> Optional[str]:
+async def get_youtube_channel_id(url: str, timeout: int = 60) -> Optional[str]:
     """
     从 YouTube 频道 URL 获取 channel_id
     支持多种 URL 格式：@username, /c/name, /channel/ID
+    增加超时时间以适应生产环境
     """
     try:
         async with httpx.AsyncClient(timeout=timeout, follow_redirects=True) as client:
@@ -296,38 +365,47 @@ async def get_youtube_channel_id(url: str, timeout: int = 30) -> Optional[str]:
         return None
 
 
-async def fetch_youtube_rss_feed(channel_id: str, timeout: int = 30) -> Optional[str]:
+async def fetch_youtube_rss_feed(channel_id: str, timeout: int = 60) -> Optional[str]:
     """
     获取 YouTube 频道的 RSS Feed
+    增加超时时间以适应生产环境
     """
     try:
         rss_url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
         async with httpx.AsyncClient(timeout=timeout) as client:
             response = await client.get(rss_url)
             if response.status_code == 200:
+                print(f"[YouTube RSS] Success for {channel_id}: got feed content")
                 return response.text
             print(f"[YouTube RSS] Failed for {channel_id}: HTTP {response.status_code}")
             return None
+    except httpx.TimeoutException:
+        print(f"[YouTube RSS] Timeout for {channel_id} after {timeout}s")
+        return None
     except Exception as e:
         print(f"[YouTube RSS] Error for {channel_id}: {e}")
         return None
 
 
-async def fetch_youtube_channel_page(url: str, timeout: int = 60) -> Optional[Dict[str, Any]]:
+async def fetch_youtube_channel_page(url: str, timeout: int = 90) -> Optional[Dict[str, Any]]:
     """
     获取 YouTube 频道视频列表
     优先使用 RSS Feed，更可靠
+    增加超时时间以适应生产环境
     """
     try:
         # 首先获取 channel_id
-        channel_id = await get_youtube_channel_id(url, timeout=30)
+        channel_id = await get_youtube_channel_id(url, timeout=60)
         
         if channel_id:
             print(f"[YouTube] Got channel_id: {channel_id}")
             # 获取 RSS Feed
-            rss_content = await fetch_youtube_rss_feed(channel_id, timeout=30)
+            rss_content = await fetch_youtube_rss_feed(channel_id, timeout=60)
             
             if rss_content and '<entry>' in rss_content:
+                # 统计视频数量
+                video_count = rss_content.count('<entry>')
+                print(f"[YouTube] RSS success for {channel_id}: found {video_count} videos")
                 return {
                     "success": True,
                     "data": {
@@ -336,6 +414,10 @@ async def fetch_youtube_channel_page(url: str, timeout: int = 60) -> Optional[Di
                         "is_rss": True
                     }
                 }
+            else:
+                print(f"[YouTube] RSS returned but no entries found for {channel_id}")
+        else:
+            print(f"[YouTube] Could not get channel_id for {url}")
         
         # 如果 RSS 失败，尝试 FireCrawl 作为备选
         print(f"[YouTube] RSS failed, trying FireCrawl for {url}")
@@ -349,11 +431,15 @@ async def fetch_youtube_channel_page(url: str, timeout: int = 60) -> Optional[Di
             if response.status_code == 200:
                 data = response.json()
                 if data.get("success"):
+                    print(f"[FireCrawl] Success for {url}")
                     return data
             
             print(f"[FireCrawl] Failed {url}: HTTP {response.status_code}")
             return None
-                
+    
+    except httpx.TimeoutException:
+        print(f"[YouTube] Timeout for {url} after {timeout}s")
+        return None
     except Exception as e:
         print(f"[YouTube] Error {url}: {str(e)}")
         return None
