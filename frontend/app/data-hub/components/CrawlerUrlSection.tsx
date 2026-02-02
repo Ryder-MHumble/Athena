@@ -6,8 +6,9 @@ import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { 
   Link2, Globe, X, Clock, Loader2, Plus, History, Zap, FileDown, 
-  Trash2, Copy, Check, AlertCircle, PlayCircle, Twitter, Youtube, ExternalLink
+  Trash2, Copy, Check, AlertCircle, PlayCircle, Youtube, ExternalLink
 } from 'lucide-react'
+import Image from 'next/image'
 import { firecrawl, FirecrawlScrapeResponse, FirecrawlScrapeData, ScrapeHistoryItem } from '@/lib/firecrawl'
 import { detectPlatform, extractTwitterId, extractYoutubeId, exportToCSV, formatDateTime } from './utils'
 import { ContentFormat } from './types'
@@ -195,8 +196,8 @@ export function CrawlerUrlSection() {
       if (tweetId) {
         return (
           <div className="space-y-3">
-            <div className="flex items-center gap-2 text-sm text-[#1DA1F2] font-medium">
-              <Twitter className="h-5 w-5" />
+            <div className="flex items-center gap-2 text-sm text-gray-900 font-medium">
+              <img src="/X-logo.png" alt="X" className="h-5 w-5 object-contain" />
               <span>X (Twitter) 嵌入预览</span>
             </div>
             <TwitterEmbed tweetId={tweetId} />
@@ -460,7 +461,7 @@ export function CrawlerUrlSection() {
                       <div className={`w-2 h-2 rounded-full flex-shrink-0 mt-2 ${item.status === 'success' ? 'bg-green-500' : 'bg-red-500'}`} />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          {platform === 'twitter' && <Twitter className="h-4 w-4 text-[#1DA1F2]" />}
+                          {platform === 'twitter' && <img src="/X-logo.png" alt="X" className="h-4 w-4 object-contain" />}
                           {platform === 'youtube' && <Youtube className="h-4 w-4 text-red-500" />}
                           <p className="text-sm font-medium text-gray-900 truncate">{item.title}</p>
                         </div>

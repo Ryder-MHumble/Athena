@@ -5,7 +5,8 @@
  */
 
 import React from 'react'
-import { Globe, Youtube, Twitter } from 'lucide-react'
+import { Globe, Youtube } from 'lucide-react'
+import Image from 'next/image'
 import type { OverseasPlatform } from '../types'
 
 interface SidebarFilterProps {
@@ -13,10 +14,15 @@ interface SidebarFilterProps {
   onPlatformsChange: (platforms: OverseasPlatform[]) => void
 }
 
+// X Logo 组件
+const XLogoIcon = ({ className }: { className?: string }) => (
+  <img src="/X-logo.png" alt="X" className={className} />
+)
+
 const PLATFORMS = [
   { id: 'all' as OverseasPlatform, label: '全部', icon: Globe },
   { id: 'youtube' as OverseasPlatform, label: 'YouTube', icon: Youtube },
-  { id: 'twitter' as OverseasPlatform, label: 'X (Twitter)', icon: Twitter },
+  { id: 'twitter' as OverseasPlatform, label: 'X (Twitter)', icon: XLogoIcon },
 ]
 
 export function SidebarFilter({

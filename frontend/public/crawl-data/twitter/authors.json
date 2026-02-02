@@ -1,13 +1,13 @@
 {
   "platform": "twitter",
-  "updated_at": "2026-02-02T11:36:01.762254",
-  "total_count": 33,
+  "updated_at": "2026-02-02T13:22:31.166782",
+  "total_count": 35,
   "authors": [
     {
       "username": "elonmusk",
       "name": "Elon Musk",
       "avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
-      "followers": 233653090,
+      "followers": 233657776,
       "verified": true,
       "platform": "twitter"
     },
@@ -15,7 +15,7 @@
       "username": "karpathy",
       "name": "Andrej Karpathy",
       "avatar": "https://pbs.twimg.com/profile_images/1296667294148382721/9Pr6XrPB_normal.jpg",
-      "followers": 1710466,
+      "followers": 1711182,
       "verified": true,
       "platform": "twitter"
     },
@@ -23,7 +23,7 @@
       "username": "AndrewYNg",
       "name": "Andrew Ng",
       "avatar": "https://pbs.twimg.com/profile_images/733174243714682880/oyG30NEH_normal.jpg",
-      "followers": 1347329,
+      "followers": 1347407,
       "verified": true,
       "platform": "twitter"
     },
@@ -31,7 +31,7 @@
       "username": "gdb",
       "name": "Greg Brockman",
       "avatar": "https://pbs.twimg.com/profile_images/1347621377503711233/bHg3ipfD_normal.jpg",
-      "followers": 902212,
+      "followers": 902231,
       "verified": true,
       "platform": "twitter"
     },
@@ -39,7 +39,7 @@
       "username": "demishassabis",
       "name": "Demis Hassabis",
       "avatar": "https://pbs.twimg.com/profile_images/1990472620614053888/xrAu0wQL_normal.jpg",
-      "followers": 616289,
+      "followers": 616453,
       "verified": true,
       "platform": "twitter"
     },
@@ -47,7 +47,7 @@
       "username": "fchollet",
       "name": "François Chollet",
       "avatar": "https://pbs.twimg.com/profile_images/2006806326140350470/Kd5oZv-f_normal.jpg",
-      "followers": 601149,
+      "followers": 601187,
       "verified": true,
       "platform": "twitter"
     },
@@ -55,7 +55,7 @@
       "username": "ilyasut",
       "name": "Ilya Sutskever",
       "avatar": "https://pbs.twimg.com/profile_images/1961115716889030656/We74zmE-_normal.jpg",
-      "followers": 583336,
+      "followers": 583368,
       "verified": true,
       "platform": "twitter"
     },
@@ -63,7 +63,7 @@
       "username": "drfeifei",
       "name": "Fei-Fei Li",
       "avatar": "https://pbs.twimg.com/profile_images/841385099799085056/R1iX4QGX_normal.jpg",
-      "followers": 550288,
+      "followers": 550320,
       "verified": true,
       "platform": "twitter"
     },
@@ -71,7 +71,7 @@
       "username": "geoffreyhinton",
       "name": "Geoffrey Hinton",
       "avatar": "https://pbs.twimg.com/profile_images/1084213316963057664/fQGCUSt0_normal.jpg",
-      "followers": 544090,
+      "followers": 544130,
       "verified": true,
       "platform": "twitter"
     },
@@ -79,7 +79,7 @@
       "username": "JeffDean",
       "name": "Jeff Dean",
       "avatar": "https://pbs.twimg.com/profile_images/935325968280907776/AcBo6zJc_normal.jpg",
-      "followers": 407163,
+      "followers": 407185,
       "verified": true,
       "platform": "twitter"
     },
@@ -87,7 +87,7 @@
       "username": "rasbt",
       "name": "Sebastian Raschka",
       "avatar": "https://pbs.twimg.com/profile_images/1661187442043486209/a3E4t1eV_normal.jpg",
-      "followers": 386225,
+      "followers": 386305,
       "verified": true,
       "platform": "twitter"
     },
@@ -95,7 +95,7 @@
       "username": "lennysan",
       "name": "Lenny Rachitsky",
       "avatar": "https://pbs.twimg.com/profile_images/1592990461517389824/iln8hi1f_normal.jpg",
-      "followers": 296504,
+      "followers": 296549,
       "verified": true,
       "platform": "twitter"
     },
@@ -103,7 +103,7 @@
       "username": "soumithchintala",
       "name": "Soumith Chintala",
       "avatar": "https://pbs.twimg.com/profile_images/959995586689691648/DAFep10r_normal.jpg",
-      "followers": 278617,
+      "followers": 278618,
       "verified": true,
       "platform": "twitter"
     },
@@ -111,7 +111,7 @@
       "username": "mustafasuleyman",
       "name": "Mustafa Suleyman",
       "avatar": "https://pbs.twimg.com/profile_images/1927407622602276864/c_5uOZij_normal.jpg",
-      "followers": 213610,
+      "followers": 213723,
       "verified": true,
       "platform": "twitter"
     },
@@ -119,7 +119,7 @@
       "username": "OriolVinyalsML",
       "name": "Oriol Vinyals",
       "avatar": "https://pbs.twimg.com/profile_images/677499217993007104/Uartsv8s_normal.jpg",
-      "followers": 195286,
+      "followers": 195293,
       "verified": true,
       "platform": "twitter"
     },
@@ -127,7 +127,7 @@
       "username": "DarioAmodei",
       "name": "Dario Amodei",
       "avatar": "https://pbs.twimg.com/profile_images/2015835742577012736/uOwdzrEz_normal.jpg",
-      "followers": 148839,
+      "followers": 148898,
       "verified": true,
       "platform": "twitter"
     },
@@ -135,7 +135,7 @@
       "username": "woj_zaremba",
       "name": "Wojciech Zaremba",
       "avatar": "https://pbs.twimg.com/profile_images/1458585929455525890/vVovOt1S_normal.jpg",
-      "followers": 131309,
+      "followers": 131323,
       "verified": true,
       "platform": "twitter"
     },
@@ -143,7 +143,7 @@
       "username": "thinkymachines",
       "name": "Thinking Machines",
       "avatar": "https://pbs.twimg.com/profile_images/1891614400328630273/U6tsxu60_normal.jpg",
-      "followers": 112143,
+      "followers": 112141,
       "verified": true,
       "platform": "twitter"
     },
@@ -151,7 +151,7 @@
       "username": "jackclarkSF",
       "name": "Jack Clark",
       "avatar": "https://pbs.twimg.com/profile_images/726446881547517952/ULhSTKxN_normal.jpg",
-      "followers": 107259,
+      "followers": 107268,
       "verified": true,
       "platform": "twitter"
     },
@@ -159,7 +159,7 @@
       "username": "zephyr_z9",
       "name": "Zephyr",
       "avatar": "https://pbs.twimg.com/profile_images/1837802996723597312/Jk4w7gjp_normal.jpg",
-      "followers": 105542,
+      "followers": 105566,
       "verified": true,
       "platform": "twitter"
     },
@@ -167,7 +167,7 @@
       "username": "_jasonwei",
       "name": "Jason Wei",
       "avatar": "https://pbs.twimg.com/profile_images/1812243833205239808/hZnX6Q-a_normal.jpg",
-      "followers": 103337,
+      "followers": 103341,
       "verified": true,
       "platform": "twitter"
     },
@@ -175,7 +175,7 @@
       "username": "Kimi_Moonshot",
       "name": "Kimi.ai",
       "avatar": "https://pbs.twimg.com/profile_images/1910294000927645696/QseOV0uF_normal.png",
-      "followers": 99924,
+      "followers": 99972,
       "verified": true,
       "platform": "twitter"
     },
@@ -183,7 +183,7 @@
       "username": "pabbeel",
       "name": "Pieter Abbeel",
       "avatar": "https://pbs.twimg.com/profile_images/1305267627/61089_706033241563_202809_38806847_7322449_n_normal.jpg",
-      "followers": 95375,
+      "followers": 95381,
       "verified": true,
       "platform": "twitter"
     },
@@ -191,7 +191,7 @@
       "username": "dair_ai",
       "name": "DAIR.AI",
       "avatar": "https://pbs.twimg.com/profile_images/1643277398522187778/31dedbLo_normal.jpg",
-      "followers": 87863,
+      "followers": 87880,
       "verified": true,
       "platform": "twitter"
     },
@@ -199,7 +199,7 @@
       "username": "johnschulman2",
       "name": "John Schulman",
       "avatar": "https://pbs.twimg.com/profile_images/1389000537195040770/DzWPljT-_normal.jpg",
-      "followers": 72486,
+      "followers": 72487,
       "verified": true,
       "platform": "twitter"
     },
@@ -207,7 +207,7 @@
       "username": "SebastienBubeck",
       "name": "Sebastien Bubeck",
       "avatar": "https://pbs.twimg.com/profile_images/1709609135321583616/6bXuF85D_normal.jpg",
-      "followers": 64355,
+      "followers": 64359,
       "verified": true,
       "platform": "twitter"
     },
@@ -215,15 +215,23 @@
       "username": "indigox",
       "name": "indigo",
       "avatar": "https://pbs.twimg.com/profile_images/1521250220067098624/ZhlFfRWZ_normal.png",
-      "followers": 48634,
+      "followers": 48637,
       "verified": true,
+      "platform": "twitter"
+    },
+    {
+      "username": "MiniMax_AI",
+      "name": "MiniMax (official)",
+      "avatar": "https://pbs.twimg.com/profile_images/1875100548535574529/VxHk9HyU_normal.jpg",
+      "followers": 40786,
+      "verified": false,
       "platform": "twitter"
     },
     {
       "username": "EpochAIResearch",
       "name": "Epoch AI",
       "avatar": "https://pbs.twimg.com/profile_images/1866142753127616512/DYcE9bN1_normal.jpg",
-      "followers": 34954,
+      "followers": 34952,
       "verified": true,
       "platform": "twitter"
     },
@@ -231,7 +239,7 @@
       "username": "aidangomez",
       "name": "Aidan Gomez",
       "avatar": "https://pbs.twimg.com/profile_images/1888310001409650688/LV7GSIIT_normal.jpg",
-      "followers": 33709,
+      "followers": 33711,
       "verified": true,
       "platform": "twitter"
     },
@@ -239,8 +247,16 @@
       "username": "Yoshua_Bengio",
       "name": "Yoshua Bengio",
       "avatar": "https://pbs.twimg.com/profile_images/1831403866228670464/ervekqfd_normal.jpg",
-      "followers": 33571,
+      "followers": 33574,
       "verified": true,
+      "platform": "twitter"
+    },
+    {
+      "username": "geminicli",
+      "name": "Gemini CLI",
+      "avatar": "https://pbs.twimg.com/profile_images/1991894070155698176/oWexB4k7_normal.png",
+      "followers": 32852,
+      "verified": false,
       "platform": "twitter"
     },
     {
@@ -255,7 +271,7 @@
       "username": "Khazix0918",
       "name": "数字生命卡兹克",
       "avatar": "https://pbs.twimg.com/profile_images/1756592360367259648/GXJ4Kl6w_normal.jpg",
-      "followers": 18718,
+      "followers": 18726,
       "verified": true,
       "platform": "twitter"
     },
@@ -263,7 +279,7 @@
       "username": "heynavtoor",
       "name": "Nav Toor",
       "avatar": "https://pbs.twimg.com/profile_images/2017556052938788865/3E6CcSFP_normal.jpg",
-      "followers": 1669,
+      "followers": 1702,
       "verified": true,
       "platform": "twitter"
     }

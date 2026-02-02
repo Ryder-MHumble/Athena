@@ -10,16 +10,22 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { 
   Search, X, Filter, ArrowUpDown, Check, Calendar, User, 
-  Globe, Youtube, Twitter 
+  Globe, Youtube 
 } from 'lucide-react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { SORT_OPTIONS } from '../constants'
 import type { OverseasPlatform, SortOrder } from '../types'
 import type { SourceAccount, DateRange, FilterPanelProps } from './types'
 
+// X Logo 组件
+const XLogoIcon = ({ className }: { className?: string }) => (
+  <img src="/X-logo.png" alt="X" className={className} />
+)
+
 // 平台配置
 const PLATFORM_OPTIONS = [
-  { id: 'twitter' as const, label: 'X (Twitter)', icon: Twitter, color: 'bg-black' },
+  { id: 'twitter' as const, label: 'X (Twitter)', icon: XLogoIcon, color: 'bg-black' },
   { id: 'youtube' as const, label: 'YouTube', icon: Youtube, color: 'bg-red-600' },
 ]
 
@@ -376,7 +382,7 @@ export function UnifiedFilterPanel({
                           ) : (
                             <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center">
                               {account.platform === 'twitter' ? (
-                                <Twitter className="h-4 w-4 text-gray-400" />
+                                <img src="/X-logo.png" alt="X" className="h-4 w-4 object-contain" />
                               ) : (
                                 <Youtube className="h-4 w-4 text-red-500" />
                               )}
@@ -404,7 +410,7 @@ export function UnifiedFilterPanel({
                           </div>
                           <div className="flex items-center gap-1.5 mt-0.5">
                             {account.platform === 'twitter' ? (
-                              <Twitter className="h-3 w-3 text-gray-400" />
+                              <img src="/X-logo.png" alt="X" className="h-3 w-3 object-contain" />
                             ) : (
                               <Youtube className="h-3 w-3 text-red-400" />
                             )}

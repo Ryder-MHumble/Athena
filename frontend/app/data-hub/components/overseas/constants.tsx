@@ -2,7 +2,7 @@
  * 海外信源相关常量配置
  */
 
-import { Globe, Youtube, Twitter } from 'lucide-react'
+import { Globe, Youtube } from 'lucide-react'
 import type { PlatformConfig, SortOption } from './types'
 
 // API 基础地址
@@ -14,11 +14,17 @@ export const CARD_MAX_HEIGHT = 320
 // 文本最大行数
 export const TEXT_MAX_LINES = 6
 
+// X Logo 组件
+const XLogoIcon = ({ className }: { className?: string }) => {
+  // 使用 img 标签来显示 X logo
+  return <img src="/X-logo.png" alt="X" className={className} />
+}
+
 // 平台配置
 export const PLATFORMS: PlatformConfig[] = [
   { id: 'all', label: '全部', icon: Globe, color: 'bg-gray-500' },
   { id: 'youtube', label: 'YouTube', icon: Youtube, color: 'bg-red-600' },
-  { id: 'twitter', label: 'X (Twitter)', icon: Twitter, color: 'bg-black' },
+  { id: 'twitter', label: 'X (Twitter)', icon: XLogoIcon, color: 'bg-black' },
 ]
 
 // 排序选项

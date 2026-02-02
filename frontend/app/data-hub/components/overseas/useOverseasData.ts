@@ -125,6 +125,10 @@ export function useOverseasData(): UseOverseasDataReturn {
           if (data.success && data.data?.items) {
             fetchedItems.push(...data.data.items)
           }
+          // 从 API 响应中获取作者信息（解决线上环境无法访问静态文件的问题）
+          if (data.authors && data.authors.length > 0) {
+            setTwitterAuthors(data.authors)
+          }
         }
       } catch {
         try {
@@ -134,20 +138,19 @@ export function useOverseasData(): UseOverseasDataReturn {
             if (data?.items) fetchedItems.push(...data.items)
           }
         } catch {}
-      }
-      
-      // 加载 Twitter 作者信息
-      try {
-        const authorsRes = await fetch('/crawl-data/twitter/authors.json')
-        if (authorsRes.ok) {
-          const data = await authorsRes.json()
-          if (data?.authors) {
-            setTwitterAuthors(data.authors)
+        
+        // 仅在 API 失败时尝试从静态文件加载作者信息（本地开发备用）
+        try {
+          const authorsRes = await fetch('/crawl-data/twitter/authors.json')
+          if (authorsRes.ok) {
+            const authorsData = await authorsRes.json()
+            if (authorsData?.authors) {
+              setTwitterAuthors(authorsData.authors)
+            }
           }
+        } catch {
+          console.log('authors.json not found, will extract from items')
         }
-      } catch {
-        // 如果 authors.json 不存在，尝试从 items 中提取
-        console.log('authors.json not found, will extract from items')
       }
       
       // YouTube 数据

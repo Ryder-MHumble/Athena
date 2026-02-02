@@ -1,7 +1,7 @@
 {
   "platform": "youtube",
-  "scraped_at": "2026-02-02T11:37:07.262886",
-  "total_count": 165,
+  "scraped_at": "2026-02-02T13:19:56.019680",
+  "total_count": 257,
   "sources": [
     {
       "name": "a16z",
@@ -11,7 +11,7 @@
     {
       "name": "Axios",
       "channel_name": "Axios",
-      "count": 15
+      "count": 28
     },
     {
       "name": "DeepMind",
@@ -30,13 +30,13 @@
     },
     {
       "name": "Peter Diamandis",
-      "channel_name": "Peter Diamandis",
-      "count": 15
+      "channel_name": "Peter H. Diamandis",
+      "count": 28
     },
     {
       "name": "The Diary of a CEO with Steven Bartlett",
-      "channel_name": "The Diary of a CEO with Steven Bartlett",
-      "count": 15
+      "channel_name": "The Diary Of A CEO",
+      "count": 28
     },
     {
       "name": "The Robot Brains Podcast",
@@ -46,7 +46,7 @@
     {
       "name": "Y Combinator",
       "channel_name": "Y Combinator",
-      "count": 15
+      "count": 55
     },
     {
       "name": "No Priors: AI, Machine Learning, Tech, & Startups",
@@ -61,7 +61,7 @@
     {
       "name": "Hard Fork",
       "channel_name": "Hard Fork",
-      "count": 15
+      "count": 28
     }
   ],
   "items": [
@@ -73,7 +73,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/6HxT4nQmtvc/hqdefault.jpg",
       "published_at": "2026-01-26T16:49:43+00:00",
-      "scraped_at": "2026-02-02T11:36:06.233366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "ZqvgAzFKMgk",
@@ -83,7 +83,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/ZqvgAzFKMgk/hqdefault.jpg",
       "published_at": "2026-01-24T20:00:00+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "0F4RpMEhk60",
@@ -93,7 +93,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/0F4RpMEhk60/hqdefault.jpg",
       "published_at": "2026-01-20T21:23:25+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "3XVDtPU8xKE",
@@ -103,7 +103,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/3XVDtPU8xKE/hqdefault.jpg",
       "published_at": "2026-01-19T16:17:51+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "N_YIAomr35A",
@@ -113,7 +113,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/N_YIAomr35A/hqdefault.jpg",
       "published_at": "2026-01-17T20:00:00+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "D7sJc8kJC9s",
@@ -123,7 +123,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/D7sJc8kJC9s/hqdefault.jpg",
       "published_at": "2026-01-16T20:00:09+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "Kdql4I-NJ0M",
@@ -133,7 +133,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/Kdql4I-NJ0M/hqdefault.jpg",
       "published_at": "2026-01-15T17:39:20+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "M9VKnPMs6Rw",
@@ -143,7 +143,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/M9VKnPMs6Rw/hqdefault.jpg",
       "published_at": "2026-01-13T17:15:28+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "r8_2CSpcmls",
@@ -153,7 +153,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/r8_2CSpcmls/hqdefault.jpg",
       "published_at": "2026-01-13T14:01:38+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "xRh2sVcNXQ8",
@@ -163,7 +163,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/xRh2sVcNXQ8/hqdefault.jpg",
       "published_at": "2026-01-07T16:23:46+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "J6_nNjy3al8",
@@ -173,7 +173,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/J6_nNjy3al8/hqdefault.jpg",
       "published_at": "2025-12-31T14:00:34+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "p4-7x6QiYr0",
@@ -183,7 +183,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/p4-7x6QiYr0/hqdefault.jpg",
       "published_at": "2025-12-29T13:58:10+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "tnNKfn6k-Fs",
@@ -193,7 +193,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/tnNKfn6k-Fs/hqdefault.jpg",
       "published_at": "2025-12-28T20:00:40+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "j_FYmEOoWIU",
@@ -203,7 +203,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/j_FYmEOoWIU/hqdefault.jpg",
       "published_at": "2025-12-27T20:00:27+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "BkJyVjq457w",
@@ -213,47 +213,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/BkJyVjq457w/hqdefault.jpg",
       "published_at": "2025-12-26T17:00:52+00:00",
-      "scraped_at": "2026-02-02T11:36:06.234366"
-    },
-    {
-      "id": "INWKYT5PROc",
-      "title": "Matt Damon: Two billion people wake up without water.",
-      "url": "https://www.youtube.com/watch?v=INWKYT5PROc",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/INWKYT5PROc/hqdefault.jpg",
-      "published_at": "2026-01-30T23:21:12+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
-    },
-    {
-      "id": "fILfSL7rhq0",
-      "title": "Ambassador Guilfoyle: Americans spent over $2 BILLION in Greece last year.",
-      "url": "https://www.youtube.com/watch?v=fILfSL7rhq0",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/fILfSL7rhq0/hqdefault.jpg",
-      "published_at": "2026-01-30T22:16:44+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
-    },
-    {
-      "id": "g_tok0lrIRE",
-      "title": "Ray Dalio: Win the tech war. Win the world.",
-      "url": "https://www.youtube.com/watch?v=g_tok0lrIRE",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/g_tok0lrIRE/hqdefault.jpg",
-      "published_at": "2026-01-28T19:37:47+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
-    },
-    {
-      "id": "qyQcICFKb1c",
-      "title": "Axios CEO Jim VandeHei’s blunt warning about AI",
-      "url": "https://www.youtube.com/watch?v=qyQcICFKb1c",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/qyQcICFKb1c/hqdefault.jpg",
-      "published_at": "2026-01-28T13:38:54+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:15:54.180568"
     },
     {
       "id": "VoMF8JSmI5s",
@@ -262,8 +222,7 @@
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/VoMF8JSmI5s/hqdefault.jpg",
-      "published_at": "2026-01-27T16:18:55+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "zeduU9BWHD0",
@@ -272,38 +231,34 @@
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/zeduU9BWHD0/hqdefault.jpg",
-      "published_at": "2026-01-27T10:09:29+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "ZeiwCS0CfWg",
-      "title": "A big picture conversation with Courtenay Brown &amp; Akash Palkhiwala",
+      "title": "A big picture conversation with Courtenay Brown & Akash Palkhiwala",
       "url": "https://www.youtube.com/watch?v=ZeiwCS0CfWg",
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/ZeiwCS0CfWg/hqdefault.jpg",
-      "published_at": "2026-01-26T20:21:53+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "ENtGQnA-Vkw",
-      "title": "A big picture conversation with Jim VandeHei &amp; Nakul Duggal",
+      "title": "A big picture conversation with Jim VandeHei & Nakul Duggal",
       "url": "https://www.youtube.com/watch?v=ENtGQnA-Vkw",
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/ENtGQnA-Vkw/hqdefault.jpg",
-      "published_at": "2026-01-26T20:21:42+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "fWkEMe69Jec",
-      "title": "A big picture conversation with Eleanor Hawkins &amp; Don McGuire",
+      "title": "A big picture conversation with Eleanor Hawkins & Don McGuire",
       "url": "https://www.youtube.com/watch?v=fWkEMe69Jec",
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/fWkEMe69Jec/hqdefault.jpg",
-      "published_at": "2026-01-26T20:21:27+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "S9cfcpzJ_Ck",
@@ -312,8 +267,7 @@
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/S9cfcpzJ_Ck/hqdefault.jpg",
-      "published_at": "2026-01-26T10:02:16+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "TIocCFA2ohY",
@@ -322,8 +276,7 @@
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/TIocCFA2ohY/hqdefault.jpg",
-      "published_at": "2026-01-22T18:23:21+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "A7j5NeyhdWU",
@@ -332,38 +285,187 @@
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/A7j5NeyhdWU/hqdefault.jpg",
-      "published_at": "2026-01-22T17:55:42+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "GqYPziDK-gc",
-      "title": "CoreWeave’s Mike Intrator &amp; Axios’ Ina Fried",
+      "title": "CoreWeave’s Mike Intrator & Axios’ Ina Fried",
       "url": "https://www.youtube.com/watch?v=GqYPziDK-gc",
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/GqYPziDK-gc/hqdefault.jpg",
-      "published_at": "2026-01-22T17:29:44+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "h5sPgxOFNQg",
-      "title": "Centers for Medicare and Medicaid Services’ Mehmet Öz &amp; Axios’ Mike Allen",
+      "title": "Centers for Medicare and Medicaid Services’ Mehmet Öz & Axios’ Mike Allen",
       "url": "https://www.youtube.com/watch?v=h5sPgxOFNQg",
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/h5sPgxOFNQg/hqdefault.jpg",
-      "published_at": "2026-01-22T15:41:33+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "xbQCZCca-28",
-      "title": "Bank of America’s Brian Moynihan &amp; Axios’ Courtenay Brown and Mike Allen",
+      "title": "Bank of America’s Brian Moynihan & Axios’ Courtenay Brown and Mike Allen",
       "url": "https://www.youtube.com/watch?v=xbQCZCca-28",
       "platform": "youtube",
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/xbQCZCca-28/hqdefault.jpg",
-      "published_at": "2026-01-22T11:36:57+00:00",
-      "scraped_at": "2026-02-02T11:36:09.275026"
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "iIOuzEb_2kE",
+      "title": "Mistral AI’s Arthur Mensch & Axios’ Ina Fried",
+      "url": "https://www.youtube.com/watch?v=iIOuzEb_2kE",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/iIOuzEb_2kE/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "Kesfwk_0QAA",
+      "title": "View from the Top with KPMG U.S.",
+      "url": "https://www.youtube.com/watch?v=Kesfwk_0QAA",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/Kesfwk_0QAA/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "0nElm6Vzw_k",
+      "title": "The Conservation Fund’s Larry Selzer, The Nature Conservancy’s Jen Morris, and Axios’ Amy Harder",
+      "url": "https://www.youtube.com/watch?v=0nElm6Vzw_k",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/0nElm6Vzw_k/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "cCk-27JVBhI",
+      "title": "View from the Top with Cox Enterprises",
+      "url": "https://www.youtube.com/watch?v=cCk-27JVBhI",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/cCk-27JVBhI/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "2uRw9IaUAF0",
+      "title": "Colossal’s Ben Lamm & Axios’ Amy Harder",
+      "url": "https://www.youtube.com/watch?v=2uRw9IaUAF0",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/2uRw9IaUAF0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "kyt6vZ3tdK4",
+      "title": "Energy Impact Partners’ Hans Kobler & Axios’ Amy Harder",
+      "url": "https://www.youtube.com/watch?v=kyt6vZ3tdK4",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/kyt6vZ3tdK4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "IIkLx961vjQ",
+      "title": "View from the Top with ADP",
+      "url": "https://www.youtube.com/watch?v=IIkLx961vjQ",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/IIkLx961vjQ/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "jRvr_ln4a3w",
+      "title": "Stanford’s Erik Brynjolfsson & Axios’ Ina Fried",
+      "url": "https://www.youtube.com/watch?v=jRvr_ln4a3w",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/jRvr_ln4a3w/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "uiSxJqjzLCw",
+      "title": "View from the Top with ADP",
+      "url": "https://www.youtube.com/watch?v=uiSxJqjzLCw",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/uiSxJqjzLCw/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "th8u-1dNMdk",
+      "title": "Accenture’s Julie Sweet & Axios’ Mike Allen",
+      "url": "https://www.youtube.com/watch?v=th8u-1dNMdk",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/th8u-1dNMdk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "xGE-EhI6VzQ",
+      "title": "View from the Top with Tourise",
+      "url": "https://www.youtube.com/watch?v=xGE-EhI6VzQ",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/xGE-EhI6VzQ/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "_JaQzNGS0Vo",
+      "title": "U.S. Ambassador to Greece Kimberly Guilfoyle & Axios’ Amy Harder",
+      "url": "https://www.youtube.com/watch?v=_JaQzNGS0Vo",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/_JaQzNGS0Vo/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "CI3CEmhFZgU",
+      "title": "Port of Long Beach’s Dr. Noel Hacegaba & Axios’ Dave Lawler",
+      "url": "https://www.youtube.com/watch?v=CI3CEmhFZgU",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/CI3CEmhFZgU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "xyjrbtK4EKE",
+      "title": "IBM’s Gary Cohn & Axios’ Courtenay Brown",
+      "url": "https://www.youtube.com/watch?v=xyjrbtK4EKE",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/xyjrbtK4EKE/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "cJQCVOc9pi0",
+      "title": "Amb. Jamieson Greer & Axios’ Courtenay Brown",
+      "url": "https://www.youtube.com/watch?v=cJQCVOc9pi0",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/cJQCVOc9pi0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "brLKXdHeE9A",
+      "title": "TIAA’s Thasunda Brown Duckett & Axios’ Courtenay Brown",
+      "url": "https://www.youtube.com/watch?v=brLKXdHeE9A",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/brLKXdHeE9A/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
+    },
+    {
+      "id": "Mz4eMgBS0dI",
+      "title": "Google DeepMind’s Demis Hassabis & Axios’ Ina Fried",
+      "url": "https://www.youtube.com/watch?v=Mz4eMgBS0dI",
+      "platform": "youtube",
+      "source_name": "Axios",
+      "thumbnail": "https://i.ytimg.com/vi/Mz4eMgBS0dI/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:16:38.370163"
     },
     {
       "id": "dO0csRgxo_A",
@@ -373,7 +475,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/dO0csRgxo_A/hqdefault.jpg",
       "published_at": "2026-01-29T16:56:03+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "cULEAl2wDxw",
@@ -383,7 +485,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/cULEAl2wDxw/hqdefault.jpg",
       "published_at": "2026-01-29T16:55:59+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "s40a06a5wIc",
@@ -393,7 +495,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/s40a06a5wIc/hqdefault.jpg",
       "published_at": "2026-01-29T16:55:56+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "YxkGdX4WIBE",
@@ -403,7 +505,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/YxkGdX4WIBE/hqdefault.jpg",
       "published_at": "2026-01-29T16:55:50+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "V8lhUqKqzUc",
@@ -413,7 +515,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/V8lhUqKqzUc/hqdefault.jpg",
       "published_at": "2026-01-28T12:00:29+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "eCk5VFKKz08",
@@ -423,7 +525,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/eCk5VFKKz08/hqdefault.jpg",
       "published_at": "2026-01-26T18:00:10+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "60_WPBkuqyA",
@@ -433,7 +535,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/60_WPBkuqyA/hqdefault.jpg",
       "published_at": "2026-01-26T18:00:04+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "z4x9fkbe8SI",
@@ -443,7 +545,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/z4x9fkbe8SI/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:34+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "1nd0CbaJD3E",
@@ -453,7 +555,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/1nd0CbaJD3E/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:29+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "bY_RarpUdUw",
@@ -463,7 +565,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/bY_RarpUdUw/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:25+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "XHhCZOk2WvY",
@@ -473,7 +575,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/XHhCZOk2WvY/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:21+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "DNPLK-MvoSg",
@@ -483,7 +585,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/DNPLK-MvoSg/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:15+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "DfaRahn_dwo",
@@ -493,7 +595,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/DfaRahn_dwo/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:10+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "ZtMEe3W0aP0",
@@ -503,7 +605,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/ZtMEe3W0aP0/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:03+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "f0TL0GG_lo8",
@@ -513,7 +615,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/f0TL0GG_lo8/hqdefault.jpg",
       "published_at": "2025-12-17T15:59:50+00:00",
-      "scraped_at": "2026-02-02T11:36:11.498987"
+      "scraped_at": "2026-02-02T13:16:40.981280"
     },
     {
       "id": "qmX-mGqaCz8",
@@ -523,7 +625,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/qmX-mGqaCz8/hqdefault.jpg",
       "published_at": "2026-01-31T21:06:08+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "8zhjmdx9THE",
@@ -533,7 +635,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/8zhjmdx9THE/hqdefault.jpg",
       "published_at": "2026-01-30T21:12:10+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "O5-sEbJU87c",
@@ -543,7 +645,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/O5-sEbJU87c/hqdefault.jpg",
       "published_at": "2026-01-29T17:30:35+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "dK1AJ48vJoE",
@@ -553,7 +655,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/dK1AJ48vJoE/hqdefault.jpg",
       "published_at": "2026-01-28T16:57:32+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "1U9Fc6Ri3XM",
@@ -563,7 +665,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/1U9Fc6Ri3XM/hqdefault.jpg",
       "published_at": "2026-01-27T20:11:06+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "s_G2hI0dkf0",
@@ -573,7 +675,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/s_G2hI0dkf0/hqdefault.jpg",
       "published_at": "2026-01-26T19:00:04+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "MBNisUMFNiE",
@@ -583,7 +685,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/MBNisUMFNiE/hqdefault.jpg",
       "published_at": "2026-01-25T16:10:50+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "DnQLKbNqYow",
@@ -593,7 +695,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/DnQLKbNqYow/hqdefault.jpg",
       "published_at": "2026-01-23T20:59:13+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "VQMHil4Dm0c",
@@ -603,7 +705,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/VQMHil4Dm0c/hqdefault.jpg",
       "published_at": "2026-01-22T20:08:09+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "fCgIqEdnXW4",
@@ -613,7 +715,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/fCgIqEdnXW4/hqdefault.jpg",
       "published_at": "2026-01-21T18:48:04+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "UoCbLFBBbHY",
@@ -623,7 +725,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/UoCbLFBBbHY/hqdefault.jpg",
       "published_at": "2026-01-20T18:14:46+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "zy-aEa8JFg0",
@@ -633,7 +735,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/zy-aEa8JFg0/hqdefault.jpg",
       "published_at": "2026-01-18T21:30:21+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "N14O_UZ8hyU",
@@ -643,7 +745,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/N14O_UZ8hyU/hqdefault.jpg",
       "published_at": "2026-01-17T22:41:24+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "FdI8iya1-cU",
@@ -653,7 +755,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/FdI8iya1-cU/hqdefault.jpg",
       "published_at": "2026-01-16T21:44:07+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "Rersh9Xro3M",
@@ -663,17 +765,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/Rersh9Xro3M/hqdefault.jpg",
       "published_at": "2026-01-15T17:54:07+00:00",
-      "scraped_at": "2026-02-02T11:36:14.974718"
-    },
-    {
-      "id": "QgpJN4FAdO0",
-      "title": "Bitcoin Will Replace Gold and AI Doubles GDP Growth W/ Cathie Wood | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=QgpJN4FAdO0",
-      "platform": "youtube",
-      "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/QgpJN4FAdO0/hqdefault.jpg",
-      "published_at": "2026-01-31T15:04:58+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "scraped_at": "2026-02-02T13:16:43.523750"
     },
     {
       "id": "VoW13oUTTV0",
@@ -682,18 +774,7 @@
       "platform": "youtube",
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/VoW13oUTTV0/hqdefault.jpg",
-      "published_at": "2026-01-29T16:45:15+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
-    },
-    {
-      "id": "Hr0wf-ACQnI",
-      "title": "Davos 2026: The US-China AI Race, GPU Diplomacy, and Robots Walking the Streets | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=Hr0wf-ACQnI",
-      "platform": "youtube",
-      "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/Hr0wf-ACQnI/hqdefault.jpg",
-      "published_at": "2026-01-29T15:15:33+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
       "id": "hGRiklWYMas",
@@ -702,8 +783,7 @@
       "platform": "youtube",
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/hGRiklWYMas/hqdefault.jpg",
-      "published_at": "2026-01-27T21:00:58+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
       "id": "DTgrzlQtOd0",
@@ -712,18 +792,7 @@
       "platform": "youtube",
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/DTgrzlQtOd0/hqdefault.jpg",
-      "published_at": "2026-01-22T21:00:25+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
-    },
-    {
-      "id": "KnuRvvhDVIw",
-      "title": "Ray Kurzweil: Singularity, Humans Merge with AI, Intelligence 1000x | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=KnuRvvhDVIw",
-      "platform": "youtube",
-      "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/KnuRvvhDVIw/hqdefault.jpg",
-      "published_at": "2026-01-21T15:08:56+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
       "id": "8iWSNwIRazc",
@@ -732,138 +801,223 @@
       "platform": "youtube",
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/8iWSNwIRazc/hqdefault.jpg",
-      "published_at": "2026-01-20T17:37:16+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "TLOKcFMaCrQ",
-      "title": "The Blueprint for Thriving in the AI Era | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=TLOKcFMaCrQ",
+      "id": "mAtmWhYQvnI",
+      "title": "Tony Robbins Takes AI's Hardest Questions: Job Loss, Purpose, and The Hard Times Ahead | 222",
+      "url": "https://www.youtube.com/watch?v=mAtmWhYQvnI",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/TLOKcFMaCrQ/hqdefault.jpg",
-      "published_at": "2026-01-19T15:05:28+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "thumbnail": "https://i.ytimg.com/vi/mAtmWhYQvnI/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "0RLZ2BGyFOY",
-      "title": "AI Sentience or Simulation? | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=0RLZ2BGyFOY",
+      "id": "2WTFuSeYJ6o",
+      "title": "The 2026 Timeline: AGI Arrival, Safety Concerns, Robotaxi Fleets & Hyperscaler Timelines | 221",
+      "url": "https://www.youtube.com/watch?v=2WTFuSeYJ6o",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/0RLZ2BGyFOY/hqdefault.jpg",
-      "published_at": "2026-01-18T21:02:56+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "thumbnail": "https://i.ytimg.com/vi/2WTFuSeYJ6o/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "S866IPnh6Es",
-      "title": "Tony Robbins: &quot;I Don't Buy That There'll Be No Work for Humans&quot; | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=S866IPnh6Es",
+      "id": "RSNuB9pj9P8",
+      "title": "Elon Musk on AGI Timeline, US vs China, Job Markets, Clean Energy & Humanoid Robots | 220",
+      "url": "https://www.youtube.com/watch?v=RSNuB9pj9P8",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/S866IPnh6Es/hqdefault.jpg",
-      "published_at": "2026-01-18T14:31:31+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "thumbnail": "https://i.ytimg.com/vi/RSNuB9pj9P8/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "tw89-ADGUgQ",
-      "title": "The 2026 Singularity | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=tw89-ADGUgQ",
+      "id": "7q3fhBR3z-A",
+      "title": "AI Investor Panel: Where Smart Money Is Actually Going in AI | EP 219",
+      "url": "https://www.youtube.com/watch?v=7q3fhBR3z-A",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/tw89-ADGUgQ/hqdefault.jpg",
-      "published_at": "2026-01-17T21:02:33+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "thumbnail": "https://i.ytimg.com/vi/7q3fhBR3z-A/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "1hPouO58OKc",
-      "title": "What Does Tony Robbins Know That Nobody Else Does? | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=1hPouO58OKc",
+      "id": "7GFKB0oKd9A",
+      "title": "Which Industries Survive AI, The New AI Benchmarks, and the 2026 Recursive Learning Timeline | #218",
+      "url": "https://www.youtube.com/watch?v=7GFKB0oKd9A",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/1hPouO58OKc/hqdefault.jpg",
-      "published_at": "2026-01-17T15:31:34+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "thumbnail": "https://i.ytimg.com/vi/7GFKB0oKd9A/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "Xc_tuXaDros",
-      "title": "The Hero’s Journey | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=Xc_tuXaDros",
+      "id": "NHAzpG95ptI",
+      "title": "2026 Predictions: AI Automates Knowledge Work, Autonomous Robots & AI CEO Billionaires | EP #217",
+      "url": "https://www.youtube.com/watch?v=NHAzpG95ptI",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/Xc_tuXaDros/hqdefault.jpg",
-      "published_at": "2026-01-16T21:03:50+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "thumbnail": "https://i.ytimg.com/vi/NHAzpG95ptI/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "SNEnuowfzSY",
-      "title": "Great Men vs. The Machine | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=SNEnuowfzSY",
+      "id": "XWGnWcmns_M",
+      "title": "Mustafa Suleyman: The AGI Race Is Fake, Building Safe Superintelligence & the Agentic Economy | #216",
+      "url": "https://www.youtube.com/watch?v=XWGnWcmns_M",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/SNEnuowfzSY/hqdefault.jpg",
-      "published_at": "2026-01-16T18:31:46+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "thumbnail": "https://i.ytimg.com/vi/XWGnWcmns_M/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "BVisHb4bK8Y",
-      "title": "Tony Robbins: Winter Is Here - And It's Going to Get Colder | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=BVisHb4bK8Y",
+      "id": "z6U-jqHzBqY",
+      "title": "GPT 5.2 Release, Corporate Collapse in 2026, and 1.1M Job Loss | EP #215",
+      "url": "https://www.youtube.com/watch?v=z6U-jqHzBqY",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/BVisHb4bK8Y/hqdefault.jpg",
-      "published_at": "2026-01-16T15:05:14+00:00",
-      "scraped_at": "2026-02-02T11:36:34.760747"
+      "thumbnail": "https://i.ytimg.com/vi/z6U-jqHzBqY/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "mUqoSTyxY1U",
-      "title": "HOW TO PAY OFF YOUR MORTGAGE EARLY",
-      "url": "https://www.youtube.com/watch?v=mUqoSTyxY1U",
+      "id": "zGD5mv-XKU0",
+      "title": "China's Rise, GPT-5.2, Anthropic IPO & the Battle for AI Trust w/ Emad, Salim, Dave & AWG | EP #214",
+      "url": "https://www.youtube.com/watch?v=zGD5mv-XKU0",
       "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/mUqoSTyxY1U/hqdefault.jpg",
-      "published_at": "2026-02-01T21:34:08+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/zGD5mv-XKU0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "IVV3s3lN2zM",
-      "title": "VITAMIN D IS LINKED TO DEMENTIA?!",
-      "url": "https://www.youtube.com/watch?v=IVV3s3lN2zM",
+      "id": "QHyHENuIfcc",
+      "title": "Unlocking AGI: How Life Changes for Everyone w/ Jack Hidary, Salim Ismail & Dave Blundin | EP #213",
+      "url": "https://www.youtube.com/watch?v=QHyHENuIfcc",
       "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/IVV3s3lN2zM/hqdefault.jpg",
-      "published_at": "2026-01-31T22:31:35+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/QHyHENuIfcc/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "0-DTvG8LVn8",
-      "title": "SCARIEST CIA AGENT STORY YOU WILL EVER HEAR...",
-      "url": "https://www.youtube.com/watch?v=0-DTvG8LVn8",
+      "id": "WNaHRiRg5CA",
+      "title": "New AGI Timeline, AI Could Automate 57% of US Jobs, and Claude Consciousness w/ Naveen, Salim & AWG",
+      "url": "https://www.youtube.com/watch?v=WNaHRiRg5CA",
       "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/0-DTvG8LVn8/hqdefault.jpg",
-      "published_at": "2026-01-31T01:00:01+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/WNaHRiRg5CA/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "RWep7uP_reA",
-      "title": "BUYING A HOUSE IS A WASTE OF MONEY?!",
-      "url": "https://www.youtube.com/watch?v=RWep7uP_reA",
+      "id": "zJ9kejR4PeQ",
+      "title": "America’s Official AI Plan: Genesis Mission, Claude 4.5, Google vs. NVIDIA, & ChatGPT Shopping",
+      "url": "https://www.youtube.com/watch?v=zJ9kejR4PeQ",
       "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/RWep7uP_reA/hqdefault.jpg",
-      "published_at": "2026-01-30T17:16:43+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/zJ9kejR4PeQ/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
-      "id": "XV2eLBkrCHg",
-      "title": "TURN $27 INTO MILLIONS DOING THIS 🤯",
-      "url": "https://www.youtube.com/watch?v=XV2eLBkrCHg",
+      "id": "Ht9XtcV7ZYk",
+      "title": "AI Update: NVIDIA’s Record Revenue, Elon’s Data Centers in Space & Gemini 3’s Insane Performance",
+      "url": "https://www.youtube.com/watch?v=Ht9XtcV7ZYk",
       "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/XV2eLBkrCHg/hqdefault.jpg",
-      "published_at": "2026-01-29T19:00:38+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/Ht9XtcV7ZYk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "r8RGYw1n-5k",
+      "title": "What Everyone Missed About Gemini 3 w/ Salim, Dave & Alexander Wissner-Gross | EP#209",
+      "url": "https://www.youtube.com/watch?v=r8RGYw1n-5k",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/r8RGYw1n-5k/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "Z62fRtabY5E",
+      "title": "AI Costs Plummeting 40x: Why Costs Are Collapsing & What It Really Means w/ Dave, Salim & AWG",
+      "url": "https://www.youtube.com/watch?v=Z62fRtabY5E",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/Z62fRtabY5E/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "_QltK9zBHsY",
+      "title": "Part 2: Eric Schmidt on AI's Biggest Threats: China's Strategy, Cyberwar and Biotech Risks",
+      "url": "https://www.youtube.com/watch?v=_QltK9zBHsY",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/_QltK9zBHsY/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "rFomaqO2SD4",
+      "title": "Part 1: Eric Schmidt and Fei-Fei Li: Human Life After Artificial Superintelligence | EP #206",
+      "url": "https://www.youtube.com/watch?v=rFomaqO2SD4",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/rFomaqO2SD4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "kD-2YIqmARk",
+      "title": "OpenAI is Going Public, China is Catching Up to US & AI Is Reshaping the S&P 500 and Jobs | EP #205",
+      "url": "https://www.youtube.com/watch?v=kD-2YIqmARk",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/kD-2YIqmARk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "bOkTm1JEBow",
+      "title": "Solana Founder: Crypto Is About to Change Finance Like the Internet Changed Everything Else | EP#204",
+      "url": "https://www.youtube.com/watch?v=bOkTm1JEBow",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/bOkTm1JEBow/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "m15oymz-SUU",
+      "title": "The OpenAI Internet Browser Has Arrived: ChatGPT Atlas w/ Dave Blundin & Alexander Wissner-Gross",
+      "url": "https://www.youtube.com/watch?v=m15oymz-SUU",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/m15oymz-SUU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "D8c5zfOHuIY",
+      "title": "This Week in AI: NVIDIA’s Most Powerful Chip, Robotics Reach a New Milestone & AGI by 2026 | EP #202",
+      "url": "https://www.youtube.com/watch?v=D8c5zfOHuIY",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/D8c5zfOHuIY/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "VfwNK9OVsrM",
+      "title": "The Singularity is Here: AI is Solving Math, Sora Outpaces Chat-GPT & AI is Designing Chips | EP#201",
+      "url": "https://www.youtube.com/watch?v=VfwNK9OVsrM",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/VfwNK9OVsrM/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "1bBUCJaNrc0",
+      "title": "Money After AI: Meet the New Digital Dollar Built for the Internet \"Stablecoins\" | EP #200",
+      "url": "https://www.youtube.com/watch?v=1bBUCJaNrc0",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/1bBUCJaNrc0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
+    },
+    {
+      "id": "bXT0PBasDc0",
+      "title": "OpenAI vs. Grok: The Race to Build the Everything App w/ Emad Mostaque, Dave Blundin & AWG | EP #199",
+      "url": "https://www.youtube.com/watch?v=bXT0PBasDc0",
+      "platform": "youtube",
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/bXT0PBasDc0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:17:35.932694"
     },
     {
       "id": "99xyy1nUpug",
@@ -872,38 +1026,7 @@
       "platform": "youtube",
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/99xyy1nUpug/hqdefault.jpg",
-      "published_at": "2026-01-29T08:00:07+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
-    },
-    {
-      "id": "A0GUg2E_wCU",
-      "title": "SHOULD YOU BE WORRIED ABOUT SKIN TAGS?",
-      "url": "https://www.youtube.com/watch?v=A0GUg2E_wCU",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/A0GUg2E_wCU/hqdefault.jpg",
-      "published_at": "2026-01-28T19:00:17+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
-    },
-    {
-      "id": "O49fPiqRNkQ",
-      "title": "THE CONFIDENCE LIE WE ALL BELIEVE",
-      "url": "https://www.youtube.com/watch?v=O49fPiqRNkQ",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/O49fPiqRNkQ/hqdefault.jpg",
-      "published_at": "2026-01-27T22:00:24+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
-    },
-    {
-      "id": "nXW21redwbA",
-      "title": "YOU'VE BEEN STARTING YOUR MEALS WRONG 🤯",
-      "url": "https://www.youtube.com/watch?v=nXW21redwbA",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/nXW21redwbA/hqdefault.jpg",
-      "published_at": "2026-01-27T15:15:21+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "scraped_at": "2026-02-02T13:18:18.045360"
     },
     {
       "id": "w3dTmyZq4Qk",
@@ -912,38 +1035,7 @@
       "platform": "youtube",
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/w3dTmyZq4Qk/hqdefault.jpg",
-      "published_at": "2026-01-26T08:01:06+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
-    },
-    {
-      "id": "qPAJAdIb0_A",
-      "title": "HOW CREATINE AFFECTS THE BRAIN...",
-      "url": "https://www.youtube.com/watch?v=qPAJAdIb0_A",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/qPAJAdIb0_A/hqdefault.jpg",
-      "published_at": "2026-01-25T11:06:21+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
-    },
-    {
-      "id": "FltO1BCwpjw",
-      "title": "THIS IS HOLDING YOU BACK!",
-      "url": "https://www.youtube.com/watch?v=FltO1BCwpjw",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/FltO1BCwpjw/hqdefault.jpg",
-      "published_at": "2026-01-23T18:34:27+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
-    },
-    {
-      "id": "2RdmPANeImQ",
-      "title": "ARE WE SEEING THE COLLAPSE OF THE WEST?",
-      "url": "https://www.youtube.com/watch?v=2RdmPANeImQ",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/2RdmPANeImQ/hqdefault.jpg",
-      "published_at": "2026-01-22T19:00:06+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "scraped_at": "2026-02-02T13:18:18.045360"
     },
     {
       "id": "nJeU72Rgjh4",
@@ -952,18 +1044,232 @@
       "platform": "youtube",
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/nJeU72Rgjh4/hqdefault.jpg",
-      "published_at": "2026-01-22T08:00:52+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "scraped_at": "2026-02-02T13:18:18.045360"
     },
     {
-      "id": "XjzhsYf6ZJo",
-      "title": "YOU WILL NEVER SEE MONEY THE SAME AGAIN...",
-      "url": "https://www.youtube.com/watch?v=XjzhsYf6ZJo",
+      "id": "yUNoJ32eLBc",
+      "title": "CIA Whistleblower: They Can See All Your Messages!",
+      "url": "https://www.youtube.com/watch?v=yUNoJ32eLBc",
       "platform": "youtube",
       "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/XjzhsYf6ZJo/hqdefault.jpg",
-      "published_at": "2026-01-21T20:00:34+00:00",
-      "scraped_at": "2026-02-02T11:36:38.848438"
+      "thumbnail": "https://i.ytimg.com/vi/yUNoJ32eLBc/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "I_w81rptxkc",
+      "title": "Tony Robbins: No One Is Ready For What's Coming (The truth about AI).",
+      "url": "https://www.youtube.com/watch?v=I_w81rptxkc",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/I_w81rptxkc/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "FoeQUNASmTU",
+      "title": "Passive Income Expert: Buying A House Makes You Poorer Than Renting!",
+      "url": "https://www.youtube.com/watch?v=FoeQUNASmTU",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/FoeQUNASmTU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "C7LL7VwP8Nc",
+      "title": "Insulin Expert: How To 'Drain' Your Liver of Fat (Do This!)",
+      "url": "https://www.youtube.com/watch?v=C7LL7VwP8Nc",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/C7LL7VwP8Nc/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "2ZKLaUbB33o",
+      "title": "Dopamine Expert: How TikTok Is Physically Rewiring Your Brain (Permanent Damage?)",
+      "url": "https://www.youtube.com/watch?v=2ZKLaUbB33o",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/2ZKLaUbB33o/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "5Tr7AhkOEj4",
+      "title": "The Poo Doctor: This Cheap Spice Fixes A Damaged Gut!",
+      "url": "https://www.youtube.com/watch?v=5Tr7AhkOEj4",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/5Tr7AhkOEj4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "q_vZ4H3uW28",
+      "title": "Chris Williamson: Fix This One Habit And 2026 Will Be Your Best Year!",
+      "url": "https://www.youtube.com/watch?v=q_vZ4H3uW28",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/q_vZ4H3uW28/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "Oipkl53n938",
+      "title": "The 6 Science Backed Brain Fixes Most People Are Ignoring!",
+      "url": "https://www.youtube.com/watch?v=Oipkl53n938",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/Oipkl53n938/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "ZPVdK9v0CK8",
+      "title": "The Gaslighting Expert: If They Do This, You're Being Manipulated!",
+      "url": "https://www.youtube.com/watch?v=ZPVdK9v0CK8",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/ZPVdK9v0CK8/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "zQ1POHiR8m8",
+      "title": "Godfather of AI: We Have 2 Years Before Everything Changes!",
+      "url": "https://www.youtube.com/watch?v=zQ1POHiR8m8",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/zQ1POHiR8m8/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "TYXzR5KahEg",
+      "title": "Top Harvard Professor: The Psychology Of Why People Don't Like You!",
+      "url": "https://www.youtube.com/watch?v=TYXzR5KahEg",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/TYXzR5KahEg/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "rtufWBLOXgw",
+      "title": "Discipline Expert: The Habit That Will Make Or Break Your Entire 2026!",
+      "url": "https://www.youtube.com/watch?v=rtufWBLOXgw",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/rtufWBLOXgw/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "4QLWlcneJig",
+      "title": "Passive Income Expert: How To Make $10k Per Month In 90 Days!",
+      "url": "https://www.youtube.com/watch?v=4QLWlcneJig",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/4QLWlcneJig/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "P7Y-fynYsgE",
+      "title": "An AI Expert Warning: 6 People Are (Quietly) Deciding Humanity’s Future!",
+      "url": "https://www.youtube.com/watch?v=P7Y-fynYsgE",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/P7Y-fynYsgE/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "xDQyLnNAXr4",
+      "title": "Secret Service Agent: How To Stay In Control When Someone Is Trying To Manipulate You!",
+      "url": "https://www.youtube.com/watch?v=xDQyLnNAXr4",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/xDQyLnNAXr4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "BFU1OCkhBwo",
+      "title": "AI Expert: Here Is What The World Looks Like In 2 Years! Tristan Harris",
+      "url": "https://www.youtube.com/watch?v=BFU1OCkhBwo",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/BFU1OCkhBwo/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "KVXnVe8eOkM",
+      "title": "Insulin Doctor: This Is The First Sign Of Dementia! The Shocking Link Between Keto & Brain Decline!",
+      "url": "https://www.youtube.com/watch?v=KVXnVe8eOkM",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/KVXnVe8eOkM/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "5sCGZAcXKWg",
+      "title": "Kevin Hart: They're Lying To You About How To Become A Millionaire! I Was Doing 28 Sets A Weekend!",
+      "url": "https://www.youtube.com/watch?v=5sCGZAcXKWg",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/5sCGZAcXKWg/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "qxxnRMT9C-8",
+      "title": "World No.1 Sleep Expert: Magnesium Isn’t Helping You Sleep! This Habit Increases Heart Disease 57%!",
+      "url": "https://www.youtube.com/watch?v=qxxnRMT9C-8",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/qxxnRMT9C-8/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "GFyijjy1KdU",
+      "title": "Tim Ferriss: The Hidden Nerve That Controls Trauma, Mood & Emotional Pain!",
+      "url": "https://www.youtube.com/watch?v=GFyijjy1KdU",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/GFyijjy1KdU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "VsTMXuIV3OM",
+      "title": "The Woman Who Makes Millionaires: Only 1% of People Do This! The PPF Framework Will 10x Your Income!",
+      "url": "https://www.youtube.com/watch?v=VsTMXuIV3OM",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/VsTMXuIV3OM/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "hQaN5w3YwtM",
+      "title": "No.1 Brain Scientist: Your Brain Is Lying To You! Here's How I Discovered The Truth!",
+      "url": "https://www.youtube.com/watch?v=hQaN5w3YwtM",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/hQaN5w3YwtM/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "jroF3PH-PTs",
+      "title": "Brené Brown: The Algorithms Have Forced Us Into A Hidden Epidemic, This Is The Only Way Out!",
+      "url": "https://www.youtube.com/watch?v=jroF3PH-PTs",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/jroF3PH-PTs/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "D3lhrrXb4WI",
+      "title": "Kamala Harris: America Is At Breaking Point & I'm Deeply Concerned About The State Of The Country!",
+      "url": "https://www.youtube.com/watch?v=D3lhrrXb4WI",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/D3lhrrXb4WI/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
+    },
+    {
+      "id": "P1CeHGJOX5g",
+      "title": "Longevity Debate: SHOCKING Weight Loss Truth! They've Been Hiding This For YEARS!",
+      "url": "https://www.youtube.com/watch?v=P1CeHGJOX5g",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/P1CeHGJOX5g/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:18:18.045360"
     },
     {
       "id": "k_Wrd1kI1B0",
@@ -973,7 +1279,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/k_Wrd1kI1B0/hqdefault.jpg",
       "published_at": "2023-08-16T23:28:51+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "Iad_LZxZqbc",
@@ -983,7 +1289,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/Iad_LZxZqbc/hqdefault.jpg",
       "published_at": "2023-08-10T21:45:55+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "nM_3d37lmcM",
@@ -993,7 +1299,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/nM_3d37lmcM/hqdefault.jpg",
       "published_at": "2023-08-03T06:09:53+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "p0nX5QtLW_c",
@@ -1003,7 +1309,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/p0nX5QtLW_c/hqdefault.jpg",
       "published_at": "2023-07-25T19:54:58+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "ItopcoP8ST0",
@@ -1013,7 +1319,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/ItopcoP8ST0/hqdefault.jpg",
       "published_at": "2023-07-11T21:34:37+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "3_g14RAyOzE",
@@ -1023,7 +1329,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/3_g14RAyOzE/hqdefault.jpg",
       "published_at": "2023-07-06T05:41:09+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "ceCg90Q9N6Y",
@@ -1033,7 +1339,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/ceCg90Q9N6Y/hqdefault.jpg",
       "published_at": "2023-06-28T22:42:25+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "hcKSwiNk-CA",
@@ -1043,7 +1349,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/hcKSwiNk-CA/hqdefault.jpg",
       "published_at": "2023-06-21T21:21:41+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "QhDLHWR04Rk",
@@ -1053,7 +1359,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/QhDLHWR04Rk/hqdefault.jpg",
       "published_at": "2023-06-08T14:02:49+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "DgwhJnkmxZw",
@@ -1063,7 +1369,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/DgwhJnkmxZw/hqdefault.jpg",
       "published_at": "2023-05-24T22:01:01+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "MKyTVPCVoWg",
@@ -1073,7 +1379,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/MKyTVPCVoWg/hqdefault.jpg",
       "published_at": "2023-05-17T19:56:04+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "rLG68k2blOc",
@@ -1083,7 +1389,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/rLG68k2blOc/hqdefault.jpg",
       "published_at": "2023-05-10T16:06:12+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "R9SLjTxpdW4",
@@ -1093,7 +1399,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/R9SLjTxpdW4/hqdefault.jpg",
       "published_at": "2023-05-03T17:11:05+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "tG0HGKNnp-A",
@@ -1103,7 +1409,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/tG0HGKNnp-A/hqdefault.jpg",
       "published_at": "2023-05-03T17:07:20+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "dKvYRgOifFA",
@@ -1113,77 +1419,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/dKvYRgOifFA/hqdefault.jpg",
       "published_at": "2023-04-26T18:54:28+00:00",
-      "scraped_at": "2026-02-02T11:36:42.893717"
-    },
-    {
-      "id": "K5JoLAauzq4",
-      "title": "How We Redesigned Our Website",
-      "url": "https://www.youtube.com/watch?v=K5JoLAauzq4",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/K5JoLAauzq4/hqdefault.jpg",
-      "published_at": "2026-01-30T15:00:39+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "leQ89XSHILw",
-      "title": "Why Your Startup Website Isn't Converting",
-      "url": "https://www.youtube.com/watch?v=leQ89XSHILw",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/leQ89XSHILw/hqdefault.jpg",
-      "published_at": "2026-01-29T15:01:32+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "WI_w9po5oz0",
-      "title": "Building The World's First Reusable Rockets",
-      "url": "https://www.youtube.com/watch?v=WI_w9po5oz0",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/WI_w9po5oz0/hqdefault.jpg",
-      "published_at": "2026-01-23T17:01:01+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "dC_3ys349bU",
-      "title": "The ML Technique Every Founder Should Know",
-      "url": "https://www.youtube.com/watch?v=dC_3ys349bU",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/dC_3ys349bU/hqdefault.jpg",
-      "published_at": "2026-01-22T15:01:12+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "UZbXWYY7y-A",
-      "title": "The AI Economy Is Stabilizing",
-      "url": "https://www.youtube.com/watch?v=UZbXWYY7y-A",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/UZbXWYY7y-A/hqdefault.jpg",
-      "published_at": "2026-01-15T18:15:03+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "0kARDVL2nZg",
-      "title": "How To Get Your First Users",
-      "url": "https://www.youtube.com/watch?v=0kARDVL2nZg",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/0kARDVL2nZg/hqdefault.jpg",
-      "published_at": "2026-01-14T15:00:05+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "2hgjgycOU_0",
-      "title": "Inside The Startup Building Reusable Rockets",
-      "url": "https://www.youtube.com/watch?v=2hgjgycOU_0",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/2hgjgycOU_0/hqdefault.jpg",
-      "published_at": "2026-01-08T15:00:11+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
+      "scraped_at": "2026-02-02T13:18:20.772762"
     },
     {
       "id": "cqrJzG03ENE",
@@ -1192,38 +1428,7 @@
       "platform": "youtube",
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/cqrJzG03ENE/hqdefault.jpg",
-      "published_at": "2025-12-22T15:01:25+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "pBlIgs6w7Ss",
-      "title": "How Intelligent Is AI, Really?",
-      "url": "https://www.youtube.com/watch?v=pBlIgs6w7Ss",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/pBlIgs6w7Ss/hqdefault.jpg",
-      "published_at": "2025-12-17T15:01:40+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "5WN8bfG06Hk",
-      "title": "From Pivot Hell To $1.4 Billion Unicorn",
-      "url": "https://www.youtube.com/watch?v=5WN8bfG06Hk",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/5WN8bfG06Hk/hqdefault.jpg",
-      "published_at": "2025-12-10T15:00:19+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
-    },
-    {
-      "id": "JLW83-yNuBo",
-      "title": "Finding Opportunity in Outdated Rules",
-      "url": "https://www.youtube.com/watch?v=JLW83-yNuBo",
-      "platform": "youtube",
-      "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/JLW83-yNuBo/hqdefault.jpg",
-      "published_at": "2025-12-05T17:12:55+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
+      "scraped_at": "2026-02-02T13:19:05.615441"
     },
     {
       "id": "t8co94HS6tY",
@@ -1232,8 +1437,412 @@
       "platform": "youtube",
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/t8co94HS6tY/hqdefault.jpg",
-      "published_at": "2025-12-03T15:01:50+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "KTmxaMdUbHA",
+      "title": "AI Is Eating Logistics",
+      "url": "https://www.youtube.com/watch?v=KTmxaMdUbHA",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/KTmxaMdUbHA/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "DULfEcPR0Gc",
+      "title": "Good News For Startups: Enterprise Is Bad At AI",
+      "url": "https://www.youtube.com/watch?v=DULfEcPR0Gc",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/DULfEcPR0Gc/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "Hm-ZIiwiN1o",
+      "title": "Billion-Dollar Unpopular Startup Ideas",
+      "url": "https://www.youtube.com/watch?v=Hm-ZIiwiN1o",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/Hm-ZIiwiN1o/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "bxBzsSsqQAM",
+      "title": "The 7 Most Powerful Moats For AI Startups",
+      "url": "https://www.youtube.com/watch?v=bxBzsSsqQAM",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/bxBzsSsqQAM/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "JOYSDqJdiro",
+      "title": "The Next Breakthrough In AI Agents Is Here",
+      "url": "https://www.youtube.com/watch?v=JOYSDqJdiro",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/JOYSDqJdiro/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "4Tmn-XP93m4",
+      "title": "The Engineering Unlocks Behind DeepSeek | YC Decoded",
+      "url": "https://www.youtube.com/watch?v=4Tmn-XP93m4",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/4Tmn-XP93m4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "VDmU0jjklBo",
+      "title": "Anthropic’s Claude Computer Use Is A Game Changer | YC Decoded",
+      "url": "https://www.youtube.com/watch?v=VDmU0jjklBo",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/VDmU0jjklBo/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "JZLZQVmfGn8",
+      "title": "Transformers Explained: The Discovery That Changed AI Forever",
+      "url": "https://www.youtube.com/watch?v=JZLZQVmfGn8",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/JZLZQVmfGn8/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "XdigD0LOXx0",
+      "title": "Fusion Energy Will Power the AI Boom",
+      "url": "https://www.youtube.com/watch?v=XdigD0LOXx0",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/XdigD0LOXx0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "Lv9bKyQgoHo",
+      "title": "Why OpenAI's o1 Is A Huge Deal | YC Decoded",
+      "url": "https://www.youtube.com/watch?v=Lv9bKyQgoHo",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/Lv9bKyQgoHo/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "tnBQmEqBCY0",
+      "title": "Elon Musk : How to Build the Future",
+      "url": "https://www.youtube.com/watch?v=tnBQmEqBCY0",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/tnBQmEqBCY0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "Lb4IcGF5iTQ",
+      "title": "Mark Zuckerberg : How to Build the Future",
+      "url": "https://www.youtube.com/watch?v=Lb4IcGF5iTQ",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/Lb4IcGF5iTQ/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "xXCBz_8hM9w",
+      "title": "How To Build The Future: Sam Altman",
+      "url": "https://www.youtube.com/watch?v=xXCBz_8hM9w",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/xXCBz_8hM9w/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "FwD0wqwUjAI",
+      "title": "How To Build The Future: Parker Conrad",
+      "url": "https://www.youtube.com/watch?v=FwD0wqwUjAI",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/FwD0wqwUjAI/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "eW7rUtYHD9U",
+      "title": "Bob McGrew: AI Agents And The Path To AGI",
+      "url": "https://www.youtube.com/watch?v=eW7rUtYHD9U",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/eW7rUtYHD9U/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "nFOC-cgIWaY",
+      "title": "Jessica Livingston : How to Build the Future",
+      "url": "https://www.youtube.com/watch?v=nFOC-cgIWaY",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/nFOC-cgIWaY/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "nGLmpKi-jRU",
+      "title": "Startup Advice: AI GTM, Pivoting & How To Hire",
+      "url": "https://www.youtube.com/watch?v=nGLmpKi-jRU",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/nGLmpKi-jRU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "IRROi-Q1V44",
+      "title": "The Right (And Wrong) Way To Spend Money At Your Startup",
+      "url": "https://www.youtube.com/watch?v=IRROi-Q1V44",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/IRROi-Q1V44/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "7Kt9ugD3bGQ",
+      "title": "How To Use AI In Your Startup",
+      "url": "https://www.youtube.com/watch?v=7Kt9ugD3bGQ",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/7Kt9ugD3bGQ/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "HB3l1BPi7zo",
+      "title": "How Do Billion Dollar Startups Start?",
+      "url": "https://www.youtube.com/watch?v=HB3l1BPi7zo",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/HB3l1BPi7zo/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "Nsx5RDVKZSk",
+      "title": "Why Startup Founders Should Launch Companies Sooner Than They Think",
+      "url": "https://www.youtube.com/watch?v=Nsx5RDVKZSk",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/Nsx5RDVKZSk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "IjPDIjge81o",
+      "title": "Startup Experts Discuss Doing Things That Don't Scale",
+      "url": "https://www.youtube.com/watch?v=IjPDIjge81o",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/IjPDIjge81o/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "l0h3nAW13ao",
+      "title": "From Idea to $650M Exit: Lessons in Building AI Startups",
+      "url": "https://www.youtube.com/watch?v=l0h3nAW13ao",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/l0h3nAW13ao/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "DJjZzzPANBY",
+      "title": "Ask These Questions Before Starting An AI Startup",
+      "url": "https://www.youtube.com/watch?v=DJjZzzPANBY",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/DJjZzzPANBY/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "uqc_vt95GJg",
+      "title": "Aaron Levie: Why Startups Win In The AI Era",
+      "url": "https://www.youtube.com/watch?v=uqc_vt95GJg",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/uqc_vt95GJg/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.615441"
+    },
+    {
+      "id": "lWmDiDGsLK4",
+      "title": "The Future of Software Creation with Replit CEO Amjad Masad",
+      "url": "https://www.youtube.com/watch?v=lWmDiDGsLK4",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/lWmDiDGsLK4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "TrXi3naD6Og",
+      "title": "Michael Truell: Building Cursor At 23, Taking On GitHub Copilot & Advice To Engineering Students",
+      "url": "https://www.youtube.com/watch?v=TrXi3naD6Og",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/TrXi3naD6Og/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "-7Qz7tSTfUU",
+      "title": "Dylan Field: Scaling Figma and the Future of Design",
+      "url": "https://www.youtube.com/watch?v=-7Qz7tSTfUU",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/-7Qz7tSTfUU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "i_PjjXKNpA4",
+      "title": "The Startup Playbook for Hiring Your First Engineers and AEs",
+      "url": "https://www.youtube.com/watch?v=i_PjjXKNpA4",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/i_PjjXKNpA4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "DH7REvnQ1y4",
+      "title": "The Sales Playbook For Founders | Startup School",
+      "url": "https://www.youtube.com/watch?v=DH7REvnQ1y4",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/DH7REvnQ1y4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "BJjsfNO5JTo",
+      "title": "How To Get The Most Out Of Vibe Coding | Startup School",
+      "url": "https://www.youtube.com/watch?v=BJjsfNO5JTo",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/BJjsfNO5JTo/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "z1aKRhRnVNk",
+      "title": "How To Start A Dev Tools Company | Startup School",
+      "url": "https://www.youtube.com/watch?v=z1aKRhRnVNk",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/z1aKRhRnVNk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "wH3TKpALlw4",
+      "title": "Starting A Company? The Key Terms You Should Know | Startup School",
+      "url": "https://www.youtube.com/watch?v=wH3TKpALlw4",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/wH3TKpALlw4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "Fk9BCr5pLTU",
+      "title": "How To Find A Co-Founder | Startup School",
+      "url": "https://www.youtube.com/watch?v=Fk9BCr5pLTU",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/Fk9BCr5pLTU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "K5JoLAauzq4",
+      "title": "How We Redesigned Our Website",
+      "url": "https://www.youtube.com/watch?v=K5JoLAauzq4",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/K5JoLAauzq4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "leQ89XSHILw",
+      "title": "Why Your Startup Website Isn't Converting",
+      "url": "https://www.youtube.com/watch?v=leQ89XSHILw",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/leQ89XSHILw/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "RynySryqM_0",
+      "title": "Cursor Head of Design Roasts Startup Websites",
+      "url": "https://www.youtube.com/watch?v=RynySryqM_0",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/RynySryqM_0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "uEeFsW9343g",
+      "title": "Brand Design Tips From Linear Founder Karri Saarinen",
+      "url": "https://www.youtube.com/watch?v=uEeFsW9343g",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/uEeFsW9343g/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "ksGNfd-wQY4",
+      "title": "What Founders Can Do To Improve Their Design Game",
+      "url": "https://www.youtube.com/watch?v=ksGNfd-wQY4",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/ksGNfd-wQY4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "DBhSfROq3wU",
+      "title": "AI Interfaces Of The Future | Design Review",
+      "url": "https://www.youtube.com/watch?v=DBhSfROq3wU",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/DBhSfROq3wU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "IqwSb2hO1jE",
+      "title": "What Everyone Is Getting Wrong About AI And Jobs",
+      "url": "https://www.youtube.com/watch?v=IqwSb2hO1jE",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/IqwSb2hO1jE/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "uZVyBc1CKN0",
+      "title": "How Nothing Founder Carl Pei Built A Multi-Million Dollar Smartphone Brand In Just 2 Years",
+      "url": "https://www.youtube.com/watch?v=uZVyBc1CKN0",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/uZVyBc1CKN0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "xFQ5mIJdxhA",
+      "title": "Legendary Consumer VC Predicts The Future Of AI Products",
+      "url": "https://www.youtube.com/watch?v=xFQ5mIJdxhA",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/xFQ5mIJdxhA/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "jNJQTIUyT9Y",
+      "title": "How To Go From Startup Dream To Reality",
+      "url": "https://www.youtube.com/watch?v=jNJQTIUyT9Y",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/jNJQTIUyT9Y/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "0kARDVL2nZg",
+      "title": "How To Get Your First Users",
+      "url": "https://www.youtube.com/watch?v=0kARDVL2nZg",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/0kARDVL2nZg/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
     },
     {
       "id": "Z4L4ZqL1xqQ",
@@ -1242,28 +1851,70 @@
       "platform": "youtube",
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/Z4L4ZqL1xqQ/hqdefault.jpg",
-      "published_at": "2025-11-28T15:01:09+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
+      "scraped_at": "2026-02-02T13:19:05.616962"
     },
     {
-      "id": "eiT9wMgesjI",
-      "title": "Chase the Hard Problems",
-      "url": "https://www.youtube.com/watch?v=eiT9wMgesjI",
+      "id": "CcnwFJqEnxU",
+      "title": "How David Lieb Turned a Failing Startup Into Google Photos | Backstory",
+      "url": "https://www.youtube.com/watch?v=CcnwFJqEnxU",
       "platform": "youtube",
       "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/eiT9wMgesjI/hqdefault.jpg",
-      "published_at": "2025-11-25T21:35:40+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
+      "thumbnail": "https://i.ytimg.com/vi/CcnwFJqEnxU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
     },
     {
-      "id": "VtDBvmxiXnA",
-      "title": "Find a Pain Point Worth Solving",
-      "url": "https://www.youtube.com/watch?v=VtDBvmxiXnA",
+      "id": "QKPgBAnbc10",
+      "title": "Tom Blomfield: How I Created Two Billion-Dollar Fintech Startups",
+      "url": "https://www.youtube.com/watch?v=QKPgBAnbc10",
       "platform": "youtube",
       "source_name": "Y Combinator",
-      "thumbnail": "https://i.ytimg.com/vi/VtDBvmxiXnA/hqdefault.jpg",
-      "published_at": "2025-11-24T20:08:29+00:00",
-      "scraped_at": "2026-02-02T11:36:47.008879"
+      "thumbnail": "https://i.ytimg.com/vi/QKPgBAnbc10/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "kOyIjt6FUrw",
+      "title": "How Replit Went From $10M to $100M ARR In Just 9 Months",
+      "url": "https://www.youtube.com/watch?v=kOyIjt6FUrw",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/kOyIjt6FUrw/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "WJoZK9sMwvw",
+      "title": "How To Design Better AI Apps",
+      "url": "https://www.youtube.com/watch?v=WJoZK9sMwvw",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/WJoZK9sMwvw/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "TECDj4JUx7o",
+      "title": "How AI Coding Agents Will Change Your Job",
+      "url": "https://www.youtube.com/watch?v=TECDj4JUx7o",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/TECDj4JUx7o/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "EW9TUqOgjmQ",
+      "title": "Twitter vs. X: Product Lessons For Startup Founders",
+      "url": "https://www.youtube.com/watch?v=EW9TUqOgjmQ",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/EW9TUqOgjmQ/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
+    },
+    {
+      "id": "EiRnSjcVIqk",
+      "title": "Inside The Most Powerful Startup Community In The World",
+      "url": "https://www.youtube.com/watch?v=EiRnSjcVIqk",
+      "platform": "youtube",
+      "source_name": "Y Combinator",
+      "thumbnail": "https://i.ytimg.com/vi/EiRnSjcVIqk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:05.616962"
     },
     {
       "id": "l2MXHJ1lSOE",
@@ -1273,7 +1924,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/l2MXHJ1lSOE/hqdefault.jpg",
       "published_at": "2026-01-31T19:37:30+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "vvfQnO7OjWI",
@@ -1283,7 +1934,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/vvfQnO7OjWI/hqdefault.jpg",
       "published_at": "2026-01-29T11:01:42+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "-8Ud5mrguP4",
@@ -1293,7 +1944,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/-8Ud5mrguP4/hqdefault.jpg",
       "published_at": "2026-01-28T18:41:48+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "3iqdIGvKXIs",
@@ -1303,7 +1954,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/3iqdIGvKXIs/hqdefault.jpg",
       "published_at": "2026-01-25T20:44:09+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "3bRAvP7WmlY",
@@ -1313,7 +1964,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/3bRAvP7WmlY/hqdefault.jpg",
       "published_at": "2026-01-24T18:44:54+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "KKnDmx3JYZM",
@@ -1323,7 +1974,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/KKnDmx3JYZM/hqdefault.jpg",
       "published_at": "2026-01-23T20:04:26+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "qQAhK2EWw4I",
@@ -1333,7 +1984,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/qQAhK2EWw4I/hqdefault.jpg",
       "published_at": "2026-01-22T11:01:24+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "721mWMIuaCU",
@@ -1343,7 +1994,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/721mWMIuaCU/hqdefault.jpg",
       "published_at": "2026-01-20T17:52:22+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "SfEhR37RqTM",
@@ -1353,7 +2004,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/SfEhR37RqTM/hqdefault.jpg",
       "published_at": "2026-01-19T18:38:54+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "dQlHTaLhtgE",
@@ -1363,7 +2014,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/dQlHTaLhtgE/hqdefault.jpg",
       "published_at": "2026-01-18T19:12:07+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "4JczM2klIj0",
@@ -1373,7 +2024,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/4JczM2klIj0/hqdefault.jpg",
       "published_at": "2026-01-16T19:12:14+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "XMdEVafndHc",
@@ -1383,7 +2034,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/XMdEVafndHc/hqdefault.jpg",
       "published_at": "2026-01-15T18:18:56+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "djv5UDHrg7g",
@@ -1393,7 +2044,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/djv5UDHrg7g/hqdefault.jpg",
       "published_at": "2026-01-15T11:01:13+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "h-HxJBmX4yU",
@@ -1403,7 +2054,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/h-HxJBmX4yU/hqdefault.jpg",
       "published_at": "2026-01-13T18:56:39+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "xU9hbdAxuIg",
@@ -1413,7 +2064,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/xU9hbdAxuIg/hqdefault.jpg",
       "published_at": "2026-01-12T19:39:51+00:00",
-      "scraped_at": "2026-02-02T11:36:53.128714"
+      "scraped_at": "2026-02-02T13:19:08.957930"
     },
     {
       "id": "fR1PAvm-l5Q",
@@ -1423,7 +2074,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/fR1PAvm-l5Q/hqdefault.jpg",
       "published_at": "2026-02-01T17:01:03+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "huSgnkJ7Fqc",
@@ -1433,7 +2084,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/huSgnkJ7Fqc/hqdefault.jpg",
       "published_at": "2026-01-31T17:01:08+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "7gucZeu-JUM",
@@ -1443,7 +2094,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/7gucZeu-JUM/hqdefault.jpg",
       "published_at": "2026-01-30T21:00:12+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "ZgNe5pUQTNI",
@@ -1453,7 +2104,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/ZgNe5pUQTNI/hqdefault.jpg",
       "published_at": "2026-01-30T17:00:58+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "K5WPr5dtne0",
@@ -1463,7 +2114,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/K5WPr5dtne0/hqdefault.jpg",
       "published_at": "2026-01-29T13:30:28+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "zi332y--LJI",
@@ -1473,7 +2124,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/zi332y--LJI/hqdefault.jpg",
       "published_at": "2026-01-28T17:01:47+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "p9fmLpvwiPA",
@@ -1483,7 +2134,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/p9fmLpvwiPA/hqdefault.jpg",
       "published_at": "2026-01-27T17:01:20+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "2997w92V-a0",
@@ -1493,7 +2144,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/2997w92V-a0/hqdefault.jpg",
       "published_at": "2026-01-26T17:00:05+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "wSyss-opblI",
@@ -1503,7 +2154,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/wSyss-opblI/hqdefault.jpg",
       "published_at": "2026-01-25T17:01:22+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "NmcSfwssSGg",
@@ -1513,7 +2164,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/NmcSfwssSGg/hqdefault.jpg",
       "published_at": "2026-01-24T17:00:40+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "tJaaogIw25E",
@@ -1523,7 +2174,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/tJaaogIw25E/hqdefault.jpg",
       "published_at": "2026-01-23T17:01:26+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "8piPaAtbsdc",
@@ -1533,7 +2184,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/8piPaAtbsdc/hqdefault.jpg",
       "published_at": "2026-01-22T17:00:27+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "XCCkgRzth6Q",
@@ -1543,7 +2194,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/XCCkgRzth6Q/hqdefault.jpg",
       "published_at": "2026-01-22T13:30:40+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "ISftk1U5o5Q",
@@ -1553,7 +2204,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/ISftk1U5o5Q/hqdefault.jpg",
       "published_at": "2026-01-21T17:00:24+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "4Un4Ge9Lc-o",
@@ -1563,27 +2214,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/4Un4Ge9Lc-o/hqdefault.jpg",
       "published_at": "2026-01-20T17:00:07+00:00",
-      "scraped_at": "2026-02-02T11:37:01.734576"
-    },
-    {
-      "id": "uKhvTCSmA8I",
-      "title": "LinkedIn Introduces Vibecoding Badges",
-      "url": "https://www.youtube.com/watch?v=uKhvTCSmA8I",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/uKhvTCSmA8I/hqdefault.jpg",
-      "published_at": "2026-01-31T14:01:24+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
-    },
-    {
-      "id": "nJbz0fnAoNI",
-      "title": "Why Does ICE Have a Team of Content Creators?",
-      "url": "https://www.youtube.com/watch?v=nJbz0fnAoNI",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/nJbz0fnAoNI/hqdefault.jpg",
-      "published_at": "2026-01-31T00:00:58+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
+      "scraped_at": "2026-02-02T13:19:11.529792"
     },
     {
       "id": "5dTmsGBHKTM",
@@ -1592,58 +2223,7 @@
       "platform": "youtube",
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/5dTmsGBHKTM/hqdefault.jpg",
-      "published_at": "2026-01-30T18:32:15+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
-    },
-    {
-      "id": "CAxr2tDkBe8",
-      "title": "Can You Teach A.I. Ethics That Last?",
-      "url": "https://www.youtube.com/watch?v=CAxr2tDkBe8",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/CAxr2tDkBe8/hqdefault.jpg",
-      "published_at": "2026-01-28T13:00:21+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
-    },
-    {
-      "id": "9ZhnFBwEJ7U",
-      "title": "The Creeping Change of Ads in ChatGPT",
-      "url": "https://www.youtube.com/watch?v=9ZhnFBwEJ7U",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/9ZhnFBwEJ7U/hqdefault.jpg",
-      "published_at": "2026-01-27T13:00:26+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
-    },
-    {
-      "id": "d17NDhUf_Sg",
-      "title": "How Will Ads Change ChatGPT?",
-      "url": "https://www.youtube.com/watch?v=d17NDhUf_Sg",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/d17NDhUf_Sg/hqdefault.jpg",
-      "published_at": "2026-01-26T13:01:11+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
-    },
-    {
-      "id": "qrcYsuIucec",
-      "title": "Social Media vs. The Internet: What Is Better for Kids?",
-      "url": "https://www.youtube.com/watch?v=qrcYsuIucec",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/qrcYsuIucec/hqdefault.jpg",
-      "published_at": "2026-01-24T11:01:24+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
-    },
-    {
-      "id": "DlR1VoQbX9s",
-      "title": "The Most Important Thing to Happen in A.I. Since ChatGPT",
-      "url": "https://www.youtube.com/watch?v=DlR1VoQbX9s",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/DlR1VoQbX9s/hqdefault.jpg",
-      "published_at": "2026-01-23T19:30:02+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
+      "scraped_at": "2026-02-02T13:19:55.995683"
     },
     {
       "id": "HDfr8PvfoOw",
@@ -1652,8 +2232,7 @@
       "platform": "youtube",
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/HDfr8PvfoOw/hqdefault.jpg",
-      "published_at": "2026-01-23T17:32:47+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
+      "scraped_at": "2026-02-02T13:19:55.995683"
     },
     {
       "id": "ji_xpQzZDHo",
@@ -1662,28 +2241,7 @@
       "platform": "youtube",
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/ji_xpQzZDHo/hqdefault.jpg",
-      "published_at": "2026-01-22T14:35:01+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
-    },
-    {
-      "id": "1RtJtY-JeSw",
-      "title": "Russian Disinformation in the Forkiverse?",
-      "url": "https://www.youtube.com/watch?v=1RtJtY-JeSw",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/1RtJtY-JeSw/hqdefault.jpg",
-      "published_at": "2026-01-22T14:00:05+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
-    },
-    {
-      "id": "PH7v0Bv36lc",
-      "title": "Who's to Blame for Teens' Social Media Addiction?",
-      "url": "https://www.youtube.com/watch?v=PH7v0Bv36lc",
-      "platform": "youtube",
-      "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/PH7v0Bv36lc/hqdefault.jpg",
-      "published_at": "2026-01-20T16:00:42+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
+      "scraped_at": "2026-02-02T13:19:55.995683"
     },
     {
       "id": "tZSteN2g5yM",
@@ -1692,28 +2250,223 @@
       "platform": "youtube",
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/tZSteN2g5yM/hqdefault.jpg",
-      "published_at": "2026-01-16T21:45:51+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
+      "scraped_at": "2026-02-02T13:19:55.995683"
     },
     {
-      "id": "QphTlLc5dkc",
-      "title": "Grok Puts People in Bikinis. Elon Musk Thinks It's Funny.",
-      "url": "https://www.youtube.com/watch?v=QphTlLc5dkc",
+      "id": "hchsgcuDBfs",
+      "title": "Grok’s Deepfake Disaster: Can Anyone Stop Musk's A.I. Chatbot? | EP 173",
+      "url": "https://www.youtube.com/watch?v=hchsgcuDBfs",
       "platform": "youtube",
       "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/QphTlLc5dkc/hqdefault.jpg",
-      "published_at": "2026-01-16T20:00:24+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
+      "thumbnail": "https://i.ytimg.com/vi/hchsgcuDBfs/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
     },
     {
-      "id": "xGB2AH-XpYc",
-      "title": "Claude Code Made the Internet Fun Again",
-      "url": "https://www.youtube.com/watch?v=xGB2AH-XpYc",
+      "id": "XAYc9NTJ-Mo",
+      "title": "How to Optimize Your Life in 2026: Productivity Tips, Deepfakes, and More | EP 172",
+      "url": "https://www.youtube.com/watch?v=XAYc9NTJ-Mo",
       "platform": "youtube",
       "source_name": "Hard Fork",
-      "thumbnail": "https://i.ytimg.com/vi/xGB2AH-XpYc/hqdefault.jpg",
-      "published_at": "2026-01-16T18:31:30+00:00",
-      "scraped_at": "2026-02-02T11:37:07.261885"
+      "thumbnail": "https://i.ytimg.com/vi/XAYc9NTJ-Mo/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "Dn4OWufAggk",
+      "title": "A.I. Scientists Are Here. But Is Progress Accelerating? | EP 170",
+      "url": "https://www.youtube.com/watch?v=Dn4OWufAggk",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/Dn4OWufAggk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "kQNTk9T-Mrg",
+      "title": "What Does iRobot’s Bankruptcy Mean for the Future of U.S. Robots? + 2026 Predictions! | EP 169",
+      "url": "https://www.youtube.com/watch?v=kQNTk9T-Mrg",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/kQNTk9T-Mrg/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "jCZIKA13KYI",
+      "title": "Was Hank Green Right About the AI Water Problem? We Asked This Environmentalist. | EP 168",
+      "url": "https://www.youtube.com/watch?v=jCZIKA13KYI",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/jCZIKA13KYI/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "vbFXpD7Ozf0",
+      "title": "Why OpenAI Is Spooked. Plus, Which AI Model Should You Use? | EP 167",
+      "url": "https://www.youtube.com/watch?v=vbFXpD7Ozf0",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/vbFXpD7Ozf0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "kZ5Jq2Is888",
+      "title": "The 50 Most Iconic Technologies of 2025: Countdown! | EP 166",
+      "url": "https://www.youtube.com/watch?v=kZ5Jq2Is888",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/kZ5Jq2Is888/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "XpIXRgMlPo4",
+      "title": "We Asked Roblox's C.E.O. About Child Safety. It Got Tense. | EP 163",
+      "url": "https://www.youtube.com/watch?v=XpIXRgMlPo4",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/XpIXRgMlPo4/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "rq-2i1blAlU",
+      "title": "Demis Hassabis & Josh Woodward Tell Us Why Gemini 3.0 Puts Google in Front of the A.I. Race",
+      "url": "https://www.youtube.com/watch?v=rq-2i1blAlU",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/rq-2i1blAlU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "UBe4_V04Okg",
+      "title": "Why Google Wants to Put Data Centers in Space | EP 162",
+      "url": "https://www.youtube.com/watch?v=UBe4_V04Okg",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/UBe4_V04Okg/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "gkvcb5_gz3g",
+      "title": "We Finally Got a Robot on the Show | EP 161",
+      "url": "https://www.youtube.com/watch?v=gkvcb5_gz3g",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/gkvcb5_gz3g/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "mRKRUmn4NJk",
+      "title": "Why Character.AI is Banning Teens | EP 160",
+      "url": "https://www.youtube.com/watch?v=mRKRUmn4NJk",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/mRKRUmn4NJk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "RAAeMRKbFUM",
+      "title": "Open AI’s Sora 2 Was a Big Sloppy Mess | EP 159",
+      "url": "https://www.youtube.com/watch?v=RAAeMRKbFUM",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/RAAeMRKbFUM/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "WVkf-KJru-0",
+      "title": "How California will Regulate Chatbots | EP 158",
+      "url": "https://www.youtube.com/watch?v=WVkf-KJru-0",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/WVkf-KJru-0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "Fd00RZ0KJbw",
+      "title": "OpenAI's AgentKit wants to be your portal to the web | Ep 157",
+      "url": "https://www.youtube.com/watch?v=Fd00RZ0KJbw",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/Fd00RZ0KJbw/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "KLN0MTUqYAM",
+      "title": "Drama with MrBeast, Samsung's Galaxy Ring, and Friend A.I. | Clip",
+      "url": "https://www.youtube.com/watch?v=KLN0MTUqYAM",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/KLN0MTUqYAM/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "KaOYS9yvaqk",
+      "title": "This Therapist Psychoanalyzed A.I. | Interview",
+      "url": "https://www.youtube.com/watch?v=KaOYS9yvaqk",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/KaOYS9yvaqk/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "E0L-UTuMxOU",
+      "title": "A.I. Slop Gets Personal: OpenAI Has a New Social Network | EP 156",
+      "url": "https://www.youtube.com/watch?v=E0L-UTuMxOU",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/E0L-UTuMxOU/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "-gs49S8N9Zo",
+      "title": "Why TikTok Decided the World Was About to End | Clip",
+      "url": "https://www.youtube.com/watch?v=-gs49S8N9Zo",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/-gs49S8N9Zo/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "OeBY0sMQ57I",
+      "title": "Tech is in Turmoil over H1B Visa Fees | Interview",
+      "url": "https://www.youtube.com/watch?v=OeBY0sMQ57I",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/OeBY0sMQ57I/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "qFkVi0w1Am0",
+      "title": "A.I. Datacenters Will Reshape US Infrastructure | Ep 155",
+      "url": "https://www.youtube.com/watch?v=qFkVi0w1Am0",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/qFkVi0w1Am0/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "xhwpi44kpvs",
+      "title": "This Week in A.I.: Record-Setting Brainrot, A.I. Anticorruption, and ChatGPT For Teens | Clip",
+      "url": "https://www.youtube.com/watch?v=xhwpi44kpvs",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/xhwpi44kpvs/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "QKx6Toh5e7k",
+      "title": "The U.A.E. Got Chips. The Trump Team Got Crypto Riches | Interview",
+      "url": "https://www.youtube.com/watch?v=QKx6Toh5e7k",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/QKx6Toh5e7k/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
+    },
+    {
+      "id": "pDfTTUZN4Ng",
+      "title": "Kirk's Shooting Reveals the Cracks in Free Speech | EP 154",
+      "url": "https://www.youtube.com/watch?v=pDfTTUZN4Ng",
+      "platform": "youtube",
+      "source_name": "Hard Fork",
+      "thumbnail": "https://i.ytimg.com/vi/pDfTTUZN4Ng/hqdefault.jpg",
+      "scraped_at": "2026-02-02T13:19:55.995683"
     }
   ]
 }

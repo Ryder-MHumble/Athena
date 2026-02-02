@@ -484,28 +484,40 @@ async def translate_text(
 async def get_twitter_data():
     """获取已爬取的 Twitter 数据 - 先检查缓存，再读取文件"""
     try:
+        data = None
+        source = None
+        
         # 1. 先检查内存缓存
         if _data_cache.get("twitter"):
-            return {
-                "success": True,
-                "data": _data_cache["twitter"],
-                "source": "cache"
-            }
+            data = _data_cache["twitter"]
+            source = "cache"
+        else:
+            # 2. 尝试读取文件
+            filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
+            
+            if filepath.exists():
+                with open(filepath, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                _data_cache["twitter"] = data  # 更新缓存
+                source = "file"
         
-        # 2. 尝试读取文件
-        filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
+        if data is None:
+            return {"success": True, "data": None, "message": "No data available. Please run crawler first."}
         
-        if filepath.exists():
-            with open(filepath, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            _data_cache["twitter"] = data  # 更新缓存
-            return {
-                "success": True,
-                "data": data,
-                "source": "file"
-            }
+        # 3. 同时返回 authors 信息（解决线上环境前端无法访问静态文件的问题）
+        authors = None
+        authors_filepath = CRAWL_DATA_BASE_PATH / "twitter" / "authors.json"
+        if authors_filepath.exists():
+            with open(authors_filepath, "r", encoding="utf-8") as f:
+                authors_data = json.load(f)
+                authors = authors_data.get("authors", [])
         
-        return {"success": True, "data": None, "message": "No data available. Please run crawler first."}
+        return {
+            "success": True,
+            "data": data,
+            "authors": authors,  # 新增：返回作者信息
+            "source": source
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
