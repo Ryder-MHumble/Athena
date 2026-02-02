@@ -109,12 +109,10 @@ export function useOverseasData(): UseOverseasDataReturn {
     }
   }, [sourceAccounts])
 
-  // 获取数据（silent 模式不显示 loading，用于后台轮询）
-  const fetchData = useCallback(async (silent = false) => {
-    if (!silent) {
-      setIsLoading(true)
-      setError(null)
-    }
+  // 获取数据
+  const fetchData = useCallback(async () => {
+    setIsLoading(true)
+    setError(null)
     
     try {
       const fetchedItems: OverseasItem[] = []
@@ -176,80 +174,50 @@ export function useOverseasData(): UseOverseasDataReturn {
       
       setItems(fetchedItems)
       
-      if (!silent && fetchedItems.length === 0) {
+      if (fetchedItems.length === 0) {
         setError('暂无数据，请先运行爬虫任务')
       }
     } catch (err) {
       console.error('Failed to fetch overseas data:', err)
-      if (!silent) {
-        setError('数据加载失败')
-      }
+      setError('数据加载失败')
     } finally {
-      if (!silent) {
-        setIsLoading(false)
-      }
+      setIsLoading(false)
     }
   }, [])
 
   // 触发爬虫 - 支持后台异步模式
   const crawl = useCallback(async () => {
     setIsCrawling(true)
-    let pollIntervalRef: NodeJS.Timeout | null = null
-    
     try {
       // 使用异步模式，后台执行爬取
       const res = await fetch(`${API_BASE}/api/crawler/crawl/all?async_mode=true`, { method: 'POST' })
       if (res.ok) {
         const result = await res.json()
-        const taskId = result.task_id
-        console.log('[Crawler] Task started:', result.message, 'Task ID:', taskId)
+        // 显示友好提示，不阻塞用户
+        console.log('[Crawler] Task started:', result.message)
         
-        // 轮询检查数据更新（每8秒检查一次，最多检查30次=4分钟）
+        // 轮询检查数据更新（每5秒检查一次，最多检查60次=5分钟）
         let pollCount = 0
-        pollIntervalRef = setInterval(async () => {
+        const pollInterval = setInterval(async () => {
           pollCount++
-          
-          // 如果超过30次或数据已更新，停止轮询
-          if (pollCount > 30) {
-            if (pollIntervalRef) clearInterval(pollIntervalRef)
+          if (pollCount > 60) {
+            clearInterval(pollInterval)
             setIsCrawling(false)
-            console.log('[Crawler] Polling stopped after max attempts')
             return
           }
           
           try {
-            // 使用 silent 模式获取数据，不触发 loading 状态（防止页面闪动）
-            await fetchData(true)
-            
-            // 检查任务状态（如果有 taskId）
-            if (taskId) {
-              const statusRes = await fetch(`${API_BASE}/api/crawler/crawl/status/${taskId}`)
-              if (statusRes.ok) {
-                const statusData = await statusRes.json()
-                if (statusData.success && statusData.task?.status === 'completed') {
-                  console.log('[Crawler] Task completed:', statusData.task.result)
-                  // 最后再获取一次数据
-                  await fetchData(true)
-                  if (pollIntervalRef) clearInterval(pollIntervalRef)
-                  setIsCrawling(false)
-                  return
-                } else if (statusData.task?.status === 'failed') {
-                  console.error('[Crawler] Task failed:', statusData.task.error)
-                  if (pollIntervalRef) clearInterval(pollIntervalRef)
-                  setIsCrawling(false)
-                  return
-                }
-              }
-            }
+            await fetchData()
+            // 检查数据是否有更新（可以通过比较 items 数量或时间戳）
           } catch {
-            // 忽略轮询错误，继续尝试
+            // 忽略轮询错误
           }
-        }, 8000)
+        }, 5000)
         
-        // 2分钟后停止显示爬取状态（但继续后台轮询）
+        // 30秒后停止显示爬取状态（但继续后台轮询）
         setTimeout(() => {
           setIsCrawling(false)
-        }, 120000)
+        }, 30000)
       } else {
         setIsCrawling(false)
         console.error('[Crawler] Failed to start')
