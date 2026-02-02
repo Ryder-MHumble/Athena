@@ -8,6 +8,10 @@ import { getPublishTime, getPopularityScore, matchesSearch } from './utils'
 interface SourceAccount {
   name: string
   platform: 'twitter' | 'youtube'
+  username?: string
+  avatar?: string
+  followers?: number
+  verified?: boolean
 }
 
 interface UseOverseasDataReturn {
@@ -17,11 +21,11 @@ interface UseOverseasDataReturn {
   isLoading: boolean
   isCrawling: boolean
   error: string | null
-  selectedPlatform: OverseasPlatform
+  selectedPlatforms: OverseasPlatform[]
   selectedAccounts: string[]
   searchTerm: string
   sortOrder: SortOrder
-  setSelectedPlatform: (platform: OverseasPlatform) => void
+  setSelectedPlatforms: (platforms: OverseasPlatform[]) => void
   setSelectedAccounts: (accounts: string[]) => void
   setSearchTerm: (term: string) => void
   setSortOrder: (order: SortOrder) => void
@@ -29,38 +33,77 @@ interface UseOverseasDataReturn {
   crawl: () => Promise<void>
 }
 
+interface TwitterAuthor {
+  username: string
+  name: string
+  avatar: string
+  followers: number
+  verified: boolean
+  platform: 'twitter'
+}
+
 export function useOverseasData(): UseOverseasDataReturn {
   const [items, setItems] = useState<OverseasItem[]>([])
+  const [twitterAuthors, setTwitterAuthors] = useState<TwitterAuthor[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isCrawling, setIsCrawling] = useState(false)
   const [error, setError] = useState<string | null>(null)
   
-  const [selectedPlatform, setSelectedPlatformState] = useState<OverseasPlatform>('all')
+  const [selectedPlatforms, setSelectedPlatformsState] = useState<OverseasPlatform[]>([])
   const [selectedAccounts, setSelectedAccounts] = useState<string[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest')
   
-  // 提取所有独立的账号列表
+  // 提取所有独立的账号列表，优先使用 authors.json 中的详细信息
   const sourceAccounts = useMemo(() => {
     const accountMap = new Map<string, SourceAccount>()
-    items.forEach(item => {
-      const name = item.source_name
-      if (name && !accountMap.has(name)) {
-        accountMap.set(name, { name, platform: item.platform })
+    // 用于快速查找 username 是否已存在
+    const usernameSet = new Set<string>()
+    
+    // 先添加 Twitter 作者（包含头像等详情）
+    twitterAuthors.forEach(author => {
+      if (author.name && !accountMap.has(author.name)) {
+        accountMap.set(author.name, {
+          name: author.name,
+          platform: 'twitter',
+          username: author.username,
+          avatar: author.avatar,
+          followers: author.followers,
+          verified: author.verified,
+        })
+        // 同时记录 username，防止后续重复添加
+        if (author.username) {
+          usernameSet.add(author.username.toLowerCase())
+        }
       }
     })
+    
+    // 再添加其他来源的账号（如 YouTube），跳过已有的 Twitter 账号
+    items.forEach(item => {
+      const name = item.source_name
+      if (!name) return
+      
+      // 检查是否已存在（通过 name 或 username）
+      const nameLower = name.toLowerCase()
+      if (accountMap.has(name) || usernameSet.has(nameLower)) {
+        return
+      }
+      
+      accountMap.set(name, { name, platform: item.platform })
+    })
+    
     return Array.from(accountMap.values()).sort((a, b) => a.name.localeCompare(b.name))
-  }, [items])
+  }, [items, twitterAuthors])
   
   // 切换平台时清空不匹配的已选账号
-  const setSelectedPlatform = useCallback((platform: OverseasPlatform) => {
-    setSelectedPlatformState(platform)
-    // 当切换平台时，清除与新平台不匹配的已选账号
-    if (platform !== 'all') {
+  const setSelectedPlatforms = useCallback((platforms: OverseasPlatform[]) => {
+    setSelectedPlatformsState(platforms)
+    // 当选择具体平台时，清除与新平台不匹配的已选账号
+    if (platforms.length > 0 && !platforms.includes('all')) {
       setSelectedAccounts(prev => 
         prev.filter(accountName => {
           const account = sourceAccounts.find(a => a.name === accountName)
-          return account && account.platform === platform
+          return account && platforms.includes(account.platform as OverseasPlatform)
         })
       )
     }
@@ -91,6 +134,20 @@ export function useOverseasData(): UseOverseasDataReturn {
             if (data?.items) fetchedItems.push(...data.items)
           }
         } catch {}
+      }
+      
+      // 加载 Twitter 作者信息
+      try {
+        const authorsRes = await fetch('/crawl-data/twitter/authors.json')
+        if (authorsRes.ok) {
+          const data = await authorsRes.json()
+          if (data?.authors) {
+            setTwitterAuthors(data.authors)
+          }
+        }
+      } catch {
+        // 如果 authors.json 不存在，尝试从 items 中提取
+        console.log('authors.json not found, will extract from items')
       }
       
       // YouTube 数据
@@ -125,21 +182,45 @@ export function useOverseasData(): UseOverseasDataReturn {
     }
   }, [])
 
-  // 触发爬虫
+  // 触发爬虫 - 支持后台异步模式
   const crawl = useCallback(async () => {
     setIsCrawling(true)
     try {
-      const res = await fetch(`${API_BASE}/api/crawler/crawl/all`, { method: 'POST' })
+      // 使用异步模式，后台执行爬取
+      const res = await fetch(`${API_BASE}/api/crawler/crawl/all?async_mode=true`, { method: 'POST' })
       if (res.ok) {
         const result = await res.json()
-        alert(`爬取完成！${result.message}`)
-        await fetchData()
+        // 显示友好提示，不阻塞用户
+        console.log('[Crawler] Task started:', result.message)
+        
+        // 轮询检查数据更新（每5秒检查一次，最多检查60次=5分钟）
+        let pollCount = 0
+        const pollInterval = setInterval(async () => {
+          pollCount++
+          if (pollCount > 60) {
+            clearInterval(pollInterval)
+            setIsCrawling(false)
+            return
+          }
+          
+          try {
+            await fetchData()
+            // 检查数据是否有更新（可以通过比较 items 数量或时间戳）
+          } catch {
+            // 忽略轮询错误
+          }
+        }, 5000)
+        
+        // 30秒后停止显示爬取状态（但继续后台轮询）
+        setTimeout(() => {
+          setIsCrawling(false)
+        }, 30000)
       } else {
-        alert('爬取失败，请查看后端日志')
+        setIsCrawling(false)
+        console.error('[Crawler] Failed to start')
       }
-    } catch {
-      alert('爬取请求失败，请检查后端服务')
-    } finally {
+    } catch (err) {
+      console.error('[Crawler] Request error:', err)
       setIsCrawling(false)
     }
   }, [fetchData])
@@ -151,8 +232,10 @@ export function useOverseasData(): UseOverseasDataReturn {
   // 过滤和排序
   const filteredItems = useMemo(() => {
     let filtered = items.filter(item => {
-      // 平台筛选
-      const matchesPlatform = selectedPlatform === 'all' || item.platform === selectedPlatform
+      // 平台筛选（支持多选）
+      const matchesPlatform = selectedPlatforms.length === 0 || 
+        selectedPlatforms.includes('all') || 
+        selectedPlatforms.includes(item.platform as OverseasPlatform)
       if (!matchesPlatform) return false
       
       // 账号筛选（多选）
@@ -176,7 +259,7 @@ export function useOverseasData(): UseOverseasDataReturn {
     })
     
     return filtered
-  }, [items, selectedPlatform, selectedAccounts, searchTerm, sortOrder])
+  }, [items, selectedPlatforms, selectedAccounts, searchTerm, sortOrder])
 
   return {
     items,
@@ -185,11 +268,11 @@ export function useOverseasData(): UseOverseasDataReturn {
     isLoading,
     isCrawling,
     error,
-    selectedPlatform,
+    selectedPlatforms,
     selectedAccounts,
     searchTerm,
     sortOrder,
-    setSelectedPlatform,
+    setSelectedPlatforms,
     setSelectedAccounts,
     setSearchTerm,
     setSortOrder,

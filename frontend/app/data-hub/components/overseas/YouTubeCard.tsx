@@ -74,31 +74,11 @@ export function YouTubeCard({ item, isSelected, onClick }: YouTubeCardProps) {
       `}
     >
       <div className="flex">
-        {/* 左侧缩略图 */}
-        <div className="relative w-56 flex-shrink-0 bg-gray-100 group">
-          <img 
-            src={thumbnail} 
-            alt={item.title}
-            className="w-full h-full object-cover aspect-video"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = `https://i.ytimg.com/vi/${item.id}/mqdefault.jpg`
-            }}
-          />
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
-              <Play className="h-5 w-5 text-white ml-0.5" />
-            </div>
-          </div>
-          {/* 平台标识 */}
-          <div className="absolute top-2 left-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center">
-            <Youtube className="h-3 w-3 text-white" />
-          </div>
-        </div>
-        
-        {/* 中间内容区 */}
+        {/* 主内容区 */}
         <div className="flex-1 p-4 min-w-0">
           {/* 时间和来源 */}
           <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
+            <Youtube className="h-3 w-3 text-red-500" />
             <Clock className="h-3 w-3" />
             <span>{formatTime(publishTime)}</span>
             <span className="text-gray-300">·</span>
@@ -148,25 +128,41 @@ export function YouTubeCard({ item, isSelected, onClick }: YouTubeCardProps) {
           )}
         </div>
         
+        {/* 右侧缩略图 */}
+        <div className="relative w-44 flex-shrink-0 bg-gray-100 group">
+          <img 
+            src={thumbnail} 
+            alt={item.title}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = `https://i.ytimg.com/vi/${item.id}/mqdefault.jpg`
+            }}
+          />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
+              <Play className="h-5 w-5 text-white ml-0.5" />
+            </div>
+          </div>
+        </div>
+        
         {/* 右侧 AI 摘要区 */}
         {summary && (
-          <div className="w-64 flex-shrink-0 border-l border-gray-100 p-4 bg-slate-50/50">
+          <div className="w-56 flex-shrink-0 border-l border-gray-100 p-3 bg-slate-50/50">
             <div className="flex items-center gap-1.5 text-xs font-medium text-cyan-600 mb-2">
               <Sparkles className="h-3.5 w-3.5" />
               <span>精华速览</span>
             </div>
-            <p className="text-xs text-gray-600 leading-relaxed line-clamp-6">
+            <p className="text-xs text-gray-600 leading-relaxed line-clamp-4">
               {summary}
             </p>
             
             {item.key_points && item.key_points.length > 0 && (
-              <div className="mt-2.5">
-                <div className="text-xs font-medium text-gray-500 mb-1">关键信息</div>
+              <div className="mt-2">
                 <ul className="space-y-1">
-                  {item.key_points.slice(0, 3).map((point, idx) => (
+                  {item.key_points.slice(0, 2).map((point, idx) => (
                     <li key={idx} className="text-xs text-gray-600 flex items-start gap-1.5">
                       <span className="text-cyan-500 flex-shrink-0">{idx + 1}</span>
-                      <span className="line-clamp-2">{point}</span>
+                      <span className="line-clamp-1">{point}</span>
                     </li>
                   ))}
                 </ul>

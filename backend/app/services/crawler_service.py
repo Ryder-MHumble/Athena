@@ -154,6 +154,64 @@ async def crawl_twitter_source(source: Dict[str, str]) -> Dict[str, Any]:
     }
 
 
+def extract_unique_authors(all_tweets: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """从推文列表中提取唯一的作者信息"""
+    authors_map: Dict[str, Dict[str, Any]] = {}
+    
+    for tweet in all_tweets:
+        author = tweet.get("author", {})
+        username = author.get("username")
+        if not username:
+            continue
+        
+        # 如果该作者已存在，更新为粉丝数更多的版本（更新的数据）
+        existing = authors_map.get(username)
+        if existing:
+            if author.get("followers", 0) > existing.get("followers", 0):
+                authors_map[username] = {
+                    "username": username,
+                    "name": author.get("name"),
+                    "avatar": author.get("avatar"),
+                    "followers": author.get("followers", 0),
+                    "verified": author.get("verified", False),
+                    "platform": "twitter"
+                }
+        else:
+            authors_map[username] = {
+                "username": username,
+                "name": author.get("name"),
+                "avatar": author.get("avatar"),
+                "followers": author.get("followers", 0),
+                "verified": author.get("verified", False),
+                "platform": "twitter"
+            }
+    
+    # 按粉丝数排序
+    authors = list(authors_map.values())
+    authors.sort(key=lambda x: x.get("followers", 0), reverse=True)
+    return authors
+
+
+def save_authors_data(authors: List[Dict[str, Any]]) -> str:
+    """保存作者信息到 authors.json"""
+    platform_dir = CRAWL_DATA_BASE_PATH / "twitter"
+    platform_dir.mkdir(parents=True, exist_ok=True)
+    
+    filepath = platform_dir / "authors.json"
+    
+    output = {
+        "platform": "twitter",
+        "updated_at": datetime.now().isoformat(),
+        "total_count": len(authors),
+        "authors": authors
+    }
+    
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+    
+    return str(filepath)
+
+
 def save_twitter_data(sources_data: List[Dict[str, Any]]) -> str:
     """保存 Twitter 数据 - 直接覆盖文件"""
     # 合并所有推文
@@ -182,6 +240,10 @@ def save_twitter_data(sources_data: List[Dict[str, Any]]) -> str:
     
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
+    
+    # 提取并保存作者信息
+    authors = extract_unique_authors(all_tweets)
+    save_authors_data(authors)
     
     return str(filepath)
 

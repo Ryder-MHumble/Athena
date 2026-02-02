@@ -1,18 +1,27 @@
 """
 爬虫 API 路由
 支持前后端分离部署：数据通过 API 返回，不依赖文件系统
+支持后台异步爬取，用户无需等待
 """
 
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, HTTPException, Header, BackgroundTasks
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 import json
+import asyncio
 from pathlib import Path
+from datetime import datetime
 
 from ..services.crawler_service import (
     crawl_all_twitter,
     crawl_all_youtube,
     crawl_all_overseas,
+    crawl_twitter_source,
+    crawl_youtube_source,
+    save_twitter_data,
+    save_youtube_data,
+    extract_unique_authors,
+    save_authors_data,
     load_sources,
     CRAWL_DATA_BASE_PATH
 )
@@ -25,11 +34,140 @@ _data_cache: Dict[str, Any] = {
     "youtube": None
 }
 
+# 爬取任务状态
+_crawl_tasks: Dict[str, Dict[str, Any]] = {}
+
+def get_task_id():
+    """生成任务ID"""
+    return datetime.now().strftime("%Y%m%d%H%M%S%f")
+
 
 class CrawlResponse(BaseModel):
     success: bool
     message: str
     data: Optional[Dict[str, Any]] = None
+    task_id: Optional[str] = None
+
+
+async def background_crawl_all():
+    """后台执行全量爬取"""
+    task_id = get_task_id()
+    _crawl_tasks[task_id] = {
+        "status": "running",
+        "started_at": datetime.now().isoformat(),
+        "progress": "开始爬取..."
+    }
+    
+    try:
+        result = await crawl_all_overseas()
+        twitter_count = result.get("twitter", {}).get("total_posts", 0)
+        youtube_count = result.get("youtube", {}).get("total_videos", 0)
+        # 更新缓存
+        _data_cache["twitter"] = result.get("twitter", {}).get("data")
+        _data_cache["youtube"] = result.get("youtube", {}).get("data")
+        
+        _crawl_tasks[task_id] = {
+            "status": "completed",
+            "completed_at": datetime.now().isoformat(),
+            "result": f"Twitter {twitter_count} posts, YouTube {youtube_count} videos"
+        }
+    except Exception as e:
+        _crawl_tasks[task_id] = {
+            "status": "failed",
+            "error": str(e)
+        }
+    
+    return task_id
+
+
+async def background_crawl_single_source(source: Dict[str, str], platform: str):
+    """后台爬取单个信源并合并到现有数据"""
+    try:
+        print(f"[Background] Crawling {platform} source: {source['name']}")
+        
+        if platform == "twitter":
+            result = await crawl_twitter_source(source)
+            new_items = result.get("items", [])
+            
+            if new_items:
+                # 读取现有数据
+                filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
+                existing_data = {"items": [], "sources": []}
+                if filepath.exists():
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        existing_data = json.load(f)
+                
+                # 合并新数据（去重）
+                existing_ids = {item["id"] for item in existing_data.get("items", [])}
+                for item in new_items:
+                    if item["id"] not in existing_ids:
+                        existing_data["items"].append(item)
+                
+                # 更新 sources
+                source_names = {s["name"] for s in existing_data.get("sources", [])}
+                if result["source_name"] not in source_names:
+                    existing_data["sources"].append({
+                        "name": result["source_name"],
+                        "username": result.get("username"),
+                        "count": len(new_items)
+                    })
+                
+                # 按时间排序
+                existing_data["items"].sort(key=lambda x: x.get("created_at", ""), reverse=True)
+                existing_data["total_count"] = len(existing_data["items"])
+                existing_data["scraped_at"] = datetime.now().isoformat()
+                
+                # 保存
+                filepath.parent.mkdir(parents=True, exist_ok=True)
+                with open(filepath, "w", encoding="utf-8") as f:
+                    json.dump(existing_data, f, ensure_ascii=False, indent=2)
+                
+                # 更新作者信息
+                authors = extract_unique_authors(existing_data["items"])
+                save_authors_data(authors)
+                
+                # 更新缓存
+                _data_cache["twitter"] = existing_data
+                
+                print(f"[Background] Added {len(new_items)} new tweets from {source['name']}")
+        
+        elif platform == "youtube":
+            result = await crawl_youtube_source(source)
+            new_items = result.get("items", [])
+            
+            if new_items:
+                filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
+                existing_data = {"items": [], "sources": []}
+                if filepath.exists():
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        existing_data = json.load(f)
+                
+                existing_ids = {item["id"] for item in existing_data.get("items", [])}
+                for item in new_items:
+                    if item["id"] not in existing_ids:
+                        existing_data["items"].append(item)
+                
+                source_names = {s["name"] for s in existing_data.get("sources", [])}
+                if result["source_name"] not in source_names:
+                    existing_data["sources"].append({
+                        "name": result["source_name"],
+                        "channel_name": result.get("channel_name"),
+                        "count": len(new_items)
+                    })
+                
+                existing_data["total_count"] = len(existing_data["items"])
+                existing_data["scraped_at"] = datetime.now().isoformat()
+                
+                filepath.parent.mkdir(parents=True, exist_ok=True)
+                with open(filepath, "w", encoding="utf-8") as f:
+                    json.dump(existing_data, f, ensure_ascii=False, indent=2)
+                
+                _data_cache["youtube"] = existing_data
+                
+                print(f"[Background] Added {len(new_items)} new videos from {source['name']}")
+    
+    except Exception as e:
+        print(f"[Background] Error crawling {source['name']}: {e}")
 
 
 @router.post("/crawl/twitter", response_model=CrawlResponse)
@@ -64,8 +202,24 @@ async def crawl_youtube_sources():
 
 
 @router.post("/crawl/all", response_model=CrawlResponse)
-async def crawl_all_sources():
-    """爬取所有海外信源（Twitter + YouTube）"""
+async def crawl_all_sources(background_tasks: BackgroundTasks, async_mode: bool = False):
+    """
+    爬取所有海外信源（Twitter + YouTube）
+    async_mode=True 时后台执行，立即返回
+    """
+    if async_mode:
+        task_id = get_task_id()
+        _crawl_tasks[task_id] = {
+            "status": "pending",
+            "started_at": datetime.now().isoformat()
+        }
+        background_tasks.add_task(background_crawl_all)
+        return CrawlResponse(
+            success=True,
+            message="爬取任务已在后台启动",
+            task_id=task_id
+        )
+    
     try:
         result = await crawl_all_overseas()
         twitter_count = result.get("twitter", {}).get("total_posts", 0)
@@ -80,6 +234,14 @@ async def crawl_all_sources():
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/crawl/status/{task_id}")
+async def get_crawl_status(task_id: str):
+    """查询爬取任务状态"""
+    if task_id in _crawl_tasks:
+        return {"success": True, "task": _crawl_tasks[task_id]}
+    return {"success": False, "message": "Task not found"}
 
 
 @router.get("/sources")
@@ -161,10 +323,11 @@ def save_sources(sources: Dict[str, List[Dict[str, str]]]) -> None:
 
 
 @router.post("/sources")
-async def add_source(request: AddSourceRequest):
+async def add_source(request: AddSourceRequest, background_tasks: BackgroundTasks):
     """
     添加新信源
     自动识别 URL 类型（Twitter/YouTube）并解析用户名
+    添加后会在后台自动爬取该信源的内容
     """
     try:
         # 解析 URL
@@ -182,18 +345,23 @@ async def add_source(request: AddSourceRequest):
         # 添加新信源
         if platform not in sources:
             sources[platform] = []
-        sources[platform].append({
+        new_source = {
             "name": parsed["name"],
             "url": parsed["url"]
-        })
+        }
+        sources[platform].append(new_source)
         
         # 保存配置
         save_sources(sources)
         
+        # 后台异步爬取新添加的信源
+        background_tasks.add_task(background_crawl_single_source, new_source, platform)
+        
         return {
             "success": True,
-            "message": f"成功添加 {platform} 信源: {parsed['name']}",
-            "source": parsed
+            "message": f"成功添加 {platform} 信源: {parsed['name']}，正在后台爬取内容...",
+            "source": parsed,
+            "crawling": True
         }
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

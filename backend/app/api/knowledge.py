@@ -1,16 +1,13 @@
 """
 知识沉淀模块 API 路由
-处理文档上传、检索和报告生成
+简化版：上传文件 → LLM 分析生成报告 → 存储和展示
+不使用 RAG/Embedding，直接用 LLM 分析文档内容
 """
 
-from fastapi import APIRouter, UploadFile, File, Form, Header, HTTPException, Body
-from app.models.schemas import (
-    SearchRequest, SearchResponse, UploadResponse, 
-    DocumentListResponse, DocumentItem, ReportRequest, ReportResponse
-)
-from app.services.rag_service import get_rag_service
+from fastapi import APIRouter, UploadFile, File, Form, Header, HTTPException, Body, BackgroundTasks
+from pydantic import BaseModel
+from typing import Optional, List
 from app.services.llm_service import get_llm_service
-from app.services.embedding_service import get_embedding_service
 from app.config import settings
 from supabase import create_client, Client
 import fitz  # PyMuPDF
@@ -21,7 +18,44 @@ from datetime import datetime
 
 router = APIRouter()
 
-# Supabase 客户端（用于 Storage 操作）
+
+# ==================== 数据模型 ====================
+
+class UploadResponse(BaseModel):
+    success: bool
+    message: str
+    document_id: Optional[str] = None
+    file_url: Optional[str] = None
+
+
+class DocumentItem(BaseModel):
+    id: str
+    title: str
+    file_url: str
+    analysis_report: Optional[str] = None
+    status: str = "pending"  # pending, analyzing, completed, failed
+    created_at: str
+
+
+class DocumentListResponse(BaseModel):
+    success: bool
+    documents: List[DocumentItem]
+    count: int
+
+
+class AnalysisRequest(BaseModel):
+    document_id: str
+    content: Optional[str] = None
+
+
+class AnalysisResponse(BaseModel):
+    success: bool
+    report: Optional[str] = None
+    message: Optional[str] = None
+
+
+# ==================== Supabase 客户端 ====================
+
 def get_supabase_client() -> Client:
     return create_client(
         settings.SUPABASE_URL,
@@ -29,22 +63,114 @@ def get_supabase_client() -> Client:
     )
 
 
+# ==================== 后台分析任务 ====================
+
+async def background_analyze_document(document_id: str, text: str, api_key: str):
+    """后台分析文档并更新数据库"""
+    try:
+        print(f"[Background] Starting analysis for document: {document_id}")
+        supabase = get_supabase_client()
+        
+        # 更新状态为分析中
+        supabase.table("documents").update({
+            "status": "analyzing"
+        }).eq("id", document_id).execute()
+        
+        # 调用 LLM 分析
+        llm_service = get_llm_service(api_key=api_key)
+        
+        # 限制文本长度
+        truncated_text = text[:8000] if len(text) > 8000 else text
+        
+        analysis_prompt = f"""
+请对以下文档进行深度分析，生成一份专业的HTML格式分析报告。
+
+**文档内容：**
+{truncated_text}
+
+请生成包含以下部分的HTML报告（使用现代卡片式布局，带有优雅的样式）：
+
+<div class="report-container">
+  <div class="report-section summary">
+    <h2>📌 核心摘要</h2>
+    <p>用2-3句话总结文档的核心内容</p>
+  </div>
+  
+  <div class="report-section concepts">
+    <h2>🎯 关键概念</h2>
+    <ul>列出3-5个最重要的概念或术语</ul>
+  </div>
+  
+  <div class="report-section insights">
+    <h2>💡 核心洞察</h2>
+    <ul>列出3-5条核心洞察或发现</ul>
+  </div>
+  
+  <div class="report-section data">
+    <h2>📊 关键数据</h2>
+    <p>重点突出文档中提到的关键数据或统计</p>
+  </div>
+  
+  <div class="report-section actions">
+    <h2>📝 建议行动</h2>
+    <ul>基于文档内容提出2-3条可行的建议</ul>
+  </div>
+</div>
+
+请确保：
+1. 内容准确、专业
+2. 使用简洁清晰的语言
+3. 只返回HTML内容，不要包含```html标记
+"""
+        
+        report = llm_service.chat(
+            message=analysis_prompt,
+            system_prompt="你是一个专业的文档分析师，善于从复杂的文档中提取关键信息并生成结构化的HTML报告。",
+            temperature=0.5,
+        )
+        
+        # 清理可能的代码块标记
+        if report.startswith("```html"):
+            report = report[7:]
+        if report.startswith("```"):
+            report = report[3:]
+        if report.endswith("```"):
+            report = report[:-3]
+        report = report.strip()
+        
+        # 更新数据库
+        supabase.table("documents").update({
+            "analysis_report": report,
+            "status": "completed",
+            "analyzed_at": datetime.utcnow().isoformat()
+        }).eq("id", document_id).execute()
+        
+        print(f"[Background] Analysis completed for document: {document_id}")
+        
+    except Exception as e:
+        print(f"[Background] Analysis failed for document {document_id}: {e}")
+        try:
+            supabase = get_supabase_client()
+            supabase.table("documents").update({
+                "status": "failed",
+                "error_message": str(e)
+            }).eq("id", document_id).execute()
+        except:
+            pass
+
+
+# ==================== API 路由 ====================
+
 @router.post("/upload", response_model=UploadResponse)
 async def upload_document(
+    background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
     team_key: str = Form(...),
     x_api_key: str = Header(None),
 ):
     """
     上传文档到知识库
-    
-    Args:
-        file: 上传的文件（PDF）
-        team_key: 团队访问密钥
-        x_api_key: API Key（用于生成 embedding）
-    
-    Returns:
-        上传结果（包含文档 ID 和文件 URL）
+    上传后会在后台自动分析文档并生成报告
     """
     # 验证团队密钥
     if team_key != settings.TEAM_ACCESS_KEY:
@@ -54,7 +180,6 @@ async def upload_document(
         raise HTTPException(status_code=401, detail="API Key is required")
     
     try:
-        # 生成唯一的文档 ID
         document_id = str(uuid.uuid4())
         
         # 保存文件到临时目录
@@ -77,9 +202,6 @@ async def upload_document(
             if not text.strip():
                 raise HTTPException(status_code=400, detail="PDF file is empty or cannot be read")
             
-            # 获取服务实例
-            rag_service = get_rag_service()
-            embedding_service = get_embedding_service(api_key=x_api_key)
             supabase = get_supabase_client()
             
             # 1. 上传文件到 Supabase Storage
@@ -95,7 +217,6 @@ async def upload_document(
                     {"content-type": "application/pdf"}
                 )
                 
-                # 获取公开 URL
                 file_url = supabase.storage.from_("documents").get_public_url(file_storage_path)
                 print(f"✓ File uploaded to Supabase Storage: {file_storage_path}")
             except Exception as e:
@@ -108,6 +229,7 @@ async def upload_document(
                     "id": document_id,
                     "title": file.filename.replace(".pdf", ""),
                     "file_path": file_storage_path,
+                    "status": "pending",
                     "created_at": datetime.utcnow().isoformat(),
                 }
                 
@@ -117,53 +239,17 @@ async def upload_document(
                 print(f"✗ Error creating document record: {e}")
                 raise HTTPException(status_code=500, detail=f"Failed to create document record: {str(e)}")
             
-            # 3. 切分文本并生成 embeddings
-            try:
-                chunks = rag_service.text_splitter.split_text(text)
-                print(f"✓ Text split into {len(chunks)} chunks")
-                
-                print(f"Generating embeddings for {len(chunks)} chunks using API key: {x_api_key[:10]}...")
-                embeddings = await embedding_service.generate_embeddings(chunks)
-                print(f"✓ Embeddings generated: {len(embeddings)} vectors")
-                
-                if len(embeddings) != len(chunks):
-                    raise ValueError(f"Embedding count mismatch: {len(embeddings)} embeddings for {len(chunks)} chunks")
-            except Exception as e:
-                print(f"✗ Error generating embeddings: {e}")
-                raise HTTPException(status_code=500, detail=f"Failed to generate embeddings: {str(e)}")
-            
-            # 4. 上传文本块到 document_chunks 表
-            try:
-                metadata = {
-                    "source": file.filename,
-                    "file_url": file_url,
-                }
-                
-                success = rag_service.upload_document(
-                    document_id=document_id,
-                    content=text,
-                    metadata=metadata,
-                    embeddings=embeddings
-                )
-                
-                if not success:
-                    raise HTTPException(status_code=500, detail="Failed to upload document chunks to database")
-                print(f"✓ Document chunks uploaded to database")
-            except Exception as e:
-                print(f"✗ Error uploading document chunks: {e}")
-                if isinstance(e, HTTPException):
-                    raise
-                raise HTTPException(status_code=500, detail=f"Failed to upload document chunks: {str(e)}")
+            # 3. 后台异步分析文档
+            background_tasks.add_task(background_analyze_document, document_id, text, x_api_key)
             
             return UploadResponse(
                 success=True,
-                message="Document uploaded successfully",
+                message="文档上传成功，正在后台分析中...",
                 document_id=document_id,
                 file_url=file_url,
             )
             
         finally:
-            # 清理临时文件
             if os.path.exists(temp_path):
                 os.remove(temp_path)
         
@@ -179,28 +265,17 @@ async def get_documents(
     team_key: str = None,
     x_api_key: str = Header(None),
 ):
-    """
-    获取已上传的文档列表
-    
-    Args:
-        team_key: 团队访问密钥（查询参数）
-        x_api_key: API Key
-    
-    Returns:
-        文档列表
-    """
+    """获取已上传的文档列表"""
     if team_key and team_key != settings.TEAM_ACCESS_KEY:
         raise HTTPException(status_code=403, detail="Invalid team access key")
     
     try:
         supabase = get_supabase_client()
         
-        # 查询 documents 表
         response = supabase.table("documents").select("*").order("created_at", desc=True).execute()
         
         documents = []
         for doc in response.data:
-            # 获取 file_url 从 Storage
             file_path = doc.get("file_path", "")
             file_url = supabase.storage.from_("documents").get_public_url(file_path) if file_path else ""
             
@@ -208,7 +283,8 @@ async def get_documents(
                 id=doc["id"],
                 title=doc["title"],
                 file_url=file_url,
-                summary=doc.get("summary"),
+                analysis_report=doc.get("analysis_report"),
+                status=doc.get("status", "pending"),
                 created_at=doc["created_at"],
             ))
         
@@ -223,237 +299,125 @@ async def get_documents(
         raise HTTPException(status_code=500, detail=f"Error fetching documents: {str(e)}")
 
 
-@router.get("/document/{document_id}", response_model=dict)
-async def get_document_content(
+@router.get("/document/{document_id}")
+async def get_document_detail(
     document_id: str,
     x_api_key: str = Header(None),
 ):
+    """获取单个文档详情（包含分析报告）"""
+    try:
+        supabase = get_supabase_client()
+        
+        response = supabase.table("documents").select("*").eq("id", document_id).execute()
+        
+        if not response.data:
+            raise HTTPException(status_code=404, detail="Document not found")
+        
+        doc = response.data[0]
+        file_path = doc.get("file_path", "")
+        file_url = supabase.storage.from_("documents").get_public_url(file_path) if file_path else ""
+        
+        return {
+            "success": True,
+            "document": {
+                "id": doc["id"],
+                "title": doc["title"],
+                "file_url": file_url,
+                "analysis_report": doc.get("analysis_report"),
+                "status": doc.get("status", "pending"),
+                "created_at": doc["created_at"],
+                "analyzed_at": doc.get("analyzed_at"),
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error fetching document: {e}")
+        raise HTTPException(status_code=500, detail=f"Error fetching document: {str(e)}")
+
+
+@router.post("/analyze", response_model=AnalysisResponse)
+async def analyze_document(
+    background_tasks: BackgroundTasks,
+    request: AnalysisRequest = Body(...),
+    x_api_key: str = Header(None),
+):
     """
-    获取指定文档的内容（用于生成报告）
-    
-    Args:
-        document_id: 文档 ID
-        x_api_key: API Key
-    
-    Returns:
-        文档内容和元数据
+    手动触发文档分析（用于重新分析或失败重试）
     """
     if not x_api_key:
         raise HTTPException(status_code=401, detail="API Key is required")
     
     try:
         supabase = get_supabase_client()
-        rag_service = get_rag_service()
         
-        # 查询 documents 表获取文档元数据
-        doc_response = supabase.table("documents").select("*").eq("id", document_id).execute()
-        if not doc_response.data:
+        # 获取文档信息
+        response = supabase.table("documents").select("*").eq("id", request.document_id).execute()
+        
+        if not response.data:
             raise HTTPException(status_code=404, detail="Document not found")
         
-        doc_metadata = doc_response.data[0]
+        doc = response.data[0]
         
-        # 获取该文档的所有 chunks
-        chunks_response = supabase.table("document_chunks").select("content").eq("document_id", document_id).execute()
+        # 如果没有提供内容，需要重新从文件提取
+        if not request.content:
+            # 这里简化处理，实际可以从 Storage 下载并重新提取
+            return AnalysisResponse(
+                success=False,
+                message="请提供文档内容或重新上传文档"
+            )
         
-        # 合并所有 chunks 为完整内容
-        full_content = "\n\n".join([chunk["content"] for chunk in chunks_response.data])
+        # 后台分析
+        background_tasks.add_task(background_analyze_document, request.document_id, request.content, x_api_key)
         
-        return {
-            "success": True,
-            "document_id": document_id,
-            "title": doc_metadata.get("title"),
-            "content": full_content,
-            "chunk_count": len(chunks_response.data),
-        }
+        return AnalysisResponse(
+            success=True,
+            message="分析任务已启动，请稍后刷新查看结果"
+        )
         
     except HTTPException:
         raise
     except Exception as e:
-        print(f"Error fetching document content: {e}")
-        raise HTTPException(status_code=500, detail=f"Error fetching document content: {str(e)}")
+        print(f"Error analyzing document: {e}")
+        raise HTTPException(status_code=500, detail=f"Error analyzing document: {str(e)}")
 
 
-@router.post("/generate-report", response_model=ReportResponse)
-async def generate_report(
-    request: ReportRequest = Body(...),
+@router.delete("/document/{document_id}")
+async def delete_document(
+    document_id: str,
+    team_key: str = None,
     x_api_key: str = Header(None),
 ):
-    """
-    生成知识库文档的结构化报告
-    自动从文档内容生成摘要、关键概念、核心洞察等
-    
-    Args:
-        request: 包含文档 ID 和内容的请求
-        x_api_key: API Key
-    
-    Returns:
-        结构化报告
-    """
-    if not x_api_key:
-        raise HTTPException(status_code=401, detail="API Key is required")
+    """删除文档"""
+    if team_key and team_key != settings.TEAM_ACCESS_KEY:
+        raise HTTPException(status_code=403, detail="Invalid team access key")
     
     try:
-        llm_service = get_llm_service(api_key=x_api_key)
+        supabase = get_supabase_client()
         
-        # 生成结构化报告的提示词
-        report_prompt = f"""
-请根据以下文档内容生成一份专业的结构化报告。
-
-**文档内容：**
-{request.content[:5000]}  # 限制输入长度以节省 token
-
-请生成一份包含以下部分的Markdown格式报告：
-
-## 📌 核心摘要
-用2-3句话总结文档的核心内容
-
-## 🎯 关键概念
-列出3-5个最重要的概念或术语（使用 bullet list）
-
-## 💡 核心洞察
-列出3-5条核心洞察或发现
-
-## 📊 数据/统计（如果有）
-重点突出文档中提到的关键数据或统计
-
-## 🔗 相关领域
-列出这个话题相关的其他领域或概念
-
-## 📝 建议行动
-基于文档内容提出2-3条可行的建议
-
-请用通俗易懂的语言，避免过于专业的术语。
-"""
+        # 获取文档信息
+        response = supabase.table("documents").select("file_path").eq("id", document_id).execute()
         
-        # 调用 LLM 生成报告
-        report = llm_service.chat(
-            message=report_prompt,
-            system_prompt="你是一个专业的文档分析师，善于从复杂的文档中提取关键信息并生成结构化报告。",
-            temperature=0.5,  # 中等创意度
-        )
+        if not response.data:
+            raise HTTPException(status_code=404, detail="Document not found")
         
-        return ReportResponse(
-            success=True,
-            report=report,
-        )
+        file_path = response.data[0].get("file_path")
         
+        # 删除 Storage 中的文件
+        if file_path:
+            try:
+                supabase.storage.from_("documents").remove([file_path])
+            except Exception as e:
+                print(f"Warning: Failed to delete file from storage: {e}")
+        
+        # 删除数据库记录
+        supabase.table("documents").delete().eq("id", document_id).execute()
+        
+        return {"success": True, "message": "Document deleted successfully"}
+        
+    except HTTPException:
+        raise
     except Exception as e:
-        print(f"Error generating report: {e}")
-        raise HTTPException(status_code=500, detail=f"Error generating report: {str(e)}")
-
-
-@router.post("/chat", response_model=SearchResponse)
-async def chat_with_document(
-    request: SearchRequest = Body(...),
-    document_id: str = None,
-    x_api_key: str = Header(None),
-):
-    """
-    与特定文档进行问答（知识库 RAG）
-    
-    Args:
-        request: 问题和配置
-        document_id: 文档 ID（可选，如果提供则只在该文档中搜索）
-        x_api_key: API Key
-    
-    Returns:
-        搜索结果和 AI 回答
-    """
-    if not x_api_key:
-        raise HTTPException(status_code=401, detail="API Key is required")
-    
-    try:
-        from app.prompts.knowledge_prompt import KNOWLEDGE_SYSTEM_PROMPT
-        
-        # 获取服务实例
-        rag_service = get_rag_service()
-        llm_service = get_llm_service(api_key=x_api_key)
-        embedding_service = get_embedding_service(api_key=x_api_key)
-        
-        # 生成查询向量
-        query_embedding = await embedding_service.generate_embedding(request.query)
-        
-        # 搜索相似文档
-        results = rag_service.search(
-            query=request.query,
-            query_embedding=query_embedding,
-            top_k=request.top_k,
-        )
-        
-        # 构建上下文
-        context_text = "\n\n".join([
-            f"[来源: {ctx.get('metadata', {}).get('source', '未知')}]\n{ctx['content']}"
-            for ctx in results
-        ])
-        
-        # 使用知识库专用 system prompt 生成回答
-        prompt = f"""基于以下文档片段，回答用户的问题。如果文档中没有相关信息，请诚实地说"根据提供的文档，我无法找到相关信息"。
-
-文档片段：
-{context_text}
-
-用户问题：{request.query}
-
-请用通俗易懂的语言回答，避免专业术语，必要时用生活中的例子做类比。
-"""
-        
-        answer = llm_service.chat(
-            message=prompt,
-            system_prompt=KNOWLEDGE_SYSTEM_PROMPT,
-        )
-        
-        return SearchResponse(
-            results=results,
-            answer=answer,
-        )
-        
-    except Exception as e:
-        print(f"Error chatting with document: {e}")
-        raise HTTPException(status_code=500, detail=f"Error chatting with document: {str(e)}")
-
-
-@router.post("/search", response_model=SearchResponse)
-async def search_knowledge(
-    request: SearchRequest = Body(...),
-    x_api_key: str = Header(None),
-):
-    """
-    在知识库中搜索相关文档片段
-    
-    Args:
-        request: 搜索查询和配置
-        x_api_key: API Key
-    
-    Returns:
-        搜索结果
-    """
-    if not x_api_key:
-        raise HTTPException(status_code=401, detail="API Key is required")
-    
-    try:
-        from app.prompts.knowledge_prompt import KNOWLEDGE_SYSTEM_PROMPT
-        
-        # 获取服务实例
-        rag_service = get_rag_service()
-        embedding_service = get_embedding_service(api_key=x_api_key)
-        
-        # 生成查询向量
-        query_embedding = await embedding_service.generate_embedding(request.query)
-        
-        # 搜索相似文档
-        results = rag_service.search(
-            query=request.query,
-            query_embedding=query_embedding,
-            top_k=request.top_k,
-        )
-        
-        # 返回搜索结果（不生成答案）
-        return SearchResponse(
-            results=results,
-            answer="",  # 仅返回搜索结果
-        )
-        
-    except Exception as e:
-        print(f"Error searching knowledge: {e}")
-        raise HTTPException(status_code=500, detail=f"Error searching knowledge: {str(e)}")
-
+        print(f"Error deleting document: {e}")
+        raise HTTPException(status_code=500, detail=f"Error deleting document: {str(e)}")

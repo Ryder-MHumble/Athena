@@ -13,10 +13,10 @@ interface TwitterDetailPanelProps {
 export function TwitterDetailPanel({ item, onClose }: TwitterDetailPanelProps) {
   const [loading, setLoading] = useState(true)
   
-  const embedUrl = `https://platform.twitter.com/embed/Tweet.html?dnt=true&frame=false&hideCard=false&hideThread=false&id=${item.id}&lang=zh-cn&theme=light&width=450px`
+  const embedUrl = `https://platform.twitter.com/embed/Tweet.html?dnt=true&frame=false&hideCard=false&hideThread=false&id=${item.id}&lang=zh-cn&theme=light`
 
   return (
-    <div className="h-full flex flex-col bg-white overflow-hidden">
+    <div className="h-full flex flex-col bg-white">
       {/* 头部 */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 flex-shrink-0">
         <div className="flex items-center gap-2">
@@ -43,8 +43,14 @@ export function TwitterDetailPanel({ item, onClose }: TwitterDetailPanelProps) {
         </div>
       </div>
       
-      {/* iframe 容器 */}
-      <div className="flex-1 overflow-y-auto p-4">
+      {/* iframe 容器 - 支持滚动但隐藏滚动条 */}
+      <div 
+        className="flex-1 overflow-y-scroll [&::-webkit-scrollbar]:hidden"
+        style={{ 
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none',
+        }}
+      >
         {loading && (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-sky-500" />
@@ -53,16 +59,15 @@ export function TwitterDetailPanel({ item, onClose }: TwitterDetailPanelProps) {
         <iframe
           src={embedUrl}
           title="X Post"
-          scrolling="yes"
+          scrolling="no"
           frameBorder="0"
           allowTransparency={true}
           allowFullScreen={true}
           className="w-full border-0"
           style={{ 
-            minHeight: '500px',
-            height: 'calc(100vh - 200px)',
-            maxHeight: '1200px',
-            display: loading ? 'none' : 'block'
+            display: loading ? 'none' : 'block',
+            height: '100vh',
+            minHeight: '100%'
           }}
           onLoad={() => setLoading(false)}
         />
@@ -80,7 +85,7 @@ export function YouTubeDetailPanel({ item, onClose }: YouTubeDetailPanelProps) {
   const publishTime = item.published_at || item.scraped_at
   
   return (
-    <div className="h-full flex flex-col bg-white overflow-hidden">
+    <div className="h-full flex flex-col bg-white">
       {/* 头部 */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 flex-shrink-0">
         <div className="flex items-center gap-2">
@@ -108,7 +113,7 @@ export function YouTubeDetailPanel({ item, onClose }: YouTubeDetailPanelProps) {
       </div>
       
       {/* 视频内容 */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 flex flex-col">
         <div className="p-4">
           <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
             <iframe

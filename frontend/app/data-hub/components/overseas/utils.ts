@@ -83,3 +83,53 @@ export function matchesSearch(item: OverseasItem, searchTerm: string): boolean {
   }
 }
 
+/**
+ * 日期范围类型
+ */
+export interface DateRange {
+  start: string | null
+  end: string | null
+}
+
+/**
+ * 根据日期范围过滤数据
+ */
+export function filterByDateRange(
+  items: OverseasItem[],
+  dateRange: DateRange
+): OverseasItem[] {
+  if (!dateRange.start && !dateRange.end) return items
+  
+  const now = new Date()
+  let startDate: Date | null = null
+  let endDate: Date | null = null
+  
+  if (dateRange.start === 'today') {
+    startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59)
+  } else if (dateRange.start === '3days') {
+    startDate = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000)
+  } else if (dateRange.start === '7days') {
+    startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  } else if (dateRange.start === '30days') {
+    startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+  } else if (dateRange.start) {
+    startDate = new Date(dateRange.start)
+  }
+  
+  if (dateRange.end && dateRange.end !== 'today') {
+    endDate = new Date(dateRange.end)
+    endDate.setHours(23, 59, 59)
+  }
+  
+  return items.filter(item => {
+    const dateStr = item.platform === 'twitter' 
+      ? (item as TwitterItem).created_at 
+      : ((item as YouTubeItem).published_at || (item as YouTubeItem).scraped_at)
+    const itemDate = new Date(dateStr)
+    if (startDate && itemDate < startDate) return false
+    if (endDate && itemDate > endDate) return false
+    return true
+  })
+}
+

@@ -1,6 +1,6 @@
 {
   "platform": "youtube",
-  "scraped_at": "2026-01-31T22:33:12.279979",
+  "scraped_at": "2026-02-02T11:37:07.262886",
   "total_count": 165,
   "sources": [
     {
@@ -25,7 +25,7 @@
     },
     {
       "name": "Eye on AI with Craig S. Smith",
-      "channel_name": null,
+      "channel_name": "Eye on AI",
       "count": 0
     },
     {
@@ -67,13 +67,13 @@
   "items": [
     {
       "id": "6HxT4nQmtvc",
-      "title": "AI Is Scaling Faster Than Anyone Expected",
+      "title": "The Biggest Bottlenecks For AI: Enegry &amp; Cooling",
       "url": "https://www.youtube.com/watch?v=6HxT4nQmtvc",
       "platform": "youtube",
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/6HxT4nQmtvc/hqdefault.jpg",
       "published_at": "2026-01-26T16:49:43+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947234"
+      "scraped_at": "2026-02-02T11:36:06.233366"
     },
     {
       "id": "ZqvgAzFKMgk",
@@ -83,7 +83,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/ZqvgAzFKMgk/hqdefault.jpg",
       "published_at": "2026-01-24T20:00:00+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947252"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "0F4RpMEhk60",
@@ -93,7 +93,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/0F4RpMEhk60/hqdefault.jpg",
       "published_at": "2026-01-20T21:23:25+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947255"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "3XVDtPU8xKE",
@@ -103,7 +103,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/3XVDtPU8xKE/hqdefault.jpg",
       "published_at": "2026-01-19T16:17:51+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947259"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "N_YIAomr35A",
@@ -113,7 +113,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/N_YIAomr35A/hqdefault.jpg",
       "published_at": "2026-01-17T20:00:00+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947262"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "D7sJc8kJC9s",
@@ -123,7 +123,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/D7sJc8kJC9s/hqdefault.jpg",
       "published_at": "2026-01-16T20:00:09+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947265"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "Kdql4I-NJ0M",
@@ -133,7 +133,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/Kdql4I-NJ0M/hqdefault.jpg",
       "published_at": "2026-01-15T17:39:20+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947268"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "M9VKnPMs6Rw",
@@ -143,7 +143,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/M9VKnPMs6Rw/hqdefault.jpg",
       "published_at": "2026-01-13T17:15:28+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947271"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "r8_2CSpcmls",
@@ -153,7 +153,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/r8_2CSpcmls/hqdefault.jpg",
       "published_at": "2026-01-13T14:01:38+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947274"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "xRh2sVcNXQ8",
@@ -163,7 +163,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/xRh2sVcNXQ8/hqdefault.jpg",
       "published_at": "2026-01-07T16:23:46+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947277"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "J6_nNjy3al8",
@@ -173,7 +173,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/J6_nNjy3al8/hqdefault.jpg",
       "published_at": "2025-12-31T14:00:34+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947280"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "p4-7x6QiYr0",
@@ -183,7 +183,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/p4-7x6QiYr0/hqdefault.jpg",
       "published_at": "2025-12-29T13:58:10+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947283"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "tnNKfn6k-Fs",
@@ -193,7 +193,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/tnNKfn6k-Fs/hqdefault.jpg",
       "published_at": "2025-12-28T20:00:40+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947287"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "j_FYmEOoWIU",
@@ -203,7 +203,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/j_FYmEOoWIU/hqdefault.jpg",
       "published_at": "2025-12-27T20:00:27+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947290"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "BkJyVjq457w",
@@ -213,7 +213,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/BkJyVjq457w/hqdefault.jpg",
       "published_at": "2025-12-26T17:00:52+00:00",
-      "scraped_at": "2026-01-31T22:30:57.947293"
+      "scraped_at": "2026-02-02T11:36:06.234366"
     },
     {
       "id": "INWKYT5PROc",
@@ -223,7 +223,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/INWKYT5PROc/hqdefault.jpg",
       "published_at": "2026-01-30T23:21:12+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972934"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "fILfSL7rhq0",
@@ -233,7 +233,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/fILfSL7rhq0/hqdefault.jpg",
       "published_at": "2026-01-30T22:16:44+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972952"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "g_tok0lrIRE",
@@ -243,7 +243,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/g_tok0lrIRE/hqdefault.jpg",
       "published_at": "2026-01-28T19:37:47+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972956"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "qyQcICFKb1c",
@@ -253,7 +253,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/qyQcICFKb1c/hqdefault.jpg",
       "published_at": "2026-01-28T13:38:54+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972960"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "VoMF8JSmI5s",
@@ -263,7 +263,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/VoMF8JSmI5s/hqdefault.jpg",
       "published_at": "2026-01-27T16:18:55+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972963"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "zeduU9BWHD0",
@@ -273,7 +273,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/zeduU9BWHD0/hqdefault.jpg",
       "published_at": "2026-01-27T10:09:29+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972967"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "ZeiwCS0CfWg",
@@ -283,7 +283,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/ZeiwCS0CfWg/hqdefault.jpg",
       "published_at": "2026-01-26T20:21:53+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972970"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "ENtGQnA-Vkw",
@@ -293,7 +293,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/ENtGQnA-Vkw/hqdefault.jpg",
       "published_at": "2026-01-26T20:21:42+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972973"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "fWkEMe69Jec",
@@ -303,7 +303,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/fWkEMe69Jec/hqdefault.jpg",
       "published_at": "2026-01-26T20:21:27+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972976"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "S9cfcpzJ_Ck",
@@ -313,7 +313,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/S9cfcpzJ_Ck/hqdefault.jpg",
       "published_at": "2026-01-26T10:02:16+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972979"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "TIocCFA2ohY",
@@ -323,7 +323,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/TIocCFA2ohY/hqdefault.jpg",
       "published_at": "2026-01-22T18:23:21+00:00",
-      "scraped_at": "2026-01-31T22:31:05.972998"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "A7j5NeyhdWU",
@@ -333,7 +333,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/A7j5NeyhdWU/hqdefault.jpg",
       "published_at": "2026-01-22T17:55:42+00:00",
-      "scraped_at": "2026-01-31T22:31:05.973001"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "GqYPziDK-gc",
@@ -343,7 +343,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/GqYPziDK-gc/hqdefault.jpg",
       "published_at": "2026-01-22T17:29:44+00:00",
-      "scraped_at": "2026-01-31T22:31:05.973011"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "h5sPgxOFNQg",
@@ -353,7 +353,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/h5sPgxOFNQg/hqdefault.jpg",
       "published_at": "2026-01-22T15:41:33+00:00",
-      "scraped_at": "2026-01-31T22:31:05.973014"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "xbQCZCca-28",
@@ -363,7 +363,7 @@
       "source_name": "Axios",
       "thumbnail": "https://i.ytimg.com/vi/xbQCZCca-28/hqdefault.jpg",
       "published_at": "2026-01-22T11:36:57+00:00",
-      "scraped_at": "2026-01-31T22:31:05.973017"
+      "scraped_at": "2026-02-02T11:36:09.275026"
     },
     {
       "id": "dO0csRgxo_A",
@@ -373,7 +373,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/dO0csRgxo_A/hqdefault.jpg",
       "published_at": "2026-01-29T16:56:03+00:00",
-      "scraped_at": "2026-01-31T22:31:08.180992"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "cULEAl2wDxw",
@@ -383,7 +383,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/cULEAl2wDxw/hqdefault.jpg",
       "published_at": "2026-01-29T16:55:59+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181004"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "s40a06a5wIc",
@@ -393,7 +393,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/s40a06a5wIc/hqdefault.jpg",
       "published_at": "2026-01-29T16:55:56+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181005"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "YxkGdX4WIBE",
@@ -403,7 +403,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/YxkGdX4WIBE/hqdefault.jpg",
       "published_at": "2026-01-29T16:55:50+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181006"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "V8lhUqKqzUc",
@@ -413,7 +413,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/V8lhUqKqzUc/hqdefault.jpg",
       "published_at": "2026-01-28T12:00:29+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181007"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "eCk5VFKKz08",
@@ -423,7 +423,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/eCk5VFKKz08/hqdefault.jpg",
       "published_at": "2026-01-26T18:00:10+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181009"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "60_WPBkuqyA",
@@ -433,7 +433,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/60_WPBkuqyA/hqdefault.jpg",
       "published_at": "2026-01-26T18:00:04+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181010"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "z4x9fkbe8SI",
@@ -443,7 +443,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/z4x9fkbe8SI/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:34+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181011"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "1nd0CbaJD3E",
@@ -453,7 +453,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/1nd0CbaJD3E/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:29+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181012"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "bY_RarpUdUw",
@@ -463,7 +463,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/bY_RarpUdUw/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:25+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181013"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "XHhCZOk2WvY",
@@ -473,7 +473,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/XHhCZOk2WvY/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:21+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181014"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "DNPLK-MvoSg",
@@ -483,7 +483,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/DNPLK-MvoSg/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:15+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181015"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "DfaRahn_dwo",
@@ -493,7 +493,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/DfaRahn_dwo/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:10+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181016"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "ZtMEe3W0aP0",
@@ -503,7 +503,7 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/ZtMEe3W0aP0/hqdefault.jpg",
       "published_at": "2025-12-17T16:00:03+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181017"
+      "scraped_at": "2026-02-02T11:36:11.498987"
     },
     {
       "id": "f0TL0GG_lo8",
@@ -513,7 +513,17 @@
       "source_name": "DeepMind",
       "thumbnail": "https://i.ytimg.com/vi/f0TL0GG_lo8/hqdefault.jpg",
       "published_at": "2025-12-17T15:59:50+00:00",
-      "scraped_at": "2026-01-31T22:31:08.181018"
+      "scraped_at": "2026-02-02T11:36:11.498987"
+    },
+    {
+      "id": "qmX-mGqaCz8",
+      "title": "The Neighbors Russia Erased From History - Sarah Paine",
+      "url": "https://www.youtube.com/watch?v=qmX-mGqaCz8",
+      "platform": "youtube",
+      "source_name": "Dwarkesh Podcast",
+      "thumbnail": "https://i.ytimg.com/vi/qmX-mGqaCz8/hqdefault.jpg",
+      "published_at": "2026-01-31T21:06:08+00:00",
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "8zhjmdx9THE",
@@ -523,7 +533,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/8zhjmdx9THE/hqdefault.jpg",
       "published_at": "2026-01-30T21:12:10+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055370"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "O5-sEbJU87c",
@@ -533,7 +543,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/O5-sEbJU87c/hqdefault.jpg",
       "published_at": "2026-01-29T17:30:35+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055376"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "dK1AJ48vJoE",
@@ -543,7 +553,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/dK1AJ48vJoE/hqdefault.jpg",
       "published_at": "2026-01-28T16:57:32+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055377"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "1U9Fc6Ri3XM",
@@ -553,7 +563,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/1U9Fc6Ri3XM/hqdefault.jpg",
       "published_at": "2026-01-27T20:11:06+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055378"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "s_G2hI0dkf0",
@@ -563,7 +573,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/s_G2hI0dkf0/hqdefault.jpg",
       "published_at": "2026-01-26T19:00:04+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055379"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "MBNisUMFNiE",
@@ -573,7 +583,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/MBNisUMFNiE/hqdefault.jpg",
       "published_at": "2026-01-25T16:10:50+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055380"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "DnQLKbNqYow",
@@ -583,7 +593,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/DnQLKbNqYow/hqdefault.jpg",
       "published_at": "2026-01-23T20:59:13+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055381"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "VQMHil4Dm0c",
@@ -593,7 +603,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/VQMHil4Dm0c/hqdefault.jpg",
       "published_at": "2026-01-22T20:08:09+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055382"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "fCgIqEdnXW4",
@@ -603,7 +613,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/fCgIqEdnXW4/hqdefault.jpg",
       "published_at": "2026-01-21T18:48:04+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055383"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "UoCbLFBBbHY",
@@ -613,7 +623,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/UoCbLFBBbHY/hqdefault.jpg",
       "published_at": "2026-01-20T18:14:46+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055384"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "zy-aEa8JFg0",
@@ -623,7 +633,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/zy-aEa8JFg0/hqdefault.jpg",
       "published_at": "2026-01-18T21:30:21+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055385"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "N14O_UZ8hyU",
@@ -633,7 +643,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/N14O_UZ8hyU/hqdefault.jpg",
       "published_at": "2026-01-17T22:41:24+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055386"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "FdI8iya1-cU",
@@ -643,7 +653,7 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/FdI8iya1-cU/hqdefault.jpg",
       "published_at": "2026-01-16T21:44:07+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055387"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
       "id": "Rersh9Xro3M",
@@ -653,27 +663,27 @@
       "source_name": "Dwarkesh Podcast",
       "thumbnail": "https://i.ytimg.com/vi/Rersh9Xro3M/hqdefault.jpg",
       "published_at": "2026-01-15T17:54:07+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055388"
+      "scraped_at": "2026-02-02T11:36:14.974718"
     },
     {
-      "id": "DGjoluNeBuM",
-      "title": "Thatcher’s Worst Geopolitical Take - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=DGjoluNeBuM",
+      "id": "QgpJN4FAdO0",
+      "title": "Bitcoin Will Replace Gold and AI Doubles GDP Growth W/ Cathie Wood | MOONSHOTS",
+      "url": "https://www.youtube.com/watch?v=QgpJN4FAdO0",
       "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/DGjoluNeBuM/hqdefault.jpg",
-      "published_at": "2026-01-14T21:32:04+00:00",
-      "scraped_at": "2026-01-31T22:31:11.055388"
+      "source_name": "Peter Diamandis",
+      "thumbnail": "https://i.ytimg.com/vi/QgpJN4FAdO0/hqdefault.jpg",
+      "published_at": "2026-01-31T15:04:58+00:00",
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "VoW13oUTTV0",
-      "title": "Bitcoin Will Replace Gold and AI Doubles GDP Growth W/ Cathie Wood |Ep #226",
+      "title": "Cathie Wood: “AI and Bitcoin Are Moving Faster Than We Expected” | EP #226",
       "url": "https://www.youtube.com/watch?v=VoW13oUTTV0",
       "platform": "youtube",
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/VoW13oUTTV0/hqdefault.jpg",
       "published_at": "2026-01-29T16:45:15+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660093"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "Hr0wf-ACQnI",
@@ -683,7 +693,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/Hr0wf-ACQnI/hqdefault.jpg",
       "published_at": "2026-01-29T15:15:33+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660113"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "hGRiklWYMas",
@@ -693,7 +703,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/hGRiklWYMas/hqdefault.jpg",
       "published_at": "2026-01-27T21:00:58+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660116"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "DTgrzlQtOd0",
@@ -703,7 +713,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/DTgrzlQtOd0/hqdefault.jpg",
       "published_at": "2026-01-22T21:00:25+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660118"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "KnuRvvhDVIw",
@@ -713,7 +723,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/KnuRvvhDVIw/hqdefault.jpg",
       "published_at": "2026-01-21T15:08:56+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660120"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "8iWSNwIRazc",
@@ -723,7 +733,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/8iWSNwIRazc/hqdefault.jpg",
       "published_at": "2026-01-20T17:37:16+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660122"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "TLOKcFMaCrQ",
@@ -733,7 +743,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/TLOKcFMaCrQ/hqdefault.jpg",
       "published_at": "2026-01-19T15:05:28+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660125"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "0RLZ2BGyFOY",
@@ -743,7 +753,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/0RLZ2BGyFOY/hqdefault.jpg",
       "published_at": "2026-01-18T21:02:56+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660127"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "S866IPnh6Es",
@@ -753,7 +763,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/S866IPnh6Es/hqdefault.jpg",
       "published_at": "2026-01-18T14:31:31+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660129"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "tw89-ADGUgQ",
@@ -763,7 +773,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/tw89-ADGUgQ/hqdefault.jpg",
       "published_at": "2026-01-17T21:02:33+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660131"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "1hPouO58OKc",
@@ -773,7 +783,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/1hPouO58OKc/hqdefault.jpg",
       "published_at": "2026-01-17T15:31:34+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660134"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "Xc_tuXaDros",
@@ -783,7 +793,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/Xc_tuXaDros/hqdefault.jpg",
       "published_at": "2026-01-16T21:03:50+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660136"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "SNEnuowfzSY",
@@ -793,7 +803,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/SNEnuowfzSY/hqdefault.jpg",
       "published_at": "2026-01-16T18:31:46+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660138"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
       "id": "BVisHb4bK8Y",
@@ -803,17 +813,27 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/BVisHb4bK8Y/hqdefault.jpg",
       "published_at": "2026-01-16T15:05:14+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660140"
+      "scraped_at": "2026-02-02T11:36:34.760747"
     },
     {
-      "id": "lXT9kjqgxQo",
-      "title": "Tony Robbins: &quot;I Warned the President About This 10 Years Ago.&quot; | MOONSHOTS",
-      "url": "https://www.youtube.com/watch?v=lXT9kjqgxQo",
+      "id": "mUqoSTyxY1U",
+      "title": "HOW TO PAY OFF YOUR MORTGAGE EARLY",
+      "url": "https://www.youtube.com/watch?v=mUqoSTyxY1U",
       "platform": "youtube",
-      "source_name": "Peter Diamandis",
-      "thumbnail": "https://i.ytimg.com/vi/lXT9kjqgxQo/hqdefault.jpg",
-      "published_at": "2026-01-15T21:31:41+00:00",
-      "scraped_at": "2026-01-31T22:32:52.660142"
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/mUqoSTyxY1U/hqdefault.jpg",
+      "published_at": "2026-02-01T21:34:08+00:00",
+      "scraped_at": "2026-02-02T11:36:38.848438"
+    },
+    {
+      "id": "IVV3s3lN2zM",
+      "title": "VITAMIN D IS LINKED TO DEMENTIA?!",
+      "url": "https://www.youtube.com/watch?v=IVV3s3lN2zM",
+      "platform": "youtube",
+      "source_name": "The Diary of a CEO with Steven Bartlett",
+      "thumbnail": "https://i.ytimg.com/vi/IVV3s3lN2zM/hqdefault.jpg",
+      "published_at": "2026-01-31T22:31:35+00:00",
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "0-DTvG8LVn8",
@@ -823,7 +843,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/0-DTvG8LVn8/hqdefault.jpg",
       "published_at": "2026-01-31T01:00:01+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272770"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "RWep7uP_reA",
@@ -833,7 +853,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/RWep7uP_reA/hqdefault.jpg",
       "published_at": "2026-01-30T17:16:43+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272779"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "XV2eLBkrCHg",
@@ -843,7 +863,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/XV2eLBkrCHg/hqdefault.jpg",
       "published_at": "2026-01-29T19:00:38+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272781"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "99xyy1nUpug",
@@ -853,7 +873,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/99xyy1nUpug/hqdefault.jpg",
       "published_at": "2026-01-29T08:00:07+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272782"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "A0GUg2E_wCU",
@@ -863,7 +883,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/A0GUg2E_wCU/hqdefault.jpg",
       "published_at": "2026-01-28T19:00:17+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272783"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "O49fPiqRNkQ",
@@ -873,7 +893,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/O49fPiqRNkQ/hqdefault.jpg",
       "published_at": "2026-01-27T22:00:24+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272784"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "nXW21redwbA",
@@ -883,7 +903,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/nXW21redwbA/hqdefault.jpg",
       "published_at": "2026-01-27T15:15:21+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272785"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "w3dTmyZq4Qk",
@@ -893,7 +913,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/w3dTmyZq4Qk/hqdefault.jpg",
       "published_at": "2026-01-26T08:01:06+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272786"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "qPAJAdIb0_A",
@@ -903,7 +923,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/qPAJAdIb0_A/hqdefault.jpg",
       "published_at": "2026-01-25T11:06:21+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272787"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "FltO1BCwpjw",
@@ -913,7 +933,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/FltO1BCwpjw/hqdefault.jpg",
       "published_at": "2026-01-23T18:34:27+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272788"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "2RdmPANeImQ",
@@ -923,7 +943,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/2RdmPANeImQ/hqdefault.jpg",
       "published_at": "2026-01-22T19:00:06+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272789"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "nJeU72Rgjh4",
@@ -933,7 +953,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/nJeU72Rgjh4/hqdefault.jpg",
       "published_at": "2026-01-22T08:00:52+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272790"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "XjzhsYf6ZJo",
@@ -943,27 +963,7 @@
       "source_name": "The Diary of a CEO with Steven Bartlett",
       "thumbnail": "https://i.ytimg.com/vi/XjzhsYf6ZJo/hqdefault.jpg",
       "published_at": "2026-01-21T20:00:34+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272791"
-    },
-    {
-      "id": "dp5y_P_V53k",
-      "title": "HOW TO PROTECT YOUR ENERGY",
-      "url": "https://www.youtube.com/watch?v=dp5y_P_V53k",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/dp5y_P_V53k/hqdefault.jpg",
-      "published_at": "2026-01-20T20:00:41+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272792"
-    },
-    {
-      "id": "wMjajsIU7YQ",
-      "title": "&quot;THE GOVERNMENT CAN SEE YOUR PASSWORDS&quot;",
-      "url": "https://www.youtube.com/watch?v=wMjajsIU7YQ",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/wMjajsIU7YQ/hqdefault.jpg",
-      "published_at": "2026-01-19T20:00:22+00:00",
-      "scraped_at": "2026-01-31T22:32:57.272793"
+      "scraped_at": "2026-02-02T11:36:38.848438"
     },
     {
       "id": "k_Wrd1kI1B0",
@@ -973,7 +973,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/k_Wrd1kI1B0/hqdefault.jpg",
       "published_at": "2023-08-16T23:28:51+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822692"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "Iad_LZxZqbc",
@@ -983,7 +983,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/Iad_LZxZqbc/hqdefault.jpg",
       "published_at": "2023-08-10T21:45:55+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822709"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "nM_3d37lmcM",
@@ -993,7 +993,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/nM_3d37lmcM/hqdefault.jpg",
       "published_at": "2023-08-03T06:09:53+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822711"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "p0nX5QtLW_c",
@@ -1003,7 +1003,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/p0nX5QtLW_c/hqdefault.jpg",
       "published_at": "2023-07-25T19:54:58+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822714"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "ItopcoP8ST0",
@@ -1013,7 +1013,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/ItopcoP8ST0/hqdefault.jpg",
       "published_at": "2023-07-11T21:34:37+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822716"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "3_g14RAyOzE",
@@ -1023,7 +1023,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/3_g14RAyOzE/hqdefault.jpg",
       "published_at": "2023-07-06T05:41:09+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822718"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "ceCg90Q9N6Y",
@@ -1033,7 +1033,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/ceCg90Q9N6Y/hqdefault.jpg",
       "published_at": "2023-06-28T22:42:25+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822720"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "hcKSwiNk-CA",
@@ -1043,7 +1043,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/hcKSwiNk-CA/hqdefault.jpg",
       "published_at": "2023-06-21T21:21:41+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822722"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "QhDLHWR04Rk",
@@ -1053,7 +1053,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/QhDLHWR04Rk/hqdefault.jpg",
       "published_at": "2023-06-08T14:02:49+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822724"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "DgwhJnkmxZw",
@@ -1063,7 +1063,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/DgwhJnkmxZw/hqdefault.jpg",
       "published_at": "2023-05-24T22:01:01+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822727"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "MKyTVPCVoWg",
@@ -1073,7 +1073,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/MKyTVPCVoWg/hqdefault.jpg",
       "published_at": "2023-05-17T19:56:04+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822729"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "rLG68k2blOc",
@@ -1083,7 +1083,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/rLG68k2blOc/hqdefault.jpg",
       "published_at": "2023-05-10T16:06:12+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822731"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "R9SLjTxpdW4",
@@ -1093,7 +1093,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/R9SLjTxpdW4/hqdefault.jpg",
       "published_at": "2023-05-03T17:11:05+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822733"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "tG0HGKNnp-A",
@@ -1103,7 +1103,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/tG0HGKNnp-A/hqdefault.jpg",
       "published_at": "2023-05-03T17:07:20+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822735"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "dKvYRgOifFA",
@@ -1113,7 +1113,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/dKvYRgOifFA/hqdefault.jpg",
       "published_at": "2023-04-26T18:54:28+00:00",
-      "scraped_at": "2026-01-31T22:33:00.822737"
+      "scraped_at": "2026-02-02T11:36:42.893717"
     },
     {
       "id": "K5JoLAauzq4",
@@ -1123,7 +1123,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/K5JoLAauzq4/hqdefault.jpg",
       "published_at": "2026-01-30T15:00:39+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059212"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "leQ89XSHILw",
@@ -1133,7 +1133,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/leQ89XSHILw/hqdefault.jpg",
       "published_at": "2026-01-29T15:01:32+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059224"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "WI_w9po5oz0",
@@ -1143,7 +1143,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/WI_w9po5oz0/hqdefault.jpg",
       "published_at": "2026-01-23T17:01:01+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059226"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "dC_3ys349bU",
@@ -1153,7 +1153,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/dC_3ys349bU/hqdefault.jpg",
       "published_at": "2026-01-22T15:01:12+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059227"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "UZbXWYY7y-A",
@@ -1163,7 +1163,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/UZbXWYY7y-A/hqdefault.jpg",
       "published_at": "2026-01-15T18:15:03+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059228"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "0kARDVL2nZg",
@@ -1173,7 +1173,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/0kARDVL2nZg/hqdefault.jpg",
       "published_at": "2026-01-14T15:00:05+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059229"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "2hgjgycOU_0",
@@ -1183,7 +1183,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/2hgjgycOU_0/hqdefault.jpg",
       "published_at": "2026-01-08T15:00:11+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059230"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "cqrJzG03ENE",
@@ -1193,7 +1193,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/cqrJzG03ENE/hqdefault.jpg",
       "published_at": "2025-12-22T15:01:25+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059231"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "pBlIgs6w7Ss",
@@ -1203,7 +1203,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/pBlIgs6w7Ss/hqdefault.jpg",
       "published_at": "2025-12-17T15:01:40+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059232"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "5WN8bfG06Hk",
@@ -1213,7 +1213,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/5WN8bfG06Hk/hqdefault.jpg",
       "published_at": "2025-12-10T15:00:19+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059233"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "JLW83-yNuBo",
@@ -1223,7 +1223,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/JLW83-yNuBo/hqdefault.jpg",
       "published_at": "2025-12-05T17:12:55+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059234"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "t8co94HS6tY",
@@ -1233,7 +1233,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/t8co94HS6tY/hqdefault.jpg",
       "published_at": "2025-12-03T15:01:50+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059234"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "Z4L4ZqL1xqQ",
@@ -1243,7 +1243,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/Z4L4ZqL1xqQ/hqdefault.jpg",
       "published_at": "2025-11-28T15:01:09+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059235"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "eiT9wMgesjI",
@@ -1253,7 +1253,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/eiT9wMgesjI/hqdefault.jpg",
       "published_at": "2025-11-25T21:35:40+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059236"
+      "scraped_at": "2026-02-02T11:36:47.008879"
     },
     {
       "id": "VtDBvmxiXnA",
@@ -1263,7 +1263,17 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/VtDBvmxiXnA/hqdefault.jpg",
       "published_at": "2025-11-24T20:08:29+00:00",
-      "scraped_at": "2026-01-31T22:33:04.059237"
+      "scraped_at": "2026-02-02T11:36:47.008879"
+    },
+    {
+      "id": "l2MXHJ1lSOE",
+      "title": "What Freezing Time Asks of Us",
+      "url": "https://www.youtube.com/watch?v=l2MXHJ1lSOE",
+      "platform": "youtube",
+      "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
+      "thumbnail": "https://i.ytimg.com/vi/l2MXHJ1lSOE/hqdefault.jpg",
+      "published_at": "2026-01-31T19:37:30+00:00",
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "vvfQnO7OjWI",
@@ -1273,7 +1283,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/vvfQnO7OjWI/hqdefault.jpg",
       "published_at": "2026-01-29T11:01:42+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278768"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "-8Ud5mrguP4",
@@ -1283,7 +1293,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/-8Ud5mrguP4/hqdefault.jpg",
       "published_at": "2026-01-28T18:41:48+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278783"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "3iqdIGvKXIs",
@@ -1293,7 +1303,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/3iqdIGvKXIs/hqdefault.jpg",
       "published_at": "2026-01-25T20:44:09+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278786"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "3bRAvP7WmlY",
@@ -1303,7 +1313,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/3bRAvP7WmlY/hqdefault.jpg",
       "published_at": "2026-01-24T18:44:54+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278789"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "KKnDmx3JYZM",
@@ -1313,7 +1323,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/KKnDmx3JYZM/hqdefault.jpg",
       "published_at": "2026-01-23T20:04:26+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278791"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "qQAhK2EWw4I",
@@ -1323,7 +1333,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/qQAhK2EWw4I/hqdefault.jpg",
       "published_at": "2026-01-22T11:01:24+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278794"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "721mWMIuaCU",
@@ -1333,7 +1343,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/721mWMIuaCU/hqdefault.jpg",
       "published_at": "2026-01-20T17:52:22+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278798"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "SfEhR37RqTM",
@@ -1343,7 +1353,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/SfEhR37RqTM/hqdefault.jpg",
       "published_at": "2026-01-19T18:38:54+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278801"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "dQlHTaLhtgE",
@@ -1353,7 +1363,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/dQlHTaLhtgE/hqdefault.jpg",
       "published_at": "2026-01-18T19:12:07+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278804"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "4JczM2klIj0",
@@ -1363,7 +1373,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/4JczM2klIj0/hqdefault.jpg",
       "published_at": "2026-01-16T19:12:14+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278806"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "XMdEVafndHc",
@@ -1373,7 +1383,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/XMdEVafndHc/hqdefault.jpg",
       "published_at": "2026-01-15T18:18:56+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278809"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "djv5UDHrg7g",
@@ -1383,7 +1393,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/djv5UDHrg7g/hqdefault.jpg",
       "published_at": "2026-01-15T11:01:13+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278812"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "h-HxJBmX4yU",
@@ -1393,7 +1403,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/h-HxJBmX4yU/hqdefault.jpg",
       "published_at": "2026-01-13T18:56:39+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278814"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
       "id": "xU9hbdAxuIg",
@@ -1403,17 +1413,27 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/xU9hbdAxuIg/hqdefault.jpg",
       "published_at": "2026-01-12T19:39:51+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278816"
+      "scraped_at": "2026-02-02T11:36:53.128714"
     },
     {
-      "id": "2sdmjlMVM2c",
-      "title": "Jensen Huang: Open Source Runs Everything",
-      "url": "https://www.youtube.com/watch?v=2sdmjlMVM2c",
+      "id": "fR1PAvm-l5Q",
+      "title": "Why &quot;Thinking&quot; Costs Money (Inference Scaling) #ai #podcast",
+      "url": "https://www.youtube.com/watch?v=fR1PAvm-l5Q",
       "platform": "youtube",
-      "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
-      "thumbnail": "https://i.ytimg.com/vi/2sdmjlMVM2c/hqdefault.jpg",
-      "published_at": "2026-01-11T19:13:59+00:00",
-      "scraped_at": "2026-01-31T22:33:07.278819"
+      "source_name": "The MAD Podcast with Matt Turck",
+      "thumbnail": "https://i.ytimg.com/vi/fR1PAvm-l5Q/hqdefault.jpg",
+      "published_at": "2026-02-01T17:01:03+00:00",
+      "scraped_at": "2026-02-02T11:37:01.734576"
+    },
+    {
+      "id": "huSgnkJ7Fqc",
+      "title": "The &quot;DeepSeek&quot; Moment- RLVR &amp; GRPO #ai #podcast",
+      "url": "https://www.youtube.com/watch?v=huSgnkJ7Fqc",
+      "platform": "youtube",
+      "source_name": "The MAD Podcast with Matt Turck",
+      "thumbnail": "https://i.ytimg.com/vi/huSgnkJ7Fqc/hqdefault.jpg",
+      "published_at": "2026-01-31T17:01:08+00:00",
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "7gucZeu-JUM",
@@ -1423,7 +1443,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/7gucZeu-JUM/hqdefault.jpg",
       "published_at": "2026-01-30T21:00:12+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721087"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "ZgNe5pUQTNI",
@@ -1433,7 +1453,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/ZgNe5pUQTNI/hqdefault.jpg",
       "published_at": "2026-01-30T17:00:58+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721101"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "K5WPr5dtne0",
@@ -1443,7 +1463,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/K5WPr5dtne0/hqdefault.jpg",
       "published_at": "2026-01-29T13:30:28+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721104"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "zi332y--LJI",
@@ -1453,7 +1473,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/zi332y--LJI/hqdefault.jpg",
       "published_at": "2026-01-28T17:01:47+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721106"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "p9fmLpvwiPA",
@@ -1463,7 +1483,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/p9fmLpvwiPA/hqdefault.jpg",
       "published_at": "2026-01-27T17:01:20+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721109"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "2997w92V-a0",
@@ -1473,7 +1493,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/2997w92V-a0/hqdefault.jpg",
       "published_at": "2026-01-26T17:00:05+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721111"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "wSyss-opblI",
@@ -1483,7 +1503,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/wSyss-opblI/hqdefault.jpg",
       "published_at": "2026-01-25T17:01:22+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721113"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "NmcSfwssSGg",
@@ -1493,7 +1513,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/NmcSfwssSGg/hqdefault.jpg",
       "published_at": "2026-01-24T17:00:40+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721115"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "tJaaogIw25E",
@@ -1503,7 +1523,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/tJaaogIw25E/hqdefault.jpg",
       "published_at": "2026-01-23T17:01:26+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721118"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "8piPaAtbsdc",
@@ -1513,7 +1533,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/8piPaAtbsdc/hqdefault.jpg",
       "published_at": "2026-01-22T17:00:27+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721120"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "XCCkgRzth6Q",
@@ -1523,7 +1543,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/XCCkgRzth6Q/hqdefault.jpg",
       "published_at": "2026-01-22T13:30:40+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721122"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "ISftk1U5o5Q",
@@ -1533,7 +1553,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/ISftk1U5o5Q/hqdefault.jpg",
       "published_at": "2026-01-21T17:00:24+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721124"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "4Un4Ge9Lc-o",
@@ -1543,27 +1563,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/4Un4Ge9Lc-o/hqdefault.jpg",
       "published_at": "2026-01-20T17:00:07+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721126"
-    },
-    {
-      "id": "xJnt7L7nkXE",
-      "title": "Scalable Oversight &amp; The Evaluation Bottleneck #ai #podcast",
-      "url": "https://www.youtube.com/watch?v=xJnt7L7nkXE",
-      "platform": "youtube",
-      "source_name": "The MAD Podcast with Matt Turck",
-      "thumbnail": "https://i.ytimg.com/vi/xJnt7L7nkXE/hqdefault.jpg",
-      "published_at": "2026-01-19T17:01:37+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721129"
-    },
-    {
-      "id": "HpbhExRpmoc",
-      "title": "Weak-to-Strong Generalization #ai #podcast",
-      "url": "https://www.youtube.com/watch?v=HpbhExRpmoc",
-      "platform": "youtube",
-      "source_name": "The MAD Podcast with Matt Turck",
-      "thumbnail": "https://i.ytimg.com/vi/HpbhExRpmoc/hqdefault.jpg",
-      "published_at": "2026-01-18T17:00:27+00:00",
-      "scraped_at": "2026-01-31T22:33:09.721131"
+      "scraped_at": "2026-02-02T11:37:01.734576"
     },
     {
       "id": "uKhvTCSmA8I",
@@ -1573,7 +1573,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/uKhvTCSmA8I/hqdefault.jpg",
       "published_at": "2026-01-31T14:01:24+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279751"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "nJbz0fnAoNI",
@@ -1583,17 +1583,17 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/nJbz0fnAoNI/hqdefault.jpg",
       "published_at": "2026-01-31T00:00:58+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279762"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "5dTmsGBHKTM",
-      "title": "How A.I. Is Shaping the Minneapolis Narrative",
+      "title": "An A.I. Assistant That’s Too Good to Be True?",
       "url": "https://www.youtube.com/watch?v=5dTmsGBHKTM",
       "platform": "youtube",
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/5dTmsGBHKTM/hqdefault.jpg",
       "published_at": "2026-01-30T18:32:15+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279763"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "CAxr2tDkBe8",
@@ -1603,7 +1603,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/CAxr2tDkBe8/hqdefault.jpg",
       "published_at": "2026-01-28T13:00:21+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279764"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "9ZhnFBwEJ7U",
@@ -1613,7 +1613,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/9ZhnFBwEJ7U/hqdefault.jpg",
       "published_at": "2026-01-27T13:00:26+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279765"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "d17NDhUf_Sg",
@@ -1623,7 +1623,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/d17NDhUf_Sg/hqdefault.jpg",
       "published_at": "2026-01-26T13:01:11+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279766"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "qrcYsuIucec",
@@ -1633,7 +1633,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/qrcYsuIucec/hqdefault.jpg",
       "published_at": "2026-01-24T11:01:24+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279767"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "DlR1VoQbX9s",
@@ -1643,7 +1643,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/DlR1VoQbX9s/hqdefault.jpg",
       "published_at": "2026-01-23T19:30:02+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279768"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "HDfr8PvfoOw",
@@ -1653,7 +1653,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/HDfr8PvfoOw/hqdefault.jpg",
       "published_at": "2026-01-23T17:32:47+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279769"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "ji_xpQzZDHo",
@@ -1663,7 +1663,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/ji_xpQzZDHo/hqdefault.jpg",
       "published_at": "2026-01-22T14:35:01+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279770"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "1RtJtY-JeSw",
@@ -1673,7 +1673,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/1RtJtY-JeSw/hqdefault.jpg",
       "published_at": "2026-01-22T14:00:05+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279771"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "PH7v0Bv36lc",
@@ -1683,7 +1683,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/PH7v0Bv36lc/hqdefault.jpg",
       "published_at": "2026-01-20T16:00:42+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279772"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "tZSteN2g5yM",
@@ -1693,7 +1693,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/tZSteN2g5yM/hqdefault.jpg",
       "published_at": "2026-01-16T21:45:51+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279773"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "QphTlLc5dkc",
@@ -1703,7 +1703,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/QphTlLc5dkc/hqdefault.jpg",
       "published_at": "2026-01-16T20:00:24+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279773"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     },
     {
       "id": "xGB2AH-XpYc",
@@ -1713,7 +1713,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/xGB2AH-XpYc/hqdefault.jpg",
       "published_at": "2026-01-16T18:31:30+00:00",
-      "scraped_at": "2026-01-31T22:33:12.279774"
+      "scraped_at": "2026-02-02T11:37:07.261885"
     }
   ]
 }
