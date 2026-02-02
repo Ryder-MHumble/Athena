@@ -36,10 +36,10 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 // 状态图标和颜色
 const statusConfig = {
-  pending: { icon: Timer, color: 'text-gray-400', bg: 'bg-gray-100', label: '等待分析' },
+  pending: { icon: Timer, color: 'text-gray-400', bg: 'bg-gray-100', label: '等待分析', animate: false },
   analyzing: { icon: Loader2, color: 'text-cyan-600', bg: 'bg-cyan-100', label: '分析中', animate: true },
-  completed: { icon: CheckCircle, color: 'text-emerald-600', bg: 'bg-emerald-100', label: '已完成' },
-  failed: { icon: AlertCircle, color: 'text-red-500', bg: 'bg-red-100', label: '分析失败' },
+  completed: { icon: CheckCircle, color: 'text-emerald-600', bg: 'bg-emerald-100', label: '已完成', animate: false },
+  failed: { icon: AlertCircle, color: 'text-red-500', bg: 'bg-red-100', label: '分析失败', animate: false },
 }
 
 export default function TeamBrainPage() {

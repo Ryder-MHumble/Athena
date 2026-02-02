@@ -22,6 +22,7 @@ import {
   useOverseasData,
   NewLayoutView,
   type OverseasItem,
+  type OverseasPlatform,
   type TwitterItem,
   type YouTubeItem,
 } from './overseas'
@@ -473,14 +474,20 @@ export function OverseasBrowseSectionLegacy() {
     isLoading,
     isCrawling,
     error,
-    selectedPlatform,
+    selectedPlatforms,
     searchTerm,
     sortOrder,
-    setSelectedPlatform,
+    setSelectedPlatforms,
     setSearchTerm,
     setSortOrder,
     crawl,
   } = useOverseasData()
+
+  // 兼容旧的单选接口
+  const selectedPlatform = selectedPlatforms.length === 1 ? selectedPlatforms[0] : 'all'
+  const setSelectedPlatform = (platform: OverseasPlatform) => {
+    setSelectedPlatforms(platform === 'all' ? [] : [platform])
+  }
 
   const handleSelect = (item: OverseasItem) => {
     setSelectedItem(prev => prev?.id === item.id ? null : item)
