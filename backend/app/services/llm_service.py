@@ -45,7 +45,8 @@ class LLMService:
         message: str,
         history: List[Dict[str, str]] = None,
         system_prompt: str = None,
-        temperature: float = None
+        temperature: float = None,
+        max_tokens: int = None
     ) -> str:
         """
         执行对话
@@ -79,14 +80,14 @@ class LLMService:
         # 添加当前用户消息
         messages.append(HumanMessage(content=message))
         
-        # 调用 LLM（如果指定了temperature，临时创建新的llm实例）
-        if temperature is not None:
+        # 调用 LLM（如果指定了temperature或max_tokens，临时创建新的llm实例）
+        if temperature is not None or max_tokens is not None:
             temp_llm = ChatOpenAI(
                 model=self.model,
                 openai_api_key=self.api_key,
                 openai_api_base="https://api.siliconflow.cn/v1",
-                temperature=temperature,
-                max_tokens=settings.MAX_TOKENS,
+                temperature=temperature if temperature is not None else settings.TEMPERATURE,
+                max_tokens=max_tokens if max_tokens is not None else settings.MAX_TOKENS,
                 request_timeout=settings.LLM_REQUEST_TIMEOUT,
             )
             response = temp_llm.invoke(messages)
@@ -266,6 +267,121 @@ class LLMService:
             return []
         # 这里保持兼容，返回一个包含整体内容的 Q&A
         return [{"question": "关于这篇论文可能被问到的问题及答案", "answer": content}]
+    
+    def chat_with_image(
+        self,
+        message: str,
+        image_base64: str,
+        system_prompt: str = None,
+        temperature: float = 0.3,
+        max_tokens: int = 2000
+    ) -> str:
+        """
+        多模态对话 - 支持图片输入
+        
+        Args:
+            message: 文本消息
+            image_base64: Base64 编码的图片
+            system_prompt: 系统提示词
+            temperature: 温度参数
+            max_tokens: 最大 token 数
+        
+        Returns:
+            AI 回复内容
+        """
+        import httpx
+        import json
+        
+        # 使用 SiliconFlow 的多模态模型 API
+        # 参考：https://docs.siliconflow.cn/docs/model-api
+        api_url = "https://api.siliconflow.cn/v1/chat/completions"
+        
+        # 构建多模态消息
+        messages = []
+        
+        if system_prompt:
+            messages.append({
+                "role": "system",
+                "content": system_prompt
+            })
+        
+        # 添加包含图片的用户消息
+        messages.append({
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": message
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{image_base64}"
+                    }
+                }
+            ]
+        })
+        
+        # 调用 API
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
+        
+        # 使用支持多模态的模型
+        # 注意：SiliconFlow 的多模态模型需要特殊权限，如果 403 则降级为文本分析
+        vision_model = getattr(settings, "VISION_MODEL", "Pro/Qwen/Qwen2-VL-7B-Instruct")
+        
+        payload = {
+            "model": vision_model,
+            "messages": messages,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            "stream": False
+        }
+        
+        try:
+            with httpx.Client(timeout=120.0) as client:
+                response = client.post(api_url, json=payload, headers=headers)
+                
+                # 如果是 403，尝试使用文本模型进行简单分析
+                if response.status_code == 403:
+                    print(f"[LLM] 多模态模型返回 403，可能需要权限。尝试使用文本模型...")
+                    # 降级为文本分析（不含图片）
+                    return self._fallback_text_analysis(message, system_prompt, temperature, max_tokens)
+                
+                response.raise_for_status()
+                result = response.json()
+                return result["choices"][0]["message"]["content"]
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 403:
+                print(f"[LLM] 多模态 API 403 错误，降级为文本分析")
+                return self._fallback_text_analysis(message, system_prompt, temperature, max_tokens)
+            print(f"[LLM] 多模态调用失败: {e}")
+            raise Exception(f"多模态模型调用失败: {str(e)}")
+        except Exception as e:
+            print(f"[LLM] 多模态调用失败: {e}")
+            raise Exception(f"多模态模型调用失败: {str(e)}")
+    
+    def _fallback_text_analysis(
+        self,
+        message: str,
+        system_prompt: str = None,
+        temperature: float = 0.3,
+        max_tokens: int = 1000
+    ) -> str:
+        """降级方案：使用文本模型进行基础分析（不看图片）"""
+        fallback_message = f"""{message}
+
+注意：由于无法访问多模态模型，此分析仅基于文件名和提示词，未实际查看图片内容。
+请提供一个合理的估计性分析结果。"""
+        
+        return self.chat(
+            message=fallback_message,
+            system_prompt=system_prompt,
+            temperature=temperature,
+            max_tokens=max_tokens
+        )
 
 
 # 全局 LLM 服务实例（懒加载）

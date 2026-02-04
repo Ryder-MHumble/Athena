@@ -197,7 +197,7 @@ const MODULE_INFO = {
 }
 
 export default function SettingsPage() {
-  const { apiKey, teamKey, mcpServerUrl, selectedModel, setApiKey, setTeamKey, setMcpServerUrl, setSelectedModel, setSystemPrompt, getSystemPrompt } = useAppStore()
+  const { apiKey, teamKey, mcpServerUrl, selectedModel, mineruApiKey, setApiKey, setTeamKey, setMcpServerUrl, setSelectedModel, setMineruApiKey, setSystemPrompt, getSystemPrompt } = useAppStore()
   
   // Tab状态
   const [activeTab, setActiveTab] = useState<'api' | 'prompts'>('api')
@@ -207,8 +207,10 @@ export default function SettingsPage() {
   const [localTeamKey, setLocalTeamKey] = useState('')
   const [localMcpServerUrl, setLocalMcpServerUrl] = useState('')
   const [localSelectedModel, setLocalSelectedModel] = useState('')
+  const [localMineruApiKey, setLocalMineruApiKey] = useState('')
   const [showApiKey, setShowApiKey] = useState(false)
   const [showTeamKey, setShowTeamKey] = useState(false)
+  const [showMineruKey, setShowMineruKey] = useState(false)
   
   // 模型选择相关状态
   const [modelSearchQuery, setModelSearchQuery] = useState('')
@@ -226,6 +228,7 @@ export default function SettingsPage() {
     setLocalTeamKey(teamKey)
     setLocalMcpServerUrl(mcpServerUrl || '')
     setLocalSelectedModel(selectedModel)
+    setLocalMineruApiKey(mineruApiKey || '')
     
     // 展开包含当前选中模型的厂商
     if (selectedModel) {
@@ -241,7 +244,7 @@ export default function SettingsPage() {
       loadedPrompts[module] = getSystemPrompt(module) || DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS]
     })
     setPrompts(loadedPrompts)
-  }, [apiKey, teamKey, mcpServerUrl, selectedModel, getSystemPrompt])
+  }, [apiKey, teamKey, mcpServerUrl, selectedModel, mineruApiKey, getSystemPrompt])
 
   // 保存API配置
   const handleSaveApiConfig = () => {
@@ -249,6 +252,7 @@ export default function SettingsPage() {
     setTeamKey(localTeamKey.trim())
     setMcpServerUrl(localMcpServerUrl.trim() || null)
     setSelectedModel(localSelectedModel)
+    setMineruApiKey(localMineruApiKey.trim())
     toast.success('API配置已保存')
   }
 
@@ -291,7 +295,7 @@ export default function SettingsPage() {
     setExpandedModules(newExpanded)
   }
 
-  const hasApiChanges = localApiKey !== apiKey || localTeamKey !== teamKey || localMcpServerUrl !== (mcpServerUrl || '') || localSelectedModel !== selectedModel
+  const hasApiChanges = localApiKey !== apiKey || localTeamKey !== teamKey || localMcpServerUrl !== (mcpServerUrl || '') || localSelectedModel !== selectedModel || localMineruApiKey !== (mineruApiKey || '')
 
   // 切换厂商展开/折叠
   const toggleProvider = (providerId: string) => {
@@ -427,6 +431,65 @@ export default function SettingsPage() {
                           <span>密钥已配置</span>
                         </div>
                       )}
+                    </div>
+                  </div>
+
+                                    {/* MinerU API Key */}
+                                    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="flex items-start gap-4 p-6 border-b border-slate-100">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center flex-shrink-0">
+                        <svg className="h-5 w-5 text-orange-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <line x1="16" y1="13" x2="8" y2="13" />
+                          <line x1="16" y1="17" x2="8" y2="17" />
+                          <polyline points="10 9 9 9 8 9" />
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-semibold text-gray-900">MinerU API Key</h3>
+                        <p className="text-sm text-gray-500 mt-0.5">
+                          用于 PDF 智析功能（翻译、图表提取等）
+                        </p>
+                      </div>
+                      <a 
+                        href="https://mineru.net/apiManage/docs" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex items-center gap-1 text-xs text-orange-600 hover:text-orange-700 font-medium"
+                      >
+                        API 文档
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex gap-2">
+                        <Input
+                          id="mineru-key"
+                          type={showMineruKey ? 'text' : 'password'}
+                          value={localMineruApiKey}
+                          onChange={(e) => setLocalMineruApiKey(e.target.value)}
+                          placeholder="eyJ0eXBlIjoiSldUIi..."
+                          className="flex-1 h-11 border-slate-200 focus:border-cyan-500 focus:ring-cyan-500/20"
+                        />
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => setShowMineruKey(!showMineruKey)}
+                          className="h-11 w-11 border-slate-200 hover:border-slate-300"
+                        >
+                          {showMineruKey ? <EyeOff className="h-4 w-4 text-gray-500" /> : <Eye className="h-4 w-4 text-gray-500" />}
+                        </Button>
+                      </div>
+                      {localMineruApiKey && (
+                        <div className="flex items-center gap-1.5 mt-3 text-xs text-emerald-600">
+                          <Shield className="h-3.5 w-3.5" />
+                          <span>密钥已配置</span>
+                        </div>
+                      )}
+                      <p className="mt-3 text-xs text-gray-500">
+                        在 <a href="https://mineru.net" target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline">mineru.net</a> 注册获取 API Key
+                      </p>
                     </div>
                   </div>
 
@@ -641,7 +704,6 @@ export default function SettingsPage() {
                       )}
                     </div>
                   </div>
-
                   {/* 保存按钮 */}
                   <div className="flex justify-end pt-2">
                     <Button

@@ -72,6 +72,7 @@ interface AppState {
   teamKey: string
   mcpServerUrl: string | null
   selectedModel: string  // 用户选择的模型 ID
+  mineruApiKey: string   // MinerU API Key (PDF 智析功能)
   
   // System Prompts 配置
   systemPrompts: Record<string, string>
@@ -88,6 +89,7 @@ interface AppState {
   setTeamKey: (key: string) => void
   setMcpServerUrl: (url: string | null) => void
   setSelectedModel: (modelId: string) => void
+  setMineruApiKey: (key: string) => void
   setSystemPrompt: (module: string, prompt: string) => void
   getSystemPrompt: (module: string) => string
   clearSystemPrompt: (module: string) => void
@@ -129,6 +131,7 @@ export const useAppStore = create<AppState>()(
       teamKey: getDefaultTeamKey(),
       mcpServerUrl: null,
       selectedModel: 'Qwen/Qwen2.5-7B-Instruct', // 默认模型
+      mineruApiKey: '', // MinerU API Key
       systemPrompts: {},
       currentPaperSession: null,
       paperSessions: [],
@@ -139,6 +142,7 @@ export const useAppStore = create<AppState>()(
       setTeamKey: (key: string) => set({ teamKey: key }),
       setMcpServerUrl: (url: string | null) => set({ mcpServerUrl: url }),
       setSelectedModel: (modelId: string) => set({ selectedModel: modelId }),
+      setMineruApiKey: (key: string) => set({ mineruApiKey: key }),
       
       // System Prompts 管理
       setSystemPrompt: (module: string, prompt: string) => {

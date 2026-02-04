@@ -10,7 +10,6 @@ import {
   Lightbulb, 
   Settings, 
   Home, 
-  Sparkles, 
   Database, 
   ChevronDown,
   Zap,
@@ -18,7 +17,8 @@ import {
   Github,
   HelpCircle,
   MessageSquare,
-  ExternalLink
+  ExternalLink,
+  FileSearch
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -36,6 +36,7 @@ const dropdownGroups = [
     items: [
       { href: '/jargon-killer', label: '术语通', icon: BookOpen, description: 'AI 实时解释专业术语' },
       { href: '/paper-copilot', label: '论文伴侣', icon: FileText, description: '智能解析学术论文' },
+      { href: '/pdf-analyzer', label: 'PDF 智析', icon: FileSearch, description: '翻译 PDF 并提取图表' },
     ]
   },
   {
@@ -55,6 +56,7 @@ const supportDropdown = {
   label: '支持',
   icon: HelpCircle,
   items: [
+    { href: '/api-docs', label: 'API 文档', icon: FileText, description: '查看和测试所有 API' },
     { href: 'https://github.com/Ryder-MHumble/Athena', label: 'GitHub', icon: Github, description: '查看源代码', external: true },
     { href: 'https://alidocs.dingtalk.com/i/nodes/b9Y4gmKWrPDxnE5whxyY1x7KJGXn6lpz', label: '问题反馈', icon: MessageSquare, description: '提交 Issue', external: true },
     { href: 'https://github.com/Ryder-MHumble/Athena#readme', label: '使用文档', icon: FileText, description: '快速入门指南', external: true },
