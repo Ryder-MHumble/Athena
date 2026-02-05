@@ -303,7 +303,7 @@ export function UnifiedFilterPanel({
                 </div>
                 <div className="flex items-center gap-2 text-xs">
                   <button
-                    onClick={() => onAccountsChange(filteredAccounts.map(a => a.name))}
+                    onClick={() => onAccountsChange(filteredAccounts.map(a => a.username || a.name))}
                     className="text-cyan-600 hover:text-cyan-700 font-medium"
                   >
                     全选
@@ -333,17 +333,22 @@ export function UnifiedFilterPanel({
               {/* 已选中标签 */}
               {selectedAccounts.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-2.5 max-h-[52px] overflow-y-auto">
-                  {selectedAccounts.map(name => (
-                    <span
-                      key={name}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 bg-cyan-50 rounded text-xs text-cyan-700 border border-cyan-200"
-                    >
-                      {name.length > 12 ? name.slice(0, 12) + '...' : name}
-                      <button onClick={() => toggleAccount(name)} className="hover:text-cyan-900">
-                        <X className="h-3 w-3" />
-                      </button>
-                    </span>
-                  ))}
+                  {selectedAccounts.map(accountId => {
+                    // 从 accounts 中查找对应的账号信息以获取显示名称
+                    const account = accounts.find(a => (a.username || a.name) === accountId)
+                    const displayName = account?.name || accountId
+                    return (
+                      <span
+                        key={accountId}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 bg-cyan-50 rounded text-xs text-cyan-700 border border-cyan-200"
+                      >
+                        {displayName.length > 12 ? displayName.slice(0, 12) + '...' : displayName}
+                        <button onClick={() => toggleAccount(accountId)} className="hover:text-cyan-900">
+                          <X className="h-3 w-3" />
+                        </button>
+                      </span>
+                    )
+                  })}
                 </div>
               )}
             </div>
@@ -357,11 +362,13 @@ export function UnifiedFilterPanel({
               ) : (
                 <div className="grid grid-cols-2 gap-2">
                   {filteredAccounts.map((account) => {
-                    const isSelected = selectedAccounts.includes(account.name)
+                    // 使用 username 作为唯一标识符（如果存在），否则使用 name
+                    const accountId = account.username || account.name
+                    const isSelected = selectedAccounts.includes(accountId)
                     return (
                       <button
-                        key={account.name}
-                        onClick={() => toggleAccount(account.name)}
+                        key={accountId}
+                        onClick={() => toggleAccount(accountId)}
                         className={`p-2.5 rounded-xl text-left transition-all flex items-center gap-2.5 ${
                           isSelected 
                             ? 'bg-cyan-50 border-2 border-cyan-400 shadow-sm' 

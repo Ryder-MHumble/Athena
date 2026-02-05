@@ -51,10 +51,6 @@
   ],
   "twitter": [
     {
-      "name": "Aidan Gomez",
-      "url": "https://x.com/aidangomez"
-    },
-    {
       "name": "Andrej Karpathy",
       "url": "https://x.com/karpathy"
     },
@@ -197,6 +193,18 @@
     {
       "name": "SebastienBubeck",
       "url": "https://x.com/SebastienBubeck"
+    },
+    {
+      "name": "OpenAIDevs",
+      "url": "https://x.com/OpenAIDevs"
+    },
+    {
+      "name": "akshay_pachaar",
+      "url": "https://x.com/akshay_pachaar"
+    },
+    {
+      "name": "aidangomez",
+      "url": "https://x.com/aidangomez"
     }
   ]
 }

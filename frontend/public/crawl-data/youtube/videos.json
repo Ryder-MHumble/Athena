@@ -1,7 +1,7 @@
 {
   "platform": "youtube",
-  "scraped_at": "2026-02-05T14:32:02.007882",
-  "total_count": 165,
+  "scraped_at": "2026-02-05T16:00:22.992898",
+  "total_count": 105,
   "sources": [
     {
       "name": "a16z",
@@ -11,17 +11,17 @@
     {
       "name": "Axios",
       "channel_name": "Axios",
-      "count": 15
+      "count": 0
     },
     {
       "name": "DeepMind",
-      "channel_name": "DeepMind",
-      "count": 15
+      "channel_name": "Google DeepMind",
+      "count": 0
     },
     {
       "name": "Dwarkesh Podcast",
-      "channel_name": "Dwarkesh Podcast",
-      "count": 15
+      "channel_name": "Dwarkesh Patel",
+      "count": 0
     },
     {
       "name": "Eye on AI with Craig S. Smith",
@@ -35,8 +35,8 @@
     },
     {
       "name": "The Diary of a CEO with Steven Bartlett",
-      "channel_name": "The Diary of a CEO with Steven Bartlett",
-      "count": 15
+      "channel_name": "The Diary Of A CEO",
+      "count": 0
     },
     {
       "name": "The Robot Brains Podcast",
@@ -73,7 +73,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/opFl1RXZUSE/hqdefault.jpg",
       "published_at": "2026-02-04T20:00:00+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "70ec37XHGIg",
@@ -83,7 +83,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/70ec37XHGIg/hqdefault.jpg",
       "published_at": "2026-02-04T16:11:37+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "jLVgGGz5bvk",
@@ -93,7 +93,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/jLVgGGz5bvk/hqdefault.jpg",
       "published_at": "2026-02-02T18:00:00+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "6HxT4nQmtvc",
@@ -103,7 +103,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/6HxT4nQmtvc/hqdefault.jpg",
       "published_at": "2026-01-26T16:49:43+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "ZqvgAzFKMgk",
@@ -113,7 +113,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/ZqvgAzFKMgk/hqdefault.jpg",
       "published_at": "2026-01-24T20:00:00+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "0F4RpMEhk60",
@@ -123,7 +123,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/0F4RpMEhk60/hqdefault.jpg",
       "published_at": "2026-01-20T21:23:25+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "3XVDtPU8xKE",
@@ -133,7 +133,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/3XVDtPU8xKE/hqdefault.jpg",
       "published_at": "2026-01-19T16:17:51+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "N_YIAomr35A",
@@ -143,7 +143,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/N_YIAomr35A/hqdefault.jpg",
       "published_at": "2026-01-17T20:00:00+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "D7sJc8kJC9s",
@@ -153,7 +153,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/D7sJc8kJC9s/hqdefault.jpg",
       "published_at": "2026-01-16T20:00:09+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "Kdql4I-NJ0M",
@@ -163,7 +163,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/Kdql4I-NJ0M/hqdefault.jpg",
       "published_at": "2026-01-15T17:39:20+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "M9VKnPMs6Rw",
@@ -173,7 +173,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/M9VKnPMs6Rw/hqdefault.jpg",
       "published_at": "2026-01-13T17:15:28+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "r8_2CSpcmls",
@@ -183,7 +183,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/r8_2CSpcmls/hqdefault.jpg",
       "published_at": "2026-01-13T14:01:38+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "xRh2sVcNXQ8",
@@ -193,7 +193,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/xRh2sVcNXQ8/hqdefault.jpg",
       "published_at": "2026-01-07T16:23:46+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "J6_nNjy3al8",
@@ -203,7 +203,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/J6_nNjy3al8/hqdefault.jpg",
       "published_at": "2025-12-31T14:00:34+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "p4-7x6QiYr0",
@@ -213,457 +213,7 @@
       "source_name": "a16z",
       "thumbnail": "https://i.ytimg.com/vi/p4-7x6QiYr0/hqdefault.jpg",
       "published_at": "2025-12-29T13:58:10+00:00",
-      "scraped_at": "2026-02-05T14:31:03.052778"
-    },
-    {
-      "id": "A3Jf0kpGoRo",
-      "title": "Not using AI will feel like being offline",
-      "url": "https://www.youtube.com/watch?v=A3Jf0kpGoRo",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/A3Jf0kpGoRo/hqdefault.jpg",
-      "published_at": "2026-02-04T13:00:32+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "Pp_qy5SAyDY",
-      "title": "The working class switched sides. Power followed.",
-      "url": "https://www.youtube.com/watch?v=Pp_qy5SAyDY",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/Pp_qy5SAyDY/hqdefault.jpg",
-      "published_at": "2026-02-03T22:19:47+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "9JnGEIKOCDI",
-      "title": "How politics, AI, and reality are changing",
-      "url": "https://www.youtube.com/watch?v=9JnGEIKOCDI",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/9JnGEIKOCDI/hqdefault.jpg",
-      "published_at": "2026-02-03T09:48:47+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "INWKYT5PROc",
-      "title": "Matt Damon: Two billion people wake up without water.",
-      "url": "https://www.youtube.com/watch?v=INWKYT5PROc",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/INWKYT5PROc/hqdefault.jpg",
-      "published_at": "2026-01-30T23:21:12+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "fILfSL7rhq0",
-      "title": "Ambassador Guilfoyle: Americans spent over $2 BILLION in Greece last year.",
-      "url": "https://www.youtube.com/watch?v=fILfSL7rhq0",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/fILfSL7rhq0/hqdefault.jpg",
-      "published_at": "2026-01-30T22:16:44+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "g_tok0lrIRE",
-      "title": "Ray Dalio: Win the tech war. Win the world.",
-      "url": "https://www.youtube.com/watch?v=g_tok0lrIRE",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/g_tok0lrIRE/hqdefault.jpg",
-      "published_at": "2026-01-28T19:37:47+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "qyQcICFKb1c",
-      "title": "Axios CEO Jim VandeHei’s blunt warning about AI",
-      "url": "https://www.youtube.com/watch?v=qyQcICFKb1c",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/qyQcICFKb1c/hqdefault.jpg",
-      "published_at": "2026-01-28T13:38:54+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "VoMF8JSmI5s",
-      "title": "View from the Top with MGX",
-      "url": "https://www.youtube.com/watch?v=VoMF8JSmI5s",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/VoMF8JSmI5s/hqdefault.jpg",
-      "published_at": "2026-01-27T16:18:55+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "zeduU9BWHD0",
-      "title": "Dario Amodei’s message to Congress on AI",
-      "url": "https://www.youtube.com/watch?v=zeduU9BWHD0",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/zeduU9BWHD0/hqdefault.jpg",
-      "published_at": "2026-01-27T10:09:29+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "ZeiwCS0CfWg",
-      "title": "A big picture conversation with Courtenay Brown &amp; Akash Palkhiwala",
-      "url": "https://www.youtube.com/watch?v=ZeiwCS0CfWg",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/ZeiwCS0CfWg/hqdefault.jpg",
-      "published_at": "2026-01-26T20:21:53+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "ENtGQnA-Vkw",
-      "title": "A big picture conversation with Jim VandeHei &amp; Nakul Duggal",
-      "url": "https://www.youtube.com/watch?v=ENtGQnA-Vkw",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/ENtGQnA-Vkw/hqdefault.jpg",
-      "published_at": "2026-01-26T20:21:42+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "fWkEMe69Jec",
-      "title": "A big picture conversation with Eleanor Hawkins &amp; Don McGuire",
-      "url": "https://www.youtube.com/watch?v=fWkEMe69Jec",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/fWkEMe69Jec/hqdefault.jpg",
-      "published_at": "2026-01-26T20:21:27+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "S9cfcpzJ_Ck",
-      "title": "Blunt advice about AI from Axios CEO Jim VandeHei",
-      "url": "https://www.youtube.com/watch?v=S9cfcpzJ_Ck",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/S9cfcpzJ_Ck/hqdefault.jpg",
-      "published_at": "2026-01-26T10:02:16+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "TIocCFA2ohY",
-      "title": "View from the Top with Mubadala Investment Company",
-      "url": "https://www.youtube.com/watch?v=TIocCFA2ohY",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/TIocCFA2ohY/hqdefault.jpg",
-      "published_at": "2026-01-22T18:23:21+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "A7j5NeyhdWU",
-      "title": "Ray Dalio Explains the Capital War No One's Talking About.",
-      "url": "https://www.youtube.com/watch?v=A7j5NeyhdWU",
-      "platform": "youtube",
-      "source_name": "Axios",
-      "thumbnail": "https://i.ytimg.com/vi/A7j5NeyhdWU/hqdefault.jpg",
-      "published_at": "2026-01-22T17:55:42+00:00",
-      "scraped_at": "2026-02-05T14:31:07.708811"
-    },
-    {
-      "id": "dO0csRgxo_A",
-      "title": "Project Genie | How world remixing works",
-      "url": "https://www.youtube.com/watch?v=dO0csRgxo_A",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/dO0csRgxo_A/hqdefault.jpg",
-      "published_at": "2026-01-29T16:56:03+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "cULEAl2wDxw",
-      "title": "Project Genie | How image upload works",
-      "url": "https://www.youtube.com/watch?v=cULEAl2wDxw",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/cULEAl2wDxw/hqdefault.jpg",
-      "published_at": "2026-01-29T16:55:59+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "s40a06a5wIc",
-      "title": "Project Genie | How world sketching works",
-      "url": "https://www.youtube.com/watch?v=s40a06a5wIc",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/s40a06a5wIc/hqdefault.jpg",
-      "published_at": "2026-01-29T16:55:56+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "YxkGdX4WIBE",
-      "title": "Project Genie | Experimenting with infinite interactive worlds",
-      "url": "https://www.youtube.com/watch?v=YxkGdX4WIBE",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/YxkGdX4WIBE/hqdefault.jpg",
-      "published_at": "2026-01-29T16:55:50+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "V8lhUqKqzUc",
-      "title": "AlphaGenome author roundtable",
-      "url": "https://www.youtube.com/watch?v=V8lhUqKqzUc",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/V8lhUqKqzUc/hqdefault.jpg",
-      "published_at": "2026-01-28T12:00:29+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "eCk5VFKKz08",
-      "title": "“Dear Upstairs Neighbors” (Trailer)",
-      "url": "https://www.youtube.com/watch?v=eCk5VFKKz08",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/eCk5VFKKz08/hqdefault.jpg",
-      "published_at": "2026-01-26T18:00:10+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "60_WPBkuqyA",
-      "title": "“Dear Upstairs Neighbors” (BTS)",
-      "url": "https://www.youtube.com/watch?v=60_WPBkuqyA",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/60_WPBkuqyA/hqdefault.jpg",
-      "published_at": "2026-01-26T18:00:04+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "z4x9fkbe8SI",
-      "title": "Gemini 3 Flash: Creative UI in a spark",
-      "url": "https://www.youtube.com/watch?v=z4x9fkbe8SI",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/z4x9fkbe8SI/hqdefault.jpg",
-      "published_at": "2025-12-17T16:00:34+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "1nd0CbaJD3E",
-      "title": "Gemini 3 Flash: Transform messy data",
-      "url": "https://www.youtube.com/watch?v=1nd0CbaJD3E",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/1nd0CbaJD3E/hqdefault.jpg",
-      "published_at": "2025-12-17T16:00:29+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "bY_RarpUdUw",
-      "title": "Gemini 3 Flash: Evolve code faster",
-      "url": "https://www.youtube.com/watch?v=bY_RarpUdUw",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/bY_RarpUdUw/hqdefault.jpg",
-      "published_at": "2025-12-17T16:00:25+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "XHhCZOk2WvY",
-      "title": "Gemini 3 Flash: Renders faster and efficiently",
-      "url": "https://www.youtube.com/watch?v=XHhCZOk2WvY",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/XHhCZOk2WvY/hqdefault.jpg",
-      "published_at": "2025-12-17T16:00:21+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "DNPLK-MvoSg",
-      "title": "Gemini 3 Flash: Assist in real-time game play",
-      "url": "https://www.youtube.com/watch?v=DNPLK-MvoSg",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/DNPLK-MvoSg/hqdefault.jpg",
-      "published_at": "2025-12-17T16:00:15+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "DfaRahn_dwo",
-      "title": "Gemini 3 Flash: Orchestrate a function call kitchen",
-      "url": "https://www.youtube.com/watch?v=DfaRahn_dwo",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/DfaRahn_dwo/hqdefault.jpg",
-      "published_at": "2025-12-17T16:00:10+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "ZtMEe3W0aP0",
-      "title": "Gemini 3 Flash: Generate a narrative of your journey",
-      "url": "https://www.youtube.com/watch?v=ZtMEe3W0aP0",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/ZtMEe3W0aP0/hqdefault.jpg",
-      "published_at": "2025-12-17T16:00:03+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "f0TL0GG_lo8",
-      "title": "Gemini 3 Flash: Visual context in an instant",
-      "url": "https://www.youtube.com/watch?v=f0TL0GG_lo8",
-      "platform": "youtube",
-      "source_name": "DeepMind",
-      "thumbnail": "https://i.ytimg.com/vi/f0TL0GG_lo8/hqdefault.jpg",
-      "published_at": "2025-12-17T15:59:50+00:00",
-      "scraped_at": "2026-02-05T14:31:11.723696"
-    },
-    {
-      "id": "qmX-mGqaCz8",
-      "title": "The Neighbors Russia Erased From History - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=qmX-mGqaCz8",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/qmX-mGqaCz8/hqdefault.jpg",
-      "published_at": "2026-01-31T21:06:08+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "8zhjmdx9THE",
-      "title": "How Helmut Kohl Bought East Germany - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=8zhjmdx9THE",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/8zhjmdx9THE/hqdefault.jpg",
-      "published_at": "2026-01-30T21:12:10+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "O5-sEbJU87c",
-      "title": "Why The USSR Was Doomed From the Start - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=O5-sEbJU87c",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/O5-sEbJU87c/hqdefault.jpg",
-      "published_at": "2026-01-29T17:30:35+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "dK1AJ48vJoE",
-      "title": "How Reagan Bankrupted the Soviet Union - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=dK1AJ48vJoE",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/dK1AJ48vJoE/hqdefault.jpg",
-      "published_at": "2026-01-28T16:57:32+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "1U9Fc6Ri3XM",
-      "title": "How Jimmy Carter Undermined Communism - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=1U9Fc6Ri3XM",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/1U9Fc6Ri3XM/hqdefault.jpg",
-      "published_at": "2026-01-27T20:11:06+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "s_G2hI0dkf0",
-      "title": "How the Pope Helped Poland Break From Communism - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=s_G2hI0dkf0",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/s_G2hI0dkf0/hqdefault.jpg",
-      "published_at": "2026-01-26T19:00:04+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "MBNisUMFNiE",
-      "title": "America’s Biggest Blind Spot - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=MBNisUMFNiE",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/MBNisUMFNiE/hqdefault.jpg",
-      "published_at": "2026-01-25T16:10:50+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "DnQLKbNqYow",
-      "title": "The Tragedy Of Russia - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=DnQLKbNqYow",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/DnQLKbNqYow/hqdefault.jpg",
-      "published_at": "2026-01-23T20:59:13+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "VQMHil4Dm0c",
-      "title": "How Poland Recovered From Communism - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=VQMHil4Dm0c",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/VQMHil4Dm0c/hqdefault.jpg",
-      "published_at": "2026-01-22T20:08:09+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "fCgIqEdnXW4",
-      "title": "How Long Will The Kim Dynasty Last? - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=fCgIqEdnXW4",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/fCgIqEdnXW4/hqdefault.jpg",
-      "published_at": "2026-01-21T18:48:04+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "UoCbLFBBbHY",
-      "title": "Soviet Union's Biggest Mistake - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=UoCbLFBBbHY",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/UoCbLFBBbHY/hqdefault.jpg",
-      "published_at": "2026-01-20T18:14:46+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "zy-aEa8JFg0",
-      "title": "The VCR That Revealed the Truth About Communism - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=zy-aEa8JFg0",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/zy-aEa8JFg0/hqdefault.jpg",
-      "published_at": "2026-01-18T21:30:21+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "N14O_UZ8hyU",
-      "title": "Saddam Hussein’s Kuwait Gamble - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=N14O_UZ8hyU",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/N14O_UZ8hyU/hqdefault.jpg",
-      "published_at": "2026-01-17T22:41:24+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "FdI8iya1-cU",
-      "title": "Soviet Economy Ran on Fake Data - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=FdI8iya1-cU",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/FdI8iya1-cU/hqdefault.jpg",
-      "published_at": "2026-01-16T21:44:07+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
-    },
-    {
-      "id": "Rersh9Xro3M",
-      "title": "Russia Did Everything Wrong and Expected Gratitude - Sarah Paine",
-      "url": "https://www.youtube.com/watch?v=Rersh9Xro3M",
-      "platform": "youtube",
-      "source_name": "Dwarkesh Podcast",
-      "thumbnail": "https://i.ytimg.com/vi/Rersh9Xro3M/hqdefault.jpg",
-      "published_at": "2026-01-15T17:54:07+00:00",
-      "scraped_at": "2026-02-05T14:31:15.591702"
+      "scraped_at": "2026-02-05T15:57:45.541071"
     },
     {
       "id": "MMd-itmrQWs",
@@ -673,7 +223,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/MMd-itmrQWs/hqdefault.jpg",
       "published_at": "2026-02-04T15:07:58+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "QgpJN4FAdO0",
@@ -683,7 +233,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/QgpJN4FAdO0/hqdefault.jpg",
       "published_at": "2026-01-31T15:04:58+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "VoW13oUTTV0",
@@ -693,7 +243,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/VoW13oUTTV0/hqdefault.jpg",
       "published_at": "2026-01-29T16:45:15+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "Hr0wf-ACQnI",
@@ -703,7 +253,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/Hr0wf-ACQnI/hqdefault.jpg",
       "published_at": "2026-01-29T15:15:33+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "hGRiklWYMas",
@@ -713,7 +263,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/hGRiklWYMas/hqdefault.jpg",
       "published_at": "2026-01-27T21:00:58+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "DTgrzlQtOd0",
@@ -723,7 +273,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/DTgrzlQtOd0/hqdefault.jpg",
       "published_at": "2026-01-22T21:00:25+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "KnuRvvhDVIw",
@@ -733,7 +283,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/KnuRvvhDVIw/hqdefault.jpg",
       "published_at": "2026-01-21T15:08:56+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "8iWSNwIRazc",
@@ -743,7 +293,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/8iWSNwIRazc/hqdefault.jpg",
       "published_at": "2026-01-20T17:37:16+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "TLOKcFMaCrQ",
@@ -753,7 +303,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/TLOKcFMaCrQ/hqdefault.jpg",
       "published_at": "2026-01-19T15:05:28+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "0RLZ2BGyFOY",
@@ -763,7 +313,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/0RLZ2BGyFOY/hqdefault.jpg",
       "published_at": "2026-01-18T21:02:56+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "S866IPnh6Es",
@@ -773,7 +323,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/S866IPnh6Es/hqdefault.jpg",
       "published_at": "2026-01-18T14:31:31+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "tw89-ADGUgQ",
@@ -783,7 +333,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/tw89-ADGUgQ/hqdefault.jpg",
       "published_at": "2026-01-17T21:02:33+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "1hPouO58OKc",
@@ -793,7 +343,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/1hPouO58OKc/hqdefault.jpg",
       "published_at": "2026-01-17T15:31:34+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "Xc_tuXaDros",
@@ -803,7 +353,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/Xc_tuXaDros/hqdefault.jpg",
       "published_at": "2026-01-16T21:03:50+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "SNEnuowfzSY",
@@ -813,157 +363,7 @@
       "source_name": "Peter Diamandis",
       "thumbnail": "https://i.ytimg.com/vi/SNEnuowfzSY/hqdefault.jpg",
       "published_at": "2026-01-16T18:31:46+00:00",
-      "scraped_at": "2026-02-05T14:31:36.777883"
-    },
-    {
-      "id": "winjk1_m9Qg",
-      "title": "WHAT YOUR FEAR OF SNAKES SAYS ABOUT YOU",
-      "url": "https://www.youtube.com/watch?v=winjk1_m9Qg",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/winjk1_m9Qg/hqdefault.jpg",
-      "published_at": "2026-02-04T22:37:00+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "ACS77DJoK6U",
-      "title": "WHAT'S HIDDEN IN THE TREES OF THE AMAZON?",
-      "url": "https://www.youtube.com/watch?v=ACS77DJoK6U",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/ACS77DJoK6U/hqdefault.jpg",
-      "published_at": "2026-02-04T15:58:50+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "dAG8PKk8tIU",
-      "title": "DARK SIDE OF STEVE JOBS",
-      "url": "https://www.youtube.com/watch?v=dAG8PKk8tIU",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/dAG8PKk8tIU/hqdefault.jpg",
-      "published_at": "2026-02-03T16:11:23+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "Ts065xEkUOE",
-      "title": "THIS STORY OF UNCONTACTED TRIBES WILL SHOCK YOU",
-      "url": "https://www.youtube.com/watch?v=Ts065xEkUOE",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/Ts065xEkUOE/hqdefault.jpg",
-      "published_at": "2026-02-02T22:00:37+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "O_gxvEYaE-4",
-      "title": "THE TRUTH ABOUT UNCONTACTED TRIBES REVEALED...",
-      "url": "https://www.youtube.com/watch?v=O_gxvEYaE-4",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/O_gxvEYaE-4/hqdefault.jpg",
-      "published_at": "2026-02-02T14:54:52+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "sR7S2Q3c04g",
-      "title": "I Met An Uncontacted Tribe: They Killed My Friend! (VIDEO PROOF)",
-      "url": "https://www.youtube.com/watch?v=sR7S2Q3c04g",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/sR7S2Q3c04g/hqdefault.jpg",
-      "published_at": "2026-02-02T08:01:05+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "mUqoSTyxY1U",
-      "title": "HOW TO PAY OFF YOUR MORTGAGE EARLY",
-      "url": "https://www.youtube.com/watch?v=mUqoSTyxY1U",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/mUqoSTyxY1U/hqdefault.jpg",
-      "published_at": "2026-02-01T21:34:08+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "IVV3s3lN2zM",
-      "title": "VITAMIN D IS LINKED TO DEMENTIA?!",
-      "url": "https://www.youtube.com/watch?v=IVV3s3lN2zM",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/IVV3s3lN2zM/hqdefault.jpg",
-      "published_at": "2026-01-31T22:31:35+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "0-DTvG8LVn8",
-      "title": "SCARIEST CIA AGENT STORY YOU WILL EVER HEAR...",
-      "url": "https://www.youtube.com/watch?v=0-DTvG8LVn8",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/0-DTvG8LVn8/hqdefault.jpg",
-      "published_at": "2026-01-31T01:00:01+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "RWep7uP_reA",
-      "title": "BUYING A HOUSE IS A WASTE OF MONEY?!",
-      "url": "https://www.youtube.com/watch?v=RWep7uP_reA",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/RWep7uP_reA/hqdefault.jpg",
-      "published_at": "2026-01-30T17:16:43+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "XV2eLBkrCHg",
-      "title": "TURN $27 INTO MILLIONS DOING THIS 🤯",
-      "url": "https://www.youtube.com/watch?v=XV2eLBkrCHg",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/XV2eLBkrCHg/hqdefault.jpg",
-      "published_at": "2026-01-29T19:00:38+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "99xyy1nUpug",
-      "title": "Early Retirement Expert: A House Vs Stocks... (Here Is The Truth)",
-      "url": "https://www.youtube.com/watch?v=99xyy1nUpug",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/99xyy1nUpug/hqdefault.jpg",
-      "published_at": "2026-01-29T08:00:07+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "A0GUg2E_wCU",
-      "title": "SHOULD YOU BE WORRIED ABOUT SKIN TAGS?",
-      "url": "https://www.youtube.com/watch?v=A0GUg2E_wCU",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/A0GUg2E_wCU/hqdefault.jpg",
-      "published_at": "2026-01-28T19:00:17+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "O49fPiqRNkQ",
-      "title": "THE CONFIDENCE LIE WE ALL BELIEVE",
-      "url": "https://www.youtube.com/watch?v=O49fPiqRNkQ",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/O49fPiqRNkQ/hqdefault.jpg",
-      "published_at": "2026-01-27T22:00:24+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
-    },
-    {
-      "id": "nXW21redwbA",
-      "title": "YOU'VE BEEN STARTING YOUR MEALS WRONG 🤯",
-      "url": "https://www.youtube.com/watch?v=nXW21redwbA",
-      "platform": "youtube",
-      "source_name": "The Diary of a CEO with Steven Bartlett",
-      "thumbnail": "https://i.ytimg.com/vi/nXW21redwbA/hqdefault.jpg",
-      "published_at": "2026-01-27T15:15:21+00:00",
-      "scraped_at": "2026-02-05T14:31:41.105114"
+      "scraped_at": "2026-02-05T15:59:35.218664"
     },
     {
       "id": "k_Wrd1kI1B0",
@@ -973,7 +373,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/k_Wrd1kI1B0/hqdefault.jpg",
       "published_at": "2023-08-16T23:28:51+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "Iad_LZxZqbc",
@@ -983,7 +383,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/Iad_LZxZqbc/hqdefault.jpg",
       "published_at": "2023-08-10T21:45:55+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "nM_3d37lmcM",
@@ -993,7 +393,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/nM_3d37lmcM/hqdefault.jpg",
       "published_at": "2023-08-03T06:09:53+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "p0nX5QtLW_c",
@@ -1003,7 +403,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/p0nX5QtLW_c/hqdefault.jpg",
       "published_at": "2023-07-25T19:54:58+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "ItopcoP8ST0",
@@ -1013,7 +413,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/ItopcoP8ST0/hqdefault.jpg",
       "published_at": "2023-07-11T21:34:37+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "3_g14RAyOzE",
@@ -1023,7 +423,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/3_g14RAyOzE/hqdefault.jpg",
       "published_at": "2023-07-06T05:41:09+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "ceCg90Q9N6Y",
@@ -1033,7 +433,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/ceCg90Q9N6Y/hqdefault.jpg",
       "published_at": "2023-06-28T22:42:25+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "hcKSwiNk-CA",
@@ -1043,7 +443,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/hcKSwiNk-CA/hqdefault.jpg",
       "published_at": "2023-06-21T21:21:41+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "QhDLHWR04Rk",
@@ -1053,7 +453,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/QhDLHWR04Rk/hqdefault.jpg",
       "published_at": "2023-06-08T14:02:49+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "DgwhJnkmxZw",
@@ -1063,7 +463,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/DgwhJnkmxZw/hqdefault.jpg",
       "published_at": "2023-05-24T22:01:01+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "MKyTVPCVoWg",
@@ -1073,7 +473,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/MKyTVPCVoWg/hqdefault.jpg",
       "published_at": "2023-05-17T19:56:04+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "rLG68k2blOc",
@@ -1083,7 +483,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/rLG68k2blOc/hqdefault.jpg",
       "published_at": "2023-05-10T16:06:12+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "R9SLjTxpdW4",
@@ -1093,7 +493,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/R9SLjTxpdW4/hqdefault.jpg",
       "published_at": "2023-05-03T17:11:05+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "tG0HGKNnp-A",
@@ -1103,7 +503,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/tG0HGKNnp-A/hqdefault.jpg",
       "published_at": "2023-05-03T17:07:20+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "dKvYRgOifFA",
@@ -1113,7 +513,7 @@
       "source_name": "The Robot Brains Podcast",
       "thumbnail": "https://i.ytimg.com/vi/dKvYRgOifFA/hqdefault.jpg",
       "published_at": "2023-04-26T18:54:28+00:00",
-      "scraped_at": "2026-02-05T14:31:45.109837"
+      "scraped_at": "2026-02-05T16:00:07.241049"
     },
     {
       "id": "hSDlgCKBx6w",
@@ -1123,7 +523,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/hSDlgCKBx6w/hqdefault.jpg",
       "published_at": "2026-02-04T18:25:33+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "pOZi4PKW54M",
@@ -1133,7 +533,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/pOZi4PKW54M/hqdefault.jpg",
       "published_at": "2026-02-03T22:11:38+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "iLP0YyNwpTc",
@@ -1143,7 +543,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/iLP0YyNwpTc/hqdefault.jpg",
       "published_at": "2026-02-02T21:04:22+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "K5JoLAauzq4",
@@ -1153,7 +553,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/K5JoLAauzq4/hqdefault.jpg",
       "published_at": "2026-01-30T15:00:39+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "leQ89XSHILw",
@@ -1163,7 +563,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/leQ89XSHILw/hqdefault.jpg",
       "published_at": "2026-01-29T15:01:32+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "WI_w9po5oz0",
@@ -1173,7 +573,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/WI_w9po5oz0/hqdefault.jpg",
       "published_at": "2026-01-23T17:01:01+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "dC_3ys349bU",
@@ -1183,7 +583,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/dC_3ys349bU/hqdefault.jpg",
       "published_at": "2026-01-22T15:01:12+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "UZbXWYY7y-A",
@@ -1193,7 +593,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/UZbXWYY7y-A/hqdefault.jpg",
       "published_at": "2026-01-15T18:15:03+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "0kARDVL2nZg",
@@ -1203,7 +603,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/0kARDVL2nZg/hqdefault.jpg",
       "published_at": "2026-01-14T15:00:05+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "2hgjgycOU_0",
@@ -1213,7 +613,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/2hgjgycOU_0/hqdefault.jpg",
       "published_at": "2026-01-08T15:00:11+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "cqrJzG03ENE",
@@ -1223,7 +623,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/cqrJzG03ENE/hqdefault.jpg",
       "published_at": "2025-12-22T15:01:25+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "pBlIgs6w7Ss",
@@ -1233,7 +633,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/pBlIgs6w7Ss/hqdefault.jpg",
       "published_at": "2025-12-17T15:01:40+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "5WN8bfG06Hk",
@@ -1243,7 +643,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/5WN8bfG06Hk/hqdefault.jpg",
       "published_at": "2025-12-10T15:00:19+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "JLW83-yNuBo",
@@ -1253,7 +653,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/JLW83-yNuBo/hqdefault.jpg",
       "published_at": "2025-12-05T17:12:55+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "t8co94HS6tY",
@@ -1263,7 +663,7 @@
       "source_name": "Y Combinator",
       "thumbnail": "https://i.ytimg.com/vi/t8co94HS6tY/hqdefault.jpg",
       "published_at": "2025-12-03T15:01:50+00:00",
-      "scraped_at": "2026-02-05T14:31:49.389201"
+      "scraped_at": "2026-02-05T16:00:11.279284"
     },
     {
       "id": "EoCGf9qlzXg",
@@ -1273,7 +673,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/EoCGf9qlzXg/hqdefault.jpg",
       "published_at": "2026-02-04T18:38:33+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "EkaoBbRX0xQ",
@@ -1283,7 +683,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/EkaoBbRX0xQ/hqdefault.jpg",
       "published_at": "2026-02-03T17:42:23+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "bpGfHGQswlc",
@@ -1293,7 +693,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/bpGfHGQswlc/hqdefault.jpg",
       "published_at": "2026-02-02T16:58:29+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "l2MXHJ1lSOE",
@@ -1303,7 +703,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/l2MXHJ1lSOE/hqdefault.jpg",
       "published_at": "2026-01-31T19:37:30+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "vvfQnO7OjWI",
@@ -1313,7 +713,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/vvfQnO7OjWI/hqdefault.jpg",
       "published_at": "2026-01-29T11:01:42+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "-8Ud5mrguP4",
@@ -1323,7 +723,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/-8Ud5mrguP4/hqdefault.jpg",
       "published_at": "2026-01-28T18:41:48+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "3iqdIGvKXIs",
@@ -1333,7 +733,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/3iqdIGvKXIs/hqdefault.jpg",
       "published_at": "2026-01-25T20:44:09+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "3bRAvP7WmlY",
@@ -1343,7 +743,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/3bRAvP7WmlY/hqdefault.jpg",
       "published_at": "2026-01-24T18:44:54+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "KKnDmx3JYZM",
@@ -1353,7 +753,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/KKnDmx3JYZM/hqdefault.jpg",
       "published_at": "2026-01-23T20:04:26+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "qQAhK2EWw4I",
@@ -1363,7 +763,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/qQAhK2EWw4I/hqdefault.jpg",
       "published_at": "2026-01-22T11:01:24+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "721mWMIuaCU",
@@ -1373,7 +773,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/721mWMIuaCU/hqdefault.jpg",
       "published_at": "2026-01-20T17:52:22+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "SfEhR37RqTM",
@@ -1383,7 +783,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/SfEhR37RqTM/hqdefault.jpg",
       "published_at": "2026-01-19T18:38:54+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "dQlHTaLhtgE",
@@ -1393,7 +793,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/dQlHTaLhtgE/hqdefault.jpg",
       "published_at": "2026-01-18T19:12:07+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "4JczM2klIj0",
@@ -1403,7 +803,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/4JczM2klIj0/hqdefault.jpg",
       "published_at": "2026-01-16T19:12:14+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "XMdEVafndHc",
@@ -1413,7 +813,7 @@
       "source_name": "No Priors: AI, Machine Learning, Tech, & Startups",
       "thumbnail": "https://i.ytimg.com/vi/XMdEVafndHc/hqdefault.jpg",
       "published_at": "2026-01-15T18:18:56+00:00",
-      "scraped_at": "2026-02-05T14:31:53.345244"
+      "scraped_at": "2026-02-05T16:00:15.304990"
     },
     {
       "id": "op2JE87VZNs",
@@ -1423,7 +823,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/op2JE87VZNs/hqdefault.jpg",
       "published_at": "2026-02-04T17:01:23+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "PfGpFZ2pcs4",
@@ -1433,7 +833,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/PfGpFZ2pcs4/hqdefault.jpg",
       "published_at": "2026-02-03T17:00:43+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "KvIm_Hr4pis",
@@ -1443,7 +843,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/KvIm_Hr4pis/hqdefault.jpg",
       "published_at": "2026-02-02T17:00:37+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "fR1PAvm-l5Q",
@@ -1453,7 +853,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/fR1PAvm-l5Q/hqdefault.jpg",
       "published_at": "2026-02-01T17:01:03+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "huSgnkJ7Fqc",
@@ -1463,7 +863,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/huSgnkJ7Fqc/hqdefault.jpg",
       "published_at": "2026-01-31T17:01:08+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "7gucZeu-JUM",
@@ -1473,7 +873,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/7gucZeu-JUM/hqdefault.jpg",
       "published_at": "2026-01-30T21:00:12+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "ZgNe5pUQTNI",
@@ -1483,7 +883,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/ZgNe5pUQTNI/hqdefault.jpg",
       "published_at": "2026-01-30T17:00:58+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "K5WPr5dtne0",
@@ -1493,7 +893,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/K5WPr5dtne0/hqdefault.jpg",
       "published_at": "2026-01-29T13:30:28+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "zi332y--LJI",
@@ -1503,7 +903,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/zi332y--LJI/hqdefault.jpg",
       "published_at": "2026-01-28T17:01:47+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "p9fmLpvwiPA",
@@ -1513,7 +913,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/p9fmLpvwiPA/hqdefault.jpg",
       "published_at": "2026-01-27T17:01:20+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "2997w92V-a0",
@@ -1523,7 +923,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/2997w92V-a0/hqdefault.jpg",
       "published_at": "2026-01-26T17:00:05+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "wSyss-opblI",
@@ -1533,7 +933,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/wSyss-opblI/hqdefault.jpg",
       "published_at": "2026-01-25T17:01:22+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "NmcSfwssSGg",
@@ -1543,7 +943,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/NmcSfwssSGg/hqdefault.jpg",
       "published_at": "2026-01-24T17:00:40+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "tJaaogIw25E",
@@ -1553,7 +953,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/tJaaogIw25E/hqdefault.jpg",
       "published_at": "2026-01-23T17:01:26+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "8piPaAtbsdc",
@@ -1563,7 +963,7 @@
       "source_name": "The MAD Podcast with Matt Turck",
       "thumbnail": "https://i.ytimg.com/vi/8piPaAtbsdc/hqdefault.jpg",
       "published_at": "2026-01-22T17:00:27+00:00",
-      "scraped_at": "2026-02-05T14:31:57.301387"
+      "scraped_at": "2026-02-05T16:00:19.018802"
     },
     {
       "id": "uARkJmhk9kE",
@@ -1573,7 +973,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/uARkJmhk9kE/hqdefault.jpg",
       "published_at": "2026-02-04T19:40:00+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "uKhvTCSmA8I",
@@ -1583,7 +983,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/uKhvTCSmA8I/hqdefault.jpg",
       "published_at": "2026-01-31T14:01:24+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "nJbz0fnAoNI",
@@ -1593,7 +993,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/nJbz0fnAoNI/hqdefault.jpg",
       "published_at": "2026-01-31T00:00:58+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "5dTmsGBHKTM",
@@ -1603,7 +1003,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/5dTmsGBHKTM/hqdefault.jpg",
       "published_at": "2026-01-30T18:32:15+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "CAxr2tDkBe8",
@@ -1613,7 +1013,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/CAxr2tDkBe8/hqdefault.jpg",
       "published_at": "2026-01-28T13:00:21+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "9ZhnFBwEJ7U",
@@ -1623,7 +1023,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/9ZhnFBwEJ7U/hqdefault.jpg",
       "published_at": "2026-01-27T13:00:26+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "d17NDhUf_Sg",
@@ -1633,7 +1033,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/d17NDhUf_Sg/hqdefault.jpg",
       "published_at": "2026-01-26T13:01:11+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "qrcYsuIucec",
@@ -1643,7 +1043,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/qrcYsuIucec/hqdefault.jpg",
       "published_at": "2026-01-24T11:01:24+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "DlR1VoQbX9s",
@@ -1653,7 +1053,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/DlR1VoQbX9s/hqdefault.jpg",
       "published_at": "2026-01-23T19:30:02+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "HDfr8PvfoOw",
@@ -1663,7 +1063,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/HDfr8PvfoOw/hqdefault.jpg",
       "published_at": "2026-01-23T17:32:47+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "ji_xpQzZDHo",
@@ -1673,7 +1073,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/ji_xpQzZDHo/hqdefault.jpg",
       "published_at": "2026-01-22T14:35:01+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "1RtJtY-JeSw",
@@ -1683,7 +1083,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/1RtJtY-JeSw/hqdefault.jpg",
       "published_at": "2026-01-22T14:00:05+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "PH7v0Bv36lc",
@@ -1693,7 +1093,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/PH7v0Bv36lc/hqdefault.jpg",
       "published_at": "2026-01-20T16:00:42+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "tZSteN2g5yM",
@@ -1703,7 +1103,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/tZSteN2g5yM/hqdefault.jpg",
       "published_at": "2026-01-16T21:45:51+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     },
     {
       "id": "QphTlLc5dkc",
@@ -1713,7 +1113,7 @@
       "source_name": "Hard Fork",
       "thumbnail": "https://i.ytimg.com/vi/QphTlLc5dkc/hqdefault.jpg",
       "published_at": "2026-01-16T20:00:24+00:00",
-      "scraped_at": "2026-02-05T14:32:02.002872"
+      "scraped_at": "2026-02-05T16:00:22.990887"
     }
   ]
 }

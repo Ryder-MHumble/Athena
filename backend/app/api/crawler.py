@@ -327,21 +327,21 @@ async def add_source(request: AddSourceRequest, background_tasks: BackgroundTask
     """
     添加新信源
     自动识别 URL 类型（Twitter/YouTube）并解析用户名
-    添加后会在后台自动爬取该信源的内容
+    添加后立即获取基本账号信息，然后在后台爬取完整内容
     """
     try:
         # 解析 URL
         parsed = parse_source_url(request.url)
         platform = parsed["platform"]
-        
+
         # 加载现有配置
         sources = load_sources()
-        
+
         # 检查是否已存在
         existing_urls = [s["url"].lower() for s in sources.get(platform, [])]
         if parsed["url"].lower() in existing_urls:
             raise HTTPException(status_code=400, detail=f"该信源已存在: {parsed['name']}")
-        
+
         # 添加新信源
         if platform not in sources:
             sources[platform] = []
@@ -350,17 +350,79 @@ async def add_source(request: AddSourceRequest, background_tasks: BackgroundTask
             "url": parsed["url"]
         }
         sources[platform].append(new_source)
-        
+
         # 保存配置
         save_sources(sources)
-        
-        # 后台异步爬取新添加的信源
+
+        # 立即获取基本账号信息（快速返回给前端）
+        account_info = None
+        if platform == "twitter":
+            try:
+                from ..services.crawler_service import fetch_twitter_user_tweets, extract_username_from_url
+                username = extract_username_from_url(new_source["url"])
+                if username:
+                    # 获取用户信息（使用短超时）
+                    raw_data = await fetch_twitter_user_tweets(username, timeout=10)
+                    if raw_data and raw_data.get("status") == "success":
+                        tweets = raw_data.get("data", {}).get("tweets", [])
+                        if tweets:
+                            author = tweets[0].get("author", {})
+                            account_info = {
+                                "username": author.get("userName"),
+                                "name": author.get("name"),
+                                "avatar": author.get("profilePicture"),
+                                "followers": author.get("followers", 0),
+                                "verified": author.get("isBlueVerified", False),
+                                "platform": "twitter"
+                            }
+
+                            # 立即更新 authors.json，让前端可以立即看到
+                            try:
+                                authors_filepath = CRAWL_DATA_BASE_PATH / "twitter" / "authors.json"
+                                authors_filepath.parent.mkdir(parents=True, exist_ok=True)
+
+                                existing_authors = []
+                                if authors_filepath.exists():
+                                    with open(authors_filepath, "r", encoding="utf-8") as f:
+                                        data = json.load(f)
+                                        existing_authors = data.get("authors", [])
+
+                                # 检查是否已存在，避免重复
+                                author_exists = False
+                                for i, existing in enumerate(existing_authors):
+                                    if existing.get("username") == account_info["username"]:
+                                        # 更新现有记录
+                                        existing_authors[i] = account_info
+                                        author_exists = True
+                                        break
+
+                                if not author_exists:
+                                    existing_authors.append(account_info)
+
+                                # 保存更新后的作者列表
+                                output = {
+                                    "platform": "twitter",
+                                    "updated_at": datetime.now().isoformat(),
+                                    "total_count": len(existing_authors),
+                                    "authors": existing_authors
+                                }
+                                with open(authors_filepath, "w", encoding="utf-8") as f:
+                                    json.dump(output, f, ensure_ascii=False, indent=2)
+
+                                print(f"[Add Source] Immediately saved author info for @{username}")
+                            except Exception as e:
+                                print(f"[Add Source] Failed to save author info: {e}")
+            except Exception as e:
+                print(f"[Add Source] Failed to fetch immediate account info: {e}")
+
+        # 后台异步爬取新添加的信源的完整内容
         background_tasks.add_task(background_crawl_single_source, new_source, platform)
-        
+
         return {
             "success": True,
-            "message": f"成功添加 {platform} 信源: {parsed['name']}，正在后台爬取内容...",
+            "message": f"成功添加 {platform} 信源: {parsed['name']}",
             "source": parsed,
+            "account_info": account_info,  # 立即返回账号信息
             "crawling": True
         }
     except ValueError as e:

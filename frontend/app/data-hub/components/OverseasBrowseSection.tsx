@@ -268,7 +268,8 @@ export function OverseasBrowseSection() {
     const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
     const errors: string[] = []
     let successCount = 0
-    
+    const newAccountsInfo: any[] = []
+
     // 逐个添加信源
     for (const url of urls) {
       try {
@@ -277,35 +278,47 @@ export function OverseasBrowseSection() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url }),
         })
-        
+
         if (!response.ok) {
           const error = await response.json()
           errors.push(`${url}: ${error.detail || '添加失败'}`)
         } else {
+          const data = await response.json()
           successCount++
+
+          // 收集返回的账号信息
+          if (data.account_info) {
+            newAccountsInfo.push(data.account_info)
+          }
         }
       } catch (err: any) {
         errors.push(`${url}: ${err.message || '网络错误'}`)
       }
     }
-    
-    // 如果有任何成功的，触发爬虫任务
-    if (successCount > 0) {
-      setIsAutoCrawling(true)
-      try {
-        const crawlResponse = await fetch(`${API_BASE}/api/crawler/crawl/all`, {
-          method: 'POST',
-        })
-        if (!crawlResponse.ok) {
-          console.warn('自动爬取失败，但信源已添加成功')
-        }
-      } catch (err) {
-        console.warn('自动爬取失败:', err)
-      } finally {
-        setIsAutoCrawling(false)
-      }
+
+    // 如果有新账号信息，立即更新本地 authors.json（通过重新加载）
+    if (newAccountsInfo.length > 0) {
+      // 等待一小段时间让后端写入完成
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // 触发数据刷新
+      window.dispatchEvent(new CustomEvent('refresh-overseas-data'))
     }
-    
+
+    // 启动轮询，确保后台爬取完成后能更新数据
+    if (successCount > 0) {
+      let pollCount = 0
+      const pollInterval = setInterval(() => {
+        pollCount++
+        if (pollCount > 10) {
+          clearInterval(pollInterval)
+          return
+        }
+        // 触发数据刷新
+        window.dispatchEvent(new CustomEvent('refresh-overseas-data'))
+      }, 3000)
+    }
+
     // 如果有错误，抛出
     if (errors.length > 0) {
       if (successCount > 0) {

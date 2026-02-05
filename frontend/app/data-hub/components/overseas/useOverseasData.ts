@@ -55,43 +55,39 @@ export function useOverseasData(): UseOverseasDataReturn {
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest')
   
   // 提取所有独立的账号列表，优先使用 authors.json 中的详细信息
+  // 统一使用 username 作为唯一标识符
   const sourceAccounts = useMemo(() => {
     const accountMap = new Map<string, SourceAccount>()
-    // 用于快速查找 username 是否已存在
-    const usernameSet = new Set<string>()
-    
+
     // 先添加 Twitter 作者（包含头像等详情）
     twitterAuthors.forEach(author => {
-      if (author.name && !accountMap.has(author.name)) {
-        accountMap.set(author.name, {
-          name: author.name,
+      if (author.username) {
+        accountMap.set(author.username, {
+          name: author.name,  // 显示名称
           platform: 'twitter',
           username: author.username,
           avatar: author.avatar,
           followers: author.followers,
           verified: author.verified,
         })
-        // 同时记录 username，防止后续重复添加
-        if (author.username) {
-          usernameSet.add(author.username.toLowerCase())
+      }
+    })
+
+    // 添加 YouTube 频道和其他平台的账号
+    items.forEach(item => {
+      // 只处理 YouTube 或者不在 accountMap 中的账号
+      if (item.platform === 'youtube') {
+        const sourceName = item.source_name
+        if (sourceName && !accountMap.has(sourceName)) {
+          accountMap.set(sourceName, {
+            name: sourceName,
+            platform: 'youtube'
+          })
         }
       }
+      // Twitter 账号已经从 twitterAuthors 中添加，跳过
     })
-    
-    // 再添加其他来源的账号（如 YouTube），跳过已有的 Twitter 账号
-    items.forEach(item => {
-      const name = item.source_name
-      if (!name) return
-      
-      // 检查是否已存在（通过 name 或 username）
-      const nameLower = name.toLowerCase()
-      if (accountMap.has(name) || usernameSet.has(nameLower)) {
-        return
-      }
-      
-      accountMap.set(name, { name, platform: item.platform })
-    })
-    
+
     return Array.from(accountMap.values()).sort((a, b) => a.name.localeCompare(b.name))
   }, [items, twitterAuthors])
   
@@ -100,9 +96,10 @@ export function useOverseasData(): UseOverseasDataReturn {
     setSelectedPlatformsState(platforms)
     // 当选择具体平台时，清除与新平台不匹配的已选账号
     if (platforms.length > 0 && !platforms.includes('all')) {
-      setSelectedAccounts(prev => 
-        prev.filter(accountName => {
-          const account = sourceAccounts.find(a => a.name === accountName)
+      setSelectedAccounts(prev =>
+        prev.filter(accountId => {
+          // 使用 username 或 name 查找账号
+          const account = sourceAccounts.find(a => (a.username || a.name) === accountId)
           return account && platforms.includes(account.platform as OverseasPlatform)
         })
       )
@@ -218,6 +215,16 @@ export function useOverseasData(): UseOverseasDataReturn {
 
   useEffect(() => {
     fetchData()
+
+    // 监听自定义刷新事件（用于添加新信源后立即刷新）
+    const handleRefresh = () => {
+      fetchData()
+    }
+
+    window.addEventListener('refresh-overseas-data', handleRefresh)
+    return () => {
+      window.removeEventListener('refresh-overseas-data', handleRefresh)
+    }
   }, [fetchData])
 
   // 过滤和排序

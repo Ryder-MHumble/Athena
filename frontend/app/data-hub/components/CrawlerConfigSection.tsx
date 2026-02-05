@@ -88,12 +88,18 @@ export function CrawlerConfigSection() {
   const handleAddSource = async (urls: string[]) => {
     const errors: string[] = []
     let successCount = 0
+    const newAuthors: AuthorInfo[] = []
 
     for (const url of urls) {
       try {
         const data = await crawlerApi.addSource(url)
         if (data.success) {
           successCount++
+
+          // 如果后端返回了账号信息，立即添加到本地缓存
+          if (data.account_info) {
+            newAuthors.push(data.account_info)
+          }
         } else {
           errors.push(`${url}: ${data.error || data.message || '添加失败'}`)
         }
@@ -102,9 +108,35 @@ export function CrawlerConfigSection() {
       }
     }
 
-    // 刷新列表
+    // 立即更新作者列表
+    if (newAuthors.length > 0) {
+      setAuthors(prev => {
+        // 合并新作者，避免重复
+        const existingUsernames = new Set(prev.map(a => a.username))
+        const uniqueNew = newAuthors.filter(a => !existingUsernames.has(a.username))
+        return [...prev, ...uniqueNew]
+      })
+    }
+
+    // 刷新信源列表
     if (successCount > 0) {
       setRefreshKey(prev => prev + 1)
+
+      // 启动轮询，确保后台爬取完成后能更新数据（最多轮询10次，每次3秒）
+      let pollCount = 0
+      const pollInterval = setInterval(async () => {
+        pollCount++
+        if (pollCount > 10) {
+          clearInterval(pollInterval)
+          return
+        }
+
+        try {
+          await loadAuthors()
+        } catch (err) {
+          console.warn('轮询加载作者信息失败:', err)
+        }
+      }, 3000)
     }
 
     // 如果有错误，抛出
