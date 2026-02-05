@@ -450,13 +450,13 @@ async def analyze_pdf_stream(
             
             # 论文分析（如果启用）
             paper_analysis_result = None
-            if enable_paper_analysis and pdf_bytes and not pdf_url:
+            if enable_paper_analysis:
                 try:
                     if not task.is_cancelled():
                         event = await sse.send_progress("analyzing", 92, "正在使用 AI 分析论文内容...")
                         if event:
                             yield event
-                        
+
                         paper_text = result.get("original_text", "")
                         if paper_text and len(paper_text) > 100:
                             from app.services.paper_service import PaperService

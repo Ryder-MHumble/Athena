@@ -152,42 +152,42 @@ export function usePDFAnalysis(apiKey: string, mineruApiKey: string): UsePDFAnal
   // 开始分析
   const startAnalysis = useCallback(async (options: AnalysisOptions) => {
     const { file, url, translate = false, extractCharts = true, enablePaperAnalysis = false } = options
-    
+
     // 验证输入
     if (!file && !url) {
       toast.error('请先选择文件或输入 URL')
       return
     }
-    
+
     if (!apiKey) {
       toast.error('请先在设置页面配置 SiliconFlow API Key')
       return
     }
-    
+
     if (!mineruApiKey) {
       toast.error('请先在设置页面配置 MinerU API Key')
       return
     }
-    
+
     if (url && !url.trim()) {
       toast.error('请输入有效的 URL')
       return
     }
-    
+
     if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
       toast.error('URL 必须以 http:// 或 https:// 开头')
       return
     }
-    
+
     // 清理之前的请求
     await cleanup()
-    
-    // 重置状态
+
+    // 完全重置状态（确保清空旧数据）
     setStatus('uploading')
     setProgress(0)
     setErrorMessage('')
     setStatusMessage(url ? '正在准备从 URL 解析...' : '正在准备上传文件...')
-    setResult(null)
+    setResult(null)  // 清空旧的分析结果，避免图片混淆
     setTaskId(null)
     
     // 创建新的 AbortController
@@ -382,6 +382,7 @@ export function useTranslation(apiKey: string): UseTranslationReturn {
     }
     setIsTranslating(false)
     setTranslateProgress(0)
+    setTranslatedContent('') // 清空翻译内容
   }, [])
   
   const startTranslation = useCallback(async (text: string) => {

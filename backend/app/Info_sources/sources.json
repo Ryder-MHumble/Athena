@@ -127,10 +127,6 @@
       "url": "https://x.com/rasbt"
     },
     {
-      "name": "Sébastien Bubeck",
-      "url": "https://x.com/SebastienBubeck"
-    },
-    {
       "name": "Soumith Chintala",
       "url": "https://x.com/soumithchintala"
     },
@@ -163,10 +159,6 @@
       "url": "https://x.com/thinkymachines"
     },
     {
-      "name": "Kimi_Moonshot",
-      "url": "https://x.com/Kimi_Moonshot"
-    },
-    {
       "name": "Khazix0918",
       "url": "https://x.com/Khazix0918"
     },
@@ -189,6 +181,22 @@
     {
       "name": "MiniMax_AI",
       "url": "https://x.com/MiniMax_AI"
+    },
+    {
+      "name": "Google",
+      "url": "https://x.com/Google"
+    },
+    {
+      "name": "googleaidevs",
+      "url": "https://x.com/googleaidevs"
+    },
+    {
+      "name": "Kimi_Moonshot",
+      "url": "https://x.com/Kimi_Moonshot"
+    },
+    {
+      "name": "SebastienBubeck",
+      "url": "https://x.com/SebastienBubeck"
     }
   ]
 }

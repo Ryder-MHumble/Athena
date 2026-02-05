@@ -86,13 +86,50 @@ export default function PDFAnalyzerPage() {
   
   // 提取选项
   const [enableChartExtraction, setEnableChartExtraction] = useState(true)
+  const [enablePaperAnalysis, setEnablePaperAnalysis] = useState(true)
   
   const fileInputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   
   // 从 result 中提取数据
   const originalContent = result?.originalText || ''
-  const charts = result?.charts || []
+  // 按照图片在markdown中的出现顺序排序
+  const charts = (() => {
+    const rawCharts = result?.charts || []
+    if (!originalContent || rawCharts.length === 0) return rawCharts
+
+    // 为每个图片找到它在markdown中的位置
+    const chartsWithPosition = rawCharts.map(chart => {
+      const imageName = chart.filename
+      if (!imageName) return { ...chart, position: -1 }
+
+      // 查找图片引用的位置（可能有多种格式）
+      const patterns = [
+        `images/${imageName}`,
+        `![](images/${imageName})`,
+        imageName
+      ]
+
+      let position = -1
+      for (const pattern of patterns) {
+        const index = originalContent.indexOf(pattern)
+        if (index !== -1) {
+          position = index
+          break
+        }
+      }
+
+      return { ...chart, position }
+    })
+
+    // 按位置排序（未找到的图片放到最后）
+    return chartsWithPosition.sort((a, b) => {
+      if (a.position === -1) return 1
+      if (b.position === -1) return -1
+      return a.position - b.position
+    })
+  })()
+
   const metadata = result?.metadata || {}
   const paperAnalysis = result?.paperAnalysis?.summary || null
   const paperText = result?.paperAnalysis?.paperText || ''
@@ -135,14 +172,17 @@ export default function PDFAnalyzerPage() {
   const handleStartAnalysis = useCallback(async () => {
     // 取消正在进行的翻译
     cancelTranslation()
-    
+
+    // 清空选中的图表（避免显示旧图表）
+    setSelectedChart(null)
+
     // 开始分析
     await startAnalysis({
       file,
       url,
       translate: false,
       extractCharts: enableChartExtraction,
-      enablePaperAnalysis: false
+      enablePaperAnalysis: enablePaperAnalysis
     })
   }, [file, url, enableChartExtraction, startAnalysis, cancelTranslation])
 
@@ -507,11 +547,21 @@ export default function PDFAnalyzerPage() {
                 />
                 <span className="text-sm text-gray-600">提取图表</span>
               </label>
-              
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={enablePaperAnalysis}
+                  onChange={(e) => setEnablePaperAnalysis(e.target.checked)}
+                  className="w-4 h-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
+                />
+                <span className="text-sm text-gray-600">AI 深度分析</span>
+              </label>
+
               <div className="text-xs text-gray-500">
                 <span className="inline-flex items-center gap-1">
                   <AlertCircle className="w-3 h-3" />
-                  自动翻译 | 图表提取
+                  自动翻译 | 图表提取 | AI 分析
                 </span>
               </div>
             </div>

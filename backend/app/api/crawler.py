@@ -533,10 +533,10 @@ async def get_youtube_data():
                 "data": _data_cache["youtube"],
                 "source": "cache"
             }
-        
+
         # 2. 尝试读取文件
         filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
-        
+
         if filepath.exists():
             with open(filepath, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -546,7 +546,109 @@ async def get_youtube_data():
                 "data": data,
                 "source": "file"
             }
-        
+
         return {"success": True, "data": None, "message": "No data available. Please run crawler first."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ==================== 爬虫配置管理 API ====================
+
+class CrawlerConfigModel(BaseModel):
+    """爬虫配置模型"""
+    auto_crawl_enabled: bool
+    interval_seconds: int
+    last_crawl_time: Optional[str] = None
+
+
+class UpdateConfigRequest(BaseModel):
+    """更新配置请求模型"""
+    auto_crawl_enabled: Optional[bool] = None
+    interval_seconds: Optional[int] = None
+
+
+@router.get("/config")
+async def get_crawler_config():
+    """
+    获取当前爬虫配置
+
+    返回:
+    - auto_crawl_enabled: 是否启用自动爬虫
+    - interval_seconds: 爬取间隔（秒）
+    - interval_hours: 爬取间隔（小时，便于前端展示）
+    - last_crawl_time: 上次爬取时间
+    """
+    try:
+        from ..services.config_service import CrawlerConfigService
+
+        config = CrawlerConfigService.get_config_with_computed_fields()
+
+        return {
+            "success": True,
+            "config": config
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/config")
+async def update_crawler_config(request: UpdateConfigRequest):
+    """
+    更新爬虫配置
+
+    参数:
+    - auto_crawl_enabled: 可选，是否启用自动爬虫
+    - interval_seconds: 可选，爬取间隔（秒），范围：3600-86400（1-24小时）
+
+    返回:
+    - success: 是否成功
+    - message: 状态消息
+    - config: 更新后的配置
+    """
+    try:
+        from ..services.config_service import CrawlerConfigService
+
+        # 构建更新字典
+        updates = {}
+
+        if request.auto_crawl_enabled is not None:
+            updates["auto_crawl_enabled"] = request.auto_crawl_enabled
+
+        if request.interval_seconds is not None:
+            # 验证间隔范围（1小时到24小时）
+            if request.interval_seconds < 3600 or request.interval_seconds > 86400:
+                raise HTTPException(
+                    status_code=400,
+                    detail="间隔时间必须在 3600-86400 秒之间（1-24小时）"
+                )
+            updates["interval_seconds"] = request.interval_seconds
+
+        if not updates:
+            raise HTTPException(status_code=400, detail="没有提供任何更新字段")
+
+        # 更新配置并应用到运行中的任务
+        config = await CrawlerConfigService.update_and_apply(updates)
+
+        # 构建响应消息
+        message_parts = []
+        if "auto_crawl_enabled" in updates:
+            status = "已启用" if updates["auto_crawl_enabled"] else "已禁用"
+            message_parts.append(f"自动爬虫{status}")
+        if "interval_seconds" in updates:
+            hours = updates["interval_seconds"] / 3600
+            message_parts.append(f"爬取间隔已设置为 {hours} 小时")
+
+        message = "配置已更新：" + "，".join(message_parts)
+
+        # 添加计算字段
+        config["interval_hours"] = config["interval_seconds"] / 3600.0
+
+        return {
+            "success": True,
+            "message": message,
+            "config": config
+        }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
