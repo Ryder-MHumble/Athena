@@ -12,15 +12,12 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { 
-  FileText, 
-  Loader2, 
-  Upload, 
-  Languages, 
+import {
+  FileText,
+  Loader2,
+  Upload,
+  Languages,
   Image as ImageIcon,
-  BarChart3,
-  Table2,
-  PieChart,
   X,
   Download,
   RefreshCw,
@@ -43,8 +40,8 @@ import { usePDFAnalysis, useTranslation, ChartData } from '@/hooks/usePDFAnalysi
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 export default function PDFAnalyzerPage() {
-  // 从全局 store 获取 API Key
-  const { apiKey, mineruApiKey } = useAppStore()
+  // 从全局 store 获取 API Key 和配置
+  const { apiKey, mineruApiKey, visionModel, getSystemPrompt } = useAppStore()
   
   // 使用 PDF 分析 Hook
   const {
@@ -76,10 +73,15 @@ export default function PDFAnalyzerPage() {
   
   // UI状态
   const [selectedChart, setSelectedChart] = useState<ChartData | null>(null)
-  const [splitPosition, setSplitPosition] = useState(50)
+  const [splitPosition, setSplitPosition] = useState(65) // 6.5:3.5 比例
   const [isDragging, setIsDragging] = useState(false)
   const [zoomLevel, setZoomLevel] = useState(100)
   const [displayLanguage, setDisplayLanguage] = useState<'zh' | 'en'>('zh')
+
+  // 图片分析状态（按需分析，点击触发）
+  const [analyzingImageIds, setAnalyzingImageIds] = useState<Set<string>>(new Set())
+  const [imageAnalysis, setImageAnalysis] = useState<Record<string, any>>({})
+  const [isExporting, setIsExporting] = useState(false)
   
   // 右侧Tab状态
   const [activeRightTab, setActiveRightTab] = useState<'charts' | 'analysis'>('charts')
@@ -170,11 +172,14 @@ export default function PDFAnalyzerPage() {
 
   // 开始分析（使用 Hook）
   const handleStartAnalysis = useCallback(async () => {
-    // 取消正在进行的翻译
+    // 取消正在进行的翻译和图片分析
     cancelTranslation()
+    analyzeAbortRef.current?.abort()
 
-    // 清空选中的图表（避免显示旧图表）
+    // 清空选中的图表和旧的分析结果
     setSelectedChart(null)
+    setImageAnalysis({})
+    setAnalyzingImageIds(new Set())
 
     // 开始分析
     await startAnalysis({
@@ -186,31 +191,87 @@ export default function PDFAnalyzerPage() {
     })
   }, [file, url, enableChartExtraction, startAnalysis, cancelTranslation])
 
-  // 自动翻译（分析完成后自动触发）
+  // 自动翻译已关闭，用户可通过顶部"翻译"按钮手动触发
+
+  // 分析完成后，优先渲染图片，然后逐张顺序进行AI分析
+  const analyzeAbortRef = useRef<AbortController | null>(null)
   useEffect(() => {
-    if (hasResult && originalContent && !displayTranslatedContent) {
-      // 分析完成后自动开始翻译
-      startTranslation(originalContent)
+    if (hasResult && charts.length > 0 && apiKey) {
+      // 取消上一轮的顺序分析
+      analyzeAbortRef.current?.abort()
+      const abortController = new AbortController()
+      analyzeAbortRef.current = abortController
+
+      // 延迟启动，让图片先完成渲染
+      const timer = setTimeout(() => {
+        ;(async () => {
+          for (const chart of charts) {
+            if (abortController.signal.aborted) break
+            // 跳过已分析或正在分析的图片
+            if (imageAnalysis[chart.id]) continue
+            await analyzeSingleImage(chart)
+          }
+        })()
+      }, 500)
+
+      return () => {
+        clearTimeout(timer)
+        abortController.abort()
+      }
     }
-  }, [hasResult, originalContent, displayTranslatedContent, startTranslation])
+  }, [hasResult, charts.length, apiKey])
+
+  // 分析单张图片（点击或自动逐张触发）
+  const analyzeSingleImage = async (chart: ChartData) => {
+    if (!apiKey || imageAnalysis[chart.id] || analyzingImageIds.has(chart.id)) return
+
+    setAnalyzingImageIds(prev => new Set(prev).add(chart.id))
+
+    const chartPrompt = getSystemPrompt('chart-analysis')
+    const headers: Record<string, string> = {
+      'X-API-Key': apiKey,
+      'Content-Type': 'application/json',
+    }
+    if (visionModel) {
+      headers['X-Vision-Model'] = visionModel
+    }
+    if (chartPrompt) {
+      headers['X-Chart-Prompt'] = chartPrompt
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/api/pdf-analyzer/analyze-image/${chart.id}`, {
+        method: 'POST',
+        headers,
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setImageAnalysis(prev => ({ ...prev, [chart.id]: data.analysis }))
+      }
+    } catch (error) {
+      console.error(`分析图片 ${chart.id} 失败:`, error)
+      toast.error('图片分析失败')
+    } finally {
+      setAnalyzingImageIds(prev => {
+        const next = new Set(prev)
+        next.delete(chart.id)
+        return next
+      })
+    }
+  }
   
-  // 点击图片跳转到对应位置并展开卡片
+  // 点击右侧图片，跳转到左侧对应位置并展开卡片，同时触发AI分析
   const handleImageClick = (chart: ChartData) => {
     // 查找图片在 markdown 中的位置
     const imageName = chart.filename
     if (!imageName || !originalContent) return
-    
+
     // 查找图片引用的位置
     const imageRef = `images/${imageName}`
     const index = originalContent.indexOf(imageRef)
-    
+
     if (index !== -1) {
-      // 计算在第几行
-      const beforeText = originalContent.substring(0, index)
-      const lines = beforeText.split('\n')
-      const lineNumber = lines.length
-      
-      
       // 滚动到对应位置（通过查找元素）
       const markdownContainer = document.querySelector('.markdown-content')
       if (markdownContainer) {
@@ -230,11 +291,43 @@ export default function PDFAnalyzerPage() {
         })
       }
     }
-    
+
     // 展开/折叠选中的卡片
-    setSelectedChart(prevSelected => 
+    setSelectedChart(prevSelected =>
       prevSelected?.id === chart.id ? null : chart
     )
+
+    // 点击时自动触发该图片的AI分析（如果尚未分析）
+    analyzeSingleImage(chart)
+  }
+
+  // 点击左侧图片，跳转到右侧对应卡片，同时触发AI分析
+  const handleLeftImageClick = (chartId: string) => {
+    const chart = charts.find(c => c.id === chartId)
+    if (!chart) return
+
+    // 选中该图片
+    setSelectedChart(chart)
+
+    // 点击时自动触发该图片的AI分析（如果尚未分析）
+    analyzeSingleImage(chart)
+
+    // 滚动到右侧对应的卡片
+    setTimeout(() => {
+      const rightPanel = document.querySelector('.chart-cards-container')
+      const targetCard = document.getElementById(`chart-card-${chartId}`)
+
+      if (rightPanel && targetCard) {
+        // 滚动到目标卡片
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' })
+
+        // 高亮显示（通过添加临时class）
+        targetCard.classList.add('highlight-flash')
+        setTimeout(() => {
+          targetCard.classList.remove('highlight-flash')
+        }, 2000)
+      }
+    }, 100)
   }
 
   // 取消分析
@@ -243,13 +336,16 @@ export default function PDFAnalyzerPage() {
     cancelTranslation()
   }, [cancelAnalysis, cancelTranslation])
 
-  // 重置
+  // 重置（清除所有缓存和进程）
   const handleReset = useCallback(() => {
+    analyzeAbortRef.current?.abort()
     resetAnalysis()
     cancelTranslation()
     setFile(null)
     setUrl('')
     setSelectedChart(null)
+    setImageAnalysis({})
+    setAnalyzingImageIds(new Set())
     if (fileInputRef.current) fileInputRef.current.value = ''
   }, [resetAnalysis, cancelTranslation])
 
@@ -315,33 +411,6 @@ export default function PDFAnalyzerPage() {
     }
   }
 
-  // 获取图表类型图标
-  const getChartIcon = (type: ChartData['type']) => {
-    switch (type) {
-      case 'bar': return <BarChart3 className="w-4 h-4" />
-      case 'line': return <BarChart3 className="w-4 h-4 rotate-90" />
-      case 'pie': return <PieChart className="w-4 h-4" />
-      case 'table': return <Table2 className="w-4 h-4" />
-      default: return <ImageIcon className="w-4 h-4" />
-    }
-  }
-
-  // 获取图表类型名称
-  const getChartTypeName = (type: ChartData['type']) => {
-    const typeNames: Record<string, string> = {
-      bar: '柱状图',
-      line: '折线图',
-      pie: '饼图',
-      table: '表格',
-      flowchart: '流程图',
-      scatter: '散点图',
-      heatmap: '热力图',
-      diagram: '示意图',
-      photo: '照片',
-      other: '其他'
-    }
-    return typeNames[type] || '其他'
-  }
 
   // 下载图表
   const handleDownloadChart = async (chart: ChartData) => {
@@ -367,29 +436,83 @@ export default function PDFAnalyzerPage() {
     }
   }
 
-  // 导出分析结果
-  const handleExportResults = () => {
-    const exportData = {
-      metadata,
-      originalText: originalContent,
-      translatedText: displayTranslatedContent,
-      charts: charts.map(c => ({
-        ...c,
-        imageUrl: undefined // 移除 URL，只保留分析数据
-      }))
+  // 导出分析结果（包含图片和AI分析）
+  const handleExportResults = async () => {
+    setIsExporting(true)
+    try {
+      // 准备导出数据
+      const chartsWithAnalysis = await Promise.all(
+        charts.map(async (chart) => {
+          const analysis = imageAnalysis[chart.id]
+
+          // 下载图片并转换为 base64
+          let imageBase64 = ''
+          try {
+            const response = await fetch(`${API_BASE}${chart.imageUrl}`, {
+              headers: apiKey ? { 'X-API-Key': apiKey } : {}
+            })
+            if (response.ok) {
+              const blob = await response.blob()
+              imageBase64 = await new Promise<string>((resolve) => {
+                const reader = new FileReader()
+                reader.onloadend = () => resolve(reader.result as string)
+                reader.readAsDataURL(blob)
+              })
+            }
+          } catch (error) {
+            console.error(`下载图片 ${chart.id} 失败:`, error)
+          }
+
+          return {
+            filename: chart.filename,
+            title: chart.title,
+            pageNumber: chart.pageNumber,
+            category: analysis?.category || '未分类',
+            summary: analysis?.summary || '',
+            keyPoints: analysis?.keyPoints || [],
+            imageBase64
+          }
+        })
+      )
+
+      const exportData = {
+        exportDate: new Date().toISOString(),
+        metadata,
+        content: {
+          originalText: originalContent,
+          translatedText: displayTranslatedContent,
+          textLength: originalContent.length
+        },
+        charts: chartsWithAnalysis,
+        chartsCount: charts.length,
+        paperAnalysis: paperAnalysis ? {
+          coreProblem: paperAnalysis.coreProblem,
+          previousDilemma: paperAnalysis.previousDilemma,
+          coreIntuition: paperAnalysis.coreIntuition,
+          keySteps: paperAnalysis.keySteps,
+          innovations: paperAnalysis.innovations,
+          boundaries: paperAnalysis.boundaries,
+          oneSentence: paperAnalysis.oneSentence
+        } : null
+      }
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `pdf-analysis-${new Date().toISOString().slice(0, 10)}.json`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+
+      toast.success(`已导出 ${charts.length} 张图片及分析结果`)
+    } catch (error) {
+      console.error('导出失败:', error)
+      toast.error('导出失败，请重试')
+    } finally {
+      setIsExporting(false)
     }
-    
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `pdf-analysis-${new Date().toISOString().slice(0, 10)}.json`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-    
-    toast.success('分析结果已导出')
   }
 
   // hasResult 和 isAnalyzing 已经从 usePDFAnalysis Hook 获取
@@ -804,8 +927,20 @@ export default function PDFAnalyzerPage() {
                 style={{ fontSize: `${zoomLevel}%` }}
               >
                 {(displayLanguage === 'en' ? originalContent : (displayTranslatedContent || originalContent)) ? (
-                  <div 
+                  <div
                     className="markdown-content select-text"
+                    onClick={(e) => {
+                      // 检查点击的是否是图片
+                      const target = e.target as HTMLElement
+                      if (target.tagName === 'IMG') {
+                        const imgSrc = (target as HTMLImageElement).src
+                        // 从 src 中提取 chart id
+                        const chartId = charts.find(c => imgSrc.includes(c.id))?.id
+                        if (chartId) {
+                          handleLeftImageClick(chartId)
+                        }
+                      }
+                    }}
                     onMouseUp={() => {
                       const selection = window.getSelection()
                       const selectedText = selection?.toString().trim()
@@ -821,10 +956,10 @@ export default function PDFAnalyzerPage() {
                             const filename = src.split('/').pop()
                             const chart = charts.find(c => c.filename === filename)
                             if (chart) {
-                              return `<img src="${API_BASE}${chart.imageUrl}" alt="${alt}" class="max-w-full h-auto rounded-lg shadow-sm my-4" />`
+                              return `<img src="${API_BASE}${chart.imageUrl}" alt="${alt}" loading="lazy" class="max-w-full h-auto rounded-lg shadow-sm my-4 cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all" data-chart-id="${chart.id}" />`
                             }
                           }
-                          return `<img src="${src}" alt="${alt}" class="max-w-full h-auto rounded-lg shadow-sm my-4" />`
+                          return `<img src="${src}" alt="${alt}" loading="lazy" class="max-w-full h-auto rounded-lg shadow-sm my-4" />`
                         })
                         .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-bold mt-6 mb-4">$1</h1>')
                         .replace(/^## (.+)$/gm, '<h2 class="text-xl font-semibold mt-5 mb-3">$1</h2>')
@@ -876,10 +1011,20 @@ export default function PDFAnalyzerPage() {
                   variant="outline"
                   size="sm"
                   onClick={handleExportResults}
+                  disabled={isExporting}
                   className="text-xs h-8 border-slate-200 hover:border-slate-300"
                 >
-                  <Download className="w-3.5 h-3.5 mr-1" />
-                  导出全部
+                  {isExporting ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
+                      导出中...
+                    </>
+                  ) : (
+                    <>
+                      <Download className="w-3.5 h-3.5 mr-1" />
+                      导出全部
+                    </>
+                  )}
                 </Button>
                 <Button
                   variant="outline"
@@ -923,7 +1068,17 @@ export default function PDFAnalyzerPage() {
             </div>
 
             {/* 右侧内容区域 */}
-            <div className="flex-1 overflow-y-auto scrollbar-hide">
+            <div className="flex-1 overflow-y-auto scrollbar-hide chart-cards-container">
+              <style jsx>{`
+                @keyframes highlight-flash {
+                  0%, 100% { box-shadow: none; }
+                  50% { box-shadow: 0 0 30px rgba(6, 182, 212, 0.6); }
+                }
+                .highlight-flash {
+                  animation: highlight-flash 2s ease-in-out;
+                }
+              `}</style>
+
               {activeRightTab === 'charts' && (
                 charts.length === 0 ? (
                   <div className="flex-1 flex items-center justify-center h-full">
@@ -937,12 +1092,17 @@ export default function PDFAnalyzerPage() {
                   <div className="p-4 space-y-4">
                   {charts.map((chart) => {
                     const isExpanded = selectedChart?.id === chart.id
+                    const analysis = imageAnalysis[chart.id]
+                    const hasAnalysis = !!analysis
+                    const isAnalyzingThis = analyzingImageIds.has(chart.id)
+
                     return (
                     <div
                       key={chart.id}
+                      id={`chart-card-${chart.id}`}
                         className={`group rounded-xl border transition-all overflow-hidden cursor-pointer ${
-                          isExpanded 
-                            ? 'border-cyan-400 shadow-lg ring-2 ring-cyan-200' 
+                          isExpanded
+                            ? 'border-cyan-400 shadow-lg ring-2 ring-cyan-200'
                             : 'border-slate-200 hover:border-cyan-300 hover:shadow-md'
                       }`}
                         onClick={() => handleImageClick(chart)}
@@ -950,17 +1110,14 @@ export default function PDFAnalyzerPage() {
                         {/* 图片 */}
                         <div className="relative bg-gradient-to-br from-slate-100 to-slate-50 overflow-hidden">
                         {chart.imageUrl ? (
-                          <img 
+                          <img
                             src={`${API_BASE}${chart.imageUrl}`}
                               alt={chart.filename || chart.title}
+                              loading="lazy"
                               className="w-full h-auto object-contain transition-all duration-300"
-                              style={{ 
+                              style={{
                                 maxHeight: isExpanded ? 'none' : '300px',
                                 minHeight: '150px'
-                              }}
-                              onLoad={(e) => {
-                                // 图片加载完成后自动调整
-                                const img = e.target as HTMLImageElement
                               }}
                             onError={(e) => {
                               (e.target as HTMLImageElement).style.display = 'none'
@@ -976,7 +1133,7 @@ export default function PDFAnalyzerPage() {
                             <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur px-4 py-2 rounded-lg text-xs font-medium text-gray-700 shadow-lg">
                               <span className="flex items-center gap-2">
                                 <Sparkles className="w-3.5 h-3.5 text-cyan-500" />
-                                点击跳转并查看分析
+                                {hasAnalysis ? '点击跳转到左侧' : '点击分析并跳转'}
                               </span>
                         </div>
                         </div>
@@ -988,9 +1145,9 @@ export default function PDFAnalyzerPage() {
                             )}
                         </div>
 
-                        {/* 图片信息 */}
+                        {/* 图片信息和分析结果 */}
                         <div className="p-3 bg-white">
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-center justify-between mb-2">
                             <span className="text-xs text-gray-600 truncate flex-1 font-medium">
                               {chart.filename || chart.title}
                             </span>
@@ -1007,6 +1164,53 @@ export default function PDFAnalyzerPage() {
                               <Download className="w-3.5 h-3.5" />
                             </Button>
                           </div>
+
+                          {/* AI 分析状态 */}
+                          {isAnalyzingThis && (
+                            <div className="mt-2 flex items-center gap-2 text-xs text-cyan-600">
+                              <Loader2 className="w-3 h-3 animate-spin" />
+                              <span>AI 分析中...</span>
+                            </div>
+                          )}
+
+                          {!hasAnalysis && !isAnalyzingThis && (
+                            <div className="mt-2 flex items-center gap-2 text-xs text-gray-400">
+                              <Sparkles className="w-3 h-3" />
+                              <span>点击卡片进行 AI 分析</span>
+                            </div>
+                          )}
+
+                          {hasAnalysis && (
+                            <div className="mt-3 pt-3 border-t border-slate-100 space-y-2">
+                              {/* 分类标签 */}
+                              {analysis.category && (
+                                <div className="flex items-center gap-2">
+                                  <span className="px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-700 text-xs font-medium">
+                                    {analysis.category}
+                                  </span>
+                                </div>
+                              )}
+
+                              {/* 摘要 */}
+                              {analysis.summary && (
+                                <div className="text-xs text-gray-700 leading-relaxed">
+                                  {analysis.summary}
+                                </div>
+                              )}
+
+                              {/* 关键点 */}
+                              {analysis.keyPoints && analysis.keyPoints.length > 0 && (
+                                <div className="space-y-1">
+                                  {analysis.keyPoints.map((point: string, idx: number) => (
+                                    <div key={idx} className="flex items-start gap-1.5 text-xs text-gray-600">
+                                      <span className="text-cyan-500 mt-0.5">•</span>
+                                      <span className="flex-1">{point}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </div>
                       </div>
                     )

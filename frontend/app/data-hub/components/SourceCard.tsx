@@ -18,6 +18,7 @@ interface SourceCardProps {
   avatar?: string
   followers?: number
   verified?: boolean
+  description?: string  // 账号简介
   onDelete: (platform: string, name: string) => Promise<void>
 }
 
@@ -29,20 +30,24 @@ export function SourceCard({
   avatar,
   followers,
   verified,
+  description,
   onDelete
 }: SourceCardProps) {
   const [isDeleting, setIsDeleting] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
 
   const handleDelete = async () => {
     setIsDeleting(true)
+    setDeleteError('')
     try {
       await onDelete(platform, name)
-    } catch (err) {
+      setShowConfirm(false)
+    } catch (err: any) {
       console.error('删除失败:', err)
+      setDeleteError(err.message || '删除失败，请重试')
     } finally {
       setIsDeleting(false)
-      setShowConfirm(false)
     }
   }
 
@@ -124,43 +129,66 @@ export function SourceCard({
         </div>
       </div>
 
+      {/* 账号简介 */}
+      {description && (
+        <div className="mt-2 pt-2 border-t border-gray-100">
+          <p className="text-xs text-gray-600 line-clamp-2" title={description}>
+            {description}
+          </p>
+        </div>
+      )}
+
       {/* 删除按钮 */}
       {!showConfirm ? (
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => setShowConfirm(true)}
+          onClick={() => {
+            setShowConfirm(true)
+            setDeleteError('')
+          }}
           className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-red-600 hover:bg-red-50 h-7 w-7 p-0"
           disabled={isDeleting}
         >
           <Trash2 className="h-3.5 w-3.5" />
         </Button>
       ) : (
-        <div className="absolute top-2 right-2 flex items-center gap-1 bg-white border border-red-200 rounded-md p-1 shadow-lg z-10">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowConfirm(false)}
-            className="text-xs px-2 py-1 h-auto text-gray-600 hover:bg-gray-100"
-          >
-            取消
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleDelete}
-            disabled={isDeleting}
-            className="text-xs px-2 py-1 h-auto text-red-600 hover:bg-red-50"
-          >
-            {isDeleting ? (
-              <>
-                <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-                删除中
-              </>
-            ) : (
-              '确认'
-            )}
-          </Button>
+        <div className="absolute top-2 right-2 flex flex-col gap-1 bg-white border border-red-200 rounded-md p-1 shadow-lg z-10">
+          <div className="flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setShowConfirm(false)
+                setDeleteError('')
+              }}
+              className="text-xs px-2 py-1 h-auto text-gray-600 hover:bg-gray-100"
+              disabled={isDeleting}
+            >
+              取消
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className="text-xs px-2 py-1 h-auto text-red-600 hover:bg-red-50"
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                  删除中
+                </>
+              ) : (
+                '确认'
+              )}
+            </Button>
+          </div>
+          {deleteError && (
+            <div className="text-xs text-red-600 px-2 py-1 max-w-xs">
+              {deleteError}
+            </div>
+          )}
         </div>
       )}
     </div>

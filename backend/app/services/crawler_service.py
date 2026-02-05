@@ -1,6 +1,6 @@
 """
 海外信源爬虫服务
-- Twitter: 使用 twitterapi.io API
+- Twitter: 使用 twitterapi.io API (含 quoted_tweet 支持)
 - YouTube: 使用 FireCrawl 解析频道页面
 """
 
@@ -27,6 +27,35 @@ def load_sources() -> Dict[str, List[Dict[str, str]]]:
     sources_path = Path(__file__).parent.parent / "Info_sources" / "sources.json"
     with open(sources_path, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def update_sources_names(name_updates: Dict[str, str]):
+    """使用爬取到的真实显示名称更新 sources.json"""
+    sources_path = Path(__file__).parent.parent / "Info_sources" / "sources.json"
+    try:
+        with open(sources_path, "r", encoding="utf-8") as f:
+            sources = json.load(f)
+
+        updated = False
+        for source in sources.get("twitter", []):
+            url = source.get("url", "")
+            username = extract_username_from_url(url)
+            if username and username in name_updates:
+                new_name = name_updates[username]
+                if source.get("name") != new_name:
+                    source["name"] = new_name
+                    updated = True
+                # 同时更新username字段
+                if source.get("username") != username:
+                    source["username"] = username
+                    updated = True
+
+        if updated:
+            with open(sources_path, "w", encoding="utf-8") as f:
+                json.dump(sources, f, ensure_ascii=False, indent=2)
+            print(f"[Sources] Updated source names and usernames in sources.json")
+    except Exception as e:
+        print(f"[Sources] Failed to update sources.json: {e}")
 
 
 # ==================== Twitter 爬虫 ====================
@@ -115,7 +144,38 @@ def transform_twitter_data(raw_data: Dict[str, Any], source_name: str) -> List[D
                 "type": m.get("type"),
                 "url": m.get("media_url_https")
             } for m in media]
-        
+
+        # 提取引用推文信息
+        quoted_tweet = tweet.get("quoted_tweet")
+        if quoted_tweet:
+            qt_author = quoted_tweet.get("author", {})
+            item["quoted_tweet"] = {
+                "id": quoted_tweet.get("id"),
+                "url": quoted_tweet.get("url"),
+                "text": quoted_tweet.get("text", ""),
+                "author": {
+                    "username": qt_author.get("userName"),
+                    "name": qt_author.get("name"),
+                    "avatar": qt_author.get("profilePicture"),
+                    "followers": qt_author.get("followers", 0),
+                    "verified": qt_author.get("isBlueVerified", False)
+                },
+                "stats": {
+                    "likes": quoted_tweet.get("likeCount", 0),
+                    "retweets": quoted_tweet.get("retweetCount", 0),
+                    "replies": quoted_tweet.get("replyCount", 0),
+                    "views": quoted_tweet.get("viewCount", 0),
+                },
+                "created_at": quoted_tweet.get("createdAt"),
+            }
+            qt_extended = quoted_tweet.get("extendedEntities", {})
+            qt_media = qt_extended.get("media", [])
+            if qt_media:
+                item["quoted_tweet"]["media"] = [{
+                    "type": m.get("type"),
+                    "url": m.get("media_url_https")
+                } for m in qt_media]
+
         items.append(item)
     
     return items
@@ -129,9 +189,10 @@ async def crawl_twitter_source(source: Dict[str, str]) -> Dict[str, Any]:
             "source_name": source["name"],
             "source_url": source["url"],
             "error": "无法从URL提取用户名",
-            "items": []
+            "items": [],
+            "author_info": None
         }
-    
+
     raw_data = await fetch_twitter_user_tweets(username)
     if not raw_data:
         return {
@@ -139,31 +200,58 @@ async def crawl_twitter_source(source: Dict[str, str]) -> Dict[str, Any]:
             "source_url": source["url"],
             "username": username,
             "error": "API请求失败",
-            "items": []
+            "items": [],
+            "author_info": None
         }
-    
-    items = transform_twitter_data(raw_data, source["name"])
-    
+
+    # 从 API 返回的任意推文中提取作者真实信息（包括转推），用真实显示名称替代 URL 用户名
+    real_name = source["name"]
+    author_info = None
+    if raw_data.get("status") == "success":
+        tweets = raw_data.get("data", {}).get("tweets", [])
+        for tweet in tweets:
+            author = tweet.get("author", {})
+            author_username = author.get("userName") or ""
+            if author_username.lower() == username.lower():
+                real_name = author.get("name") or source["name"]
+                # 提取profile_bio中的description
+                profile_bio = author.get("profileBio") or author.get("profile_bio") or {}
+                description = profile_bio.get("description", "") if isinstance(profile_bio, dict) else str(profile_bio) if profile_bio else ""
+
+                author_info = {
+                    "username": author.get("userName"),
+                    "name": real_name,
+                    "avatar": author.get("profilePicture"),
+                    "followers": author.get("followers", 0),
+                    "verified": author.get("isBlueVerified", False),
+                    "description": description.strip(),
+                    "platform": "twitter"
+                }
+                break
+
+    items = transform_twitter_data(raw_data, real_name)
+
     return {
-        "source_name": source["name"],
+        "source_name": real_name,
         "source_url": source["url"],
         "username": username,
         "platform": "twitter",
         "scraped_at": datetime.now().isoformat(),
-        "items": items
+        "items": items,
+        "author_info": author_info
     }
 
 
-def extract_unique_authors(all_tweets: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """从推文列表中提取唯一的作者信息"""
+def extract_unique_authors(all_tweets: List[Dict[str, Any]], source_author_infos: Optional[List[Dict[str, Any]]] = None) -> List[Dict[str, Any]]:
+    """从推文列表中提取唯一的作者信息，同时补充来源级别的作者信息（覆盖 0 推文的账号）"""
     authors_map: Dict[str, Dict[str, Any]] = {}
-    
+
     for tweet in all_tweets:
         author = tweet.get("author", {})
         username = author.get("username")
         if not username:
             continue
-        
+
         # 如果该作者已存在，更新为粉丝数更多的版本（更新的数据）
         existing = authors_map.get(username)
         if existing:
@@ -174,6 +262,7 @@ def extract_unique_authors(all_tweets: List[Dict[str, Any]]) -> List[Dict[str, A
                     "avatar": author.get("avatar"),
                     "followers": author.get("followers", 0),
                     "verified": author.get("verified", False),
+                    "description": author.get("description", ""),
                     "platform": "twitter"
                 }
         else:
@@ -183,9 +272,26 @@ def extract_unique_authors(all_tweets: List[Dict[str, Any]]) -> List[Dict[str, A
                 "avatar": author.get("avatar"),
                 "followers": author.get("followers", 0),
                 "verified": author.get("verified", False),
+                "description": author.get("description", ""),
                 "platform": "twitter"
             }
-    
+
+    # 补充来源级别的作者信息（覆盖 0 推文的账号，如只有转推或完全无活动的账号）
+    if source_author_infos:
+        for info in source_author_infos:
+            if info and info.get("username"):
+                username = info["username"]
+                if username not in authors_map:
+                    authors_map[username] = {
+                        "username": username,
+                        "name": info.get("name", username),
+                        "avatar": info.get("avatar", ""),
+                        "followers": info.get("followers", 0),
+                        "verified": info.get("verified", False),
+                        "description": info.get("description", ""),
+                        "platform": "twitter"
+                    }
+
     # 按粉丝数排序
     authors = list(authors_map.values())
     authors.sort(key=lambda x: x.get("followers", 0), reverse=True)
@@ -234,15 +340,15 @@ def save_twitter_data(sources_data: List[Dict[str, Any]]) -> str:
         "platform": "twitter",
         "scraped_at": datetime.now().isoformat(),
         "total_count": len(all_tweets),
-        "sources": [{"name": s["source_name"], "username": s.get("username"), "count": len(s.get("items", []))} for s in sources_data],
         "items": all_tweets
     }
-    
+
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
-    
-    # 提取并保存作者信息
-    authors = extract_unique_authors(all_tweets)
+
+    # 提取并保存作者信息（包含来源级别的作者信息，覆盖 0 推文的账号）
+    source_author_infos = [s.get("author_info") for s in sources_data if s.get("author_info")]
+    authors = extract_unique_authors(all_tweets, source_author_infos)
     save_authors_data(authors)
     
     return str(filepath)
@@ -556,37 +662,46 @@ async def crawl_all_twitter() -> Dict[str, Any]:
     """爬取所有 Twitter 信源"""
     sources = load_sources()
     twitter_sources = sources.get("twitter", [])
-    
+
     results = []
     for source in twitter_sources:
         safe_name = source['name'].encode('ascii', 'replace').decode('ascii')
         print(f"[Twitter] Crawling: {safe_name}...")
         result = await crawl_twitter_source(source)
         results.append(result)
-    
+
+    # 使用 API 返回的真实显示名称更新 sources.json
+    name_updates = {}
+    for result in results:
+        username = result.get("username")
+        author_info = result.get("author_info")
+        if username and author_info and author_info.get("name"):
+            name_updates[username] = author_info["name"]
+    if name_updates:
+        update_sources_names(name_updates)
+
     # 合并所有推文
     all_tweets = []
     for source in results:
         for item in source.get("items", []):
             all_tweets.append(item)
     all_tweets.sort(key=lambda x: x.get("created_at", ""), reverse=True)
-    
+
     # 构建输出数据
     output_data = {
         "platform": "twitter",
         "scraped_at": datetime.now().isoformat(),
         "total_count": len(all_tweets),
-        "sources": [{"name": s["source_name"], "username": s.get("username"), "count": len(s.get("items", []))} for s in results],
         "items": all_tweets
     }
-    
+
     # 尝试保存到文件（本地开发时有效）
     filepath = None
     try:
         filepath = save_twitter_data(results)
     except Exception as e:
         print(f"[Warning] Could not save to file: {e}")
-    
+
     return {
         "success": True,
         "platform": "twitter",

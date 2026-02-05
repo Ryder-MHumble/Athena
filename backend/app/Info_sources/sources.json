@@ -52,159 +52,203 @@
   "twitter": [
     {
       "name": "Andrej Karpathy",
+      "username": "karpathy",
       "url": "https://x.com/karpathy"
     },
     {
       "name": "Dario Amodei",
+      "username": "DarioAmodei",
       "url": "https://x.com/DarioAmodei"
     },
     {
       "name": "Demis Hassabis",
+      "username": "demishassabis",
       "url": "https://x.com/demishassabis"
     },
     {
       "name": "Epoch AI",
+      "username": "EpochAIResearch",
       "url": "https://x.com/EpochAIResearch"
     },
     {
       "name": "Fei-Fei Li",
+      "username": "drfeifei",
       "url": "https://x.com/drfeifei"
     },
     {
       "name": "François Chollet",
+      "username": "fchollet",
       "url": "https://x.com/fchollet"
     },
     {
       "name": "Geoffrey Hinton",
+      "username": "geoffreyhinton",
       "url": "https://x.com/geoffreyhinton"
     },
     {
       "name": "Greg Brockman",
+      "username": "gdb",
       "url": "https://x.com/gdb"
     },
     {
       "name": "Ilya Sutskever",
+      "username": "ilyasut",
       "url": "https://x.com/ilyasut"
     },
     {
       "name": "indigo",
+      "username": "indigox",
       "url": "https://x.com/indigox"
     },
     {
       "name": "Jack Clark",
+      "username": "jackclarkSF",
       "url": "https://x.com/jackclarkSF"
     },
     {
       "name": "Jeff Dean",
+      "username": "JeffDean",
       "url": "https://x.com/JeffDean"
     },
     {
       "name": "John Schulman",
+      "username": "johnschulman2",
       "url": "https://x.com/johnschulman2"
     },
     {
       "name": "Mustafa Suleyman",
+      "username": "mustafasuleyman",
       "url": "https://x.com/mustafasuleyman"
     },
     {
       "name": "Noam Shazeer",
+      "username": "NoamShazeer",
       "url": "https://x.com/NoamShazeer"
     },
     {
       "name": "Oriol Vinyals",
+      "username": "OriolVinyalsML",
       "url": "https://x.com/OriolVinyalsML"
     },
     {
       "name": "Pieter Abbeel",
+      "username": "pabbeel",
       "url": "https://x.com/pabbeel"
     },
     {
       "name": "Sebastian Raschka",
+      "username": "rasbt",
       "url": "https://x.com/rasbt"
     },
     {
       "name": "Soumith Chintala",
+      "username": "soumithchintala",
       "url": "https://x.com/soumithchintala"
     },
     {
       "name": "Wojciech Zaremba",
+      "username": "woj_zaremba",
       "url": "https://x.com/woj_zaremba"
     },
     {
       "name": "Yoshua Bengio",
+      "username": "Yoshua_Bengio",
       "url": "https://x.com/Yoshua_Bengio"
     },
     {
       "name": "Zephyr",
+      "username": "zephyr_z9",
       "url": "https://x.com/zephyr_z9"
     },
     {
       "name": "Andrew Ng",
+      "username": "AndrewYNg",
       "url": "https://x.com/AndrewYNg"
     },
     {
       "name": "Jason Wei",
+      "username": "_jasonwei",
       "url": "https://x.com/_jasonwei"
     },
     {
       "name": "Lenny Rachitsky",
+      "username": "lennysan",
       "url": "https://x.com/lennysan"
     },
     {
       "name": "Thinking Machines",
+      "username": "thinkymachines",
       "url": "https://x.com/thinkymachines"
     },
     {
-      "name": "Khazix0918",
+      "name": "数字生命卡兹克",
+      "username": "Khazix0918",
       "url": "https://x.com/Khazix0918"
     },
     {
-      "name": "dair_ai",
+      "name": "DAIR.AI",
+      "username": "dair_ai",
       "url": "https://x.com/dair_ai"
     },
     {
-      "name": "elonmusk",
+      "name": "Elon Musk",
+      "username": "elonmusk",
       "url": "https://x.com/elonmusk"
     },
     {
-      "name": "heynavtoor",
-      "url": "https://x.com/heynavtoor"
-    },
-    {
-      "name": "geminicli",
+      "name": "Gemini CLI",
+      "username": "geminicli",
       "url": "https://x.com/geminicli"
     },
     {
-      "name": "MiniMax_AI",
+      "name": "MiniMax (official)",
+      "username": "MiniMax_AI",
       "url": "https://x.com/MiniMax_AI"
     },
     {
       "name": "Google",
+      "username": "Google",
       "url": "https://x.com/Google"
     },
     {
-      "name": "googleaidevs",
+      "name": "Google AI Developers",
+      "username": "googleaidevs",
       "url": "https://x.com/googleaidevs"
     },
     {
-      "name": "Kimi_Moonshot",
+      "name": "Kimi.ai",
+      "username": "Kimi_Moonshot",
       "url": "https://x.com/Kimi_Moonshot"
     },
     {
-      "name": "SebastienBubeck",
+      "name": "Sebastien Bubeck",
+      "username": "SebastienBubeck",
       "url": "https://x.com/SebastienBubeck"
     },
     {
-      "name": "OpenAIDevs",
+      "name": "OpenAI Developers",
+      "username": "OpenAIDevs",
       "url": "https://x.com/OpenAIDevs"
     },
     {
-      "name": "akshay_pachaar",
+      "name": "Akshay 🚀",
+      "username": "akshay_pachaar",
       "url": "https://x.com/akshay_pachaar"
     },
     {
-      "name": "aidangomez",
+      "name": "Aidan Gomez",
+      "username": "aidangomez",
       "url": "https://x.com/aidangomez"
+    },
+    {
+      "name": "Jon Hernandez",
+      "username": "JonhernandezIA",
+      "url": "https://x.com/JonhernandezIA"
+    },
+    {
+      "name": "Lance Fortnow",
+      "username": "fortnow",
+      "url": "https://x.com/fortnow"
     }
   ]
 }

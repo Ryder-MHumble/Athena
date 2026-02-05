@@ -2,6 +2,27 @@
  * 海外信源数据类型定义
  */
 
+export interface QuotedTweet {
+  id: string
+  url: string
+  text: string
+  author: {
+    username: string
+    name: string
+    avatar: string
+    followers?: number
+    verified?: boolean
+  }
+  stats: {
+    likes: number
+    retweets: number
+    replies: number
+    views: number
+  }
+  media?: Array<{ type: string; url: string }>
+  created_at: string
+}
+
 export interface TwitterItem {
   id: string
   url: string
@@ -24,6 +45,7 @@ export interface TwitterItem {
     bookmarks?: number
   }
   media?: Array<{ type: string; url: string }>
+  quoted_tweet?: QuotedTweet
   created_at: string
   scraped_at: string
   // AI 分析字段

@@ -18,7 +18,10 @@ async function apiFetch<T = any>(
   endpoint: string,
   options?: RequestInit
 ): Promise<T> {
-  const response = await fetch(`${API_BASE}${endpoint}`, {
+  const url = `${API_BASE}${endpoint}`
+  console.log(`[API] ${options?.method || 'GET'} ${url}`, options?.body ? JSON.parse(options.body as string) : '')
+
+  const response = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -27,10 +30,20 @@ async function apiFetch<T = any>(
   })
 
   if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    // 尝试解析错误响应
+    let errorDetail = response.statusText
+    try {
+      const errorData = await response.json()
+      errorDetail = errorData.detail || errorData.message || errorDetail
+    } catch {
+      // 如果不是JSON响应，使用statusText
+    }
+    throw new Error(`HTTP ${response.status}: ${errorDetail}`)
   }
 
-  return await response.json()
+  const data = await response.json()
+  console.log(`[API] Response:`, data)
+  return data
 }
 
 /**
@@ -106,6 +119,12 @@ export const crawlerApi = {
       method: 'POST',
       body: JSON.stringify(config),
     }),
+
+  /**
+   * 查询爬取任务状态
+   */
+  getCrawlStatus: (taskId: string) =>
+    apiFetch(`/api/crawler/crawl/status/${taskId}`),
 
   /**
    * 翻译文本

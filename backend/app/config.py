@@ -43,7 +43,7 @@ class Settings(BaseSettings):
     # 小模型（用于论文分析等追求速度的场景）
     LLM_MODEL_SMALL: str = "Qwen/Qwen2.5-7B-Instruct"
     # 多模态模型（用于图片分析）
-    VISION_MODEL: str = "Pro/Qwen/Qwen2-VL-7B-Instruct"
+    VISION_MODEL: str = "Qwen/Qwen3-VL-8B-Instruct"
     EMBEDDING_MODEL: str = "BAAI/bge-m3"
     TEMPERATURE: float = 0.7
     MAX_TOKENS: int = 2000

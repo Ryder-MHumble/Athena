@@ -72,6 +72,7 @@ interface AppState {
   teamKey: string
   mcpServerUrl: string | null
   selectedModel: string  // 用户选择的模型 ID
+  visionModel: string    // 多模态视觉模型 ID（图表分析）
   mineruApiKey: string   // MinerU API Key (PDF 智析功能)
   
   // System Prompts 配置
@@ -89,6 +90,7 @@ interface AppState {
   setTeamKey: (key: string) => void
   setMcpServerUrl: (url: string | null) => void
   setSelectedModel: (modelId: string) => void
+  setVisionModel: (modelId: string) => void
   setMineruApiKey: (key: string) => void
   setSystemPrompt: (module: string, prompt: string) => void
   getSystemPrompt: (module: string) => string
@@ -131,6 +133,7 @@ export const useAppStore = create<AppState>()(
       teamKey: getDefaultTeamKey(),
       mcpServerUrl: null,
       selectedModel: 'Qwen/Qwen2.5-7B-Instruct', // 默认模型
+      visionModel: 'Qwen/Qwen3-VL-8B-Instruct', // 默认视觉模型
       mineruApiKey: '', // MinerU API Key
       systemPrompts: {},
       currentPaperSession: null,
@@ -142,6 +145,7 @@ export const useAppStore = create<AppState>()(
       setTeamKey: (key: string) => set({ teamKey: key }),
       setMcpServerUrl: (url: string | null) => set({ mcpServerUrl: url }),
       setSelectedModel: (modelId: string) => set({ selectedModel: modelId }),
+      setVisionModel: (modelId: string) => set({ visionModel: modelId }),
       setMineruApiKey: (key: string) => set({ mineruApiKey: key }),
       
       // System Prompts 管理

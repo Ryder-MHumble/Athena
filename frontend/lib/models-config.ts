@@ -251,6 +251,20 @@ export const MODEL_PROVIDERS: ModelProvider[] = [
 
 // 获取默认模型
 export const DEFAULT_MODEL_ID = 'Qwen/Qwen2.5-7B-Instruct'
+export const DEFAULT_VISION_MODEL_ID = 'Qwen/Qwen3-VL-8B-Instruct'
+
+// 获取所有视觉（多模态）模型
+export function getVisionModels(): ModelInfo[] {
+  const visionModels: ModelInfo[] = []
+  for (const provider of MODEL_PROVIDERS) {
+    for (const model of provider.models) {
+      if (model.id.includes('VL') || model.id.includes('4.6V')) {
+        visionModels.push(model)
+      }
+    }
+  }
+  return visionModels
+}
 
 // 根据 ID 查找模型
 export function findModelById(modelId: string): ModelInfo | null {

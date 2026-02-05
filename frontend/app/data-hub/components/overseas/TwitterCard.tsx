@@ -163,6 +163,59 @@ export function TwitterCard({ item, isSelected, onClick }: TwitterCardProps) {
             )}
           </div>
 
+          {/* 引用推文 */}
+          {item.quoted_tweet && (
+            <div
+              className="mt-2 ml-2 p-3 border border-gray-200 rounded-lg bg-gray-50/50"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-2 mb-1.5">
+                <img
+                  src={item.quoted_tweet.author.avatar}
+                  alt={item.quoted_tweet.author.name}
+                  className="w-4 h-4 rounded-full object-cover flex-shrink-0"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = DEFAULT_AVATAR
+                  }}
+                />
+                <span className="font-medium text-gray-800 text-xs truncate">
+                  {item.quoted_tweet.author.name}
+                </span>
+                {item.quoted_tweet.author.verified && (
+                  <span className="text-sky-500 text-[10px] flex-shrink-0">✓</span>
+                )}
+                <span className="text-gray-400 text-[11px] truncate">
+                  @{item.quoted_tweet.author.username}
+                </span>
+              </div>
+              <p className="text-gray-600 text-xs leading-relaxed line-clamp-3 whitespace-pre-wrap break-words">
+                {item.quoted_tweet.text}
+              </p>
+              {item.quoted_tweet.media && item.quoted_tweet.media.length > 0 && item.quoted_tweet.media[0].url && (
+                <img
+                  src={item.quoted_tweet.media[0].url}
+                  alt="Quoted media"
+                  className="mt-2 rounded-md max-h-32 object-cover"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                />
+              )}
+              <div className="flex items-center gap-3 mt-1.5 text-gray-400 text-[11px]">
+                <span className="flex items-center gap-0.5">
+                  <Heart className="h-3 w-3" />
+                  {formatNumber(item.quoted_tweet.stats.likes)}
+                </span>
+                <span className="flex items-center gap-0.5">
+                  <Repeat2 className="h-3 w-3" />
+                  {formatNumber(item.quoted_tweet.stats.retweets)}
+                </span>
+                <span className="flex items-center gap-0.5">
+                  <Eye className="h-3 w-3" />
+                  {formatNumber(item.quoted_tweet.stats.views)}
+                </span>
+              </div>
+            </div>
+          )}
+
           {showTranslation && translatedText && (
             <span className="inline-block mt-1 text-xs text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded">已翻译</span>
           )}

@@ -48,7 +48,8 @@ export function matchesSearch(item: OverseasItem, searchTerm: string): boolean {
     return twItem.text.toLowerCase().includes(searchLower) ||
            twItem.source_name.toLowerCase().includes(searchLower) ||
            twItem.author.username.toLowerCase().includes(searchLower) ||
-           twItem.author.name.toLowerCase().includes(searchLower)
+           twItem.author.name.toLowerCase().includes(searchLower) ||
+           (twItem.quoted_tweet?.text?.toLowerCase().includes(searchLower) ?? false)
   }
 }
 

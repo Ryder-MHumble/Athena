@@ -603,7 +603,8 @@ async def get_chart_image(image_id: str):
         image_bytes = base64.b64decode(base64_data)
         return StreamingResponse(
             BytesIO(image_bytes),
-            media_type=f"image/{chart_data.get('format', 'png')}"
+            media_type=f"image/{chart_data.get('format', 'png')}",
+            headers={"Cache-Control": "max-age=3600"}
         )
     
     # 如果有文件路径
@@ -620,55 +621,56 @@ async def get_chart_image(image_id: str):
 @router.post("/analyze-image/{image_id}")
 async def analyze_image(
     image_id: str,
-    x_api_key: str = Header(None)
+    x_api_key: str = Header(None),
+    x_vision_model: str = Header(None),
+    x_chart_prompt: str = Header(None)
 ):
     """
     分析单张图片
     使用多模态模型生成：分类、摘要、关键数据点
+    支持通过 Header 自定义视觉模型和分析 Prompt
     """
     if not x_api_key:
         raise HTTPException(status_code=401, detail="API Key is required")
-    
+
     chart_data = _analysis_results.get(image_id)
     if not chart_data:
         raise HTTPException(status_code=404, detail="图片未找到")
-    
+
     try:
         from app.services.llm_service import get_llm_service
-        
+        from app.prompts.pdf_analyzer_prompt import CHART_ANALYSIS_SYSTEM_PROMPT
+
         llm_service = get_llm_service(api_key=x_api_key)
-        
+
         # 获取图片的 base64 数据
         base64_data = chart_data.get("base64", "")
         if not base64_data:
             raise HTTPException(status_code=404, detail="图片数据未找到")
-        
-        # 构建分析 prompt
-        prompt = f"""请分析这张图片并生成结构化摘要。
 
-图片文件名: {chart_data.get('filename', '未知')}
+        # 使用前端传入的 system prompt，否则使用默认的
+        system_prompt = x_chart_prompt.strip() if x_chart_prompt and x_chart_prompt.strip() else CHART_ANALYSIS_SYSTEM_PROMPT
 
-请生成：
-1. 分类（如：柱状图、折线图、饼图、表格、流程图、示意图等）
-2. 一句话总结（20字以内）
-3. 关键数据点提取（3-5个要点，每个10-15字）
+        # 用户 prompt：简洁指令 + 文件名上下文
+        user_prompt = f"""请分析这张图表。图片文件名: {chart_data.get('filename', '未知')}
 
 必须返回 JSON 格式：
 {{
-  "category": "分类名称",
-  "summary": "一句话总结",
-  "keyPoints": ["要点1", "要点2", "要点3"]
+  "category": "图表主题分类",
+  "summary": "一句话核心摘要（包含关键数据点）",
+  "keyPoints": ["发现1", "发现2", "发现3"]
 }}
 
-只返回 JSON，不要有其他文字。"""
-        
-        
+只返回JSON，不要添加解释或其他文字。"""
+
         # 调用多模态模型
         response = llm_service.chat_with_image(
-            message=prompt,
+            message=user_prompt,
             image_base64=base64_data,
+            system_prompt=system_prompt,
             temperature=0.3,
-            max_tokens=1000
+            max_tokens=1000,
+            vision_model=x_vision_model or None
         )
         
         

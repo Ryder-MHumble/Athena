@@ -176,39 +176,62 @@ export function useOverseasData(): UseOverseasDataReturn {
     }
   }, [])
 
-  // 触发爬虫 - 支持后台异步模式
+  // 触发爬虫 - 支持后台异步模式，通过 task_id 追踪状态
   const crawl = useCallback(async () => {
     setIsCrawling(true)
+    setError(null)
     try {
       // 使用异步模式，后台执行爬取
       const result = await crawlerApi.crawlAll(true)
-      // 显示友好提示，不阻塞用户
-      console.log('[Crawler] Task started:', result.message)
-        
-        // 轮询检查数据更新（每5秒检查一次，最多检查60次=5分钟）
-        let pollCount = 0
-        const pollInterval = setInterval(async () => {
-          pollCount++
-          if (pollCount > 60) {
-            clearInterval(pollInterval)
-            setIsCrawling(false)
-            return
+      const taskId = result.task_id
+      console.log('[Crawler] Task started:', result.message, 'task_id:', taskId)
+
+      // 轮询检查任务状态（每5秒，最多60次=5分钟）
+      let pollCount = 0
+      const pollInterval = setInterval(async () => {
+        pollCount++
+        if (pollCount > 60) {
+          clearInterval(pollInterval)
+          setIsCrawling(false)
+          return
+        }
+
+        try {
+          // 通过 task_id 检查爬取是否完成
+          if (taskId) {
+            const status = await crawlerApi.getCrawlStatus(taskId)
+            if (status.success && status.task) {
+              if (status.task.status === 'completed') {
+                console.log('[Crawler] Crawl completed:', status.task.result)
+                clearInterval(pollInterval)
+                setIsCrawling(false)
+                await fetchData() // 最终刷新数据
+                return
+              } else if (status.task.status === 'failed') {
+                console.error('[Crawler] Crawl failed:', status.task.error)
+                clearInterval(pollInterval)
+                setIsCrawling(false)
+                setError(`爬取失败: ${status.task.error}`)
+                return
+              }
+            }
           }
-          
-          try {
-            await fetchData()
-            // 检查数据是否有更新（可以通过比较 items 数量或时间戳）
-          } catch {
-            // 忽略轮询错误
-          }
-        }, 5000)
-        
-      // 30秒后停止显示爬取状态（但继续后台轮询）
+
+          // 同时尝试刷新数据（即使状态检查失败）
+          await fetchData()
+        } catch {
+          // 忽略轮询错误
+        }
+      }, 5000)
+
+      // 5分钟后强制停止
       setTimeout(() => {
+        clearInterval(pollInterval)
         setIsCrawling(false)
-      }, 30000)
+      }, 300000)
     } catch (err) {
       console.error('[Crawler] Request error:', err)
+      setError(`爬取请求失败: ${err instanceof Error ? err.message : '未知错误'}`)
       setIsCrawling(false)
     }
   }, [fetchData])
@@ -231,14 +254,22 @@ export function useOverseasData(): UseOverseasDataReturn {
   const filteredItems = useMemo(() => {
     let filtered = items.filter(item => {
       // 平台筛选（支持多选）
-      const matchesPlatform = selectedPlatforms.length === 0 || 
-        selectedPlatforms.includes('all') || 
+      const matchesPlatform = selectedPlatforms.length === 0 ||
+        selectedPlatforms.includes('all') ||
         selectedPlatforms.includes(item.platform as OverseasPlatform)
       if (!matchesPlatform) return false
-      
-      // 账号筛选（多选）
-      if (selectedAccounts.length > 0 && !selectedAccounts.includes(item.source_name)) return false
-      
+
+      // 账号筛选（多选）- 修复：Twitter 使用 author.username，YouTube 使用 source_name
+      if (selectedAccounts.length > 0) {
+        const itemIdentifier = item.platform === 'twitter'
+          ? (item as any).author?.username  // Twitter 使用 username
+          : item.source_name  // YouTube 使用 source_name
+
+        if (!itemIdentifier || !selectedAccounts.includes(itemIdentifier)) {
+          return false
+        }
+      }
+
       // 搜索
       return matchesSearch(item, searchTerm)
     })

@@ -16,7 +16,7 @@ import { useAppStore } from '@/stores/useAppStore'
 import { Save, Eye, EyeOff, Settings, X, RotateCcw, Copy, Check, Sliders, Key, Users, Server, ChevronRight, ExternalLink, Shield, Sparkles, Cpu, CheckCircle2, Info, Search, ChevronDown } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
-import { MODEL_PROVIDERS, DEFAULT_MODEL_ID, findModelById, findProviderByModelId, sortModelsByReleaseDate, searchModels } from '@/lib/models-config'
+import { MODEL_PROVIDERS, DEFAULT_MODEL_ID, DEFAULT_VISION_MODEL_ID, findModelById, findProviderByModelId, sortModelsByReleaseDate, searchModels, getVisionModels } from '@/lib/models-config'
 import Image from 'next/image'
 
 // 从backend的prompts导入默认System Prompts
@@ -118,6 +118,33 @@ const DEFAULT_SYSTEM_PROMPTS = {
 
 请用鼓励和友好的语气。`,
 
+  'chart-analysis': `你是一位专业的数据分析专家，擅长分析商业报告、技术文档和研究论文中的图表。
+
+分析要求：
+1. 仔细识别图表类型（柱状图、折线图、饼图、表格、散点图、热力图等）
+2. 提取图表标题和核心主题
+3. 识别关键数据点：具体数值、时间范围、增长率、对比关系等
+4. 总结趋势和洞察：增长、下降、对比、拐点等
+5. 使用数据驱动的语言，包含具体数字
+
+请以 JSON 格式返回分析结果：
+{
+  "category": "图表分类（如：市场趋势、技术对比、投资数据、性能分析、历史演变、成本结构等）",
+  "summary": "一句话核心摘要，包含关键数据点",
+  "keyPoints": [
+    "关键发现1（包含具体数字、时间或百分比）",
+    "关键发现2（突出对比或趋势）",
+    "关键发现3（补充重要细节）"
+  ]
+}
+
+注意事项：
+1. 必须包含具体数字和时间信息（年份、季度、百分比、金额等）
+2. summary要简洁有力，突出最核心的数据趋势
+3. keyPoints按重要性排序，每条10-20字
+4. 只返回JSON，不要添加任何其他文字
+5. 如果图表包含多个实体对比，请明确指出谁领先、谁增长最快等`,
+
   'paper-chat': `## Role
 你是一位学术顾问，专门帮助用户深入理解和探讨学术论文。
 
@@ -144,6 +171,16 @@ const DEFAULT_SYSTEM_PROMPTS = {
 }
 
 const MODULE_INFO = {
+  'chart-analysis': {
+    name: 'PDF 智析（图表分析）',
+    icon: '📈',
+    description: '用于分析 PDF 中提取的图表的 System Prompt（多模态视觉模型）',
+    category: 'pdf',
+    gradient: 'from-blue-500 to-indigo-600',
+    bgGradient: 'from-blue-50 to-indigo-50',
+    iconBg: 'bg-gradient-to-br from-blue-100 to-indigo-100',
+    accentColor: 'text-blue-600',
+  },
   'paper-copilot': {
     name: '论文伴侣（分析）',
     icon: '📊',
@@ -197,7 +234,7 @@ const MODULE_INFO = {
 }
 
 export default function SettingsPage() {
-  const { apiKey, teamKey, mcpServerUrl, selectedModel, mineruApiKey, setApiKey, setTeamKey, setMcpServerUrl, setSelectedModel, setMineruApiKey, setSystemPrompt, getSystemPrompt } = useAppStore()
+  const { apiKey, teamKey, mcpServerUrl, selectedModel, visionModel, mineruApiKey, setApiKey, setTeamKey, setMcpServerUrl, setSelectedModel, setVisionModel, setMineruApiKey, setSystemPrompt, getSystemPrompt } = useAppStore()
   
   // Tab状态
   const [activeTab, setActiveTab] = useState<'api' | 'prompts'>('api')
@@ -207,6 +244,7 @@ export default function SettingsPage() {
   const [localTeamKey, setLocalTeamKey] = useState('')
   const [localMcpServerUrl, setLocalMcpServerUrl] = useState('')
   const [localSelectedModel, setLocalSelectedModel] = useState('')
+  const [localVisionModel, setLocalVisionModel] = useState('')
   const [localMineruApiKey, setLocalMineruApiKey] = useState('')
   const [showApiKey, setShowApiKey] = useState(false)
   const [showTeamKey, setShowTeamKey] = useState(false)
@@ -228,6 +266,7 @@ export default function SettingsPage() {
     setLocalTeamKey(teamKey)
     setLocalMcpServerUrl(mcpServerUrl || '')
     setLocalSelectedModel(selectedModel)
+    setLocalVisionModel(visionModel || DEFAULT_VISION_MODEL_ID)
     setLocalMineruApiKey(mineruApiKey || '')
     
     // 展开包含当前选中模型的厂商
@@ -244,7 +283,7 @@ export default function SettingsPage() {
       loadedPrompts[module] = getSystemPrompt(module) || DEFAULT_SYSTEM_PROMPTS[module as keyof typeof DEFAULT_SYSTEM_PROMPTS]
     })
     setPrompts(loadedPrompts)
-  }, [apiKey, teamKey, mcpServerUrl, selectedModel, mineruApiKey, getSystemPrompt])
+  }, [apiKey, teamKey, mcpServerUrl, selectedModel, visionModel, mineruApiKey, getSystemPrompt])
 
   // 保存API配置
   const handleSaveApiConfig = () => {
@@ -252,6 +291,7 @@ export default function SettingsPage() {
     setTeamKey(localTeamKey.trim())
     setMcpServerUrl(localMcpServerUrl.trim() || null)
     setSelectedModel(localSelectedModel)
+    setVisionModel(localVisionModel)
     setMineruApiKey(localMineruApiKey.trim())
     toast.success('API配置已保存')
   }
@@ -295,7 +335,7 @@ export default function SettingsPage() {
     setExpandedModules(newExpanded)
   }
 
-  const hasApiChanges = localApiKey !== apiKey || localTeamKey !== teamKey || localMcpServerUrl !== (mcpServerUrl || '') || localSelectedModel !== selectedModel || localMineruApiKey !== (mineruApiKey || '')
+  const hasApiChanges = localApiKey !== apiKey || localTeamKey !== teamKey || localMcpServerUrl !== (mcpServerUrl || '') || localSelectedModel !== selectedModel || localVisionModel !== (visionModel || DEFAULT_VISION_MODEL_ID) || localMineruApiKey !== (mineruApiKey || '')
 
   // 切换厂商展开/折叠
   const toggleProvider = (providerId: string) => {
@@ -661,6 +701,67 @@ export default function SettingsPage() {
                           未找到匹配的模型，请尝试其他关键词
                         </div>
                       )}
+                    </div>
+                  </div>
+
+                  {/* 视觉模型选择 */}
+                  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="flex items-start gap-4 p-6 border-b border-slate-100">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center flex-shrink-0">
+                        <svg className="h-5 w-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                          <circle cx="12" cy="12" r="3" />
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-base font-semibold text-gray-900">视觉模型选择</h3>
+                        <p className="text-sm text-gray-500 mt-0.5">
+                          用于 PDF 智析中图表分析的多模态模型
+                        </p>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <div className="space-y-2">
+                        {getVisionModels().map((model) => (
+                          <button
+                            key={model.id}
+                            onClick={() => setLocalVisionModel(model.id)}
+                            className={cn(
+                              "w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left",
+                              localVisionModel === model.id
+                                ? "border-blue-500 bg-blue-50/50 shadow-sm"
+                                : "border-slate-200 hover:border-slate-300 bg-white"
+                            )}
+                          >
+                            <div className={cn(
+                              "w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0",
+                              localVisionModel === model.id
+                                ? "border-blue-500 bg-blue-500"
+                                : "border-slate-300"
+                            )}>
+                              {localVisionModel === model.id && (
+                                <CheckCircle2 className="h-2.5 w-2.5 text-white" />
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <span className="font-medium text-gray-900 text-sm">{model.displayName}</span>
+                              </div>
+                              <p className="text-xs text-gray-500 mt-0.5">{model.description}</p>
+                              {model.pricing && (
+                                <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
+                                  <span>输入: {model.pricing.input}</span>
+                                  <span>·</span>
+                                  <span>输出: {model.pricing.output}</span>
+                                </div>
+                              )}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                      <p className="mt-3 text-xs text-gray-500">
+                        视觉模型支持图片分析，用于识别 PDF 中的图表内容。如遇到 403 错误请更换模型。
+                      </p>
                     </div>
                   </div>
 

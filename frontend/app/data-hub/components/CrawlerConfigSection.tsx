@@ -16,6 +16,7 @@ import { crawlerApi } from '../lib/api'
 
 interface Source {
   name: string
+  username?: string  // Twitter账号的username，用于删除等操作
   url: string
 }
 
@@ -30,6 +31,7 @@ interface AuthorInfo {
   avatar: string
   followers: number
   verified: boolean
+  description?: string
   platform: string
 }
 
@@ -163,8 +165,11 @@ export function CrawlerConfigSection() {
 
   // 删除信源
   const handleDeleteSource = async (platform: string, name: string) => {
+    setError('')
+    console.log('[Frontend] Deleting source:', { platform, name })
     try {
       const data = await crawlerApi.deleteSource(platform, name)
+      console.log('[Frontend] Delete response:', data)
       if (!data.success) {
         throw new Error(data.error || data.message || '删除失败')
       }
@@ -172,7 +177,10 @@ export function CrawlerConfigSection() {
       // 刷新列表
       setRefreshKey(prev => prev + 1)
     } catch (err: any) {
-      throw new Error(err.message || '删除失败')
+      console.error('[Frontend] Delete error:', err)
+      const errorMsg = err.message || '删除失败'
+      setError(errorMsg)
+      throw new Error(errorMsg)
     }
   }
 
@@ -285,17 +293,33 @@ export function CrawlerConfigSection() {
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3">
                     {filteredSources.twitter.map((source) => {
-                      const authorInfo = getAuthorInfo(source.name)
+                      // 提取username：优先使用source.username，其次从URL提取
+                      let username = source.username
+                      if (!username) {
+                        // 从URL提取username: https://x.com/fortnow -> fortnow
+                        const urlParts = source.url.replace(/\/$/, '').split('/')
+                        username = urlParts[urlParts.length - 1]
+                      }
+
+                      console.log('[SourceCard] Rendering:', {
+                        name: source.name,
+                        username: username,
+                        sourceUsername: source.username,
+                        url: source.url
+                      })
+
+                      const authorInfo = getAuthorInfo(username)
                       return (
                         <SourceCard
-                          key={source.name}
+                          key={source.username || source.name}
                           platform="twitter"
-                          name={source.name}
-                          displayName={authorInfo?.name}
+                          name={username}  // 传递username用于删除操作和显示@xxx
+                          displayName={source.name}  // 传递显示名称
                           url={source.url}
                           avatar={authorInfo?.avatar}
                           followers={authorInfo?.followers}
                           verified={authorInfo?.verified}
+                          description={authorInfo?.description}
                           onDelete={handleDeleteSource}
                         />
                       )

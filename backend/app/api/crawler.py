@@ -49,15 +49,14 @@ class CrawlResponse(BaseModel):
     task_id: Optional[str] = None
 
 
-async def background_crawl_all():
+async def background_crawl_all(task_id: str):
     """后台执行全量爬取"""
-    task_id = get_task_id()
     _crawl_tasks[task_id] = {
         "status": "running",
         "started_at": datetime.now().isoformat(),
         "progress": "开始爬取..."
     }
-    
+
     try:
         result = await crawl_all_overseas()
         twitter_count = result.get("twitter", {}).get("total_posts", 0)
@@ -65,72 +64,96 @@ async def background_crawl_all():
         # 更新缓存
         _data_cache["twitter"] = result.get("twitter", {}).get("data")
         _data_cache["youtube"] = result.get("youtube", {}).get("data")
-        
+
         _crawl_tasks[task_id] = {
             "status": "completed",
             "completed_at": datetime.now().isoformat(),
             "result": f"Twitter {twitter_count} posts, YouTube {youtube_count} videos"
         }
+        print(f"[Crawler] Background crawl completed: Twitter={twitter_count}, YouTube={youtube_count}")
     except Exception as e:
         _crawl_tasks[task_id] = {
             "status": "failed",
-            "error": str(e)
+            "error": str(e),
+            "failed_at": datetime.now().isoformat()
         }
-    
-    return task_id
+        print(f"[Crawler] Background crawl FAILED: {e}")
 
 
 async def background_crawl_single_source(source: Dict[str, str], platform: str):
     """后台爬取单个信源并合并到现有数据"""
     try:
         print(f"[Background] Crawling {platform} source: {source['name']}")
-        
+
         if platform == "twitter":
             result = await crawl_twitter_source(source)
             new_items = result.get("items", [])
-            
+
+            # 更新 sources.json 中的名称和username为真实信息
+            if result.get("source_name") or result.get("author_info"):
+                try:
+                    current_sources = load_sources()
+                    for s in current_sources.get("twitter", []):
+                        if s["url"] == source.get("url"):
+                            if result.get("source_name"):
+                                s["name"] = result["source_name"]
+                            if result.get("author_info") and result["author_info"].get("username"):
+                                s["username"] = result["author_info"]["username"]
+                            break
+                    save_sources(current_sources)
+                except Exception:
+                    pass
+
+            # 读取现有数据
+            filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
+            existing_data = {"items": []}
+            if filepath.exists():
+                with open(filepath, "r", encoding="utf-8") as f:
+                    existing_data = json.load(f)
+
             if new_items:
-                # 读取现有数据
-                filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
-                existing_data = {"items": [], "sources": []}
-                if filepath.exists():
-                    with open(filepath, "r", encoding="utf-8") as f:
-                        existing_data = json.load(f)
-                
-                # 合并新数据（去重）
-                existing_ids = {item["id"] for item in existing_data.get("items", [])}
+                # 合并新数据（去重 + 补充缺失字段如 quoted_tweet）
+                existing_map = {item["id"]: item for item in existing_data.get("items", [])}
                 for item in new_items:
-                    if item["id"] not in existing_ids:
+                    if item["id"] not in existing_map:
                         existing_data["items"].append(item)
-                
-                # 更新 sources
-                source_names = {s["name"] for s in existing_data.get("sources", [])}
-                if result["source_name"] not in source_names:
-                    existing_data["sources"].append({
-                        "name": result["source_name"],
-                        "username": result.get("username"),
-                        "count": len(new_items)
-                    })
-                
+                    else:
+                        # 补充已有推文缺失的 quoted_tweet 字段
+                        existing_item = existing_map[item["id"]]
+                        if item.get("quoted_tweet") and not existing_item.get("quoted_tweet"):
+                            existing_item["quoted_tweet"] = item["quoted_tweet"]
+
                 # 按时间排序
                 existing_data["items"].sort(key=lambda x: x.get("created_at", ""), reverse=True)
                 existing_data["total_count"] = len(existing_data["items"])
                 existing_data["scraped_at"] = datetime.now().isoformat()
-                
+                existing_data.pop("sources", None)  # 清理历史遗留的 sources 字段
+
                 # 保存
                 filepath.parent.mkdir(parents=True, exist_ok=True)
                 with open(filepath, "w", encoding="utf-8") as f:
                     json.dump(existing_data, f, ensure_ascii=False, indent=2)
-                
-                # 更新作者信息
-                authors = extract_unique_authors(existing_data["items"])
-                save_authors_data(authors)
-                
+
                 # 更新缓存
                 _data_cache["twitter"] = existing_data
-                
-                print(f"[Background] Added {len(new_items)} new tweets from {source['name']}")
-        
+
+                print(f"[Background] Added {len(new_items)} new tweets from {result.get('source_name', source['name'])}")
+
+            # 更新作者信息（保留已有的 0 推文账号信息）
+            source_author_infos = []
+            if result.get("author_info"):
+                source_author_infos.append(result["author_info"])
+            try:
+                auth_path = CRAWL_DATA_BASE_PATH / "twitter" / "authors.json"
+                if auth_path.exists():
+                    with open(auth_path, "r", encoding="utf-8") as f:
+                        source_author_infos.extend(json.load(f).get("authors", []))
+            except Exception:
+                pass
+
+            authors = extract_unique_authors(existing_data.get("items", []), source_author_infos)
+            save_authors_data(authors)
+
         elif platform == "youtube":
             result = await crawl_youtube_source(source)
             new_items = result.get("items", [])
@@ -213,7 +236,7 @@ async def crawl_all_sources(background_tasks: BackgroundTasks, async_mode: bool 
             "status": "pending",
             "started_at": datetime.now().isoformat()
         }
-        background_tasks.add_task(background_crawl_all)
+        background_tasks.add_task(background_crawl_all, task_id)
         return CrawlResponse(
             success=True,
             message="爬取任务已在后台启动",
@@ -349,6 +372,12 @@ async def add_source(request: AddSourceRequest, background_tasks: BackgroundTask
             "name": parsed["name"],
             "url": parsed["url"]
         }
+        # Twitter信源添加username字段
+        if platform == "twitter":
+            from ..services.crawler_service import extract_username_from_url
+            username = extract_username_from_url(new_source["url"])
+            if username:
+                new_source["username"] = username
         sources[platform].append(new_source)
 
         # 保存配置
@@ -365,16 +394,41 @@ async def add_source(request: AddSourceRequest, background_tasks: BackgroundTask
                     raw_data = await fetch_twitter_user_tweets(username, timeout=10)
                     if raw_data and raw_data.get("status") == "success":
                         tweets = raw_data.get("data", {}).get("tweets", [])
-                        if tweets:
-                            author = tweets[0].get("author", {})
-                            account_info = {
-                                "username": author.get("userName"),
-                                "name": author.get("name"),
-                                "avatar": author.get("profilePicture"),
-                                "followers": author.get("followers", 0),
-                                "verified": author.get("isBlueVerified", False),
-                                "platform": "twitter"
-                            }
+                        # 遍历推文查找匹配的作者信息（包括转推）
+                        for tweet in tweets:
+                            author = tweet.get("author", {})
+                            author_username = author.get("userName") or ""
+                            if author_username.lower() == username.lower():
+                                # 提取profile_bio中的description
+                                profile_bio = author.get("profileBio") or author.get("profile_bio") or {}
+                                description = profile_bio.get("description", "") if isinstance(profile_bio, dict) else str(profile_bio) if profile_bio else ""
+
+                                account_info = {
+                                    "username": author.get("userName"),
+                                    "name": author.get("name"),
+                                    "avatar": author.get("profilePicture"),
+                                    "followers": author.get("followers", 0),
+                                    "verified": author.get("isBlueVerified", False),
+                                    "description": description.strip(),
+                                    "platform": "twitter"
+                                }
+                                break
+
+                        if account_info:
+                            # 更新 sources.json 中的名称为真实显示名称，并确保username字段存在
+                            real_name = account_info.get("name")
+                            real_username = account_info.get("username")
+                            if (real_name and real_name != new_source["name"]) or (real_username and real_username != new_source.get("username")):
+                                new_source["name"] = real_name or new_source["name"]
+                                new_source["username"] = real_username or new_source.get("username")
+                                sources = load_sources()
+                                for s in sources.get(platform, []):
+                                    if s["url"] == parsed["url"]:
+                                        s["name"] = real_name or s["name"]
+                                        s["username"] = real_username or s.get("username")
+                                        break
+                                save_sources(sources)
+                                print(f"[Add Source] Updated source info: {parsed['name']} -> {real_name} (@{real_username})")
 
                             # 立即更新 authors.json，让前端可以立即看到
                             try:
@@ -440,27 +494,63 @@ class DeleteSourceRequest(BaseModel):
 
 @router.delete("/sources")
 async def delete_source(request: DeleteSourceRequest):
-    """删除信源"""
+    """删除信源（支持通过name、username或URL匹配）"""
     try:
         sources = load_sources()
         platform = request.platform.lower()
-        
+
         if platform not in sources:
             raise HTTPException(status_code=404, detail=f"未找到平台: {platform}")
-        
-        # 查找并删除
+
+        # 查找并删除（支持多种匹配方式）
         original_count = len(sources[platform])
-        sources[platform] = [
-            s for s in sources[platform] 
-            if s["name"].lower() != request.name.lower()
-        ]
-        
+        search_name = request.name.lower().strip()
+
+        # 调试日志
+        print(f"[Delete] Trying to delete: platform={platform}, name={request.name}")
+        print(f"[Delete] Searching for: {search_name}")
+
+        def should_delete(source: dict) -> bool:
+            """判断是否应该删除该信源"""
+            # 方式1: 完全匹配name
+            if source.get("name", "").lower() == search_name:
+                print(f"[Delete] OK Matched by name: {source.get('name')}")
+                return True
+
+            # 方式2: 完全匹配username
+            if source.get("username", "").lower() == search_name:
+                print(f"[Delete] OK Matched by username: {source.get('username')}")
+                return True
+
+            # 方式3: 从URL提取username并匹配
+            url = source.get("url", "")
+            if url:
+                # 提取URL中的username: https://x.com/fortnow -> fortnow
+                url_parts = url.rstrip('/').split('/')
+                if url_parts:
+                    url_username = url_parts[-1].lower()
+                    if url_username == search_name:
+                        print(f"[Delete] OK Matched by URL username: {url_username}")
+                        return True
+
+            print(f"[Delete] X No match: name={source.get('name')}, username={source.get('username')}")
+            return False
+
+        # 过滤掉需要删除的信源
+        sources[platform] = [s for s in sources[platform] if not should_delete(s)]
+
         if len(sources[platform]) == original_count:
-            raise HTTPException(status_code=404, detail=f"未找到信源: {request.name}")
-        
+            available = [f"{s.get('name')} (@{s.get('username', 'N/A')})" for s in load_sources()[platform]]
+            raise HTTPException(
+                status_code=404,
+                detail=f"未找到信源: {request.name}。可用信源: {', '.join(available[:5])}"
+            )
+
         # 保存配置
         save_sources(sources)
-        
+
+        print(f"[Delete] OK Successfully deleted: {request.name}")
+
         return {
             "success": True,
             "message": f"成功删除 {platform} 信源: {request.name}"
@@ -468,6 +558,8 @@ async def delete_source(request: DeleteSourceRequest):
     except HTTPException:
         raise
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -544,28 +636,26 @@ async def translate_text(
 
 @router.get("/data/twitter")
 async def get_twitter_data():
-    """获取已爬取的 Twitter 数据 - 先检查缓存，再读取文件"""
+    """获取已爬取的 Twitter 数据 - 优先读取文件（保证最新），备选内存缓存"""
     try:
         data = None
         source = None
-        
-        # 1. 先检查内存缓存
-        if _data_cache.get("twitter"):
+
+        # 1. 优先读取文件（确保拿到最新数据）
+        filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
+        if filepath.exists():
+            with open(filepath, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            _data_cache["twitter"] = data  # 同步更新缓存
+            source = "file"
+        elif _data_cache.get("twitter"):
+            # 2. 文件不存在时回退到内存缓存（线上部署场景）
             data = _data_cache["twitter"]
             source = "cache"
-        else:
-            # 2. 尝试读取文件
-            filepath = CRAWL_DATA_BASE_PATH / "twitter" / "posts.json"
-            
-            if filepath.exists():
-                with open(filepath, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                _data_cache["twitter"] = data  # 更新缓存
-                source = "file"
-        
+
         if data is None:
             return {"success": True, "data": None, "message": "No data available. Please run crawler first."}
-        
+
         # 3. 同时返回 authors 信息（解决线上环境前端无法访问静态文件的问题）
         authors = None
         authors_filepath = CRAWL_DATA_BASE_PATH / "twitter" / "authors.json"
@@ -573,11 +663,11 @@ async def get_twitter_data():
             with open(authors_filepath, "r", encoding="utf-8") as f:
                 authors_data = json.load(f)
                 authors = authors_data.get("authors", [])
-        
+
         return {
             "success": True,
             "data": data,
-            "authors": authors,  # 新增：返回作者信息
+            "authors": authors,
             "source": source
         }
     except Exception as e:
@@ -586,27 +676,26 @@ async def get_twitter_data():
 
 @router.get("/data/youtube")
 async def get_youtube_data():
-    """获取已爬取的 YouTube 数据 - 先检查缓存，再读取文件"""
+    """获取已爬取的 YouTube 数据 - 优先读取文件（保证最新），备选内存缓存"""
     try:
-        # 1. 先检查内存缓存
+        # 1. 优先读取文件（确保拿到最新数据）
+        filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
+        if filepath.exists():
+            with open(filepath, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            _data_cache["youtube"] = data  # 同步更新缓存
+            return {
+                "success": True,
+                "data": data,
+                "source": "file"
+            }
+
+        # 2. 文件不存在时回退到内存缓存（线上部署场景）
         if _data_cache.get("youtube"):
             return {
                 "success": True,
                 "data": _data_cache["youtube"],
                 "source": "cache"
-            }
-
-        # 2. 尝试读取文件
-        filepath = CRAWL_DATA_BASE_PATH / "youtube" / "videos.json"
-
-        if filepath.exists():
-            with open(filepath, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            _data_cache["youtube"] = data
-            return {
-                "success": True,
-                "data": data,
-                "source": "file"
             }
 
         return {"success": True, "data": None, "message": "No data available. Please run crawler first."}

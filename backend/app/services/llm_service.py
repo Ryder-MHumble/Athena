@@ -274,37 +274,38 @@ class LLMService:
         image_base64: str,
         system_prompt: str = None,
         temperature: float = 0.3,
-        max_tokens: int = 2000
+        max_tokens: int = 2000,
+        vision_model: str = None
     ) -> str:
         """
         多模态对话 - 支持图片输入
-        
+
         Args:
             message: 文本消息
             image_base64: Base64 编码的图片
             system_prompt: 系统提示词
             temperature: 温度参数
             max_tokens: 最大 token 数
-        
+            vision_model: 指定视觉模型（可选，默认从配置读取）
+
         Returns:
             AI 回复内容
         """
         import httpx
         import json
-        
+
         # 使用 SiliconFlow 的多模态模型 API
-        # 参考：https://docs.siliconflow.cn/docs/model-api
         api_url = "https://api.siliconflow.cn/v1/chat/completions"
-        
+
         # 构建多模态消息
         messages = []
-        
+
         if system_prompt:
             messages.append({
                 "role": "system",
                 "content": system_prompt
             })
-        
+
         # 添加包含图片的用户消息
         messages.append({
             "role": "user",
@@ -321,67 +322,50 @@ class LLMService:
                 }
             ]
         })
-        
+
         # 调用 API
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json"
         }
-        
-        # 使用支持多模态的模型
-        # 注意：SiliconFlow 的多模态模型需要特殊权限，如果 403 则降级为文本分析
-        vision_model = getattr(settings, "VISION_MODEL", "Pro/Qwen/Qwen2-VL-7B-Instruct")
-        
+
+        # 优先使用传入的 vision_model，否则从配置读取
+        model = (vision_model.strip() if vision_model and vision_model.strip() else None) or getattr(settings, "VISION_MODEL", "Qwen/Qwen3-VL-8B-Instruct")
+
         payload = {
-            "model": vision_model,
+            "model": model,
             "messages": messages,
             "temperature": temperature,
             "max_tokens": max_tokens,
             "stream": False
         }
-        
+
         try:
             with httpx.Client(timeout=120.0) as client:
                 response = client.post(api_url, json=payload, headers=headers)
-                
-                # 如果是 403，尝试使用文本模型进行简单分析
+
                 if response.status_code == 403:
-                    print(f"[LLM] 多模态模型返回 403，可能需要权限。尝试使用文本模型...")
-                    # 降级为文本分析（不含图片）
-                    return self._fallback_text_analysis(message, system_prompt, temperature, max_tokens)
-                
+                    print(f"[LLM] 多模态模型 '{model}' 返回 403 Forbidden")
+                    raise Exception(
+                        f"多模态模型 '{model}' 返回 403 错误，请在设置中检查视觉模型配置。"
+                        f"推荐使用: Qwen/Qwen3-VL-8B-Instruct 或 Qwen/Qwen3-VL-32B-Instruct"
+                    )
+
                 response.raise_for_status()
                 result = response.json()
                 return result["choices"][0]["message"]["content"]
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 403:
-                print(f"[LLM] 多模态 API 403 错误，降级为文本分析")
-                return self._fallback_text_analysis(message, system_prompt, temperature, max_tokens)
+                print(f"[LLM] 多模态模型 '{model}' 返回 403 Forbidden")
+                raise Exception(
+                    f"多模态模型 '{model}' 返回 403 错误，请在设置中检查视觉模型配置。"
+                    f"推荐使用: Qwen/Qwen3-VL-8B-Instruct 或 Qwen/Qwen3-VL-32B-Instruct"
+                )
             print(f"[LLM] 多模态调用失败: {e}")
             raise Exception(f"多模态模型调用失败: {str(e)}")
         except Exception as e:
             print(f"[LLM] 多模态调用失败: {e}")
-            raise Exception(f"多模态模型调用失败: {str(e)}")
-    
-    def _fallback_text_analysis(
-        self,
-        message: str,
-        system_prompt: str = None,
-        temperature: float = 0.3,
-        max_tokens: int = 1000
-    ) -> str:
-        """降级方案：使用文本模型进行基础分析（不看图片）"""
-        fallback_message = f"""{message}
-
-注意：由于无法访问多模态模型，此分析仅基于文件名和提示词，未实际查看图片内容。
-请提供一个合理的估计性分析结果。"""
-        
-        return self.chat(
-            message=fallback_message,
-            system_prompt=system_prompt,
-            temperature=temperature,
-            max_tokens=max_tokens
-        )
+            raise
 
 
 # 全局 LLM 服务实例（懒加载）
