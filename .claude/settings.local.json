@@ -24,7 +24,8 @@
       "Bash(npx next lint:*)",
       "Bash(node_modules.bintsc:*)",
       "Bash(npx --no-install tsc:*)",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Bash(git commit:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
