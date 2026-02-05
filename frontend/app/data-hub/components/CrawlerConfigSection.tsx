@@ -66,6 +66,18 @@ export function CrawlerConfigSection() {
 
   const loadAuthors = async () => {
     try {
+      // 优先从 API 获取作者信息（解决线上环境无法访问静态文件的问题）
+      const data = await crawlerApi.getTwitterData()
+      if (data.success && data.authors && data.authors.length > 0) {
+        setAuthors(data.authors)
+        return
+      }
+    } catch (err) {
+      console.warn('从 API 加载作者信息失败，尝试静态文件:', err)
+    }
+
+    // 降级方案：本地开发环境从静态文件加载
+    try {
       const response = await fetch('/crawl-data/twitter/authors.json')
       if (response.ok) {
         const data = await response.json()
@@ -279,6 +291,7 @@ export function CrawlerConfigSection() {
                           key={source.name}
                           platform="twitter"
                           name={source.name}
+                          displayName={authorInfo?.name}
                           url={source.url}
                           avatar={authorInfo?.avatar}
                           followers={authorInfo?.followers}

@@ -12,7 +12,8 @@ import { BsTwitterX, BsYoutube } from 'react-icons/bs'
 
 interface SourceCardProps {
   platform: 'twitter' | 'youtube'
-  name: string
+  name: string  // username，用于删除等操作
+  displayName?: string  // 显示名称，优先显示此字段
   url: string
   avatar?: string
   followers?: number
@@ -23,6 +24,7 @@ interface SourceCardProps {
 export function SourceCard({
   platform,
   name,
+  displayName,
   url,
   avatar,
   followers,
@@ -78,15 +80,15 @@ export function SourceCard({
           {avatar ? (
             <img
               src={avatar}
-              alt={name}
+              alt={displayName || name}
               className="w-12 h-12 rounded-full object-cover"
               onError={(e) => {
-                e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
+                e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName || name)}&background=random`
               }}
             />
           ) : (
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white font-bold text-lg">
-              {name.charAt(0).toUpperCase()}
+              {(displayName || name).charAt(0).toUpperCase()}
             </div>
           )}
           {/* 平台角标 */}
@@ -98,7 +100,7 @@ export function SourceCard({
         {/* 账号信息 */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1">
-            <h4 className="text-sm font-semibold text-gray-900 truncate">{name}</h4>
+            <h4 className="text-sm font-semibold text-gray-900 truncate">{displayName || name}</h4>
             {verified && (
               <BadgeCheck className="h-4 w-4 text-blue-500 flex-shrink-0" />
             )}
