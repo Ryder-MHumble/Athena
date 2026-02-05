@@ -14,11 +14,11 @@ import type { DateRange } from './components/types'
 
 // 导入拆分后的组件
 import {
-  SidebarFilter,
   TopToolbar,
   CardList,
   EmptyState,
   LoadingState,
+  type ViewLayout,
 } from './components'
 
 /**
@@ -34,6 +34,7 @@ export function NewLayoutView({
     start: null,
     end: null,
   })
+  const [layout, setLayout] = useState<ViewLayout>('timeline') // 默认时间轴布局
 
   const {
     filteredItems: baseFilteredItems,
@@ -62,13 +63,7 @@ export function NewLayoutView({
 
   return (
     <div className="flex-1 flex overflow-hidden bg-gray-50">
-      {/* 左侧筛选栏 */}
-      <SidebarFilter
-        selectedPlatforms={selectedPlatforms}
-        onPlatformsChange={setSelectedPlatforms}
-      />
-
-      {/* 中间内容区 */}
+      {/* 主内容区 */}
       <div className="flex-1 flex flex-col min-w-0">
         <TopToolbar
           searchTerm={searchTerm}
@@ -85,7 +80,8 @@ export function NewLayoutView({
           onDateRangeChange={setDateRange}
           onAccountsChange={setSelectedAccounts}
           onPlatformsChange={setSelectedPlatforms}
-          onAddSource={onAddSource}
+          layout={layout}
+          onLayoutChange={setLayout}
         />
 
         {/* 卡片列表 */}
@@ -99,6 +95,7 @@ export function NewLayoutView({
               items={filteredItems}
               selectedId={selectedItem?.id || null}
               onSelect={handleSelect}
+              layout={layout}
             />
           ) : (
             <EmptyState type="no-results" isCrawling={isCrawling} onCrawl={crawl} />

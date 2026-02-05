@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { Heart, MessageCircle, Repeat2, Eye, Clock, Languages, Loader2, Sparkles } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { Heart, MessageCircle, Repeat2, Eye, Clock, Languages, Loader2, Sparkles, ChevronUp } from 'lucide-react'
 import type { TwitterItem } from './types'
 import { formatTime, formatNumber } from './utils'
 import { DEFAULT_AVATAR, API_BASE } from './constants'
@@ -17,6 +17,9 @@ export function TwitterCard({ item, isSelected, onClick }: TwitterCardProps) {
   const [isTranslating, setIsTranslating] = useState(false)
   const [translatedText, setTranslatedText] = useState<string | null>(null)
   const [showTranslation, setShowTranslation] = useState(false)
+  const [isTextExpanded, setIsTextExpanded] = useState(false)
+  const [isTextClamped, setIsTextClamped] = useState(false)
+  const textRef = useRef<HTMLParagraphElement>(null)
   const apiKey = useAppStore((state) => state.apiKey)
 
   const handleTranslate = async (e: React.MouseEvent) => {
@@ -58,6 +61,14 @@ export function TwitterCard({ item, isSelected, onClick }: TwitterCardProps) {
   const displayText = showTranslation && translatedText ? translatedText : item.text
   const summary = item.summary || item.ai_summary
   const hasMedia = item.media && item.media.length > 0 && item.media[0].url
+
+  // 检测文本是否被截断
+  useEffect(() => {
+    if (textRef.current && !isTextExpanded) {
+      const isClamped = textRef.current.scrollHeight > textRef.current.clientHeight
+      setIsTextClamped(isClamped)
+    }
+  }, [displayText, isTextExpanded])
 
   return (
     <div 
@@ -119,10 +130,39 @@ export function TwitterCard({ item, isSelected, onClick }: TwitterCardProps) {
           </div>
           
           {/* 推文内容 */}
-          <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap break-words line-clamp-3">
-            {displayText}
-          </p>
-          
+          <div className="relative">
+            <p
+              ref={textRef}
+              className={`text-gray-700 text-sm leading-relaxed whitespace-pre-wrap break-words ${
+                isTextExpanded ? '' : 'line-clamp-3'
+              }`}
+            >
+              {displayText}
+            </p>
+            {isTextClamped && !isTextExpanded && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setIsTextExpanded(true)
+                }}
+                className="text-cyan-600 hover:text-cyan-700 text-xs font-medium mt-1 flex items-center gap-1"
+              >
+                展开全文
+              </button>
+            )}
+            {isTextExpanded && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setIsTextExpanded(false)
+                }}
+                className="text-cyan-600 hover:text-cyan-700 text-xs font-medium mt-1 flex items-center gap-1"
+              >
+                收起 <ChevronUp className="h-3 w-3" />
+              </button>
+            )}
+          </div>
+
           {showTranslation && translatedText && (
             <span className="inline-block mt-1 text-xs text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded">已翻译</span>
           )}

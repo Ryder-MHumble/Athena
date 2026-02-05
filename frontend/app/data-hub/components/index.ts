@@ -8,4 +8,8 @@ export { CrawlerUrlSection } from './CrawlerUrlSection'
 export { SocialCrawlerSection } from './SocialCrawlerSection'
 export { DataBrowseSection } from './DataBrowseSection'
 export { OverseasBrowseSection } from './OverseasBrowseSection'
+export { CrawlerConfigSection } from './CrawlerConfigSection'
+export { AddSourceModal } from './AddSourceModal'
+export { SourceCard } from './SourceCard'
+export { CrawlerSettingsPanel } from './CrawlerSettingsPanel'
 

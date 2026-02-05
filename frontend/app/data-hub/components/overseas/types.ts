@@ -65,3 +65,10 @@ export interface SortOption {
   label: string
 }
 
+export interface TimelineGroup {
+  date: string                    // YYYY-MM-DD
+  displayDate: string             // "2026年2月5日 星期三"
+  items: OverseasItem[]
+  count: number
+}
+

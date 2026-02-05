@@ -22,7 +22,7 @@ const XLogoIcon = ({ className }: { className?: string }) => (
 const PLATFORMS = [
   { id: 'all' as OverseasPlatform, label: '全部', icon: Globe },
   { id: 'youtube' as OverseasPlatform, label: 'YouTube', icon: Youtube },
-  { id: 'twitter' as OverseasPlatform, label: 'X (Twitter)', icon: XLogoIcon },
+  { id: 'twitter' as OverseasPlatform, label: 'X', icon: XLogoIcon },
 ]
 
 export function SidebarFilter({

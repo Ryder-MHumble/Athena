@@ -2,54 +2,69 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { LayoutGrid, Settings2, Globe, MapPin } from 'lucide-react'
-import { CrawlerUrlSection, SocialCrawlerSection, DataBrowseSection, OverseasBrowseSection, ViewMode, CrawlerMode } from './components'
+import { LayoutGrid, Play, Settings2, Globe, MapPin } from 'lucide-react'
+import { CrawlerUrlSection, SocialCrawlerSection, DataBrowseSection, OverseasBrowseSection, CrawlerConfigSection } from './components'
+
+// 主视图模式
+type ViewMode = 'cards' | 'manual-crawler' | 'config'
 
 // 数据源类型
 type DataSource = 'overseas' | 'domestic'
 
 export default function DataHubPage() {
   const [viewMode, setViewMode] = useState<ViewMode>('cards')
-  const [crawlerMode, setCrawlerMode] = useState<CrawlerMode>('url')
   const [dataSource, setDataSource] = useState<DataSource>('overseas') // 默认海外信源
+  const [manualCrawlerMode, setManualCrawlerMode] = useState<'url' | 'social'>('url')
 
   return (
     <div className="h-[calc(100vh-4rem)] flex flex-col overflow-hidden">
       {/* 顶部工具栏 */}
       <div className="flex-shrink-0 border-b border-slate-200/60 px-4 sm:px-6 py-3 bg-white z-20">
         <div className="flex items-center gap-2">
-          {/* 主模式切换 */}
-          <Button 
-            variant={viewMode === 'cards' ? 'default' : 'ghost'} 
-            size="sm" 
+          {/* 主模式切换（三个主按钮）*/}
+          <Button
+            variant={viewMode === 'cards' ? 'default' : 'ghost'}
+            size="sm"
             onClick={() => setViewMode('cards')}
-            className={viewMode === 'cards' 
-              ? 'bg-cyan-600 hover:bg-cyan-700 text-white' 
+            className={viewMode === 'cards'
+              ? 'bg-cyan-600 hover:bg-cyan-700 text-white'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }
           >
             <LayoutGrid className="h-4 w-4 mr-2" />
             数据浏览
           </Button>
-          <Button 
-            variant={viewMode === 'crawler' ? 'default' : 'ghost'} 
-            size="sm" 
-            onClick={() => setViewMode('crawler')}
-            className={viewMode === 'crawler' 
-              ? 'bg-cyan-600 hover:bg-cyan-700 text-white' 
+          <Button
+            variant={viewMode === 'config' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setViewMode('config')}
+            className={viewMode === 'config'
+              ? 'bg-cyan-600 hover:bg-cyan-700 text-white'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }
           >
             <Settings2 className="h-4 w-4 mr-2" />
             爬虫配置
           </Button>
-          
+          <Button
+            variant={viewMode === 'manual-crawler' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setViewMode('manual-crawler')}
+            className={viewMode === 'manual-crawler'
+              ? 'bg-cyan-600 hover:bg-cyan-700 text-white'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            }
+          >
+            <Play className="h-4 w-4 mr-2" />
+            手动爬虫
+          </Button>
+
           {/* 数据浏览模式下的信源切换 */}
           {viewMode === 'cards' && (
             <>
               <div className="w-px h-6 bg-gray-200 mx-2" />
               <div className="flex items-center gap-1 p-0.5 bg-gray-100 rounded-lg">
-                <button 
+                <button
                   onClick={() => setDataSource('overseas')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
                     dataSource === 'overseas' ? 'bg-white shadow-sm text-cyan-700' : 'text-gray-500 hover:text-gray-700'
@@ -58,7 +73,7 @@ export default function DataHubPage() {
                   <Globe className="h-3.5 w-3.5" />
                   海外信源
                 </button>
-                <button 
+                <button
                   onClick={() => setDataSource('domestic')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
                     dataSource === 'domestic' ? 'bg-white shadow-sm text-cyan-700' : 'text-gray-500 hover:text-gray-700'
@@ -70,24 +85,24 @@ export default function DataHubPage() {
               </div>
             </>
           )}
-          
-          {/* 爬虫子模式切换 */}
-          {viewMode === 'crawler' && (
+
+          {/* 手动爬虫模式下的子模式切换 */}
+          {viewMode === 'manual-crawler' && (
             <>
               <div className="w-px h-6 bg-gray-200 mx-2" />
               <div className="flex items-center gap-1 p-0.5 bg-gray-100 rounded-lg">
-                <button 
-                  onClick={() => setCrawlerMode('url')}
+                <button
+                  onClick={() => setManualCrawlerMode('url')}
                   className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
-                    crawlerMode === 'url' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500'
+                    manualCrawlerMode === 'url' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500'
                   }`}
                 >
                   URL 爬取
                 </button>
-                <button 
-                  onClick={() => setCrawlerMode('social')}
+                <button
+                  onClick={() => setManualCrawlerMode('social')}
                   className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
-                    crawlerMode === 'social' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500'
+                    manualCrawlerMode === 'social' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500'
                   }`}
                 >
                   国内社媒
@@ -99,11 +114,13 @@ export default function DataHubPage() {
       </div>
 
       {/* 主内容区 */}
-      {viewMode === 'cards' ? (
+      {viewMode === 'cards' && (
         dataSource === 'overseas' ? <OverseasBrowseSection /> : <DataBrowseSection />
-      ) : (
-        crawlerMode === 'url' ? <CrawlerUrlSection /> : <SocialCrawlerSection />
       )}
+      {viewMode === 'manual-crawler' && (
+        manualCrawlerMode === 'url' ? <CrawlerUrlSection /> : <SocialCrawlerSection />
+      )}
+      {viewMode === 'config' && <CrawlerConfigSection />}
     </div>
   )
 }

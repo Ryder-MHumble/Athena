@@ -3,41 +3,10 @@
  */
 
 import type { OverseasItem, TwitterItem, YouTubeItem } from './types'
+import { formatDateKey, formatDisplayDate } from '../../lib/utils'
 
-/**
- * 格式化时间为相对时间
- */
-export function formatTime(dateStr: string): string {
-  try {
-    const date = new Date(dateStr)
-    if (isNaN(date.getTime())) return dateStr
-    
-    const now = new Date()
-    const diff = now.getTime() - date.getTime()
-    
-    const minutes = Math.floor(diff / 60000)
-    const hours = Math.floor(diff / 3600000)
-    const days = Math.floor(diff / 86400000)
-    
-    if (minutes < 1) return '刚刚'
-    if (minutes < 60) return `${minutes}分钟前`
-    if (hours < 24) return `${hours}小时前`
-    if (days < 30) return `${days}天前`
-    if (days < 365) return `${Math.floor(days / 30)}个月前`
-    return date.toLocaleDateString('zh-CN')
-  } catch {
-    return dateStr
-  }
-}
-
-/**
- * 格式化数字（K/M 缩写）
- */
-export function formatNumber(num: number): string {
-  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M'
-  if (num >= 1000) return (num / 1000).toFixed(1) + 'K'
-  return num.toString()
-}
+// 从基础设施层导入并重新导出通用工具函数
+export { formatNumber, formatTime, formatDateKey, formatDisplayDate } from '../../lib/utils'
 
 /**
  * 获取内容的发布时间
@@ -99,11 +68,11 @@ export function filterByDateRange(
   dateRange: DateRange
 ): OverseasItem[] {
   if (!dateRange.start && !dateRange.end) return items
-  
+
   const now = new Date()
   let startDate: Date | null = null
   let endDate: Date | null = null
-  
+
   if (dateRange.start === 'today') {
     startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59)
@@ -116,20 +85,52 @@ export function filterByDateRange(
   } else if (dateRange.start) {
     startDate = new Date(dateRange.start)
   }
-  
+
   if (dateRange.end && dateRange.end !== 'today') {
     endDate = new Date(dateRange.end)
     endDate.setHours(23, 59, 59)
   }
-  
+
   return items.filter(item => {
-    const dateStr = item.platform === 'twitter' 
-      ? (item as TwitterItem).created_at 
+    const dateStr = item.platform === 'twitter'
+      ? (item as TwitterItem).created_at
       : ((item as YouTubeItem).published_at || (item as YouTubeItem).scraped_at)
     const itemDate = new Date(dateStr)
     if (startDate && itemDate < startDate) return false
     if (endDate && itemDate > endDate) return false
     return true
   })
+}
+
+/**
+ * 按天分组内容
+ */
+export function groupItemsByDay(items: OverseasItem[]): Array<{
+  date: string
+  displayDate: string
+  items: OverseasItem[]
+  count: number
+}> {
+  const groups = new Map<string, OverseasItem[]>()
+
+  items.forEach(item => {
+    const date = getPublishTime(item)
+    const dateKey = formatDateKey(date)
+
+    if (!groups.has(dateKey)) {
+      groups.set(dateKey, [])
+    }
+    groups.get(dateKey)!.push(item)
+  })
+
+  // 转换为数组并按日期排序 (最新的在前)
+  return Array.from(groups.entries())
+    .map(([dateKey, items]) => ({
+      date: dateKey,
+      displayDate: formatDisplayDate(dateKey),
+      items,
+      count: items.length,
+    }))
+    .sort((a, b) => b.date.localeCompare(a.date))
 }
 

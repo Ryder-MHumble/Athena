@@ -5,14 +5,8 @@
 import { Globe, Youtube } from 'lucide-react'
 import type { PlatformConfig, SortOption } from './types'
 
-// API 基础地址
-export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
-
-// 卡片最大高度（像素）
-export const CARD_MAX_HEIGHT = 320
-
-// 文本最大行数
-export const TEXT_MAX_LINES = 6
+// 从基础设施层导入全局常量
+export { API_BASE, CARD_MAX_HEIGHT, TEXT_MAX_LINES, DEFAULT_AVATAR } from '../../lib/constants'
 
 // X Logo 组件
 const XLogoIcon = ({ className }: { className?: string }) => {
@@ -24,7 +18,7 @@ const XLogoIcon = ({ className }: { className?: string }) => {
 export const PLATFORMS: PlatformConfig[] = [
   { id: 'all', label: '全部', icon: Globe, color: 'bg-gray-500' },
   { id: 'youtube', label: 'YouTube', icon: Youtube, color: 'bg-red-600' },
-  { id: 'twitter', label: 'X (Twitter)', icon: XLogoIcon, color: 'bg-black' },
+  { id: 'twitter', label: 'X', icon: XLogoIcon, color: 'bg-black' },
 ]
 
 // 排序选项
@@ -33,7 +27,4 @@ export const SORT_OPTIONS: SortOption[] = [
   { id: 'oldest', label: '最早发布' },
   { id: 'popular', label: '最受欢迎' },
 ]
-
-// 默认头像
-export const DEFAULT_AVATAR = 'https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'
 

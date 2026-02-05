@@ -6,6 +6,9 @@ import { Globe } from 'lucide-react'
 import { UnifiedPost, PlatformConfig } from './types'
 import { ScrapeHistoryItem } from '@/lib/firecrawl'
 
+// 从基础设施层导入通用工具函数
+export { formatNumber, formatRelativeTime, formatDateTime } from '../lib/utils'
+
 // 平台配置
 export const platforms: PlatformConfig[] = [
   { id: 'all', label: '全部', icon: Globe },
@@ -67,33 +70,6 @@ export function exportToCSV(items: ScrapeHistoryItem[], format: 'markdown' | 'ht
   link.href = URL.createObjectURL(blob)
   link.download = `crawl_results_${format}_${Date.now()}.csv`
   link.click()
-}
-
-// 格式化数字
-export function formatNumber(num: number | string): string {
-  if (typeof num === 'string') return num
-  if (num >= 10000) return `${(num / 10000).toFixed(1)}万`
-  if (num >= 1000) return `${(num / 1000).toFixed(1)}k`
-  return num.toString()
-}
-
-// 格式化时间（相对时间）
-export function formatRelativeTime(timestamp: number): string {
-  const now = Date.now()
-  const diff = now - timestamp
-  const hours = Math.floor(diff / (1000 * 60 * 60))
-  const days = Math.floor(hours / 24)
-  if (days > 0) return `${days}天前`
-  if (hours > 0) return `${hours}小时前`
-  return '刚刚'
-}
-
-// 格式化时间（日期时间）
-export function formatDateTime(timestamp: number): string {
-  const date = new Date(timestamp)
-  return date.toLocaleString('zh-CN', {
-    month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
-  })
 }
 
 // 数据转换函数

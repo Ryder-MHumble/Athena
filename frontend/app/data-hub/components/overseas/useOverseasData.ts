@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import type { OverseasItem, OverseasPlatform, SortOrder } from './types'
-import { API_BASE } from './constants'
+import { crawlerApi } from '../../lib/api'
 import { getPublishTime, getPopularityScore, matchesSearch } from './utils'
 
 interface SourceAccount {
@@ -119,16 +119,13 @@ export function useOverseasData(): UseOverseasDataReturn {
       
       // Twitter 数据
       try {
-        const twitterRes = await fetch(`${API_BASE}/api/crawler/data/twitter`)
-        if (twitterRes.ok) {
-          const data = await twitterRes.json()
-          if (data.success && data.data?.items) {
-            fetchedItems.push(...data.data.items)
-          }
-          // 从 API 响应中获取作者信息（解决线上环境无法访问静态文件的问题）
-          if (data.authors && data.authors.length > 0) {
-            setTwitterAuthors(data.authors)
-          }
+        const data = await crawlerApi.getTwitterData()
+        if (data.success && data.data?.items) {
+          fetchedItems.push(...data.data.items)
+        }
+        // 从 API 响应中获取作者信息（解决线上环境无法访问静态文件的问题）
+        if (data.authors && data.authors.length > 0) {
+          setTwitterAuthors(data.authors)
         }
       } catch {
         try {
@@ -155,12 +152,9 @@ export function useOverseasData(): UseOverseasDataReturn {
       
       // YouTube 数据
       try {
-        const youtubeRes = await fetch(`${API_BASE}/api/crawler/data/youtube`)
-        if (youtubeRes.ok) {
-          const data = await youtubeRes.json()
-          if (data.success && data.data?.items) {
-            fetchedItems.push(...data.data.items)
-          }
+        const data = await crawlerApi.getYoutubeData()
+        if (data.success && data.data?.items) {
+          fetchedItems.push(...data.data.items)
         }
       } catch {
         try {
@@ -190,11 +184,9 @@ export function useOverseasData(): UseOverseasDataReturn {
     setIsCrawling(true)
     try {
       // 使用异步模式，后台执行爬取
-      const res = await fetch(`${API_BASE}/api/crawler/crawl/all?async_mode=true`, { method: 'POST' })
-      if (res.ok) {
-        const result = await res.json()
-        // 显示友好提示，不阻塞用户
-        console.log('[Crawler] Task started:', result.message)
+      const result = await crawlerApi.crawlAll(true)
+      // 显示友好提示，不阻塞用户
+      console.log('[Crawler] Task started:', result.message)
         
         // 轮询检查数据更新（每5秒检查一次，最多检查60次=5分钟）
         let pollCount = 0
@@ -214,14 +206,10 @@ export function useOverseasData(): UseOverseasDataReturn {
           }
         }, 5000)
         
-        // 30秒后停止显示爬取状态（但继续后台轮询）
-        setTimeout(() => {
-          setIsCrawling(false)
-        }, 30000)
-      } else {
+      // 30秒后停止显示爬取状态（但继续后台轮询）
+      setTimeout(() => {
         setIsCrawling(false)
-        console.error('[Crawler] Failed to start')
-      }
+      }, 30000)
     } catch (err) {
       console.error('[Crawler] Request error:', err)
       setIsCrawling(false)

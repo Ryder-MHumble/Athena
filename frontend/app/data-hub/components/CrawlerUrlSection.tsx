@@ -198,7 +198,7 @@ export function CrawlerUrlSection() {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-sm text-gray-900 font-medium">
               <img src="/X-logo.png" alt="X" className="h-5 w-5 object-contain" />
-              <span>X (Twitter) 嵌入预览</span>
+              <span>X 嵌入预览</span>
             </div>
             <TwitterEmbed tweetId={tweetId} />
           </div>

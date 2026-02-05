@@ -30,6 +30,7 @@ export interface FilterPanelProps {
   onPlatformsChange: (platforms: OverseasPlatform[]) => void
   onDateRangeChange: (range: DateRange) => void
   onSortChange: (order: SortOrder) => void
+  onAddSource?: (urls: string) => Promise<void>
 }
 
 export interface TopToolbarProps {

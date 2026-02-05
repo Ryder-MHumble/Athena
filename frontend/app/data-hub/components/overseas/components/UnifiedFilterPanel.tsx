@@ -8,9 +8,9 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react'
-import { 
-  Search, X, Filter, ArrowUpDown, Check, Calendar, User, 
-  Globe, Youtube 
+import {
+  Search, X, Filter, Check, Calendar, User,
+  Globe, Youtube, ArrowUpDown
 } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
@@ -25,7 +25,7 @@ const XLogoIcon = ({ className }: { className?: string }) => (
 
 // 平台配置
 const PLATFORM_OPTIONS = [
-  { id: 'twitter' as const, label: 'X (Twitter)', icon: XLogoIcon, color: 'bg-black' },
+  { id: 'twitter' as const, label: 'X    ', icon: XLogoIcon, color: 'bg-black' },
   { id: 'youtube' as const, label: 'YouTube', icon: Youtube, color: 'bg-red-600' },
 ]
 
@@ -50,7 +50,7 @@ export function UnifiedFilterPanel({
   onPlatformsChange,
   onDateRangeChange,
   onSortChange,
-}: FilterPanelProps) {
+}: Omit<FilterPanelProps, 'onAddSource'>) {
   const [accountSearchTerm, setAccountSearchTerm] = useState('')
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -128,9 +128,9 @@ export function UnifiedFilterPanel({
   return (
     <>
       <div className="fixed inset-0 z-40 bg-black/10 backdrop-blur-[1px]" onClick={onClose} />
-      <div 
+      <div
         ref={panelRef}
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-2xl border border-gray-200/80 z-50 w-[900px] max-w-[95vw] overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-2xl border border-gray-200/80 z-50 w-[1100px] max-w-[95vw] overflow-hidden animate-in fade-in zoom-in-95 duration-200"
       >
         {/* 面板头部 */}
         <div className="px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-cyan-50 via-white to-white flex items-center justify-between">
@@ -181,55 +181,55 @@ export function UnifiedFilterPanel({
 
             {/* 时间 */}
             <div>
-              <div className="flex items-center gap-1.5 mb-2.5">
-                <Calendar className="h-3.5 w-3.5 text-cyan-600" />
-                <span className="text-xs font-semibold text-gray-700 uppercase tracking-wide">时间</span>
+                <div className="flex items-center gap-1.5 mb-2.5">
+                  <Calendar className="h-3.5 w-3.5 text-cyan-600" />
+                  <span className="text-xs font-semibold text-gray-700 uppercase tracking-wide">时间</span>
+                </div>
+                <div className="grid grid-cols-3 gap-1.5 mb-3">
+                  {DATE_PRESETS.map((preset) => {
+                    const isActive = getActiveDateLabel() === preset.label
+                    return (
+                      <button
+                        key={preset.label}
+                        onClick={() => onDateRangeChange(preset.value)}
+                        className={`px-2 py-1.5 rounded-md text-xs font-medium transition-all ${
+                          isActive
+                            ? 'bg-cyan-600 text-white shadow-sm'
+                            : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                        }`}
+                      >
+                        {preset.label}
+                      </button>
+                    )
+                  })}
+                </div>
+                {/* 自定义日期 */}
+                <div className="space-y-2">
+                  <input
+                    type="date"
+                    value={dateRange.start && !['today', '3days', '7days', '30days'].includes(dateRange.start) ? dateRange.start : ''}
+                    onChange={(e) => onDateRangeChange({ ...dateRange, start: e.target.value || null })}
+                    className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-md focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none bg-white"
+                    placeholder="开始日期"
+                  />
+                  <input
+                    type="date"
+                    value={dateRange.end && dateRange.end !== 'today' ? dateRange.end : ''}
+                    onChange={(e) => onDateRangeChange({ ...dateRange, end: e.target.value || null })}
+                    className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-md focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none bg-white"
+                    placeholder="结束日期"
+                  />
+                </div>
               </div>
-              <div className="grid grid-cols-3 gap-1.5 mb-3">
-                {DATE_PRESETS.map((preset) => {
-                  const isActive = getActiveDateLabel() === preset.label
-                  return (
-                    <button
-                      key={preset.label}
-                      onClick={() => onDateRangeChange(preset.value)}
-                      className={`px-2 py-1.5 rounded-md text-xs font-medium transition-all ${
-                        isActive
-                          ? 'bg-cyan-600 text-white shadow-sm'
-                          : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                      }`}
-                    >
-                      {preset.label}
-                    </button>
-                  )
-                })}
-              </div>
-              {/* 自定义日期 */}
-              <div className="space-y-2">
-                <input
-                  type="date"
-                  value={dateRange.start && !['today', '3days', '7days', '30days'].includes(dateRange.start) ? dateRange.start : ''}
-                  onChange={(e) => onDateRangeChange({ ...dateRange, start: e.target.value || null })}
-                  className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-md focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none bg-white"
-                  placeholder="开始日期"
-                />
-                <input
-                  type="date"
-                  value={dateRange.end && dateRange.end !== 'today' ? dateRange.end : ''}
-                  onChange={(e) => onDateRangeChange({ ...dateRange, end: e.target.value || null })}
-                  className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-md focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none bg-white"
-                  placeholder="结束日期"
-                />
-              </div>
-            </div>
 
-            {/* 重置按钮 */}
-            <button
-              onClick={handleReset}
-              className="w-full mt-5 px-3 py-2 text-xs text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              重置全部筛选
-            </button>
-          </div>
+              {/* 重置按钮 */}
+              <button
+                onClick={handleReset}
+                className="w-full mt-5 px-3 py-2 text-xs text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                重置全部筛选
+              </button>
+            </div>
 
           {/* 中间：渠道筛选 */}
           <div className="w-[200px] p-4 border-r border-gray-100 bg-white">
@@ -440,6 +440,7 @@ export function UnifiedFilterPanel({
               </Button>
             </div>
           </div>
+
         </div>
       </div>
     </>
