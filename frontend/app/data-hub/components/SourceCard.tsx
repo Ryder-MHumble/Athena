@@ -18,7 +18,6 @@ interface SourceCardProps {
   avatar?: string
   followers?: number
   verified?: boolean
-  description?: string  // 账号简介
   onDelete: (platform: string, name: string) => Promise<void>
 }
 
@@ -30,7 +29,6 @@ export function SourceCard({
   avatar,
   followers,
   verified,
-  description,
   onDelete
 }: SourceCardProps) {
   const [isDeleting, setIsDeleting] = useState(false)
@@ -82,13 +80,20 @@ export function SourceCard({
       <div className="flex items-start gap-3 mb-2">
         {/* 头像 */}
         <div className="relative flex-shrink-0">
-          {avatar ? (
+          {avatar && avatar.trim() ? (
             <img
               src={avatar}
               alt={displayName || name}
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-cover bg-gray-100"
+              loading="lazy"
               onError={(e) => {
-                e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName || name)}&background=random`
+                const target = e.currentTarget
+                // 防止无限重试
+                if (target.src.includes('ui-avatars.com')) return
+
+                console.warn(`[Avatar] Failed to load: ${avatar} for @${name}`)
+                // 直接替换为备用头像
+                target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName || name)}&background=random&size=48`
               }}
             />
           ) : (
@@ -128,15 +133,6 @@ export function SourceCard({
           )}
         </div>
       </div>
-
-      {/* 账号简介 */}
-      {description && (
-        <div className="mt-2 pt-2 border-t border-gray-100">
-          <p className="text-xs text-gray-600 line-clamp-2" title={description}>
-            {description}
-          </p>
-        </div>
-      )}
 
       {/* 删除按钮 */}
       {!showConfirm ? (

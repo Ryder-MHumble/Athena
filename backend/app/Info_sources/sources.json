@@ -111,11 +111,6 @@
       "url": "https://x.com/JeffDean"
     },
     {
-      "name": "John Schulman",
-      "username": "johnschulman2",
-      "url": "https://x.com/johnschulman2"
-    },
-    {
       "name": "Mustafa Suleyman",
       "username": "mustafasuleyman",
       "url": "https://x.com/mustafasuleyman"
@@ -126,16 +121,6 @@
       "url": "https://x.com/NoamShazeer"
     },
     {
-      "name": "Oriol Vinyals",
-      "username": "OriolVinyalsML",
-      "url": "https://x.com/OriolVinyalsML"
-    },
-    {
-      "name": "Pieter Abbeel",
-      "username": "pabbeel",
-      "url": "https://x.com/pabbeel"
-    },
-    {
       "name": "Sebastian Raschka",
       "username": "rasbt",
       "url": "https://x.com/rasbt"
@@ -144,11 +129,6 @@
       "name": "Soumith Chintala",
       "username": "soumithchintala",
       "url": "https://x.com/soumithchintala"
-    },
-    {
-      "name": "Wojciech Zaremba",
-      "username": "woj_zaremba",
-      "url": "https://x.com/woj_zaremba"
     },
     {
       "name": "Yoshua Bengio",
@@ -249,6 +229,11 @@
       "name": "Lance Fortnow",
       "username": "fortnow",
       "url": "https://x.com/fortnow"
+    },
+    {
+      "name": "Anthropic",
+      "url": "https://x.com/AnthropicAI",
+      "username": "AnthropicAI"
     }
   ]
 }

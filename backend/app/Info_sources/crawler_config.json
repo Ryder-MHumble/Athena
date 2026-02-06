@@ -1,6 +1,6 @@
 {
   "auto_crawl_enabled": true,
-  "interval_seconds": 21600,
-  "last_crawl_time": "2026-02-06T00:07:12.373604",
-  "updated_at": "2026-02-06T00:07:12.374603"
+  "interval_seconds": 10800,
+  "last_crawl_time": "2026-02-06T06:23:36.686224",
+  "updated_at": "2026-02-06T10:30:44.553966"
 }

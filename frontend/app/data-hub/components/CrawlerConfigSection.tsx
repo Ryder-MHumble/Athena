@@ -51,6 +51,16 @@ export function CrawlerConfigSection() {
     loadAuthors()
   }, [refreshKey])
 
+  // 调试：监控作者数据加载
+  useEffect(() => {
+    console.log('[CrawlerConfig] Authors loaded:', {
+      count: authors.length,
+      withAvatar: authors.filter(a => a.avatar).length,
+      withoutAvatar: authors.filter(a => !a.avatar).length,
+      sample: authors.slice(0, 3).map(a => ({ username: a.username, hasAvatar: !!a.avatar }))
+    })
+  }, [authors])
+
   const loadSources = async () => {
     setIsLoading(true)
     setError('')
@@ -301,14 +311,17 @@ export function CrawlerConfigSection() {
                         username = urlParts[urlParts.length - 1]
                       }
 
+                      const authorInfo = getAuthorInfo(username)
+
                       console.log('[SourceCard] Rendering:', {
                         name: source.name,
                         username: username,
                         sourceUsername: source.username,
-                        url: source.url
+                        url: source.url,
+                        authorInfo: authorInfo,
+                        avatar: authorInfo?.avatar,
+                        hasAvatar: !!authorInfo?.avatar
                       })
-
-                      const authorInfo = getAuthorInfo(username)
                       return (
                         <SourceCard
                           key={source.username || source.name}
@@ -319,7 +332,6 @@ export function CrawlerConfigSection() {
                           avatar={authorInfo?.avatar}
                           followers={authorInfo?.followers}
                           verified={authorInfo?.verified}
-                          description={authorInfo?.description}
                           onDelete={handleDeleteSource}
                         />
                       )
