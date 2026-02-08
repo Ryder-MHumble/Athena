@@ -3,8 +3,6 @@
 # Athena 停止脚本
 # 功能：停止所有运行中的前后端服务
 
-set -e
-
 # 颜色定义
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -50,10 +48,12 @@ if [ -f "$FRONTEND_PID_FILE" ]; then
     echo -e "${GREEN}前端服务已停止${NC}"
 fi
 
-# 清理可能的残留进程
+# 清理可能的残留进程和端口占用
 echo -e "${YELLOW}清理残留进程...${NC}"
 pkill -f "uvicorn.*app.main:app" 2>/dev/null || true
 pkill -f "next dev" 2>/dev/null || true
+lsof -ti:8000 | xargs kill -9 2>/dev/null || true
+lsof -ti:3000 | xargs kill -9 2>/dev/null || true
 
 echo -e "${GREEN}所有服务已停止${NC}"
 

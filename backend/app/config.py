@@ -16,9 +16,9 @@ class Settings(BaseSettings):
     MINERU_API_KEY: str = ""  # MinerU 云 API Key (OpenXLab)
     
     # Supabase 配置
-    SUPABASE_URL: str = "https://casxuvpohhbuqvmkqunb.supabase.co"
-    SUPABASE_KEY: str = "sb_publishable_pMJU4jEnsjfOnbAqJu5u-Q_PTAeytLh"
-    SUPABASE_SECRET_KEY: str = "sb_secret_UtBZnpg_hhEgF_E5zvfLHg_fTaZYVe1"
+    SUPABASE_URL: str = ""
+    SUPABASE_KEY: str = ""
+    SUPABASE_SECRET_KEY: str = ""
     
     # CORS 配置
     # 支持多个域名，用逗号分隔
@@ -49,6 +49,21 @@ class Settings(BaseSettings):
     MAX_TOKENS: int = 2000
     # LLM 请求超时时间（秒）
     LLM_REQUEST_TIMEOUT: float = 180.0  # 3分钟
+
+    # 钉钉机器人配置
+    DINGTALK_WEBHOOK_URL: str = ""
+    DINGTALK_SECRET: str = ""
+
+    # 报告配置
+    REPORT_BASE_URL: str = ""  # 报告访问的基础 URL
+    REPORT_DEFAULT_HOURS: int = 24  # 默认报告时间窗口（小时）
+    REPORT_DEFAULT_TOP_N: int = 10  # 默认 Top N 推文数量
+    AUTO_SEND_REPORT_AFTER_CRAWL: bool = False  # 爬虫完成后自动发送报告
+
+    # 定时日报配置
+    ENABLE_AUTO_REPORT: bool = False  # 是否启用自动日报生成
+    REPORT_SCHEDULE_TIME: str = "09:00"  # 日报生成时间（格式：HH:MM，24小时制）
+    REPORT_TIMEZONE: str = "Asia/Shanghai"  # 时区设置
     
     class Config:
         env_file = ".env"
