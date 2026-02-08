@@ -372,10 +372,10 @@ EOF
 # 服务启动
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# 清理函数
-cleanup() {
+# 停止服务（不退出脚本）
+stop_services() {
     echo -e "\n${YELLOW}正在停止服务...${NC}"
-    
+
     if [ -f "$BACKEND_PID_FILE" ]; then
         BACKEND_PID=$(cat "$BACKEND_PID_FILE")
         if ps -p $BACKEND_PID > /dev/null 2>&1; then
@@ -383,7 +383,7 @@ cleanup() {
         fi
         rm -f "$BACKEND_PID_FILE"
     fi
-    
+
     if [ -f "$FRONTEND_PID_FILE" ]; then
         FRONTEND_PID=$(cat "$FRONTEND_PID_FILE")
         if ps -p $FRONTEND_PID > /dev/null 2>&1; then
@@ -391,12 +391,19 @@ cleanup() {
         fi
         rm -f "$FRONTEND_PID_FILE"
     fi
-    
-    # 清理可能的残留进程
+
+    # 清理可能的残留进程和端口占用
     pkill -f "uvicorn.*app.main:app" 2>/dev/null || true
     pkill -f "next dev" 2>/dev/null || true
-    
+    lsof -ti:8000 | xargs kill -9 2>/dev/null || true
+    lsof -ti:3000 | xargs kill -9 2>/dev/null || true
+
     echo -e "${GREEN}服务已停止${NC}"
+}
+
+# 清理函数（用于 trap，退出脚本）
+cleanup() {
+    stop_services
     exit 0
 }
 
@@ -406,9 +413,17 @@ trap cleanup SIGINT SIGTERM
 # 启动后端
 start_backend() {
     log_step "启动后端服务"
-    
+
     cd "$BACKEND_DIR"
-    
+
+    # 确保端口 8000 空闲
+    local port_pid=$(lsof -ti:8000 2>/dev/null)
+    if [ -n "$port_pid" ]; then
+        log_warn "端口 8000 被占用 (PID: $port_pid)，正在释放..."
+        echo "$port_pid" | xargs kill -9 2>/dev/null || true
+        sleep 1
+    fi
+
     # 启动后端（后台运行）
     $PYTHON_CMD run.py > "$PROJECT_DIR/.backend.log" 2>&1 &
     BACKEND_PID=$!
@@ -437,9 +452,17 @@ start_backend() {
 # 启动前端
 start_frontend() {
     log_step "启动前端服务"
-    
+
     cd "$FRONTEND_DIR"
-    
+
+    # 确保端口 3000 空闲
+    local port_pid=$(lsof -ti:3000 2>/dev/null)
+    if [ -n "$port_pid" ]; then
+        log_warn "端口 3000 被占用 (PID: $port_pid)，正在释放..."
+        echo "$port_pid" | xargs kill -9 2>/dev/null || true
+        sleep 1
+    fi
+
     # 启动前端（后台运行）
     npm run dev > "$PROJECT_DIR/.frontend.log" 2>&1 &
     FRONTEND_PID=$!
@@ -492,7 +515,7 @@ main() {
     # 检查是否已有服务运行
     if [ -f "$BACKEND_PID_FILE" ] || [ -f "$FRONTEND_PID_FILE" ]; then
         log_warn "检测到已有服务运行，正在停止..."
-        cleanup 2>/dev/null || true
+        stop_services
         sleep 2
     fi
     
@@ -546,15 +569,17 @@ main() {
             BACKEND_PID=$(cat "$BACKEND_PID_FILE")
             if ! ps -p $BACKEND_PID > /dev/null 2>&1; then
                 log_error "后端服务意外停止，查看日志: cat .backend.log"
-                cleanup
+                stop_services
+                exit 1
             fi
         fi
-        
+
         if [ -f "$FRONTEND_PID_FILE" ]; then
             FRONTEND_PID=$(cat "$FRONTEND_PID_FILE")
             if ! ps -p $FRONTEND_PID > /dev/null 2>&1; then
                 log_error "前端服务意外停止，查看日志: cat .frontend.log"
-                cleanup
+                stop_services
+                exit 1
             fi
         fi
     done
